@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# commit-msg hook: keep commit messages clean for the public repo.
+#
+# Blocks the same residue as scripts/no-residue.sh (personal first names,
+# AI-tool names, local paths) plus AI co-author trailers, from the commit
+# message itself. Enable once after cloning:
+#   git config core.hooksPath .githooks
+#
+# Best effort only: skippable locally with --no-verify. CI is the backstop.
+
+set -uo pipefail
+
+MSG_FILE="$1"
+
+# Same denylist as scripts/no-residue.sh (message context).
+PATTERN='\bclaude\b|\bcodex\b|\bcopilot\b|\banthropic\b|\bchatgpt\b|\bopenai\b|gpt-?[0-9]|\bgemini\b|cursor\.(sh|so|ai|com)|cursorrules|cursor ai|/Users/|/home/[a-z]|~/dev/|\.claude\b'
+
+if grep -nIiE "$PATTERN" "$MSG_FILE" >/dev/null 2>&1; then
+  echo "ERROR: commit message contains forbidden residue (personal first name, AI-tool name, or local path):"
+  grep -nIiE "$PATTERN" "$MSG_FILE"
+  echo "Rewrite the message. See CONTRIBUTING.md."
+  exit 1
+fi
+
+# No AI co-author trailers, ever (public repo policy).
+if grep -niE 'co-authored-by:.*(claude|gpt|gemini|codex|copilot|anthropic)' "$MSG_FILE" >/dev/null 2>&1; then
+  echo "ERROR: AI co-author trailer is not allowed in commit messages."
+  exit 1
+fi

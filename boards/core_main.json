@@ -1,0 +1,972 @@
+{
+  "schema_version": "1.3",
+  "board_id": "core_main",
+  "board_name": "Home Core",
+  "board_name_es": "Inicio",
+  "board_name_ar": "الرئيسية",
+  "grid_dimensions": [
+    7,
+    8
+  ],
+  "color_key": {
+    "pronoun": "#FFFFA6",
+    "people": "#FFFFA6",
+    "verb": "#C2FFC2",
+    "modifier": "#C2FFC2",
+    "food": "#FFD9A6",
+    "places": "#FFD9A6",
+    "things": "#FFD9A6",
+    "feeling": "#A6D9FF",
+    "response": "#A6D9FF",
+    "social": "#FFC2C2",
+    "needs": "#FFC2C2",
+    "food_nav": "#FFD9A6",
+    "places_nav": "#FFD9A6",
+    "people_nav": "#FFFFA6",
+    "activities_nav": "#C2FFC2",
+    "things_nav": "#FFD9A6",
+    "feelings_nav": "#A6D9FF",
+    "time_nav": "#E6A6FF",
+    "question": "#E6A6FF",
+    "body_nav": "#FFD9A6",
+    "drink": "#FFD9A6"
+  },
+  "buttons": [
+    {
+      "id": "btn_i",
+      "label": "I",
+      "type": "word",
+      "voice_out": "eye",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "pronoun",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/pronouns/i.png",
+      "label_es": "Yo",
+      "label_ar": "أنا",
+      "voice_out_es": "yo",
+      "voice_out_ar": "أَنَا"
+    },
+    {
+      "id": "btn_you",
+      "label": "You",
+      "type": "word",
+      "voice_out": "you",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "pronoun",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/pronouns/you.png",
+      "label_es": "Tú",
+      "label_ar": "أنت",
+      "voice_out_es": "tú",
+      "voice_out_ar": "أَنْتَ"
+    },
+    {
+      "id": "btn_want",
+      "label": "Want",
+      "type": "word",
+      "voice_out": "want",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "verb",
+      "base_weight": 0.8,
+      "icon_uri": "assets/arasaac/verbs/want.png",
+      "label_es": "Quiero",
+      "label_ar": "أريد",
+      "voice_out_es": "quiero",
+      "voice_out_ar": "أُرِيد"
+    },
+    {
+      "id": "btn_need",
+      "label": "Need",
+      "type": "word",
+      "voice_out": "need",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "verb",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/verbs/need.png",
+      "label_es": "Necesito",
+      "label_ar": "أحتاج",
+      "voice_out_es": "necesito",
+      "voice_out_ar": "أَحْتَاج"
+    },
+    {
+      "id": "btn_like",
+      "label": "Like",
+      "type": "word",
+      "voice_out": "like",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "verb",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/verbs/like.png",
+      "label_es": "Me gusta",
+      "label_ar": "يعجبني",
+      "voice_out_es": "me gusta",
+      "voice_out_ar": "يُعْجِبُنِي"
+    },
+    {
+      "id": "btn_help",
+      "label": "Help",
+      "type": "phrase",
+      "voice_out": "I need help",
+      "position": {
+        "row": 1,
+        "col": 7
+      },
+      "category": "needs",
+      "base_weight": 0.9,
+      "icon_uri": "assets/arasaac/needs/help.png",
+      "label_es": "Ayuda",
+      "label_ar": "مساعدة",
+      "voice_out_es": "Necesito ayuda",
+      "voice_out_ar": "أَحْتَاجُ مُسَاعَدَة"
+    },
+    {
+      "id": "btn_stop",
+      "label": "Stop",
+      "type": "phrase",
+      "voice_out": "stop",
+      "position": {
+        "row": 2,
+        "col": 1
+      },
+      "category": "needs",
+      "base_weight": 0.9,
+      "icon_uri": "assets/arasaac/needs/stop.png",
+      "label_es": "Para",
+      "label_ar": "توقف",
+      "voice_out_es": "para",
+      "voice_out_ar": "تَوَقَّفْ"
+    },
+    {
+      "id": "btn_more",
+      "label": "More",
+      "type": "word",
+      "voice_out": "more",
+      "position": {
+        "row": 2,
+        "col": 7
+      },
+      "category": "modifier",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/modifiers/more.png",
+      "label_es": "Más",
+      "label_ar": "أكثر",
+      "voice_out_es": "más",
+      "voice_out_ar": "أَكْثَر"
+    },
+    {
+      "id": "btn_go",
+      "label": "Go",
+      "type": "word",
+      "voice_out": "go",
+      "position": {
+        "row": 2,
+        "col": 0
+      },
+      "category": "verb",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/verbs/go.png",
+      "label_es": "Ir",
+      "label_ar": "اذهب",
+      "voice_out_es": "ir",
+      "voice_out_ar": "اِذْهَبْ"
+    },
+    {
+      "id": "btn_get",
+      "label": "Get",
+      "type": "word",
+      "voice_out": "get",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "verb",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/verbs/get.png",
+      "label_es": "Traer",
+      "label_ar": "أحضر",
+      "voice_out_es": "traer",
+      "voice_out_ar": "أَحْضِرْ"
+    },
+    {
+      "id": "btn_make",
+      "label": "Make",
+      "type": "word",
+      "voice_out": "make",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "verb",
+      "base_weight": 0.4,
+      "icon_uri": "assets/arasaac/verbs/make.png",
+      "label_es": "Hacer",
+      "label_ar": "اصنع",
+      "voice_out_es": "hacer",
+      "voice_out_ar": "اِصْنَعْ"
+    },
+    {
+      "id": "btn_look",
+      "label": "Look",
+      "type": "word",
+      "voice_out": "look",
+      "position": {
+        "row": 2,
+        "col": 2
+      },
+      "category": "verb",
+      "base_weight": 0.4,
+      "icon_uri": "assets/arasaac/verbs/look.png",
+      "label_es": "Mirar",
+      "label_ar": "انظر",
+      "voice_out_es": "mira",
+      "voice_out_ar": "اُنْظُرْ"
+    },
+    {
+      "id": "btn_play",
+      "label": "Play",
+      "type": "word",
+      "voice_out": "play",
+      "position": {
+        "row": 2,
+        "col": 3
+      },
+      "category": "verb",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/verbs/play.png",
+      "label_es": "Jugar",
+      "label_ar": "ألعب",
+      "voice_out_es": "jugar",
+      "voice_out_ar": "أَلْعَب"
+    },
+    {
+      "id": "btn_eat",
+      "label": "Eat",
+      "type": "word",
+      "voice_out": "eat",
+      "position": {
+        "row": 2,
+        "col": 4
+      },
+      "category": "verb",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/verbs/eat.png",
+      "label_es": "Comer",
+      "label_ar": "آكل",
+      "voice_out_es": "comer",
+      "voice_out_ar": "آكُل"
+    },
+    {
+      "id": "btn_drink",
+      "label": "Drink",
+      "type": "word",
+      "voice_out": "drink",
+      "position": {
+        "row": 2,
+        "col": 5
+      },
+      "category": "verb",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/verbs/drink.png",
+      "label_es": "Beber",
+      "label_ar": "أشرب",
+      "voice_out_es": "beber",
+      "voice_out_ar": "أَشْرَب"
+    },
+    {
+      "id": "btn_open",
+      "label": "Open",
+      "type": "word",
+      "voice_out": "open",
+      "position": {
+        "row": 2,
+        "col": 6
+      },
+      "category": "verb",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/verbs/open.png",
+      "label_es": "Abrir",
+      "label_ar": "افتح",
+      "voice_out_es": "abre",
+      "voice_out_ar": "اِفْتَحْ"
+    },
+    {
+      "id": "btn_yes",
+      "label": "Yes",
+      "type": "phrase",
+      "voice_out": "Yes",
+      "position": {
+        "row": 3,
+        "col": 0
+      },
+      "category": "response",
+      "base_weight": 0.8,
+      "icon_uri": "assets/arasaac/responses/yes.png",
+      "label_es": "Sí",
+      "label_ar": "نعم",
+      "voice_out_es": "Sí",
+      "voice_out_ar": "نَعَمْ"
+    },
+    {
+      "id": "btn_no",
+      "label": "No",
+      "type": "phrase",
+      "voice_out": "No",
+      "position": {
+        "row": 3,
+        "col": 1
+      },
+      "category": "response",
+      "base_weight": 0.8,
+      "icon_uri": "assets/arasaac/responses/no.png",
+      "label_es": "No",
+      "label_ar": "لا",
+      "voice_out_es": "No",
+      "voice_out_ar": "لَا"
+    },
+    {
+      "id": "btn_break",
+      "label": "Break",
+      "type": "phrase",
+      "voice_out": "I need a break",
+      "position": {
+        "row": 3,
+        "col": 2
+      },
+      "category": "needs",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/needs/break.png",
+      "label_es": "Descanso",
+      "label_ar": "استراحة",
+      "voice_out_es": "Necesito un descanso",
+      "voice_out_ar": "أَحْتَاجُ اِسْتِرَاحَة"
+    },
+    {
+      "id": "btn_thankyou",
+      "label": "Thank you",
+      "type": "phrase",
+      "voice_out": "Thank you",
+      "position": {
+        "row": 3,
+        "col": 3
+      },
+      "category": "social",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/social/thank_you.png",
+      "label_es": "Gracias",
+      "label_ar": "شكرًا",
+      "voice_out_es": "Gracias",
+      "voice_out_ar": "شُكْرًا"
+    },
+    {
+      "id": "btn_sorry",
+      "label": "Sorry",
+      "type": "phrase",
+      "voice_out": "I'm sorry",
+      "position": {
+        "row": 3,
+        "col": 4
+      },
+      "category": "social",
+      "base_weight": 0.4,
+      "icon_uri": "assets/arasaac/social/sorry.png",
+      "label_es": "Perdón",
+      "label_ar": "آسف",
+      "voice_out_es": "Lo siento",
+      "voice_out_ar": "أَنَا آسِف"
+    },
+    {
+      "id": "btn_good",
+      "label": "Good",
+      "type": "word",
+      "voice_out": "good",
+      "position": {
+        "row": 4,
+        "col": 0
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/good.png",
+      "label_es": "Bien",
+      "label_ar": "جيد",
+      "voice_out_es": "bien",
+      "voice_out_ar": "جَيِّد"
+    },
+    {
+      "id": "btn_bad",
+      "label": "Bad",
+      "type": "word",
+      "voice_out": "bad",
+      "position": {
+        "row": 4,
+        "col": 1
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/bad.png",
+      "label_es": "Mal",
+      "label_ar": "سيئ",
+      "voice_out_es": "mal",
+      "voice_out_ar": "سَيِّئ"
+    },
+    {
+      "id": "btn_please",
+      "label": "Please",
+      "type": "word",
+      "voice_out": "please",
+      "position": {
+        "row": 3,
+        "col": 7
+      },
+      "category": "social",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/social/please.png",
+      "label_es": "Por favor",
+      "label_ar": "من فضلك",
+      "voice_out_es": "por favor",
+      "voice_out_ar": "مِنْ فَضْلِك"
+    },
+    {
+      "id": "btn_bathroom",
+      "label": "Bathroom",
+      "type": "phrase",
+      "voice_out": "I need to go to the bathroom",
+      "position": {
+        "row": 5,
+        "col": 1
+      },
+      "category": "needs",
+      "base_weight": 0.8,
+      "icon_uri": "assets/arasaac/needs/bathroom.png",
+      "label_es": "Baño",
+      "label_ar": "الحمّام",
+      "voice_out_es": "Necesito ir al baño",
+      "voice_out_ar": "أُرِيدُ الذَّهَابَ إِلَى الْحَمَّام"
+    },
+    {
+      "id": "btn_water",
+      "label": "Water",
+      "type": "word",
+      "voice_out": "water",
+      "position": {
+        "row": 5,
+        "col": 2
+      },
+      "category": "drink",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/food/water.png",
+      "label_es": "Agua",
+      "label_ar": "ماء",
+      "voice_out_es": "agua",
+      "voice_out_ar": "مَاء"
+    },
+    {
+      "id": "btn_hungry",
+      "label": "Hungry",
+      "type": "phrase",
+      "voice_out": "I'm hungry",
+      "position": {
+        "row": 5,
+        "col": 0
+      },
+      "category": "needs",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/needs/hungry.png",
+      "label_es": "Hambre",
+      "label_ar": "جائع",
+      "voice_out_es": "Tengo hambre",
+      "voice_out_ar": "أَنَا جَائِع"
+    },
+    {
+      "id": "btn_tired",
+      "label": "Tired",
+      "type": "phrase",
+      "voice_out": "I'm tired",
+      "position": {
+        "row": 4,
+        "col": 4
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/tired.png",
+      "label_es": "Cansado",
+      "label_ar": "متعب",
+      "voice_out_es": "Estoy cansado",
+      "voice_out_ar": "أَنَا مُتْعَب"
+    },
+    {
+      "id": "btn_hurt",
+      "label": "Hurt",
+      "type": "phrase",
+      "voice_out": "Something hurts",
+      "position": {
+        "row": 4,
+        "col": 6
+      },
+      "category": "needs",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/needs/hurt.png",
+      "label_es": "Dolor",
+      "label_ar": "ألم",
+      "voice_out_es": "Algo me duele",
+      "voice_out_ar": "شَيْءٌ يُؤْلِمُنِي"
+    },
+    {
+      "id": "btn_scared",
+      "label": "Scared",
+      "type": "phrase",
+      "voice_out": "I feel scared",
+      "position": {
+        "row": 4,
+        "col": 5
+      },
+      "category": "feeling",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/feelings/scared.png",
+      "label_es": "Miedo",
+      "label_ar": "خائف",
+      "voice_out_es": "Tengo miedo",
+      "voice_out_ar": "أَشْعُرُ بِالْخَوْف"
+    },
+    {
+      "id": "btn_happy",
+      "label": "Happy",
+      "type": "phrase",
+      "voice_out": "I feel happy",
+      "position": {
+        "row": 4,
+        "col": 2
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/happy.png",
+      "label_es": "Feliz",
+      "label_ar": "سعيد",
+      "voice_out_es": "Me siento feliz",
+      "voice_out_ar": "أَشْعُرُ بِالسَّعَادَة"
+    },
+    {
+      "id": "btn_sad",
+      "label": "Sad",
+      "type": "phrase",
+      "voice_out": "I feel sad",
+      "position": {
+        "row": 4,
+        "col": 3
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/sad.png",
+      "label_es": "Triste",
+      "label_ar": "حزين",
+      "voice_out_es": "Me siento triste",
+      "voice_out_ar": "أَشْعُرُ بِالْحُزْن"
+    },
+    {
+      "id": "btn_food_folder",
+      "label": "Food",
+      "type": "folder",
+      "link_id": "board_food",
+      "position": {
+        "row": 6,
+        "col": 0
+      },
+      "category": "food_nav",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/folders/food.png",
+      "label_es": "Comida",
+      "label_ar": "طعام"
+    },
+    {
+      "id": "btn_places_folder",
+      "label": "Places",
+      "type": "folder",
+      "link_id": "board_places",
+      "position": {
+        "row": 6,
+        "col": 1
+      },
+      "category": "places_nav",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/folders/places.png",
+      "label_es": "Lugares",
+      "label_ar": "أماكن"
+    },
+    {
+      "id": "btn_people_folder",
+      "label": "People",
+      "type": "folder",
+      "link_id": "board_people",
+      "position": {
+        "row": 6,
+        "col": 2
+      },
+      "category": "people_nav",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/folders/people.png",
+      "label_es": "Personas",
+      "label_ar": "أشخاص"
+    },
+    {
+      "id": "btn_activities_folder",
+      "label": "Activities",
+      "type": "folder",
+      "link_id": "board_activities",
+      "position": {
+        "row": 6,
+        "col": 3
+      },
+      "category": "activities_nav",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/folders/activities.png",
+      "label_es": "Actividades",
+      "label_ar": "أنشطة"
+    },
+    {
+      "id": "btn_things_folder",
+      "label": "Things",
+      "type": "folder",
+      "link_id": "board_things",
+      "position": {
+        "row": 6,
+        "col": 4
+      },
+      "category": "things_nav",
+      "base_weight": 0.4,
+      "icon_uri": "assets/arasaac/folders/things.png",
+      "label_es": "Cosas",
+      "label_ar": "أشياء"
+    },
+    {
+      "id": "btn_feelings_folder",
+      "label": "Feelings",
+      "type": "folder",
+      "link_id": "board_feelings",
+      "position": {
+        "row": 6,
+        "col": 5
+      },
+      "category": "feelings_nav",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/folders/feelings.png",
+      "label_es": "Sentimientos",
+      "label_ar": "مشاعر"
+    },
+    {
+      "id": "btn_time_folder",
+      "label": "Time",
+      "type": "folder",
+      "link_id": "board_time",
+      "position": {
+        "row": 6,
+        "col": 6
+      },
+      "category": "time_nav",
+      "base_weight": 0.4,
+      "icon_uri": "assets/arasaac/folders/time.png",
+      "label_es": "Tiempo",
+      "label_ar": "الوقت"
+    },
+    {
+      "id": "btn_mom",
+      "label": "Mom",
+      "type": "word",
+      "voice_out": "Mom",
+      "position": {
+        "row": 5,
+        "col": 3
+      },
+      "category": "people",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/people/mom.png",
+      "label_es": "Mamá",
+      "label_ar": "أمي",
+      "voice_out_es": "Mamá",
+      "voice_out_ar": "أُمِّي"
+    },
+    {
+      "id": "btn_dad",
+      "label": "Dad",
+      "type": "word",
+      "voice_out": "Dad",
+      "position": {
+        "row": 5,
+        "col": 4
+      },
+      "category": "people",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/people/dad.png",
+      "label_es": "Papá",
+      "label_ar": "أبي",
+      "voice_out_es": "Papá",
+      "voice_out_ar": "أَبِي"
+    },
+    {
+      "id": "btn_home",
+      "label": "Home",
+      "type": "word",
+      "voice_out": "home",
+      "position": {
+        "row": 5,
+        "col": 5
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/home.png",
+      "label_es": "Casa",
+      "label_ar": "المنزل",
+      "voice_out_es": "casa",
+      "voice_out_ar": "الْمَنْزِل"
+    },
+    {
+      "id": "btn_school",
+      "label": "School",
+      "type": "word",
+      "voice_out": "school",
+      "position": {
+        "row": 5,
+        "col": 6
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/school.png",
+      "label_es": "Escuela",
+      "label_ar": "المدرسة",
+      "voice_out_es": "escuela",
+      "voice_out_ar": "الْمَدْرَسَة"
+    },
+    {
+      "id": "btn_outside",
+      "label": "Outside",
+      "type": "word",
+      "voice_out": "outside",
+      "position": {
+        "row": 5,
+        "col": 7
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/outside.png",
+      "label_es": "Afuera",
+      "label_ar": "الخارج",
+      "voice_out_es": "afuera",
+      "voice_out_ar": "الْخَارِج"
+    },
+    {
+      "id": "btn_wait",
+      "label": "Wait",
+      "type": "phrase",
+      "voice_out": "Wait please",
+      "position": {
+        "row": 3,
+        "col": 6
+      },
+      "category": "needs",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/needs/wait.png",
+      "label_es": "Espera",
+      "label_ar": "انتظر",
+      "voice_out_es": "Espera, por favor",
+      "voice_out_ar": "اِنْتَظِرْ مِنْ فَضْلِك"
+    },
+    {
+      "id": "btn_again",
+      "label": "Again",
+      "type": "word",
+      "voice_out": "again",
+      "position": {
+        "row": 3,
+        "col": 5
+      },
+      "category": "modifier",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/modifiers/again.png",
+      "label_es": "Otra vez",
+      "label_ar": "مرة أخرى",
+      "voice_out_es": "otra vez",
+      "voice_out_ar": "مَرَّةً أُخْرَى"
+    },
+    {
+      "id": "btn_all_done",
+      "label": "All Done",
+      "type": "phrase",
+      "voice_out": "I'm all done",
+      "position": {
+        "row": 4,
+        "col": 7
+      },
+      "category": "needs",
+      "base_weight": 0.7,
+      "icon_uri": "assets/arasaac/needs/all_done.png",
+      "label_es": "Todo listo",
+      "label_ar": "انتهيت تمامًا",
+      "voice_out_es": "Ya terminé todo",
+      "voice_out_ar": "اِنْتَهَيْتُ تَمَامًا"
+    },
+    {
+      "id": "btn_what",
+      "label": "What",
+      "type": "word",
+      "voice_out": "what",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/what.png",
+      "label_es": "qué",
+      "label_ar": "ماذا",
+      "voice_out_es": "qué",
+      "voice_out_ar": "مَاذَا"
+    },
+    {
+      "id": "btn_where",
+      "label": "Where",
+      "type": "word",
+      "voice_out": "where",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/where.png",
+      "label_es": "dónde",
+      "label_ar": "أين",
+      "voice_out_es": "dónde",
+      "voice_out_ar": "أَيْنَ"
+    },
+    {
+      "id": "btn_who",
+      "label": "Who",
+      "type": "word",
+      "voice_out": "who",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/who.png",
+      "label_es": "quién",
+      "label_ar": "مَن",
+      "voice_out_es": "quién",
+      "voice_out_ar": "مَنْ"
+    },
+    {
+      "id": "btn_when",
+      "label": "When",
+      "type": "word",
+      "voice_out": "when",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/when.png",
+      "label_es": "cuándo",
+      "label_ar": "متى",
+      "voice_out_es": "cuándo",
+      "voice_out_ar": "مَتَى"
+    },
+    {
+      "id": "btn_why",
+      "label": "Why",
+      "type": "word",
+      "voice_out": "why",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/why.png",
+      "label_es": "por qué",
+      "label_ar": "لماذا",
+      "voice_out_es": "por qué",
+      "voice_out_ar": "لِمَاذَا"
+    },
+    {
+      "id": "btn_how",
+      "label": "How",
+      "type": "word",
+      "voice_out": "how",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "question",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/questions/how.png",
+      "label_es": "cómo",
+      "label_ar": "كيف",
+      "voice_out_es": "cómo",
+      "voice_out_ar": "كَيْفَ"
+    },
+    {
+      "id": "btn_here",
+      "label": "Here",
+      "type": "word",
+      "voice_out": "here",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "modifier",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/modifiers/here.png",
+      "label_es": "aquí",
+      "label_ar": "هنا",
+      "voice_out_es": "aquí",
+      "voice_out_ar": "هُنَا"
+    },
+    {
+      "id": "btn_that",
+      "label": "That",
+      "type": "word",
+      "voice_out": "that",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "pronoun",
+      "base_weight": 0.6,
+      "icon_uri": "assets/arasaac/pronouns/that.png",
+      "label_es": "eso",
+      "label_ar": "ذلك",
+      "voice_out_es": "eso",
+      "voice_out_ar": "ذَلِك"
+    },
+    {
+      "id": "btn_body_folder",
+      "label": "Body",
+      "type": "folder",
+      "link_id": "board_body",
+      "position": {
+        "row": 6,
+        "col": 7
+      },
+      "category": "body_nav",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/folders/body.png",
+      "label_es": "Cuerpo",
+      "label_ar": "جسم"
+    }
+  ]
+}

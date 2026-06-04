@@ -1,0 +1,5 @@
+# Candidate audition clips + index are provisional review artifacts produced by
+# `generate_clips.dart candidates`. They are NOT committed; only the final
+# rendered clips under assets/audio/ are. Keep this directory in the tree.
+*
+!.gitignore

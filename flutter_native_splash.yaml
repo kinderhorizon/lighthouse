@@ -1,0 +1,21 @@
+# Launch/splash screen for Lighthouse AAC.
+#
+# Founder-approved design: the navy Beam mark centered on a white background.
+# Source asset is the shared brand mark (512x512, navy-on-transparent), the
+# same art the app icon is derived from (tools/branding/).
+#
+# Regenerate deliberately with `dart run flutter_native_splash:create` (NOT per
+# build): it rewrites the iOS LaunchScreen storyboard + asset catalog and the
+# Android splash resources. This replaces the flutter-create placeholder launch
+# image, which trips the `flutter build ipa` "default placeholder icon"
+# validation warning.
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/brand/lighthouse-mark.png
+
+  # Android 12+ uses a separate splash API (icon on a solid window
+  # background); mirror the same mark + white so the upcoming Play build
+  # matches iOS.
+  android_12:
+    image: assets/brand/lighthouse-mark.png
+    color: "#ffffff"

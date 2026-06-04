@@ -1,0 +1,22 @@
+{
+  "name": "lighthouse-feedback-relay",
+  "version": "1.0.0",
+  "description": "Zero-trust in-app feedback relay for Lighthouse AAC (ADR 0018): HTTP-triggered Azure Function that forwards a validated submission to the KHF inbox as plain-text email. No data at rest, no payload in telemetry.",
+  "private": true,
+  "type": "module",
+  "main": "dist/src/functions/*.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "start": "npm run build && func start"
+  },
+  "dependencies": {
+    "@azure/communication-email": "^1.0.0",
+    "@azure/functions": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}

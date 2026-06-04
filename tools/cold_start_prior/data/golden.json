@@ -1,0 +1,31 @@
+[
+  {
+    "_frame": "After EAT: the original bug guard. Ungrammatical follow-ons (feelings, yes/no, question words) must NOT glow. A food item and 'more' should be reachable. We do NOT assert hungry/done here: the model rightly rates them low because FOOD follows 'eat' (you are hungry THEN eat; 'done' is a separate utterance).",
+    "prev": "btn_eat",
+    "must_glow": ["btn_more", "btn_food_cookie"],
+    "must_suppress": ["btn_happy", "btn_sad", "btn_yes", "btn_no", "btn_what", "btn_where"]
+  },
+  {
+    "_frame": "After DRINK: water reachable; feelings/questions suppressed.",
+    "prev": "btn_drink",
+    "must_glow": ["btn_water"],
+    "must_suppress": ["btn_happy", "btn_what", "btn_yes"]
+  },
+  {
+    "_frame": "After WANT (transitive light verb): feelings/responses/social/questions cannot follow it. btn_bathroom is a clinical pin (BCBA: a top child 'want'); must_gold guards that the proposals.json override survives a rebuild (the model alone rates it only ~0.67).",
+    "prev": "btn_want",
+    "must_gold": ["btn_bathroom"],
+    "must_suppress": ["btn_happy", "btn_sad", "btn_yes", "btn_no", "btn_thankyou", "btn_what"]
+  },
+  {
+    "_frame": "After I (clause start): bare yes/no and question words should not be the suggestion.",
+    "prev": "btn_i",
+    "must_suppress": ["btn_yes", "btn_no", "btn_what", "btn_where"]
+  },
+  {
+    "_frame": "After GO: a place is reachable; feelings/responses suppressed. Anchored on go->home (robust in every locale); go->outside is a weaker, model-dependent association and is not asserted.",
+    "prev": "btn_go",
+    "must_glow": ["btn_home"],
+    "must_suppress": ["btn_happy", "btn_yes"]
+  }
+]

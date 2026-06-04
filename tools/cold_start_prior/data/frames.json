@@ -1,0 +1,18 @@
+{
+  "_doc": "Per-locale carrier frames for the causal-LM PMI transition scorer (prior/mlscore.py). Each entry is [with_prev_template, baseline_template]. The model scores P(candidate | with_prev) minus P(candidate | baseline): the baseline removes the candidate's raw frequency so the score reflects how much the PREVIOUS word raises the candidate (pointwise mutual information). {p} is the previous button's label IN THAT LOCALE; the candidate label is appended after. Because the frames and the model are language-specific, en/es/ar produce genuinely different numbers - this is the per-language ML signal.",
+  "en": [
+    ["I want to {p}", "I want to"],
+    ["I {p}", "I"],
+    ["{p}", "."]
+  ],
+  "es": [
+    ["Quiero {p}", "Quiero"],
+    ["Yo {p}", "Yo"],
+    ["{p}", "."]
+  ],
+  "ar": [
+    ["أريد أن {p}", "أريد أن"],
+    ["أنا {p}", "أنا"],
+    ["{p}", "."]
+  ]
+}

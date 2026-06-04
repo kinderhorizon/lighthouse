@@ -1,0 +1,271 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_people",
+  "board_name": "People",
+  "board_name_es": "Personas",
+  "board_name_ar": "أشخاص",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "people": "#FFFFA6"
+  },
+  "buttons": [
+    {
+      "id": "btn_people_grandma",
+      "label": "Grandma",
+      "type": "word",
+      "voice_out": "grandma",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/grandma.png",
+      "label_es": "abuela",
+      "label_ar": "جدة",
+      "voice_out_es": "abuela",
+      "voice_out_ar": "جَدَّة"
+    },
+    {
+      "id": "btn_people_grandpa",
+      "label": "Grandpa",
+      "type": "word",
+      "voice_out": "grandpa",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/grandpa.png",
+      "label_es": "abuelo",
+      "label_ar": "جد",
+      "voice_out_es": "abuelo",
+      "voice_out_ar": "جَدّ"
+    },
+    {
+      "id": "btn_people_sister",
+      "label": "Sister",
+      "type": "word",
+      "voice_out": "sister",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/sister.png",
+      "label_es": "hermana",
+      "label_ar": "أخت",
+      "voice_out_es": "hermana",
+      "voice_out_ar": "أُخْت"
+    },
+    {
+      "id": "btn_people_brother",
+      "label": "Brother",
+      "type": "word",
+      "voice_out": "brother",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/brother.png",
+      "label_es": "hermano",
+      "label_ar": "أخ",
+      "voice_out_es": "hermano",
+      "voice_out_ar": "أَخ"
+    },
+    {
+      "id": "btn_people_baby",
+      "label": "Baby",
+      "type": "word",
+      "voice_out": "baby",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/baby.png",
+      "label_es": "bebé",
+      "label_ar": "طفل",
+      "voice_out_es": "bebé",
+      "voice_out_ar": "طِفْل"
+    },
+    {
+      "id": "btn_people_friend",
+      "label": "Friend",
+      "type": "word",
+      "voice_out": "friend",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/friend.png",
+      "label_es": "amigo",
+      "label_ar": "صديق",
+      "voice_out_es": "amigo",
+      "voice_out_ar": "صَدِيق"
+    },
+    {
+      "id": "btn_people_teacher",
+      "label": "Teacher",
+      "type": "word",
+      "voice_out": "teacher",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/teacher.png",
+      "label_es": "maestro",
+      "label_ar": "معلم",
+      "voice_out_es": "maestro",
+      "voice_out_ar": "مُعَلِّم"
+    },
+    {
+      "id": "btn_people_nurse",
+      "label": "Nurse",
+      "type": "word",
+      "voice_out": "nurse",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/nurse.png",
+      "label_es": "enfermera",
+      "label_ar": "ممرضة",
+      "voice_out_es": "enfermera",
+      "voice_out_ar": "مُمَرِّضَة"
+    },
+    {
+      "id": "btn_people_boy",
+      "label": "Boy",
+      "type": "word",
+      "voice_out": "boy",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/boy.png",
+      "label_es": "niño",
+      "label_ar": "ولد",
+      "voice_out_es": "niño",
+      "voice_out_ar": "وَلَد"
+    },
+    {
+      "id": "btn_people_girl",
+      "label": "Girl",
+      "type": "word",
+      "voice_out": "girl",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/girl.png",
+      "label_es": "niña",
+      "label_ar": "بنت",
+      "voice_out_es": "niña",
+      "voice_out_ar": "بِنْت"
+    },
+    {
+      "id": "btn_people_aunt",
+      "label": "Aunt",
+      "type": "word",
+      "voice_out": "aunt",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/aunt.png",
+      "label_es": "tía",
+      "label_ar": "خالة",
+      "voice_out_es": "tía",
+      "voice_out_ar": "خَالَة"
+    },
+    {
+      "id": "btn_people_uncle",
+      "label": "Uncle",
+      "type": "word",
+      "voice_out": "uncle",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/uncle.png",
+      "label_es": "tío",
+      "label_ar": "عم",
+      "voice_out_es": "tío",
+      "voice_out_ar": "عَمّ"
+    },
+    {
+      "id": "btn_people_family",
+      "label": "Family",
+      "type": "word",
+      "voice_out": "family",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/family.png",
+      "label_es": "familia",
+      "label_ar": "عائلة",
+      "voice_out_es": "familia",
+      "voice_out_ar": "عَائِلَة"
+    },
+    {
+      "id": "btn_people_doctor",
+      "label": "Doctor",
+      "type": "word",
+      "voice_out": "doctor",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/doctor.png",
+      "label_es": "doctor",
+      "label_ar": "طبيب",
+      "voice_out_es": "doctor",
+      "voice_out_ar": "طَبِيب"
+    },
+    {
+      "id": "btn_people_neighbor",
+      "label": "Neighbor",
+      "type": "word",
+      "voice_out": "neighbor",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "people",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/people/neighbor.png",
+      "label_es": "vecino",
+      "label_ar": "جار",
+      "voice_out_es": "vecino",
+      "voice_out_ar": "جَار"
+    }
+  ]
+}

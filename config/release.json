@@ -1,0 +1,5 @@
+{
+  "OTA_BASE_URL": "https://khflighthouseota.blob.core.windows.net/content",
+  "FEEDBACK_URL": "https://khf-feedback-gteeh5dvaabrgpaj.z03.azurefd.net/api/feedback",
+  "PRIVACY_POLICY_URL": "https://kinderhorizon.org/lighthouse/privacy"
+}

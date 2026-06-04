@@ -1,0 +1,43 @@
+Lighthouse AAC
+Copyright (c) 2026 Kinder Horizon Foundation
+https://kinderhorizon.org
+
+This product includes software developed by Kinder Horizon Foundation
+and contributors, licensed under the MIT License (see LICENSE).
+
+================================================================================
+Third-party assets bundled with this product
+================================================================================
+
+1. ARASAAC pictograms
+   Path:    assets/arasaac/
+   Author:  Sergio Palao
+   Origin:  ARASAAC (https://arasaac.org)
+   Owner:   Government of Aragón, Spain
+   License: CC BY-NC-SA 4.0
+   Details: LICENSES/ARASAAC.md
+
+================================================================================
+Third-party Dart / Flutter packages
+================================================================================
+
+Lighthouse AAC depends on open-source Dart and Flutter packages declared in
+pubspec.yaml. Each package retains its own license.
+
+The CANONICAL, always-current list of every bundled package and its full
+license text is the in-app "Open-source licences" screen (Settings > About >
+Open-source licences). It uses Flutter's showLicensePage to auto-aggregate the
+license of every Dart/Flutter package compiled into the binary, so it cannot
+drift from what actually ships and supersedes any hand-maintained list here.
+
+Notable runtime dependencies include: flutter / flutter_test (BSD 3-Clause),
+flutter_riverpod and riverpod_annotation (MIT), isar_community /
+isar_community_flutter_libs (Apache-2.0), flutter_tts (MIT), just_audio (MIT),
+record (BSD 3-Clause), share_plus and path_provider (BSD 3-Clause),
+flutter_email_sender (Apache-2.0), device_info_plus / package_info_plus /
+shared_preferences (BSD 3-Clause), http (BSD 3-Clause), crypto (BSD 3-Clause),
+image_picker / file_selector (BSD 3-Clause). The in-app screen is authoritative
+for the exact set and versions.
+
+Dev-only dependencies (build tooling, lints, code generators) are excluded
+from the shipped binary and listed in pubspec.yaml under dev_dependencies.

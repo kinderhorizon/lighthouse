@@ -1,0 +1,254 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_time",
+  "board_name": "Time",
+  "board_name_es": "Tiempo",
+  "board_name_ar": "الوقت",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "time": "#E6A6FF"
+  },
+  "buttons": [
+    {
+      "id": "btn_time_now",
+      "label": "Now",
+      "type": "word",
+      "voice_out": "now",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/now.png",
+      "label_es": "ahora",
+      "label_ar": "الآن",
+      "voice_out_es": "ahora",
+      "voice_out_ar": "الْآن"
+    },
+    {
+      "id": "btn_time_later",
+      "label": "Later",
+      "type": "word",
+      "voice_out": "later",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/later.png",
+      "label_es": "más tarde",
+      "label_ar": "لاحقا",
+      "voice_out_es": "más tarde",
+      "voice_out_ar": "لَاحِقًا"
+    },
+    {
+      "id": "btn_time_today",
+      "label": "Today",
+      "type": "word",
+      "voice_out": "today",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/today.png",
+      "label_es": "hoy",
+      "label_ar": "اليوم",
+      "voice_out_es": "hoy",
+      "voice_out_ar": "الْيَوْم"
+    },
+    {
+      "id": "btn_time_tomorrow",
+      "label": "Tomorrow",
+      "type": "word",
+      "voice_out": "tomorrow",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/tomorrow.png",
+      "label_es": "mañana",
+      "label_ar": "غدا",
+      "voice_out_es": "mañana",
+      "voice_out_ar": "غَدًا"
+    },
+    {
+      "id": "btn_time_yesterday",
+      "label": "Yesterday",
+      "type": "word",
+      "voice_out": "yesterday",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/yesterday.png",
+      "label_es": "ayer",
+      "label_ar": "أمس",
+      "voice_out_es": "ayer",
+      "voice_out_ar": "أَمْس"
+    },
+    {
+      "id": "btn_time_morning",
+      "label": "Morning",
+      "type": "word",
+      "voice_out": "morning",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/morning.png",
+      "label_es": "la mañana",
+      "label_ar": "صباح",
+      "voice_out_es": "la mañana",
+      "voice_out_ar": "صَبَاح"
+    },
+    {
+      "id": "btn_time_afternoon",
+      "label": "Afternoon",
+      "type": "word",
+      "voice_out": "afternoon",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/afternoon.png",
+      "label_es": "tarde",
+      "label_ar": "بعد الظهر",
+      "voice_out_es": "tarde",
+      "voice_out_ar": "بَعْدَ الظُّهْر"
+    },
+    {
+      "id": "btn_time_night",
+      "label": "Night",
+      "type": "word",
+      "voice_out": "night",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/night.png",
+      "label_es": "noche",
+      "label_ar": "ليل",
+      "voice_out_es": "noche",
+      "voice_out_ar": "لَيْل"
+    },
+    {
+      "id": "btn_time_before",
+      "label": "Before",
+      "type": "word",
+      "voice_out": "before",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/before.png",
+      "label_es": "antes",
+      "label_ar": "قبل",
+      "voice_out_es": "antes",
+      "voice_out_ar": "قَبْل"
+    },
+    {
+      "id": "btn_time_day",
+      "label": "Day",
+      "type": "word",
+      "voice_out": "day",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/day.png",
+      "label_es": "día",
+      "label_ar": "يوم",
+      "voice_out_es": "día",
+      "voice_out_ar": "يَوْم"
+    },
+    {
+      "id": "btn_time_week",
+      "label": "Week",
+      "type": "word",
+      "voice_out": "week",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/week.png",
+      "label_es": "semana",
+      "label_ar": "أسبوع",
+      "voice_out_es": "semana",
+      "voice_out_ar": "أُسْبُوع"
+    },
+    {
+      "id": "btn_time_weekend",
+      "label": "Weekend",
+      "type": "word",
+      "voice_out": "weekend",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/weekend.png",
+      "label_es": "fin de semana",
+      "label_ar": "عطلة الأسبوع",
+      "voice_out_es": "fin de semana",
+      "voice_out_ar": "عُطْلَةُ الْأُسْبُوع"
+    },
+    {
+      "id": "btn_time_minute",
+      "label": "Minute",
+      "type": "word",
+      "voice_out": "minute",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/minute.png",
+      "label_es": "minuto",
+      "label_ar": "دقيقة",
+      "voice_out_es": "minuto",
+      "voice_out_ar": "دَقِيقَة"
+    },
+    {
+      "id": "btn_time_late",
+      "label": "Late",
+      "type": "word",
+      "voice_out": "late",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "time",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/time/late.png",
+      "label_es": "tarde",
+      "label_ar": "متأخر",
+      "voice_out_es": "tarde",
+      "voice_out_ar": "مُتَأَخِّر"
+    }
+  ]
+}

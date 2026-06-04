@@ -1,0 +1,271 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_places",
+  "board_name": "Places",
+  "board_name_es": "Lugares",
+  "board_name_ar": "أماكن",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "places": "#FFD9A6"
+  },
+  "buttons": [
+    {
+      "id": "btn_places_park",
+      "label": "Park",
+      "type": "word",
+      "voice_out": "park",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/park.png",
+      "label_es": "parque",
+      "label_ar": "حديقة",
+      "voice_out_es": "parque",
+      "voice_out_ar": "حَدِيقَة"
+    },
+    {
+      "id": "btn_places_store",
+      "label": "Store",
+      "type": "word",
+      "voice_out": "store",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/store.png",
+      "label_es": "tienda",
+      "label_ar": "متجر",
+      "voice_out_es": "tienda",
+      "voice_out_ar": "مَتْجَر"
+    },
+    {
+      "id": "btn_places_restaurant",
+      "label": "Restaurant",
+      "type": "word",
+      "voice_out": "restaurant",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/restaurant.png",
+      "label_es": "restaurante",
+      "label_ar": "مطعم",
+      "voice_out_es": "restaurante",
+      "voice_out_ar": "مَطْعَم"
+    },
+    {
+      "id": "btn_places_doctor",
+      "label": "Doctor's office",
+      "type": "word",
+      "voice_out": "doctor's office",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/doctor.png",
+      "label_es": "consultorio médico",
+      "label_ar": "عيادة الطبيب",
+      "voice_out_es": "consultorio médico",
+      "voice_out_ar": "عِيَادَةُ الطَّبِيب"
+    },
+    {
+      "id": "btn_places_hospital",
+      "label": "Hospital",
+      "type": "word",
+      "voice_out": "hospital",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/hospital.png",
+      "label_es": "hospital",
+      "label_ar": "مستشفى",
+      "voice_out_es": "hospital",
+      "voice_out_ar": "مُسْتَشْفَى"
+    },
+    {
+      "id": "btn_places_playground",
+      "label": "Playground",
+      "type": "word",
+      "voice_out": "playground",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/playground.png",
+      "label_es": "parque infantil",
+      "label_ar": "ملعب",
+      "voice_out_es": "parque infantil",
+      "voice_out_ar": "مَلْعَب"
+    },
+    {
+      "id": "btn_places_beach",
+      "label": "Beach",
+      "type": "word",
+      "voice_out": "beach",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/beach.png",
+      "label_es": "playa",
+      "label_ar": "شاطئ",
+      "voice_out_es": "playa",
+      "voice_out_ar": "شَاطِئ"
+    },
+    {
+      "id": "btn_places_library",
+      "label": "Library",
+      "type": "word",
+      "voice_out": "library",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/library.png",
+      "label_es": "biblioteca",
+      "label_ar": "مكتبة",
+      "voice_out_es": "biblioteca",
+      "voice_out_ar": "مَكْتَبَة"
+    },
+    {
+      "id": "btn_places_bus",
+      "label": "Bus",
+      "type": "word",
+      "voice_out": "bus",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/bus.png",
+      "label_es": "autobús",
+      "label_ar": "حافلة",
+      "voice_out_es": "autobús",
+      "voice_out_ar": "حَافِلَة"
+    },
+    {
+      "id": "btn_places_zoo",
+      "label": "Zoo",
+      "type": "word",
+      "voice_out": "zoo",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/zoo.png",
+      "label_es": "zoológico",
+      "label_ar": "حديقة الحيوان",
+      "voice_out_es": "zoológico",
+      "voice_out_ar": "حَدِيقَةُ الْحَيَوَان"
+    },
+    {
+      "id": "btn_places_pool",
+      "label": "Pool",
+      "type": "word",
+      "voice_out": "pool",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/pool.png",
+      "label_es": "piscina",
+      "label_ar": "مسبح",
+      "voice_out_es": "piscina",
+      "voice_out_ar": "مَسْبَح"
+    },
+    {
+      "id": "btn_places_kitchen",
+      "label": "Kitchen",
+      "type": "word",
+      "voice_out": "kitchen",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/kitchen.png",
+      "label_es": "cocina",
+      "label_ar": "مطبخ",
+      "voice_out_es": "cocina",
+      "voice_out_ar": "مَطْبَخ"
+    },
+    {
+      "id": "btn_places_bedroom",
+      "label": "Bedroom",
+      "type": "word",
+      "voice_out": "bedroom",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/bedroom.png",
+      "label_es": "dormitorio",
+      "label_ar": "غرفة النوم",
+      "voice_out_es": "dormitorio",
+      "voice_out_ar": "غُرْفَةُ النَّوْم"
+    },
+    {
+      "id": "btn_places_church",
+      "label": "Church",
+      "type": "word",
+      "voice_out": "church",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/church.png",
+      "label_es": "iglesia",
+      "label_ar": "كنيسة",
+      "voice_out_es": "iglesia",
+      "voice_out_ar": "كَنِيسَة"
+    },
+    {
+      "id": "btn_places_gym",
+      "label": "Gym",
+      "type": "word",
+      "voice_out": "gym",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "places",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/places/gym.png",
+      "label_es": "gimnasio",
+      "label_ar": "صالة رياضية",
+      "voice_out_es": "gimnasio",
+      "voice_out_ar": "صَالَةٌ رِيَاضِيَّة"
+    }
+  ]
+}

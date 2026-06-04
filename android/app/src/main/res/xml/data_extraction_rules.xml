@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 12+ backup + device-transfer exclusion rules.
+
+  CRITICAL exclusion: the Isar database lives in
+  getApplicationSupportDirectory()/lighthouse_db (IsarSetup.dbSubdir), which on
+  Android is getFilesDir()/lighthouse_db. Android Auto Backup and device
+  transfer INCLUDE getFilesDir() by default, so without this exclude the DB,
+  which holds RawEventLogV1 (the child's actual button taps, i.e. communication
+  content), would be uploaded to the user's Google account and restored on a new
+  device. Excluding the whole lighthouse_db/ subdir keeps the absolute ADR 0002
+  claim "no data ever leaves the device" true on Android. The subdir name must
+  match IsarSetup.dbSubdir; backup_exclusion_test enforces that.
+
+  Crash logs (crash_log_store.dart) live in getApplicationCacheDirectory(), i.e.
+  getCacheDir(), which Android never backs up at all (the Android analog of the
+  iOS cache-dir convention in ADR 0002). The crash_logs excludes below are
+  defense-in-depth for the writable domains should that ever move out of cache.
+
+  The "database" domain is intentionally absent: it addresses only named DB
+  files, not subdirectories, so a path entry there is invalid and fails release
+  lint, and the Isar DB is not in getDatabasePath() anyway.
+
+  ALSO excluded: every other parent-authored content path under getFilesDir()
+  (custom buttons + their images, home favourites, board layout overrides,
+  hidden tiles, icon overrides + their images, custom voice recordings + their
+  clips, imported board packs, and applied OTA content overlays). These hold
+  communication content / personal customization; backing them up to the
+  parent's Google account would contradict the same ADR 0002 promise. Their
+  names are tied to code constants in backup_exclusion_test.
+
+  We deliberately do NOT use android:allowBackup="false" because that would
+  kill all legitimate user-data backup that a parent might expect to survive
+  device migration. SharedPreferences (Settings, locale choice) live in the
+  separate sharedpref domain and ARE still backed up, which is the intended
+  behavior for non-content preferences.
+
+  See docs/adr/0002-no-automatic-telemetry.md, "Backup exclusion (Phase 1
+  HARD REQUIREMENT)".
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="lighthouse_db/" />
+        <exclude domain="file" path="custom_buttons.json" />
+        <exclude domain="file" path="custom_images/" />
+        <exclude domain="file" path="home_favourites.json" />
+        <exclude domain="file" path="board_layout.json" />
+        <exclude domain="file" path="hidden_tiles.json" />
+        <exclude domain="file" path="icon_overrides.json" />
+        <exclude domain="file" path="icon_overrides/" />
+        <exclude domain="file" path="custom_voices.json" />
+        <exclude domain="file" path="custom_voices/" />
+        <exclude domain="file" path="imported_boards/" />
+        <exclude domain="file" path="content_overlay/" />
+        <exclude domain="external" path="crash_logs/" />
+        <exclude domain="file" path="crash_logs/" />
+        <exclude domain="root" path="crash_logs/" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="lighthouse_db/" />
+        <exclude domain="file" path="custom_buttons.json" />
+        <exclude domain="file" path="custom_images/" />
+        <exclude domain="file" path="home_favourites.json" />
+        <exclude domain="file" path="board_layout.json" />
+        <exclude domain="file" path="hidden_tiles.json" />
+        <exclude domain="file" path="icon_overrides.json" />
+        <exclude domain="file" path="icon_overrides/" />
+        <exclude domain="file" path="custom_voices.json" />
+        <exclude domain="file" path="custom_voices/" />
+        <exclude domain="file" path="imported_boards/" />
+        <exclude domain="file" path="content_overlay/" />
+        <exclude domain="external" path="crash_logs/" />
+        <exclude domain="file" path="crash_logs/" />
+        <exclude domain="root" path="crash_logs/" />
+    </device-transfer>
+</data-extraction-rules>

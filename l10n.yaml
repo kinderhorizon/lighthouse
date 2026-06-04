@@ -1,0 +1,13 @@
+# Flutter gen_l10n configuration. Generates AppLocalizations from the ARB
+# files in lib/l10n. See ADR 0008. Adding a language = add app_<code>.arb here
+# plus a LocaleRegistry entry; the parity test enforces key completeness.
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+# Non-nullable getter: AppLocalizations.of(context) returns non-null because
+# the delegate is always installed and en is always present.
+nullable-getter: false
+# Surface any key present in the template but missing from a locale at build
+# time. The parity test is the hard CI guard; this is the fast local signal.
+untranslated-messages-file: l10n_untranslated.txt

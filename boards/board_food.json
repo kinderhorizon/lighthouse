@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_food",
+  "board_name": "Food",
+  "board_name_es": "Comida",
+  "board_name_ar": "طعام",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "food": "#FFD9A6"
+  },
+  "buttons": [
+    {
+      "id": "btn_food_milk",
+      "label": "Milk",
+      "type": "word",
+      "voice_out": "milk",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/milk.png",
+      "label_es": "leche",
+      "label_ar": "حليب",
+      "voice_out_es": "leche",
+      "voice_out_ar": "حَلِيب"
+    },
+    {
+      "id": "btn_food_juice",
+      "label": "Juice",
+      "type": "word",
+      "voice_out": "juice",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/juice.png",
+      "label_es": "jugo",
+      "label_ar": "عصير",
+      "voice_out_es": "jugo",
+      "voice_out_ar": "عَصِير"
+    },
+    {
+      "id": "btn_food_apple",
+      "label": "Apple",
+      "type": "word",
+      "voice_out": "apple",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/apple.png",
+      "label_es": "manzana",
+      "label_ar": "تفاحة",
+      "voice_out_es": "manzana",
+      "voice_out_ar": "تُفَّاحَة"
+    },
+    {
+      "id": "btn_food_banana",
+      "label": "Banana",
+      "type": "word",
+      "voice_out": "banana",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/banana.png",
+      "label_es": "plátano",
+      "label_ar": "موز",
+      "voice_out_es": "plátano",
+      "voice_out_ar": "مَوْز"
+    },
+    {
+      "id": "btn_food_cookie",
+      "label": "Cookie",
+      "type": "word",
+      "voice_out": "cookie",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/cookie.png",
+      "label_es": "galleta",
+      "label_ar": "بسكويت",
+      "voice_out_es": "galleta",
+      "voice_out_ar": "بِسْكِويت"
+    },
+    {
+      "id": "btn_food_cracker",
+      "label": "Cracker",
+      "type": "word",
+      "voice_out": "cracker",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/cracker.png",
+      "label_es": "galleta salada",
+      "label_ar": "مقرمشات",
+      "voice_out_es": "galleta salada",
+      "voice_out_ar": "مُقَرْمَشَات"
+    },
+    {
+      "id": "btn_food_bread",
+      "label": "Bread",
+      "type": "word",
+      "voice_out": "bread",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/bread.png",
+      "label_es": "pan",
+      "label_ar": "خبز",
+      "voice_out_es": "pan",
+      "voice_out_ar": "خُبْز"
+    },
+    {
+      "id": "btn_food_cheese",
+      "label": "Cheese",
+      "type": "word",
+      "voice_out": "cheese",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/cheese.png",
+      "label_es": "queso",
+      "label_ar": "جبن",
+      "voice_out_es": "queso",
+      "voice_out_ar": "جُبْن"
+    },
+    {
+      "id": "btn_food_yogurt",
+      "label": "Yogurt",
+      "type": "word",
+      "voice_out": "yogurt",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/yogurt.png",
+      "label_es": "yogur",
+      "label_ar": "زبادي",
+      "voice_out_es": "yogur",
+      "voice_out_ar": "زَبَادِي"
+    },
+    {
+      "id": "btn_food_cereal",
+      "label": "Cereal",
+      "type": "word",
+      "voice_out": "cereal",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/cereal.png",
+      "label_es": "cereal",
+      "label_ar": "حبوب",
+      "voice_out_es": "cereal",
+      "voice_out_ar": "حُبُوب"
+    },
+    {
+      "id": "btn_food_pizza",
+      "label": "Pizza",
+      "type": "word",
+      "voice_out": "pizza",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/pizza.png",
+      "label_es": "pizza",
+      "label_ar": "بيتزا",
+      "voice_out_es": "pizza",
+      "voice_out_ar": "بِيتْزَا"
+    },
+    {
+      "id": "btn_food_chicken",
+      "label": "Chicken",
+      "type": "word",
+      "voice_out": "chicken",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/chicken.png",
+      "label_es": "pollo",
+      "label_ar": "دجاج",
+      "voice_out_es": "pollo",
+      "voice_out_ar": "دَجَاج"
+    },
+    {
+      "id": "btn_food_rice",
+      "label": "Rice",
+      "type": "word",
+      "voice_out": "rice",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/rice.png",
+      "label_es": "arroz",
+      "label_ar": "أرز",
+      "voice_out_es": "arroz",
+      "voice_out_ar": "أَرُز"
+    },
+    {
+      "id": "btn_food_egg",
+      "label": "Egg",
+      "type": "word",
+      "voice_out": "egg",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/egg.png",
+      "label_es": "huevo",
+      "label_ar": "بيضة",
+      "voice_out_es": "huevo",
+      "voice_out_ar": "بَيْضَة"
+    },
+    {
+      "id": "btn_food_grapes",
+      "label": "Grapes",
+      "type": "word",
+      "voice_out": "grapes",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/grapes.png",
+      "label_es": "uvas",
+      "label_ar": "عنب",
+      "voice_out_es": "uvas",
+      "voice_out_ar": "عِنَب"
+    },
+    {
+      "id": "btn_food_ice_cream",
+      "label": "Ice cream",
+      "type": "word",
+      "voice_out": "ice cream",
+      "position": {
+        "row": 1,
+        "col": 7
+      },
+      "category": "food",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/food/ice_cream.png",
+      "label_es": "helado",
+      "label_ar": "آيس كريم",
+      "voice_out_es": "helado",
+      "voice_out_ar": "آيس كْرِيم"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pre-Android 12 (legacy) Auto Backup exclusion.
+
+  Same intent and reasoning as data_extraction_rules.xml. CRITICAL: exclude the
+  Isar DB subdir (getFilesDir()/lighthouse_db, IsarSetup.dbSubdir), which Auto
+  Backup includes by default and which holds the child's button-tap log. Also
+  exclude every other parent-authored content path under getFilesDir() (custom
+  buttons + images, home favourites, board layout, hidden tiles, icon overrides
+  + images, custom voice recordings + clips, imported boards, OTA content
+  overlays), for the same privacy reason; names are tied to code constants in
+  backup_exclusion_test. Crash logs live in the cache dir, which Auto Backup
+  never includes, so their excludes are defense-in-depth. The "database" domain
+  is omitted (a subdirectory path there is invalid and fails release lint).
+  See docs/adr/0002-no-automatic-telemetry.md.
+-->
+<full-backup-content>
+    <exclude domain="file" path="lighthouse_db/" />
+    <exclude domain="file" path="custom_buttons.json" />
+    <exclude domain="file" path="custom_images/" />
+    <exclude domain="file" path="home_favourites.json" />
+    <exclude domain="file" path="board_layout.json" />
+    <exclude domain="file" path="hidden_tiles.json" />
+    <exclude domain="file" path="icon_overrides.json" />
+    <exclude domain="file" path="icon_overrides/" />
+    <exclude domain="file" path="custom_voices.json" />
+    <exclude domain="file" path="custom_voices/" />
+    <exclude domain="file" path="imported_boards/" />
+    <exclude domain="file" path="content_overlay/" />
+    <exclude domain="external" path="crash_logs/" />
+    <exclude domain="file" path="crash_logs/" />
+    <exclude domain="root" path="crash_logs/" />
+</full-backup-content>

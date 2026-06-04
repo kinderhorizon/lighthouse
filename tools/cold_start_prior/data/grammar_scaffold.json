@@ -1,0 +1,89 @@
+{
+  "_doc": "Language-universal category->category affinity (multiplier on prior odds). >1 boosts, <1 suppresses, 1.0 neutral. prev_button_overrides take precedence over the matrix for the listed candidate categories. See prior/grammar.py. Expanded successor to lib/logic/bandit/semantic_boost.dart; locale-independent by design (ADR 0008).",
+  "_calibration": "Philosophy: the scaffold does the SUPPRESSION (push grammatically-wrong follow-ons below the glow line) and only GENTLE boosts (lift a plausible category into shimmer eligibility). The GOLD-level specific picks come from data/proposals.json, which always wins. So boosts are capped ~2.0; suppressions go as low as 0.15.",
+  "default_affinity": 1.0,
+
+  "category_affinity": {
+    "pronoun": {
+      "verb": 1.8, "needs": 1.2, "modifier": 0.8, "feeling": 0.7,
+      "response": 0.3, "question": 0.4, "social": 0.5, "food": 0.7,
+      "drink": 0.7, "places": 0.8, "people": 0.4, "things": 0.8, "time": 0.3
+    },
+    "verb": {
+      "food": 1.5, "drink": 1.5, "things": 1.5, "places": 1.4, "people": 1.4,
+      "modifier": 1.5, "pronoun": 1.1, "needs": 0.9, "feeling": 0.5,
+      "response": 0.3, "question": 0.3, "social": 0.4, "time": 0.3
+    },
+    "modifier": {
+      "food": 1.5, "drink": 1.5, "things": 1.4, "verb": 1.1, "places": 1.1,
+      "people": 1.0, "response": 0.5, "feeling": 0.6, "question": 0.5,
+      "social": 0.6, "time": 0.3
+    },
+    "food": {
+      "modifier": 1.6, "drink": 1.2, "needs": 0.8, "response": 0.6,
+      "feeling": 0.6, "question": 0.4, "verb": 0.8, "social": 0.7
+    },
+    "drink": {
+      "modifier": 1.6, "food": 1.1, "needs": 0.8, "response": 0.6,
+      "feeling": 0.6, "question": 0.4, "verb": 0.8, "social": 0.7
+    },
+    "question": {
+      "things": 1.7, "places": 1.7, "people": 1.7, "pronoun": 1.5,
+      "food": 1.1, "drink": 1.0, "verb": 0.8, "feeling": 0.5,
+      "response": 0.4, "social": 0.5, "modifier": 0.7
+    },
+    "response": {
+      "verb": 1.4, "pronoun": 1.4, "needs": 1.1, "question": 0.6,
+      "response": 0.4, "feeling": 0.8, "social": 0.9
+    },
+    "feeling": {
+      "social": 1.1, "needs": 0.9, "response": 0.6, "question": 0.5,
+      "feeling": 0.5, "verb": 0.7, "food": 0.7, "drink": 0.7
+    },
+    "needs": {
+      "social": 1.2, "response": 1.0, "modifier": 0.8, "question": 0.5,
+      "feeling": 0.7, "verb": 0.8
+    },
+    "social": {
+      "response": 0.8, "question": 0.5, "feeling": 0.8, "verb": 0.8,
+      "social": 0.4
+    },
+    "people": {
+      "verb": 1.4, "needs": 1.2, "places": 1.1, "response": 0.5,
+      "question": 0.6, "feeling": 0.7
+    },
+    "places": {
+      "verb": 1.1, "modifier": 0.8, "response": 0.5, "question": 0.6,
+      "people": 1.0, "feeling": 0.7
+    },
+    "things": {
+      "modifier": 1.6, "verb": 1.0, "response": 0.6, "feeling": 0.6,
+      "question": 0.5, "drink": 0.9, "food": 0.9
+    }
+  },
+
+  "prev_button_overrides": {
+    "_comment_transitive": "want/need/like/get/make: open-domain light verbs. Hard-suppress the categories that cannot grammatically follow (mirrors kPostVerbSuppressedCategories in semantic_boost.dart). Objects get only a GENTLE lift; the specific likely objects come from proposals.json.",
+    "btn_want": { "feeling": 0.15, "response": 0.15, "social": 0.15, "question": 0.15, "verb": 1.3, "food": 1.4, "drink": 1.4, "things": 1.4, "places": 1.3, "people": 0.4, "modifier": 1.3, "needs": 1.0 },
+    "btn_need": { "feeling": 0.15, "response": 0.15, "social": 0.15, "question": 0.15, "verb": 1.3, "food": 1.4, "drink": 1.4, "things": 1.4, "places": 1.3, "people": 0.4, "modifier": 1.2, "needs": 1.1 },
+    "btn_like": { "feeling": 0.2, "response": 0.2, "social": 0.2, "question": 0.2, "food": 1.4, "drink": 1.4, "things": 1.4, "places": 1.2, "people": 0.4, "verb": 1.2, "modifier": 1.2 },
+    "btn_get": { "feeling": 0.2, "response": 0.2, "social": 0.2, "question": 0.2, "food": 1.4, "drink": 1.4, "things": 1.5, "places": 1.2, "people": 0.4, "modifier": 1.2 },
+    "btn_make": { "feeling": 0.2, "response": 0.2, "social": 0.2, "question": 0.2, "food": 1.4, "things": 1.5, "drink": 1.3, "modifier": 1.2 },
+
+    "_comment_object_domain": "verbs with a single strong object domain. GENTLE boost the domain (proposals carry the gold picks); HARD-suppress the grammatically-implausible follow-ons. Note needs is suppressed for eat/drink so generic needs (bathroom, hurt) do not surface; the eat-relevant needs (hungry, done, all_done) are lifted by proposals instead.",
+    "btn_eat": { "food": 1.4, "drink": 1.2, "modifier": 1.4, "needs": 0.2, "feeling": 0.18, "response": 0.18, "question": 0.18, "social": 0.2, "places": 0.3, "people": 0.3, "things": 0.5, "verb": 0.5, "pronoun": 0.5, "activity": 0.3 },
+    "btn_drink": { "drink": 1.4, "food": 1.1, "modifier": 1.4, "needs": 0.2, "feeling": 0.18, "response": 0.18, "question": 0.18, "social": 0.2, "places": 0.3, "people": 0.3, "things": 0.4, "verb": 0.5, "pronoun": 0.5, "activity": 0.3 },
+    "btn_go": { "places": 1.6, "modifier": 1.2, "people": 0.4, "things": 0.4, "feeling": 0.2, "response": 0.2, "question": 0.3, "social": 0.3, "food": 0.5, "drink": 0.5, "needs": 0.5 },
+    "btn_play": { "things": 1.5, "people": 1.3, "places": 1.3, "modifier": 1.2, "feeling": 0.25, "response": 0.25, "question": 0.3, "social": 0.3 },
+    "btn_look": { "things": 1.6, "places": 1.3, "people": 1.2, "question": 0.3, "response": 0.3, "feeling": 0.4 },
+    "btn_open": { "things": 1.6, "food": 1.2, "question": 0.3, "response": 0.3, "feeling": 0.4, "social": 0.4 },
+
+    "_comment_starters": "I / you start a clause: gently want a verb next (proposals carry want/need), mild feelings (I happy), suppress bare responses/questions.",
+    "btn_i": { "verb": 1.6, "needs": 1.1, "feeling": 1.1, "response": 0.2, "question": 0.4, "modifier": 0.7, "social": 0.6 },
+    "btn_you": { "verb": 1.5, "needs": 1.1, "question": 0.6, "response": 0.5, "modifier": 0.7 },
+
+    "_comment_more": "more / again: want more of an object (proposals carry the specific objects).",
+    "btn_more": { "food": 1.6, "drink": 1.6, "things": 1.5, "verb": 1.1, "response": 0.5, "feeling": 0.5, "question": 0.5 },
+    "btn_again": { "verb": 1.5, "food": 1.3, "drink": 1.3, "things": 1.3, "response": 0.5, "question": 0.5 }
+  }
+}

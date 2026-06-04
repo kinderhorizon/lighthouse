@@ -1,0 +1,98 @@
+# Local-only maintainer notes (e.g. docs/residue-policy.local.md). Never
+# published; holds the full residue denylist incl. terms kept out of the
+# public guard regex.
+*.local.md
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# gen_l10n untranslated-messages report (build artifact, see l10n.yaml)
+l10n_untranslated.txt
+
+# Release signing credentials. The keystore is the org's app-signing key;
+# committing it (or its passwords) to a public repo would be a credential leak.
+**/key.properties
+*.jks
+*.keystore
+upload-keystore.jks
+
+# OTA content-signing private seed (ADR 0017). Belongs offline only; the tool
+# refuses to write it inside the repo, this is belt-and-suspenders.
+*.key
+ota-signing.key
+
+# Azure feedback relay (ADR 0018, cloud/): build + dep artifacts, and the local
+# settings file which holds a real connection string (use the .example as a
+# template). NEVER commit local.settings.json.
+cloud/**/node_modules/
+cloud/**/dist/
+cloud/**/local.settings.json
+
+# Un-redacted Azure ops state: real subscription ID, Front Door ID (defense-in-
+# depth origin-lock value), Key Vault + secret names, and full resource topology.
+# The sanitized, reviewable runbook lives at docs/azure-backend.md (placeholders);
+# real values stay in 1Password. Never commit this working copy to the public repo.
+docs/azure-deploy-state.md
+
+# Local screenshot / manual-capture dev tools (NOT part of CI; CI runs bare
+# `flutter test` over test/ only). They write PNGs to a hardcoded ~/Desktop
+# path, so they are personal tooling, not portable source. The committed,
+# legit on-device tests in integration_test/ (fixtures_inline, glow_grid_test,
+# persistence_test) are NOT matched by these patterns.
+/test_driver/
+/integration_test/screenshot_tour_test.dart
+/integration_test/redesign_smoke_test.dart
+/integration_test/crashlog_tile_test.dart
+/integration_test/feedback_landing_test.dart
+/integration_test/sendflow_test.dart
+/integration_test/sendflow_ipad_test.dart
+
+# Cold-start prior generator build outputs (ADR 0003). Regenerable from the
+# committed tool (build_prior.py + prior/ + data/); the SHIPPED, tracked copies
+# are assets/cold_start/{en,es,ar}.json. out/ holds the large per-locale JSON,
+# the model cache, build log, and per-locale review/golden reports.
+tools/cold_start_prior/out/
+tools/cold_start_prior/**/__pycache__/

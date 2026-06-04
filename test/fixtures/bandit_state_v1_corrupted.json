@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "description": "Deliberately corrupted BanditStateV1 fixture. Exercises the migration-chain failure path so the user-prompt safety net in ADR 0005 stays exercised. The loader MUST surface a MigrationFailure (NOT silently drop bad rows + continue) when it sees this. Defects below are intentional; do NOT fix them.",
+  "rows": [
+    {
+      "state_key": "Morning_Weekday|wifi_HOMEHASH|Prev:|Context:",
+      "button_id": "btn_help",
+      "alpha": 3.0,
+      "beta": 1.0,
+      "observation_count": 4,
+      "updated_at": "2026-05-15T09:00:00Z"
+    },
+    {
+      "state_key": "Morning_Weekday|wifi_HOMEHASH|Prev:btn_help|Context:Needs",
+      "alpha": 4.5,
+      "beta": 2.0,
+      "observation_count": 5,
+      "updated_at": "2026-05-16T07:45:00Z"
+    },
+    {
+      "state_key": "School_Weekday|wifi_SCHOOLHASH|Prev:|Context:",
+      "button_id": "btn_water",
+      "alpha": "not-a-number",
+      "beta": 1.5,
+      "observation_count": 7,
+      "updated_at": "2026-05-16T12:15:00Z"
+    },
+    {
+      "state_key": "Night_Weekday|wifi_HOMEHASH|Prev:btn_tired|Context:Feelings",
+      "button_id": "btn_done",
+      "alpha": 2.0,
+      "beta": -1.0,
+      "observation_count": 1,
+      "updated_at": "2026-05-17T20:30:00Z"
+    }
+  ]
+}

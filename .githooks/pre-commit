@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Pre-commit hook: brand-voice checks.
+#
+# Enable once after cloning:
+#   git config core.hooksPath .githooks
+#
+# Intentionally framework-free (no husky) to keep the dependency tree minimal.
+
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+if [ -x "scripts/no-em-dash.sh" ]; then
+  bash scripts/no-em-dash.sh
+fi
+
+# Residue guard (personal names, AI-tool names, local paths). Public repo.
+if [ -f "scripts/no-residue.sh" ]; then
+  bash scripts/no-residue.sh
+fi
+
+# Block force-adding known-sensitive files even though .gitignore covers them.
+FORBIDDEN_STAGED="$(git diff --cached --name-only | grep -iE \
+  '(^|/)(GEMINI|.*CONTEXT)\.md$|azure-deploy-state\.md$|key\.properties$|local\.settings\.json$|\.(jks|keystore|p8|p12|pem)$|ota-signing\.key$|(^|/)[^/]*\.key$' || true)"
+if [ -n "$FORBIDDEN_STAGED" ]; then
+  echo "ERROR: refusing to commit known-sensitive file(s):"
+  echo "$FORBIDDEN_STAGED"
+  echo "These belong offline / in the secrets manager, never in the public repo."
+  exit 1
+fi

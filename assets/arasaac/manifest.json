@@ -1,0 +1,1636 @@
+{
+  "version": "1",
+  "license": "CC BY-NC-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode",
+  "attribution": "Symbols Author: Sergio Palao. Origin: ARASAAC (https://arasaac.org). License: CC (BY-NC-SA). Owner: Government of Aragón (Spain).",
+  "source_root": "https://api.arasaac.org/api/pictograms/",
+  "modifications": "Symbols stored as their native ARASAAC PNG with transparent background (approximately 500x500 from the public API). No re-encoding applied. Runtime tinting per Fitzgerald category is performed at render time and is not a derivative asset.",
+  "checksum_policy": {
+    "algorithm": "sha256",
+    "phase": "Phase 1",
+    "verifier": "tools/verify_assets.dart",
+    "build_gate": "Run `dart run tools/verify_assets.dart` from repo root. The verifier recomputes sha256 for every manifest entry's icon_uri on disk and exits 1 on any mismatch, missing file, or empty sha256. Detects silent post-commit asset mutation (build pipeline bug, contributor accident, supply-chain tampering)."
+  },
+  "symbols": [
+    {
+      "button_id": "btn_act_read",
+      "english_label": "Read",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/read.png",
+      "arasaac_id": 7141,
+      "arasaac_search_keyword": "read",
+      "sha256": "4670f65ed8c0e560f60237578e2b35b6493916776baca65258ab9b6fe6595038"
+    },
+    {
+      "button_id": "btn_act_draw",
+      "english_label": "Draw",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/draw.png",
+      "arasaac_id": 8088,
+      "arasaac_search_keyword": "draw",
+      "sha256": "d556686533c3cf58ecf44e05cf356e1c8a47fc7ee576be3945bc1b24cc988f89"
+    },
+    {
+      "button_id": "btn_act_color",
+      "english_label": "Color",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/color.png",
+      "arasaac_id": 5968,
+      "arasaac_search_keyword": "color",
+      "sha256": "edac653b7be9ae53b49ae08d6eba3c6c84ca6be02edba4311ab19a53710885b1"
+    },
+    {
+      "button_id": "btn_act_paint",
+      "english_label": "Paint",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/paint.png",
+      "arasaac_id": 2348,
+      "arasaac_search_keyword": "paint",
+      "sha256": "72eb5a081d22608fd0ce32d147a615ee095873753d944cb335d5a29bcb2c1772"
+    },
+    {
+      "button_id": "btn_act_sing",
+      "english_label": "Sing",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/sing.png",
+      "arasaac_id": 6960,
+      "arasaac_search_keyword": "sing",
+      "sha256": "c3436a15e3bd49051c0b0e63bf71381e8e0a976b8db93c0474846843b591834b"
+    },
+    {
+      "button_id": "btn_act_dance",
+      "english_label": "Dance",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/dance.png",
+      "arasaac_id": 35747,
+      "arasaac_search_keyword": "dance",
+      "sha256": "2d81211e7dacff72331a9411d48c63e6ea18e785dfd1b753994a89a96a83e994"
+    },
+    {
+      "button_id": "btn_act_swim",
+      "english_label": "Swim",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/swim.png",
+      "arasaac_id": 6568,
+      "arasaac_search_keyword": "swim",
+      "sha256": "fb2a287c0af024f92aec9cfc9d3d5449285e4e5d7335b9cf6d7b6134b95692e6"
+    },
+    {
+      "button_id": "btn_act_run",
+      "english_label": "Run",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/run.png",
+      "arasaac_id": 6465,
+      "arasaac_search_keyword": "run",
+      "sha256": "f917c45564f99055529a19b2690eef497341a143238a245e0c5a788dccd926da"
+    },
+    {
+      "button_id": "btn_act_jump",
+      "english_label": "Jump",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/jump.png",
+      "arasaac_id": 39052,
+      "arasaac_search_keyword": "jump",
+      "sha256": "dabb55ca52d27e2f6e1a22fe2d857353dbe95bb52da7d416c1ec3c516c80b29b"
+    },
+    {
+      "button_id": "btn_act_ride",
+      "english_label": "Ride",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/ride.png",
+      "arasaac_id": 6045,
+      "arasaac_search_keyword": "ride",
+      "sha256": "fc32d183bf42721b9590f5da41d94992cbb8f41d582c4d0bd51c3c9d90aa5d31"
+    },
+    {
+      "button_id": "btn_act_build",
+      "english_label": "Build",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/build.png",
+      "arasaac_id": 2713,
+      "arasaac_search_keyword": "build",
+      "sha256": "92cf91de5b2a4575ccd72e35d0ca0631da25aa5a14a357165d2acefd86ab2f85"
+    },
+    {
+      "button_id": "btn_act_watch",
+      "english_label": "Watch TV",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/watch.png",
+      "arasaac_id": 16905,
+      "arasaac_search_keyword": "watch",
+      "sha256": "b6e71c81c568cd9f3da72f6d9c19b448640ef666982db3e01cc43145bd9e67db"
+    },
+    {
+      "button_id": "btn_act_listen",
+      "english_label": "Listen",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/listen.png",
+      "arasaac_id": 6572,
+      "arasaac_search_keyword": "listen",
+      "sha256": "10424dccd6ef8d95a5d31f19b76a2fb679455077d3fbf6f54b7a7524f2bc6978"
+    },
+    {
+      "button_id": "btn_act_cook",
+      "english_label": "Cook",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/cook.png",
+      "arasaac_id": 30526,
+      "arasaac_search_keyword": "cook",
+      "sha256": "61ff07287e61e5dc11f090d94a3ea6d713aaac01aadfbcc62fc2f311d0541b81"
+    },
+    {
+      "button_id": "btn_act_walk",
+      "english_label": "Walk",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/walk.png",
+      "arasaac_id": 29951,
+      "arasaac_search_keyword": "walk",
+      "sha256": "ca9b9af886c0ffa58948b3373ccd132cfb0ba6305970f69eeba1f2821c64c98b"
+    },
+    {
+      "button_id": "btn_act_sleep",
+      "english_label": "Sleep",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/arasaac/activities/sleep.png",
+      "arasaac_id": 6479,
+      "arasaac_search_keyword": "sleep",
+      "sha256": "4c24906b51e3723e983ca1428a84338044e8a3723141a229c66ef1f05ebe759c"
+    },
+    {
+      "button_id": "btn_body_head",
+      "english_label": "Head",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/head.png",
+      "arasaac_id": 2673,
+      "arasaac_search_keyword": "head",
+      "sha256": "24806146a694bfadc10df09fb371375f0785b18e194db18af9874a22f11ab957"
+    },
+    {
+      "button_id": "btn_body_hair",
+      "english_label": "Hair",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/hair.png",
+      "arasaac_id": 2851,
+      "arasaac_search_keyword": "hair",
+      "sha256": "1f4603f0efe102edd579d6f4c2a378423177d016029137a43ca3deb26ebdc2b3"
+    },
+    {
+      "button_id": "btn_body_eye",
+      "english_label": "Eye",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/eye.png",
+      "arasaac_id": 6573,
+      "arasaac_search_keyword": "eye",
+      "sha256": "401ad8a11d7cbc8e3bba0d47655742ba50deb181e63bb788ceaee12c3d45df82"
+    },
+    {
+      "button_id": "btn_body_ear",
+      "english_label": "Ear",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/ear.png",
+      "arasaac_id": 2871,
+      "arasaac_search_keyword": "ear",
+      "sha256": "31fac42af150aa6f5e1a6bcf1f9b79c28b84cc38e89bd9d99e1246cd2270865b"
+    },
+    {
+      "button_id": "btn_body_nose",
+      "english_label": "Nose",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/nose.png",
+      "arasaac_id": 2887,
+      "arasaac_search_keyword": "nose",
+      "sha256": "70acf2dad65716d2ad21fcf61110685edbdccf047ac4b93141ce0d61bc7d874f"
+    },
+    {
+      "button_id": "btn_body_mouth",
+      "english_label": "Mouth",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/mouth.png",
+      "arasaac_id": 2663,
+      "arasaac_search_keyword": "mouth",
+      "sha256": "5322b91ada032d434a0aa90e6b22c70512cd8a500ce09c1fbb4fa31513e068fa"
+    },
+    {
+      "button_id": "btn_body_teeth",
+      "english_label": "Teeth",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/teeth.png",
+      "arasaac_id": 2737,
+      "arasaac_search_keyword": "teeth",
+      "sha256": "a4b500b1d2af5ff18415a7422b48fe129ec38b5915b194b7751ac9e06e1ef73e"
+    },
+    {
+      "button_id": "btn_body_hand",
+      "english_label": "Hand",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/hand.png",
+      "arasaac_id": 2928,
+      "arasaac_search_keyword": "hand",
+      "sha256": "7ecee93ca6a4f1be40918fce7fcfb39e969a7d85800f150beb9eb68744d8314a"
+    },
+    {
+      "button_id": "btn_body_finger",
+      "english_label": "Finger",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/finger.png",
+      "arasaac_id": 3298,
+      "arasaac_search_keyword": "finger",
+      "sha256": "cf3e839a2b60e22eb744671670d457182eb288cb0ed6bdc71fac01b5f60c84ba"
+    },
+    {
+      "button_id": "btn_body_arm",
+      "english_label": "Arm",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/arm.png",
+      "arasaac_id": 2669,
+      "arasaac_search_keyword": "arm",
+      "sha256": "695e3565ce7d5a6aca88ddb7d37ac46091750d07c040b6a1ef23ae2dfce8859b"
+    },
+    {
+      "button_id": "btn_body_tummy",
+      "english_label": "Tummy",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/tummy.png",
+      "arasaac_id": 2786,
+      "arasaac_search_keyword": "tummy",
+      "sha256": "385964064aa77a8518ad30880824d906591efd681d696260f3c74456c19a28ac"
+    },
+    {
+      "button_id": "btn_body_back",
+      "english_label": "Back",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/back.png",
+      "arasaac_id": 2748,
+      "arasaac_search_keyword": "back",
+      "sha256": "bbdeb8317aab9c104759ce3861715d1b15458afe42ebd20bab0fc99d434d2077"
+    },
+    {
+      "button_id": "btn_body_leg",
+      "english_label": "Leg",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/leg.png",
+      "arasaac_id": 8666,
+      "arasaac_search_keyword": "leg",
+      "sha256": "a5033ddd33bd92fcd8ef39fb22aff915e84052222fbf7b3b20491649af868acf"
+    },
+    {
+      "button_id": "btn_body_knee",
+      "english_label": "Knee",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/knee.png",
+      "arasaac_id": 2810,
+      "arasaac_search_keyword": "knee",
+      "sha256": "50f31ca9e16dfa76bf7183887cab2566f607b4975e0e739586ca78ed1d840a80"
+    },
+    {
+      "button_id": "btn_body_foot",
+      "english_label": "Foot",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/foot.png",
+      "arasaac_id": 25327,
+      "arasaac_search_keyword": "foot",
+      "sha256": "c5ecfb92ed77e4c39230cb6eff651b62e553e4e3568015e3f10380e292a82e09"
+    },
+    {
+      "button_id": "btn_body_toe",
+      "english_label": "Toe",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/arasaac/body/toe.png",
+      "arasaac_id": 26035,
+      "arasaac_search_keyword": "toe",
+      "sha256": "7c31f6dd0d68fbbee39d3f95fee02242461ab78a754e8c6717c8dde2730ac445"
+    },
+    {
+      "button_id": "btn_feel_angry",
+      "english_label": "Angry",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/angry.png",
+      "arasaac_id": 35539,
+      "arasaac_search_keyword": "angry",
+      "sha256": "0eea9f14f955a3cccc7789dd02f1a2dca704f17bc9b3bc235304ce5904f7f55d"
+    },
+    {
+      "button_id": "btn_feel_excited",
+      "english_label": "Excited",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/excited.png",
+      "arasaac_id": 39090,
+      "arasaac_search_keyword": "excited",
+      "sha256": "8378163e6ca0ee74cf2bfd57fad611ac9a1f9995e62fd7d31ad4d558d9a504b6"
+    },
+    {
+      "button_id": "btn_feel_frustrated",
+      "english_label": "Frustrated",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/frustrated.png",
+      "arasaac_id": 21820,
+      "arasaac_search_keyword": "annoyed",
+      "sha256": "ae15806eb357d96b4e87446a604503410d78d0111907e78d6a6ea41f1b5b56fe"
+    },
+    {
+      "button_id": "btn_feel_calm",
+      "english_label": "Calm",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/calm.png",
+      "arasaac_id": 31310,
+      "arasaac_search_keyword": "calm",
+      "sha256": "67782c06a485d8bb4bbcc53e2abc326ecf9220b53bc8841e3d0f3ef17d30f641"
+    },
+    {
+      "button_id": "btn_feel_sick",
+      "english_label": "Sick",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/sick.png",
+      "arasaac_id": 7040,
+      "arasaac_search_keyword": "sick",
+      "sha256": "44baad7d2a0a5eb994ec7c1bb80f2162b4cb66230eb27ef369939825296e3b8e"
+    },
+    {
+      "button_id": "btn_feel_bored",
+      "english_label": "Bored",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/bored.png",
+      "arasaac_id": 35531,
+      "arasaac_search_keyword": "bored",
+      "sha256": "7e74e5798b7d417c810cd934f3450e007884a1761a8560054149d57d2c45eabf"
+    },
+    {
+      "button_id": "btn_feel_silly",
+      "english_label": "Silly",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/silly.png",
+      "arasaac_id": 15483,
+      "arasaac_search_keyword": "silly",
+      "sha256": "5fbf989e08dd86ced8fba1aa06eb5698d7fd754fe0f838bb1f9fa3661edbe434"
+    },
+    {
+      "button_id": "btn_feel_surprised",
+      "english_label": "Surprised",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/surprised.png",
+      "arasaac_id": 35529,
+      "arasaac_search_keyword": "surprised",
+      "sha256": "b045c49a0880a5177225b252f9725c4c21794d7aef0849ffa21e574ce01b10de"
+    },
+    {
+      "button_id": "btn_feel_proud",
+      "english_label": "Proud",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/proud.png",
+      "arasaac_id": 31408,
+      "arasaac_search_keyword": "proud",
+      "sha256": "93b902a06b27439d3d80a5e45c48a5c42c89d2b6c63ddd0e820a8136873a10ea"
+    },
+    {
+      "button_id": "btn_feel_nervous",
+      "english_label": "Nervous",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/nervous.png",
+      "arasaac_id": 30391,
+      "arasaac_search_keyword": "nervous",
+      "sha256": "fed434bef35fdeb0b32a99751080cd8d8f2491a5cc7e43309f63c04e72e60b0b"
+    },
+    {
+      "button_id": "btn_feel_lonely",
+      "english_label": "Lonely",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/lonely.png",
+      "arasaac_id": 7253,
+      "arasaac_search_keyword": "lonely",
+      "sha256": "97f4833ad6ef983421323837c91661a5602840a3f2f6c234210263c3b3d92f3f"
+    },
+    {
+      "button_id": "btn_feel_confused",
+      "english_label": "Confused",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/confused.png",
+      "arasaac_id": 2352,
+      "arasaac_search_keyword": "confused",
+      "sha256": "486fc9ede7165851b0d1b73919ff0355865f87504678826c061f0c00f147880d"
+    },
+    {
+      "button_id": "btn_feel_shy",
+      "english_label": "Shy",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/shy.png",
+      "arasaac_id": 8707,
+      "arasaac_search_keyword": "shy",
+      "sha256": "b5350cf895abb98241420434ba251f76b7bfcde7d3d4f42e9df0879117d46068"
+    },
+    {
+      "button_id": "btn_feel_worried",
+      "english_label": "Worried",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/worried.png",
+      "arasaac_id": 26985,
+      "arasaac_search_keyword": "worried",
+      "sha256": "022868485dc9d5e30be85cc900ae87c8998727a8259232fb6bde0f7c4a319bd4"
+    },
+    {
+      "button_id": "btn_feel_okay",
+      "english_label": "Okay",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/okay.png",
+      "arasaac_id": 31410,
+      "arasaac_search_keyword": "okay",
+      "sha256": "dea8f75aef22d227d09ad7fad4838dfb2aad8c0b56a74266331a889ea2713c72"
+    },
+    {
+      "button_id": "btn_feel_love",
+      "english_label": "Love",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/love.png",
+      "arasaac_id": 37721,
+      "arasaac_search_keyword": "love",
+      "sha256": "ae0208331b6dc503903a75d2f2614750646b85a8d05590197f1a99a8e06d1932"
+    },
+    {
+      "button_id": "btn_food_milk",
+      "english_label": "Milk",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/milk.png",
+      "arasaac_id": 2445,
+      "arasaac_search_keyword": "milk",
+      "sha256": "3e50234a9be4e348bbb1c606b8dd4e563eb42e488892d09cf2f9918c9eaeaa37"
+    },
+    {
+      "button_id": "btn_food_juice",
+      "english_label": "Juice",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/juice.png",
+      "arasaac_id": 11461,
+      "arasaac_search_keyword": "juice",
+      "sha256": "5a116cc851b9c43ea53c4959ce05a4b597430ff3319fe84af917dd238a18e2d3"
+    },
+    {
+      "button_id": "btn_food_apple",
+      "english_label": "Apple",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/apple.png",
+      "arasaac_id": 2462,
+      "arasaac_search_keyword": "apple",
+      "sha256": "508fea1ab93ce40a71d947c15df259233a2d8d62ea81492bb8ed013256239c4e"
+    },
+    {
+      "button_id": "btn_food_banana",
+      "english_label": "Banana",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/banana.png",
+      "arasaac_id": 2530,
+      "arasaac_search_keyword": "banana",
+      "sha256": "62020a6349b2fbd47a59927db90450bfe27d7d7844f161b92b905a647c55ad8c"
+    },
+    {
+      "button_id": "btn_food_cookie",
+      "english_label": "Cookie",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/cookie.png",
+      "arasaac_id": 8312,
+      "arasaac_search_keyword": "cookie",
+      "sha256": "fb5b7ae53d9edd5115824fccdd574a2ccad913f8a9d9b1a51951901e781cc76c"
+    },
+    {
+      "button_id": "btn_food_cracker",
+      "english_label": "Cracker",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/cracker.png",
+      "arasaac_id": 3331,
+      "arasaac_search_keyword": "cracker",
+      "sha256": "44a95684aed6de1d13246fd25f2d990a3d966229777b2868216d7eba62b6d9d5"
+    },
+    {
+      "button_id": "btn_food_bread",
+      "english_label": "Bread",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/bread.png",
+      "arasaac_id": 2494,
+      "arasaac_search_keyword": "bread",
+      "sha256": "72a6d963a1645b18ecb7b5faf51034219bfbf801ab7391f64bad4a38e641a45d"
+    },
+    {
+      "button_id": "btn_food_cheese",
+      "english_label": "Cheese",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/cheese.png",
+      "arasaac_id": 2541,
+      "arasaac_search_keyword": "cheese",
+      "sha256": "793e616b4dd692022d7f11d0138445c382379afaf85addc8bcfa3d4c56d444bc"
+    },
+    {
+      "button_id": "btn_food_yogurt",
+      "english_label": "Yogurt",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/yogurt.png",
+      "arasaac_id": 2618,
+      "arasaac_search_keyword": "yogurt",
+      "sha256": "c51f0baece3534fde2a6998a0380db8d4705b3491b16bc1c2bae7c1a82a09321"
+    },
+    {
+      "button_id": "btn_food_cereal",
+      "english_label": "Cereal",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/cereal.png",
+      "arasaac_id": 2328,
+      "arasaac_search_keyword": "cereal",
+      "sha256": "0e1361a915ea65d534c5775ef07690d20ee3bf3f10cd3f4fe5b3712fa72b7caa"
+    },
+    {
+      "button_id": "btn_food_pizza",
+      "english_label": "Pizza",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/pizza.png",
+      "arasaac_id": 2527,
+      "arasaac_search_keyword": "pizza",
+      "sha256": "dd2c5ccb9f917aa27cec61128c379ab974f7d583467714e6b1796b37df0b3a9f"
+    },
+    {
+      "button_id": "btn_food_chicken",
+      "english_label": "Chicken",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/chicken.png",
+      "arasaac_id": 4952,
+      "arasaac_search_keyword": "chicken",
+      "sha256": "7e79db5ed655edb19d7903d1c17a814da22fe8a25769be67d29e872f92e43374"
+    },
+    {
+      "button_id": "btn_food_rice",
+      "english_label": "Rice",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/rice.png",
+      "arasaac_id": 39387,
+      "arasaac_search_keyword": "rice",
+      "sha256": "50b9124c4a8dfbabf91703120d3c8c356e2e4e49fefd94a85f2388a57fc465ad"
+    },
+    {
+      "button_id": "btn_food_egg",
+      "english_label": "Egg",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/egg.png",
+      "arasaac_id": 7132,
+      "arasaac_search_keyword": "boiled egg",
+      "sha256": "07fd5f860f41d547dcf3c96d5c28f99247854f0f7fc94572235df6c14dbceb8d"
+    },
+    {
+      "button_id": "btn_food_grapes",
+      "english_label": "Grapes",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/grapes.png",
+      "arasaac_id": 3247,
+      "arasaac_search_keyword": "grapes",
+      "sha256": "cb44fcd5bb4b292c6a4d6f19ee6dd35effaf456bd6844d9b676e486e31fec13c"
+    },
+    {
+      "button_id": "btn_food_ice_cream",
+      "english_label": "Ice cream",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/ice_cream.png",
+      "arasaac_id": 11382,
+      "arasaac_search_keyword": "ice cream tub",
+      "sha256": "17565f087831ccb6b3e3fcc3dff665ae70117f7ed756aa661d532c7b669d93cd"
+    },
+    {
+      "button_id": "btn_people_grandma",
+      "english_label": "Grandma",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/grandma.png",
+      "arasaac_id": 23710,
+      "arasaac_search_keyword": "grandma",
+      "sha256": "65bbe906ce8b0d3b215b11db5c352de8f95056865164c60d129a8e9a5a2ee041"
+    },
+    {
+      "button_id": "btn_people_grandpa",
+      "english_label": "Grandpa",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/grandpa.png",
+      "arasaac_id": 23718,
+      "arasaac_search_keyword": "grandpa",
+      "sha256": "1780bddb7f958fba30b437c3bc63dd704219c4061cbe096c9298acd9981fa3f7"
+    },
+    {
+      "button_id": "btn_people_sister",
+      "english_label": "Sister",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/sister.png",
+      "arasaac_id": 2422,
+      "arasaac_search_keyword": "sister",
+      "sha256": "99b92f89a483fa3ea8b7a5bdd177e5c04d323f5f096a6b327ee380cab34dc03d"
+    },
+    {
+      "button_id": "btn_people_brother",
+      "english_label": "Brother",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/brother.png",
+      "arasaac_id": 2423,
+      "arasaac_search_keyword": "brother",
+      "sha256": "3668f61661f40ae6ffcd49748b419778a4e314ed41943d93e239b76a3290b207"
+    },
+    {
+      "button_id": "btn_people_baby",
+      "english_label": "Baby",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/baby.png",
+      "arasaac_id": 6060,
+      "arasaac_search_keyword": "baby",
+      "sha256": "2a7bdadeb3e9d6ae2f83c506355367ead0f7fbea11da2427424cb77c793fe5a3"
+    },
+    {
+      "button_id": "btn_people_friend",
+      "english_label": "Friend",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/friend.png",
+      "arasaac_id": 25790,
+      "arasaac_search_keyword": "friend",
+      "sha256": "a16b515d4bd4d137d328fac5fe19de16121ca64f5464bd7b5264524fe83e682b"
+    },
+    {
+      "button_id": "btn_people_teacher",
+      "english_label": "Teacher",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/teacher.png",
+      "arasaac_id": 6556,
+      "arasaac_search_keyword": "teacher",
+      "sha256": "f96d26242c338004d40cf156fd8ff627a17962fe40fe06619b266beda387d42d"
+    },
+    {
+      "button_id": "btn_people_nurse",
+      "english_label": "Nurse",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/nurse.png",
+      "arasaac_id": 31390,
+      "arasaac_search_keyword": "nurse",
+      "sha256": "d0722c4f48bcf9814f4e1b074b5826305d684f263617b7cfc23c8e465c07e373"
+    },
+    {
+      "button_id": "btn_people_boy",
+      "english_label": "Boy",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/boy.png",
+      "arasaac_id": 7176,
+      "arasaac_search_keyword": "boy",
+      "sha256": "3764de4461241bc2fa9c553404d1492185262595ef3b8e3d1dd9626f2a7c314e"
+    },
+    {
+      "button_id": "btn_people_girl",
+      "english_label": "Girl",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/girl.png",
+      "arasaac_id": 27509,
+      "arasaac_search_keyword": "girl",
+      "sha256": "86c8b2f517423887c883fd86006e51278af34a2b1c77edf5a29d8cca970675f6"
+    },
+    {
+      "button_id": "btn_people_aunt",
+      "english_label": "Aunt",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/aunt.png",
+      "arasaac_id": 30271,
+      "arasaac_search_keyword": "aunt",
+      "sha256": "614917a0ecad887e5880cc9b1b4f1ff3a26f249c1b50b4aedf655d250bade83c"
+    },
+    {
+      "button_id": "btn_people_uncle",
+      "english_label": "Uncle",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/uncle.png",
+      "arasaac_id": 30255,
+      "arasaac_search_keyword": "uncle",
+      "sha256": "f33635dead613d7fa8f6acfdb25d7bacb334815040618d465f1647d92842a89e"
+    },
+    {
+      "button_id": "btn_people_family",
+      "english_label": "Family",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/family.png",
+      "arasaac_id": 38351,
+      "arasaac_search_keyword": "family",
+      "sha256": "a23d619a95843b3169a7e8b7a824668d746627d423986a21305e451b8bc2b684"
+    },
+    {
+      "button_id": "btn_people_doctor",
+      "english_label": "Doctor",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/doctor.png",
+      "arasaac_id": 6561,
+      "arasaac_search_keyword": "doctor",
+      "sha256": "7815b3fc2182a59b4e8de98f73704cad34be3e062bc398fff925eb40b5f1fc11"
+    },
+    {
+      "button_id": "btn_people_neighbor",
+      "english_label": "Neighbor",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/neighbor.png",
+      "arasaac_id": 37228,
+      "arasaac_search_keyword": "neighbor",
+      "sha256": "d56350f4db460e26a8e9df860ddd28b7d165fe52b2429fa34a3095b67447bf47"
+    },
+    {
+      "button_id": "btn_places_park",
+      "english_label": "Park",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/park.png",
+      "arasaac_id": 28263,
+      "arasaac_search_keyword": "park",
+      "sha256": "0349ecce95f9b9bee3431957c6b93a6d730b266a69ae2c0542484f807a0e88be"
+    },
+    {
+      "button_id": "btn_places_store",
+      "english_label": "Store",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/store.png",
+      "arasaac_id": 35695,
+      "arasaac_search_keyword": "store",
+      "sha256": "5912a6283315a464bda9715649ee674763ca8f5daf154aae8e8fd5633b6035ff"
+    },
+    {
+      "button_id": "btn_places_restaurant",
+      "english_label": "Restaurant",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/restaurant.png",
+      "arasaac_id": 32408,
+      "arasaac_search_keyword": "restaurant",
+      "sha256": "39918f3db0b2e4940a91a76a2708635c8dd23e393745652a85854d3f9eec06ad"
+    },
+    {
+      "button_id": "btn_places_doctor",
+      "english_label": "Doctor's office",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/doctor.png",
+      "arasaac_id": 3116,
+      "arasaac_search_keyword": "doctor's",
+      "sha256": "d6f86997d9ed4680a585f8f28f3d05b1f4795f6e9a7041a272b16336c2a5ca73"
+    },
+    {
+      "button_id": "btn_places_hospital",
+      "english_label": "Hospital",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/hospital.png",
+      "arasaac_id": 36210,
+      "arasaac_search_keyword": "hospital",
+      "sha256": "9c3d7cb9c615bb750f7d4eb7c4210e8ba7b089a96d8d3989b62ad72ec168e7df"
+    },
+    {
+      "button_id": "btn_places_playground",
+      "english_label": "Playground",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/playground.png",
+      "arasaac_id": 33064,
+      "arasaac_search_keyword": "playground",
+      "sha256": "a4c9f83db02f02061fe1187e803b9407110c15ab78041c936eb4ed001498f40f"
+    },
+    {
+      "button_id": "btn_places_beach",
+      "english_label": "Beach",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/beach.png",
+      "arasaac_id": 30518,
+      "arasaac_search_keyword": "beach",
+      "sha256": "9998687dd593d5b921cab0573f9d14941ec609df5559f6f62b5ae8f45e80f12f"
+    },
+    {
+      "button_id": "btn_places_library",
+      "english_label": "Library",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/library.png",
+      "arasaac_id": 6063,
+      "arasaac_search_keyword": "library",
+      "sha256": "79d8ed307d1bb8208b9acd5655d899907ea8a2d1ca1762a537a0964179e1c78c"
+    },
+    {
+      "button_id": "btn_places_bus",
+      "english_label": "Bus",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/bus.png",
+      "arasaac_id": 2262,
+      "arasaac_search_keyword": "bus",
+      "sha256": "87ee263f62052f6f07d3fa3895195f690f893a34154f45ce9c53b2e1c2211635"
+    },
+    {
+      "button_id": "btn_places_zoo",
+      "english_label": "Zoo",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/zoo.png",
+      "arasaac_id": 4773,
+      "arasaac_search_keyword": "zoo",
+      "sha256": "75e594a575a1f39c33ececf6b1ce2ea46b7f23f9503376596aaed5b374e197fb"
+    },
+    {
+      "button_id": "btn_places_pool",
+      "english_label": "Pool",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/pool.png",
+      "arasaac_id": 30516,
+      "arasaac_search_keyword": "pool",
+      "sha256": "d874e3b7c02e9b16fb981e181de421bed25f974f1e4e4351aa389f6906eacd1d"
+    },
+    {
+      "button_id": "btn_places_kitchen",
+      "english_label": "Kitchen",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/kitchen.png",
+      "arasaac_id": 33070,
+      "arasaac_search_keyword": "kitchen",
+      "sha256": "d8c1256a412a3ce88b6a32f97462b5ca0101ca30c4c981440d87ae14a18725a7"
+    },
+    {
+      "button_id": "btn_places_bedroom",
+      "english_label": "Bedroom",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/bedroom.png",
+      "arasaac_id": 5988,
+      "arasaac_search_keyword": "bedroom",
+      "sha256": "dcb0913acb052932bb5dc3a45532b9908d6d53a8c1230b1ccc838b32f269ef46"
+    },
+    {
+      "button_id": "btn_places_church",
+      "english_label": "Church",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/church.png",
+      "arasaac_id": 3118,
+      "arasaac_search_keyword": "church",
+      "sha256": "e3eeeab80363d246160fa63dbe1f966a983a7fbb0c79076bbdb79a51af6ce75a"
+    },
+    {
+      "button_id": "btn_places_gym",
+      "english_label": "Gym",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/gym.png",
+      "arasaac_id": 36397,
+      "arasaac_search_keyword": "gym",
+      "sha256": "ba3f78c04bb516b146f4f35999f9186107046f979c766ceb4c774d85633edab5"
+    },
+    {
+      "button_id": "btn_things_ball",
+      "english_label": "Ball",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/ball.png",
+      "arasaac_id": 3241,
+      "arasaac_search_keyword": "ball",
+      "sha256": "c1c71140027cbcdc3d803ce4d8ee1b21a06319bc7bc5bb0c77c16f09611e4d3a"
+    },
+    {
+      "button_id": "btn_things_book",
+      "english_label": "Book",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/book.png",
+      "arasaac_id": 25191,
+      "arasaac_search_keyword": "book",
+      "sha256": "cb62c039cacbc132cbadf5604bd84510008e0a8bdb083e4fb06c3fdad19df18e"
+    },
+    {
+      "button_id": "btn_things_toy",
+      "english_label": "Toy",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/toy.png",
+      "arasaac_id": 9813,
+      "arasaac_search_keyword": "toy",
+      "sha256": "df87bb5b034754ac44654108bdd78a2c37a29984d642ef7db9f6d7d10a23236c"
+    },
+    {
+      "button_id": "btn_things_blocks",
+      "english_label": "Blocks",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/blocks.png",
+      "arasaac_id": 4935,
+      "arasaac_search_keyword": "blocks",
+      "sha256": "3771316da13fc77e07f0359eddf05dff0f8eec90d174dfc2b2fca8d285f0d88c"
+    },
+    {
+      "button_id": "btn_things_doll",
+      "english_label": "Doll",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/doll.png",
+      "arasaac_id": 26238,
+      "arasaac_search_keyword": "doll",
+      "sha256": "b87271bba4fd04e846e930f540834ddc8866fe7a7171aa7e9544fc01002fbca4"
+    },
+    {
+      "button_id": "btn_things_car",
+      "english_label": "Car",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/car.png",
+      "arasaac_id": 2339,
+      "arasaac_search_keyword": "car",
+      "sha256": "c0a5624f861146b526ff105b52af3ef20ae5a0c9ea892807885cd8484a630730"
+    },
+    {
+      "button_id": "btn_things_phone",
+      "english_label": "Phone",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/phone.png",
+      "arasaac_id": 26479,
+      "arasaac_search_keyword": "phone",
+      "sha256": "a5d78ee25c64262769cf459f6fa6c2dcd6c215bae714ae840e15125a0f78ec68"
+    },
+    {
+      "button_id": "btn_things_tablet",
+      "english_label": "Tablet",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/tablet.png",
+      "arasaac_id": 28099,
+      "arasaac_search_keyword": "tablet",
+      "sha256": "2c6884fdedc3007a3db8ba6d5998dbb33549294b7521485e44fbf609e36b11fc"
+    },
+    {
+      "button_id": "btn_things_tv",
+      "english_label": "TV",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/tv.png",
+      "arasaac_id": 25498,
+      "arasaac_search_keyword": "tv",
+      "sha256": "13cdbb47900c515909ced5d87ca873823f46eeae464c6c9be8ebbb5675e16471"
+    },
+    {
+      "button_id": "btn_things_blanket",
+      "english_label": "Blanket",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/blanket.png",
+      "arasaac_id": 2459,
+      "arasaac_search_keyword": "blanket",
+      "sha256": "4eba1811392653a6996f0923f11e347cba64d270ffba86ad5867c9e933bc81f6"
+    },
+    {
+      "button_id": "btn_things_cup",
+      "english_label": "Cup",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/cup.png",
+      "arasaac_id": 2582,
+      "arasaac_search_keyword": "cup",
+      "sha256": "db7f51ce3c6014a727fb2de9adffd810dfa20fd86fa3711d5693690c03d716ed"
+    },
+    {
+      "button_id": "btn_things_spoon",
+      "english_label": "Spoon",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/spoon.png",
+      "arasaac_id": 2362,
+      "arasaac_search_keyword": "spoon",
+      "sha256": "3dc1b9cbdd0205ae7a2666320e1530c63e1d7e5bb9cece3dea08f5b6dbc2a6c3"
+    },
+    {
+      "button_id": "btn_things_shoes",
+      "english_label": "Shoes",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/shoes.png",
+      "arasaac_id": 2622,
+      "arasaac_search_keyword": "shoes",
+      "sha256": "6b762d8c28a3228a998a4534475c76372043b2037d43236edc5a0b139c2aa2a7"
+    },
+    {
+      "button_id": "btn_things_hat",
+      "english_label": "Hat",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/hat.png",
+      "arasaac_id": 2572,
+      "arasaac_search_keyword": "hat",
+      "sha256": "7ccd698eebf55edf938e86880c082fe88ff5496ff13c7542984e34612fed2f8d"
+    },
+    {
+      "button_id": "btn_things_crayon",
+      "english_label": "Crayon",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/crayon.png",
+      "arasaac_id": 4951,
+      "arasaac_search_keyword": "crayons",
+      "sha256": "78dbfd7bce3350f3fae6c2c8e9d9d1169588293e8ab7e6b0408fd52f89058aa1"
+    },
+    {
+      "button_id": "btn_things_bubbles",
+      "english_label": "Bubbles",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/arasaac/things/bubbles.png",
+      "arasaac_id": 6945,
+      "arasaac_search_keyword": "bubbles",
+      "sha256": "7ecea80a0df39152f40e46c599a0b17814fa7ce42b88de34be3dee1617ef6e80"
+    },
+    {
+      "button_id": "btn_time_now",
+      "english_label": "Now",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/now.png",
+      "arasaac_id": 32747,
+      "arasaac_search_keyword": "now",
+      "sha256": "18ef174b4877bea8ea45200211785c10c7ce21bfc5362c0deb2a881b56f09e6a"
+    },
+    {
+      "button_id": "btn_time_later",
+      "english_label": "Later",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/later.png",
+      "arasaac_id": 32749,
+      "arasaac_search_keyword": "later",
+      "sha256": "c62ad3968325e57bf8829c1ff4f358ff51677f543e903ae2e1827679d363b5a4"
+    },
+    {
+      "button_id": "btn_time_today",
+      "english_label": "Today",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/today.png",
+      "arasaac_id": 7131,
+      "arasaac_search_keyword": "today",
+      "sha256": "616f05fce93b3935a6e68dfca943b38c7551574bfda30e55b229927a903cbe65"
+    },
+    {
+      "button_id": "btn_time_tomorrow",
+      "english_label": "Tomorrow",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/tomorrow.png",
+      "arasaac_id": 38278,
+      "arasaac_search_keyword": "tomorrow",
+      "sha256": "7de4d77843f674b497712377d9a13137a5fc3ea9d6fcb3ffd0ff7b44ad077fee"
+    },
+    {
+      "button_id": "btn_time_yesterday",
+      "english_label": "Yesterday",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/yesterday.png",
+      "arasaac_id": 38279,
+      "arasaac_search_keyword": "yesterday",
+      "sha256": "7eb467557c6e5a584f004c8ffcf13408982169595035a179af1655612a181a3b"
+    },
+    {
+      "button_id": "btn_time_morning",
+      "english_label": "Morning",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/morning.png",
+      "arasaac_id": 25704,
+      "arasaac_search_keyword": "morning",
+      "sha256": "79092071f730a20bc88d2524f7474539d0dd231e81ef28f98a497e52ed938777"
+    },
+    {
+      "button_id": "btn_time_afternoon",
+      "english_label": "Afternoon",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/afternoon.png",
+      "arasaac_id": 7268,
+      "arasaac_search_keyword": "afternoon",
+      "sha256": "3447a0630137d8582ec1c86b9d0f6be343cf94d8c7ccb7aa16dc1cdc4aa3aa08"
+    },
+    {
+      "button_id": "btn_time_night",
+      "english_label": "Night",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/night.png",
+      "arasaac_id": 26997,
+      "arasaac_search_keyword": "night",
+      "sha256": "c4e0e4c66acb568187b2368e61e1c5d85d2cfef8d9bb09ca60d2e8a8e59138fa"
+    },
+    {
+      "button_id": "btn_time_before",
+      "english_label": "Before",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/before.png",
+      "arasaac_id": 32745,
+      "arasaac_search_keyword": "before",
+      "sha256": "2f12c4b3721e09dad7436c03ca362be6f8249901b8794d0d0602dd70a01a28bf"
+    },
+    {
+      "button_id": "btn_time_day",
+      "english_label": "Day",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/day.png",
+      "arasaac_id": 37731,
+      "arasaac_search_keyword": "day",
+      "sha256": "a0d382583f3b6c069784e3ce41a945a7d5a12006d309b1db9d518071bdaedf2d"
+    },
+    {
+      "button_id": "btn_time_week",
+      "english_label": "Week",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/week.png",
+      "arasaac_id": 37732,
+      "arasaac_search_keyword": "week",
+      "sha256": "95d375f6732252b151e28b2333620ba2c161e606609d5e915dd09d2a84516944"
+    },
+    {
+      "button_id": "btn_time_weekend",
+      "english_label": "Weekend",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/weekend.png",
+      "arasaac_id": 37371,
+      "arasaac_search_keyword": "weekend",
+      "sha256": "da68a2d49e7cb0bc494e88fc2005e8b8e9820a6f2b01379189fff50e0e2ebcda"
+    },
+    {
+      "button_id": "btn_time_minute",
+      "english_label": "Minute",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/minute.png",
+      "arasaac_id": 37374,
+      "arasaac_search_keyword": "minute",
+      "sha256": "d1235b31ef09edc05d571eb0cae6a52c57a2186198c275bd2ebe17ca0a8e9bbc"
+    },
+    {
+      "button_id": "btn_time_late",
+      "english_label": "Late",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/arasaac/time/late.png",
+      "arasaac_id": 37780,
+      "arasaac_search_keyword": "late",
+      "sha256": "a6725928408cc7f6fe7a64452e8c4622e3fb6950cc6a268daea4ae6e91c1e641"
+    },
+    {
+      "button_id": "btn_i",
+      "english_label": "I",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/arasaac/pronouns/i.png",
+      "arasaac_id": 6632,
+      "arasaac_search_keyword": "I",
+      "sha256": "7448f1c21a0b3d896a7fd27b44c40b86226cffe50c64e859d09c8ee4dd017e5e"
+    },
+    {
+      "button_id": "btn_you",
+      "english_label": "You",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/arasaac/pronouns/you.png",
+      "arasaac_id": 6625,
+      "arasaac_search_keyword": "you",
+      "sha256": "9fda1179b74f24e95d555314cd0f58717d7dd4c6acd35c686586b4336ff0e358"
+    },
+    {
+      "button_id": "btn_want",
+      "english_label": "Want",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/want.png",
+      "arasaac_id": 5441,
+      "arasaac_search_keyword": "want",
+      "sha256": "8f2083fa7a4dd65aa8c4e12d56aa20b8966d62ba3ea3f293fee2b6745788714f"
+    },
+    {
+      "button_id": "btn_need",
+      "english_label": "Need",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/need.png",
+      "arasaac_id": 37160,
+      "arasaac_search_keyword": "need",
+      "sha256": "799574d53e20cd182be396dd72644ed8de48f091a49858532a3fdecff9bab873"
+    },
+    {
+      "button_id": "btn_like",
+      "english_label": "Like",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/like.png",
+      "arasaac_id": 37826,
+      "arasaac_search_keyword": "like",
+      "sha256": "8f2216082e05e8ec97d9846641500d183c9c03a062ca46889a8adb0cb77ab2e1"
+    },
+    {
+      "button_id": "btn_help",
+      "english_label": "Help",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/help.png",
+      "arasaac_id": 32648,
+      "arasaac_search_keyword": "help",
+      "sha256": "487daa686481eb42a3ad32abe06c9d1369088a8172aedf9d60a74293da99899b"
+    },
+    {
+      "button_id": "btn_stop",
+      "english_label": "Stop",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/stop.png",
+      "arasaac_id": 7196,
+      "arasaac_search_keyword": "stop",
+      "sha256": "50e52f6090975cd5679a11454380d34f4097b2df1d81cb99c763f4c99c955070"
+    },
+    {
+      "button_id": "btn_more",
+      "english_label": "More",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/arasaac/modifiers/more.png",
+      "arasaac_id": 5508,
+      "arasaac_search_keyword": "more",
+      "sha256": "3e93eae0d1828846b1781f74b0402b6bc4935bab54b2059651311345643f35f8"
+    },
+    {
+      "button_id": "btn_go",
+      "english_label": "Go",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/go.png",
+      "arasaac_id": 8142,
+      "arasaac_search_keyword": "go",
+      "sha256": "4111e7759b268ba81bca212404fe486fa54fa5492c6ef400f75f29efa7cd464c"
+    },
+    {
+      "button_id": "btn_get",
+      "english_label": "Get",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/get.png",
+      "arasaac_id": 24208,
+      "arasaac_search_keyword": "get",
+      "sha256": "4518e2fef8e3d3fa74347646268f9efc35820e948d2e1b671c8a0111409be516"
+    },
+    {
+      "button_id": "btn_make",
+      "english_label": "Make",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/make.png",
+      "arasaac_id": 32751,
+      "arasaac_search_keyword": "make",
+      "sha256": "deabb6a317ddd4148682ae24e9897ae0cce3835d945f2074c792e3471c41d26b"
+    },
+    {
+      "button_id": "btn_look",
+      "english_label": "Look",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/look.png",
+      "arasaac_id": 6564,
+      "arasaac_search_keyword": "look",
+      "sha256": "3aced032c5e456917dc67836dd63aa15af5b64a402695277247b8636672204e8"
+    },
+    {
+      "button_id": "btn_play",
+      "english_label": "Play",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/play.png",
+      "arasaac_id": 23392,
+      "arasaac_search_keyword": "play",
+      "sha256": "0c54d416213cef5c3cbea839b455c2a793b4fa4267810ca8260e1de5c5072c54"
+    },
+    {
+      "button_id": "btn_eat",
+      "english_label": "Eat",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/eat.png",
+      "arasaac_id": 6456,
+      "arasaac_search_keyword": "eat",
+      "sha256": "2afb3eb5e39390b3e1de0624f6a6b126d084c722f5fbcdbde4f690bd2a0c274d"
+    },
+    {
+      "button_id": "btn_drink",
+      "english_label": "Drink",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/drink.png",
+      "arasaac_id": 6061,
+      "arasaac_search_keyword": "drink",
+      "sha256": "59b0ad53ec5b175f0ee8c47601cda95f375f715293adb91fbae3056fc727ebf1"
+    },
+    {
+      "button_id": "btn_open",
+      "english_label": "Open",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/arasaac/verbs/open.png",
+      "arasaac_id": 24825,
+      "arasaac_search_keyword": "open",
+      "sha256": "1d798380c0a31257e94b5df2e46b11d4e24931d17755245b578ade2c7415dcfe"
+    },
+    {
+      "button_id": "btn_yes",
+      "english_label": "Yes",
+      "fitzgerald_category": "response",
+      "icon_uri": "assets/arasaac/responses/yes.png",
+      "arasaac_id": 5584,
+      "arasaac_search_keyword": "yes",
+      "sha256": "d4282268084c516cb0eb9932c0e0b9e1149f3d891f500ae4f898b2ed306bd65d"
+    },
+    {
+      "button_id": "btn_no",
+      "english_label": "No",
+      "fitzgerald_category": "response",
+      "icon_uri": "assets/arasaac/responses/no.png",
+      "arasaac_id": 5526,
+      "arasaac_search_keyword": "no",
+      "sha256": "a0fb73bbae892b0ee64710a19c21cbf13d163e2db9dd3fedc43702ffc28c0499"
+    },
+    {
+      "button_id": "btn_break",
+      "english_label": "Break",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/break.png",
+      "arasaac_id": 16643,
+      "arasaac_search_keyword": "break",
+      "sha256": "0f219c6d7c1e454bd5740c9bea7042ab485d6e4059ca30dd7c844b188097c1eb"
+    },
+    {
+      "button_id": "btn_thankyou",
+      "english_label": "Thank you",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/arasaac/social/thank_you.png",
+      "arasaac_id": 8129,
+      "arasaac_search_keyword": "thank you",
+      "sha256": "ec5ae27afa7cac9a43a9939280ce195940351c496c4a52adadee50913bf55087"
+    },
+    {
+      "button_id": "btn_please",
+      "english_label": "Please",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/arasaac/social/please.png",
+      "arasaac_id": 8195,
+      "arasaac_search_keyword": "please",
+      "sha256": "18f578be77d4865b819e306374bcc556e281d8b4d2c25ab05f45f7e48678c95f"
+    },
+    {
+      "button_id": "btn_sorry",
+      "english_label": "Sorry",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/arasaac/social/sorry.png",
+      "arasaac_id": 11625,
+      "arasaac_search_keyword": "sorry",
+      "sha256": "cad9ce2e918cabcefe3485f022ba0b97aafce6ca5a7a7bcc5e9f702a1a7dbd81"
+    },
+    {
+      "button_id": "btn_good",
+      "english_label": "Good",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/good.png",
+      "arasaac_id": 4581,
+      "arasaac_search_keyword": "good",
+      "sha256": "0d35e4193d398456778f27179d795e0fa6294647e60ebfc47cb8b48e6d37e67e"
+    },
+    {
+      "button_id": "btn_bad",
+      "english_label": "Bad",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/bad.png",
+      "arasaac_id": 5504,
+      "arasaac_search_keyword": "bad",
+      "sha256": "14a2696405e83f5ffcacf93184c294188bc4b950d07923ffe72fb6cf7f84f424"
+    },
+    {
+      "button_id": "btn_bathroom",
+      "english_label": "Bathroom",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/bathroom.png",
+      "arasaac_id": 5921,
+      "arasaac_search_keyword": "toilet",
+      "sha256": "56ed7bb792535c895694da2bf1892f0874b00fb601bf2520e4db30c5f2e5ebe6"
+    },
+    {
+      "button_id": "btn_water",
+      "english_label": "Water",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/arasaac/food/water.png",
+      "arasaac_id": 32464,
+      "arasaac_search_keyword": "water",
+      "sha256": "b91cb949e355825afe0d1a59d81ec85fae22b0fcf1b12b7505947a766f5041ae"
+    },
+    {
+      "button_id": "btn_hungry",
+      "english_label": "Hungry",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/hungry.png",
+      "arasaac_id": 4962,
+      "arasaac_search_keyword": "hungry",
+      "sha256": "bc784f539f29d78900eed466f43aed8b6e91a636e97fae4771185d1d3cde8e57"
+    },
+    {
+      "button_id": "btn_tired",
+      "english_label": "Tired",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/tired.png",
+      "arasaac_id": 35537,
+      "arasaac_search_keyword": "tired",
+      "sha256": "9456ef0118a340de3d5a39a8027e3300f635b8e56bcbde94e8bb06a316fdcc3e"
+    },
+    {
+      "button_id": "btn_hurt",
+      "english_label": "Hurt",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/hurt.png",
+      "arasaac_id": 2367,
+      "arasaac_search_keyword": "pain",
+      "sha256": "7fea009fb44234daff77d3310116684257d85974a47215889e816cb9e3c22b3f"
+    },
+    {
+      "button_id": "btn_scared",
+      "english_label": "Scared",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/scared.png",
+      "arasaac_id": 35535,
+      "arasaac_search_keyword": "scared",
+      "sha256": "d7913a30f39fe4d3779bd9cc895865ec66f4a61b5bfc999f1641bb0703c61fe6"
+    },
+    {
+      "button_id": "btn_happy",
+      "english_label": "Happy",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/happy.png",
+      "arasaac_id": 35533,
+      "arasaac_search_keyword": "happy",
+      "sha256": "e0c9c290d998859e7095a4fd49e55dae6246f93d4eae7d90ae1b33fd0406ffbc"
+    },
+    {
+      "button_id": "btn_sad",
+      "english_label": "Sad",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/arasaac/feelings/sad.png",
+      "arasaac_id": 35545,
+      "arasaac_search_keyword": "sad",
+      "sha256": "49ebf3fe0a22afa78d89fb6ac20a6ecd64e217ed5950252a71af37d5efae1677"
+    },
+    {
+      "button_id": "btn_food_folder",
+      "english_label": "Food",
+      "fitzgerald_category": "food_nav",
+      "icon_uri": "assets/arasaac/folders/food.png",
+      "arasaac_id": 4610,
+      "arasaac_search_keyword": "food",
+      "sha256": "6b6c7452012a4b458ef5364026ad95817ccbd0caf9ebf63144112d30ba7a62a1"
+    },
+    {
+      "button_id": "btn_places_folder",
+      "english_label": "Places",
+      "fitzgerald_category": "places_nav",
+      "icon_uri": "assets/arasaac/folders/places.png",
+      "arasaac_id": 32757,
+      "arasaac_search_keyword": "place",
+      "sha256": "1c5bc8e01293f79b4d40b28ae34ddbf37a43a16f8c9e900cd7015c34a2e141b7"
+    },
+    {
+      "button_id": "btn_people_folder",
+      "english_label": "People",
+      "fitzgerald_category": "people_nav",
+      "icon_uri": "assets/arasaac/folders/people.png",
+      "arasaac_id": 7116,
+      "arasaac_search_keyword": "people",
+      "sha256": "99f3bbc34179cb390cd615a830489cba76c2c42e384afd3e7d68876456385342"
+    },
+    {
+      "button_id": "btn_activities_folder",
+      "english_label": "Activities",
+      "fitzgerald_category": "activities_nav",
+      "icon_uri": "assets/arasaac/folders/activities.png",
+      "arasaac_id": 8008,
+      "arasaac_search_keyword": "activity",
+      "sha256": "8243556d4d9d726367227551c0e224a4711ab4a593f76baaeaa054beb5e8072b"
+    },
+    {
+      "button_id": "btn_things_folder",
+      "english_label": "Things",
+      "fitzgerald_category": "things_nav",
+      "icon_uri": "assets/arasaac/folders/things.png",
+      "arasaac_id": 11318,
+      "arasaac_search_keyword": "object",
+      "sha256": "be0c396e996fc7bf371a0e01b383a7915fa0813f38a2f8259116ef0445e0fffb"
+    },
+    {
+      "button_id": "btn_feelings_folder",
+      "english_label": "Feelings",
+      "fitzgerald_category": "feelings_nav",
+      "icon_uri": "assets/arasaac/folders/feelings.png",
+      "arasaac_id": 2245,
+      "arasaac_search_keyword": "emotion",
+      "sha256": "a452a2b09572b79c020e0cb517d07d6bdaac21c8736af38c3e11037839403d8d"
+    },
+    {
+      "button_id": "btn_time_folder",
+      "english_label": "Time",
+      "fitzgerald_category": "time_nav",
+      "icon_uri": "assets/arasaac/folders/time.png",
+      "arasaac_id": 22631,
+      "arasaac_search_keyword": "time",
+      "sha256": "362d50fd267233b00f162f1c69212e8bba3c3080ed9dc0ff96c6dbf21263547b"
+    },
+    {
+      "button_id": "btn_mom",
+      "english_label": "Mom",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/mom.png",
+      "arasaac_id": 2458,
+      "arasaac_search_keyword": "mom",
+      "sha256": "d3fe29783cb519d8d976ec5e08fdf8d546ea946011d15d9a1c108a0ed7221b23"
+    },
+    {
+      "button_id": "btn_dad",
+      "english_label": "Dad",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/arasaac/people/dad.png",
+      "arasaac_id": 31146,
+      "arasaac_search_keyword": "dad",
+      "sha256": "9f3650b5b02b4704f6e2e90833eca73bfc61a9479139db349591e555c9512ddc"
+    },
+    {
+      "button_id": "btn_home",
+      "english_label": "Home",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/home.png",
+      "arasaac_id": 6964,
+      "arasaac_search_keyword": "home",
+      "sha256": "54d6de8a2fd57650bd0d95ebfdf7e2752dbc6ff334e829111c36e43ee744d7dd"
+    },
+    {
+      "button_id": "btn_school",
+      "english_label": "School",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/school.png",
+      "arasaac_id": 32446,
+      "arasaac_search_keyword": "school",
+      "sha256": "09f3f3511ebc56fb3e810810eeeed8e8b52ddcaf0aaa77d13bf5ce12635ce617"
+    },
+    {
+      "button_id": "btn_outside",
+      "english_label": "Outside",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/arasaac/places/outside.png",
+      "arasaac_id": 5475,
+      "arasaac_search_keyword": "outside",
+      "sha256": "31ec29f1570781abe828f21ade2f15fb724480e04468b619c298a99bfc4d41d3"
+    },
+    {
+      "button_id": "btn_wait",
+      "english_label": "Wait",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/wait.png",
+      "arasaac_id": 36914,
+      "arasaac_search_keyword": "wait",
+      "sha256": "13b34be2d32bf2bfd3ecdb5397518adb752135c094e1eb435da8a262d41c70ca"
+    },
+    {
+      "button_id": "btn_again",
+      "english_label": "Again",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/arasaac/modifiers/again.png",
+      "arasaac_id": 37163,
+      "arasaac_search_keyword": "again",
+      "sha256": "1d505e4076e69ae0c99021e944e8b950ed0828a3de302022fcffd00e7e873d30"
+    },
+    {
+      "button_id": "btn_all_done",
+      "english_label": "All Done",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/arasaac/needs/all_done.png",
+      "arasaac_id": 28429,
+      "arasaac_search_keyword": "finished",
+      "sha256": "c65ff26cf7844b99cd4b9965f26e930b87185fb31811dca20f7dd17c275903e5"
+    },
+    {
+      "button_id": "btn_what",
+      "english_label": "What",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/what.png",
+      "arasaac_id": 22620,
+      "arasaac_search_keyword": "what",
+      "sha256": "9cd8598a5ea2053138839a5d887b8b20179c6a776181a27c57f3b607f0073d19"
+    },
+    {
+      "button_id": "btn_where",
+      "english_label": "Where",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/where.png",
+      "arasaac_id": 11603,
+      "arasaac_search_keyword": "where",
+      "sha256": "cacd5fece82d1a9f0ef5a96ed0de48aabbe2f6923747a92eb83346b67e691cad"
+    },
+    {
+      "button_id": "btn_who",
+      "english_label": "Who",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/who.png",
+      "arasaac_id": 9853,
+      "arasaac_search_keyword": "who",
+      "sha256": "43651b49f392156bcaa748cafc18c328c16df4971aa26b4f0ad2955d0418b15d"
+    },
+    {
+      "button_id": "btn_when",
+      "english_label": "When",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/when.png",
+      "arasaac_id": 32874,
+      "arasaac_search_keyword": "when",
+      "sha256": "03f5a11bf22c624967cb40c37dc1c09d770b60aadf01aad424d9bd2fcc7259c5"
+    },
+    {
+      "button_id": "btn_why",
+      "english_label": "Why",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/why.png",
+      "arasaac_id": 36719,
+      "arasaac_search_keyword": "why",
+      "sha256": "29e8014c1fef1728702695c9256f34f4330bc1899ab6b5486df1c5e5c8f03d7c"
+    },
+    {
+      "button_id": "btn_how",
+      "english_label": "How",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/arasaac/questions/how.png",
+      "arasaac_id": 22619,
+      "arasaac_search_keyword": "how",
+      "sha256": "57bcf3943e5675c747c1579241eed90e3557659b78fc19731f823fef89ce56e5"
+    },
+    {
+      "button_id": "btn_here",
+      "english_label": "Here",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/arasaac/modifiers/here.png",
+      "arasaac_id": 5382,
+      "arasaac_search_keyword": "here",
+      "sha256": "1462f14e1b8366655f7ffb13244250635842abfc5e2dff5a9d65a8c6c8e06195"
+    },
+    {
+      "button_id": "btn_that",
+      "english_label": "That",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/arasaac/pronouns/that.png",
+      "arasaac_id": 6906,
+      "arasaac_search_keyword": "that",
+      "sha256": "294d1053fa6f8b50dda858ef3f5734f80c7a56fc91558eaea25773a63861f3d5"
+    },
+    {
+      "button_id": "btn_body_folder",
+      "english_label": "Body",
+      "fitzgerald_category": "body_nav",
+      "icon_uri": "assets/arasaac/folders/body.png",
+      "arasaac_id": 6473,
+      "arasaac_search_keyword": "body",
+      "sha256": "db308b017b3d6a0444d77d84078a93fcc2ec46e66e2b140d1ec5d5b570ce7606"
+    }
+  ]
+}

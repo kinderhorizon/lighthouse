@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_feelings",
+  "board_name": "Feelings",
+  "board_name_es": "Sentimientos",
+  "board_name_ar": "مشاعر",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "feeling": "#A6D9FF"
+  },
+  "buttons": [
+    {
+      "id": "btn_feel_angry",
+      "label": "Angry",
+      "type": "word",
+      "voice_out": "I feel angry",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/angry.png",
+      "label_es": "enojado",
+      "label_ar": "غاضب",
+      "voice_out_es": "Me siento enojado",
+      "voice_out_ar": "أَشْعُرُ بِالْغَضَب"
+    },
+    {
+      "id": "btn_feel_excited",
+      "label": "Excited",
+      "type": "word",
+      "voice_out": "I feel excited",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/excited.png",
+      "label_es": "emocionado",
+      "label_ar": "متحمس",
+      "voice_out_es": "Me siento emocionado",
+      "voice_out_ar": "أَشْعُرُ بِالْحَمَاس"
+    },
+    {
+      "id": "btn_feel_frustrated",
+      "label": "Frustrated",
+      "type": "word",
+      "voice_out": "I feel frustrated",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/frustrated.png",
+      "label_es": "frustrado",
+      "label_ar": "محبط",
+      "voice_out_es": "Me siento frustrado",
+      "voice_out_ar": "أَشْعُرُ بِالْإِحْبَاط"
+    },
+    {
+      "id": "btn_feel_calm",
+      "label": "Calm",
+      "type": "word",
+      "voice_out": "I feel calm",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/calm.png",
+      "label_es": "tranquilo",
+      "label_ar": "هادئ",
+      "voice_out_es": "Me siento tranquilo",
+      "voice_out_ar": "أَشْعُرُ بِالْهُدُوء"
+    },
+    {
+      "id": "btn_feel_sick",
+      "label": "Sick",
+      "type": "word",
+      "voice_out": "I feel sick",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/sick.png",
+      "label_es": "enfermo",
+      "label_ar": "مريض",
+      "voice_out_es": "Me siento enfermo",
+      "voice_out_ar": "أَشْعُرُ بِالْمَرَض"
+    },
+    {
+      "id": "btn_feel_bored",
+      "label": "Bored",
+      "type": "word",
+      "voice_out": "I feel bored",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/bored.png",
+      "label_es": "aburrido",
+      "label_ar": "ملل",
+      "voice_out_es": "Me siento aburrido",
+      "voice_out_ar": "أَشْعُرُ بِالْمَلَل"
+    },
+    {
+      "id": "btn_feel_silly",
+      "label": "Silly",
+      "type": "word",
+      "voice_out": "I feel silly",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/silly.png",
+      "label_es": "tonto",
+      "label_ar": "سخيف",
+      "voice_out_es": "Me siento tonto",
+      "voice_out_ar": "أَشْعُرُ بِالسَّخَافَة"
+    },
+    {
+      "id": "btn_feel_surprised",
+      "label": "Surprised",
+      "type": "word",
+      "voice_out": "I feel surprised",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/surprised.png",
+      "label_es": "sorprendido",
+      "label_ar": "متفاجئ",
+      "voice_out_es": "Me siento sorprendido",
+      "voice_out_ar": "أَشْعُرُ بِالدَّهْشَة"
+    },
+    {
+      "id": "btn_feel_proud",
+      "label": "Proud",
+      "type": "word",
+      "voice_out": "I feel proud",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/proud.png",
+      "label_es": "orgulloso",
+      "label_ar": "فخور",
+      "voice_out_es": "Me siento orgulloso",
+      "voice_out_ar": "أَشْعُرُ بِالْفَخْر"
+    },
+    {
+      "id": "btn_feel_nervous",
+      "label": "Nervous",
+      "type": "word",
+      "voice_out": "I feel nervous",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/nervous.png",
+      "label_es": "nervioso",
+      "label_ar": "متوتر",
+      "voice_out_es": "Me siento nervioso",
+      "voice_out_ar": "أَشْعُرُ بِالتَّوَتُّر"
+    },
+    {
+      "id": "btn_feel_lonely",
+      "label": "Lonely",
+      "type": "word",
+      "voice_out": "I feel lonely",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/lonely.png",
+      "label_es": "solo",
+      "label_ar": "وحيد",
+      "voice_out_es": "Me siento solo",
+      "voice_out_ar": "أَشْعُرُ بِالْوَحْدَة"
+    },
+    {
+      "id": "btn_feel_confused",
+      "label": "Confused",
+      "type": "word",
+      "voice_out": "I feel confused",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/confused.png",
+      "label_es": "confundido",
+      "label_ar": "مرتبك",
+      "voice_out_es": "Me siento confundido",
+      "voice_out_ar": "أَشْعُرُ بِالِارْتِبَاك"
+    },
+    {
+      "id": "btn_feel_shy",
+      "label": "Shy",
+      "type": "word",
+      "voice_out": "I feel shy",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/shy.png",
+      "label_es": "tímido",
+      "label_ar": "خجول",
+      "voice_out_es": "Me siento tímido",
+      "voice_out_ar": "أَشْعُرُ بِالْخَجَل"
+    },
+    {
+      "id": "btn_feel_worried",
+      "label": "Worried",
+      "type": "word",
+      "voice_out": "I feel worried",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/worried.png",
+      "label_es": "preocupado",
+      "label_ar": "قلق",
+      "voice_out_es": "Me siento preocupado",
+      "voice_out_ar": "أَشْعُرُ بِالْقَلَق"
+    },
+    {
+      "id": "btn_feel_okay",
+      "label": "Okay",
+      "type": "word",
+      "voice_out": "I feel okay",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/okay.png",
+      "label_es": "bien",
+      "label_ar": "بخير",
+      "voice_out_es": "Me siento bien",
+      "voice_out_ar": "أَشْعُرُ بِأَنِّي بِخَيْر"
+    },
+    {
+      "id": "btn_feel_love",
+      "label": "Love",
+      "type": "word",
+      "voice_out": "I feel love",
+      "position": {
+        "row": 1,
+        "col": 7
+      },
+      "category": "feeling",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/feelings/love.png",
+      "label_es": "amor",
+      "label_ar": "حب",
+      "voice_out_es": "Siento amor",
+      "voice_out_ar": "أَشْعُرُ بِالْحُبّ"
+    }
+  ]
+}

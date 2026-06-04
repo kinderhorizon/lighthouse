@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.3",
+  "board_id": "board_activities",
+  "board_name": "Activities",
+  "board_name_es": "Actividades",
+  "board_name_ar": "أنشطة",
+  "grid_dimensions": [
+    6,
+    8
+  ],
+  "color_key": {
+    "activity": "#C2FFC2"
+  },
+  "buttons": [
+    {
+      "id": "btn_act_read",
+      "label": "Read",
+      "type": "word",
+      "voice_out": "read",
+      "position": {
+        "row": 0,
+        "col": 0
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/read.png",
+      "label_es": "leer",
+      "label_ar": "يقرأ",
+      "voice_out_es": "leer",
+      "voice_out_ar": "يَقْرَأ"
+    },
+    {
+      "id": "btn_act_draw",
+      "label": "Draw",
+      "type": "word",
+      "voice_out": "draw",
+      "position": {
+        "row": 0,
+        "col": 1
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/draw.png",
+      "label_es": "dibujar",
+      "label_ar": "يرسم",
+      "voice_out_es": "dibujar",
+      "voice_out_ar": "يَرْسُم"
+    },
+    {
+      "id": "btn_act_color",
+      "label": "Color",
+      "type": "word",
+      "voice_out": "color",
+      "position": {
+        "row": 0,
+        "col": 2
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/color.png",
+      "label_es": "colorear",
+      "label_ar": "يلون",
+      "voice_out_es": "colorear",
+      "voice_out_ar": "يُلَوِّن"
+    },
+    {
+      "id": "btn_act_paint",
+      "label": "Paint",
+      "type": "word",
+      "voice_out": "paint",
+      "position": {
+        "row": 0,
+        "col": 3
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/paint.png",
+      "label_es": "pintar",
+      "label_ar": "يدهن",
+      "voice_out_es": "pintar",
+      "voice_out_ar": "يَدْهُن"
+    },
+    {
+      "id": "btn_act_sing",
+      "label": "Sing",
+      "type": "word",
+      "voice_out": "sing",
+      "position": {
+        "row": 0,
+        "col": 4
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/sing.png",
+      "label_es": "cantar",
+      "label_ar": "يغني",
+      "voice_out_es": "cantar",
+      "voice_out_ar": "يُغَنِّي"
+    },
+    {
+      "id": "btn_act_dance",
+      "label": "Dance",
+      "type": "word",
+      "voice_out": "dance",
+      "position": {
+        "row": 0,
+        "col": 5
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/dance.png",
+      "label_es": "bailar",
+      "label_ar": "يرقص",
+      "voice_out_es": "bailar",
+      "voice_out_ar": "يَرْقُص"
+    },
+    {
+      "id": "btn_act_swim",
+      "label": "Swim",
+      "type": "word",
+      "voice_out": "swim",
+      "position": {
+        "row": 0,
+        "col": 6
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/swim.png",
+      "label_es": "nadar",
+      "label_ar": "يسبح",
+      "voice_out_es": "nadar",
+      "voice_out_ar": "يَسْبَح"
+    },
+    {
+      "id": "btn_act_run",
+      "label": "Run",
+      "type": "word",
+      "voice_out": "run",
+      "position": {
+        "row": 0,
+        "col": 7
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/run.png",
+      "label_es": "correr",
+      "label_ar": "يجري",
+      "voice_out_es": "correr",
+      "voice_out_ar": "يَجْرِي"
+    },
+    {
+      "id": "btn_act_jump",
+      "label": "Jump",
+      "type": "word",
+      "voice_out": "jump",
+      "position": {
+        "row": 1,
+        "col": 0
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/jump.png",
+      "label_es": "saltar",
+      "label_ar": "يقفز",
+      "voice_out_es": "saltar",
+      "voice_out_ar": "يَقْفِز"
+    },
+    {
+      "id": "btn_act_ride",
+      "label": "Ride",
+      "type": "word",
+      "voice_out": "ride",
+      "position": {
+        "row": 1,
+        "col": 1
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/ride.png",
+      "label_es": "montar",
+      "label_ar": "يركب",
+      "voice_out_es": "montar",
+      "voice_out_ar": "يَرْكَب"
+    },
+    {
+      "id": "btn_act_build",
+      "label": "Build",
+      "type": "word",
+      "voice_out": "build",
+      "position": {
+        "row": 1,
+        "col": 2
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/build.png",
+      "label_es": "construir",
+      "label_ar": "يبني",
+      "voice_out_es": "construir",
+      "voice_out_ar": "يَبْنِي"
+    },
+    {
+      "id": "btn_act_watch",
+      "label": "Watch TV",
+      "type": "word",
+      "voice_out": "watch television",
+      "position": {
+        "row": 1,
+        "col": 3
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/watch.png",
+      "label_es": "ver televisión",
+      "label_ar": "مشاهدة التلفاز",
+      "voice_out_es": "ver televisión",
+      "voice_out_ar": "مُشَاهَدَةُ التِّلْفَاز"
+    },
+    {
+      "id": "btn_act_listen",
+      "label": "Listen",
+      "type": "word",
+      "voice_out": "listen",
+      "position": {
+        "row": 1,
+        "col": 4
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/listen.png",
+      "label_es": "escuchar",
+      "label_ar": "يستمع",
+      "voice_out_es": "escuchar",
+      "voice_out_ar": "يَسْتَمِع"
+    },
+    {
+      "id": "btn_act_cook",
+      "label": "Cook",
+      "type": "word",
+      "voice_out": "cook",
+      "position": {
+        "row": 1,
+        "col": 5
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/cook.png",
+      "label_es": "cocinar",
+      "label_ar": "يطبخ",
+      "voice_out_es": "cocinar",
+      "voice_out_ar": "يَطْبُخ"
+    },
+    {
+      "id": "btn_act_walk",
+      "label": "Walk",
+      "type": "word",
+      "voice_out": "walk",
+      "position": {
+        "row": 1,
+        "col": 6
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/walk.png",
+      "label_es": "caminar",
+      "label_ar": "يمشي",
+      "voice_out_es": "caminar",
+      "voice_out_ar": "يَمْشِي"
+    },
+    {
+      "id": "btn_act_sleep",
+      "label": "Sleep",
+      "type": "word",
+      "voice_out": "sleep",
+      "position": {
+        "row": 1,
+        "col": 7
+      },
+      "category": "activity",
+      "base_weight": 0.5,
+      "icon_uri": "assets/arasaac/activities/sleep.png",
+      "label_es": "dormir",
+      "label_ar": "ينام",
+      "voice_out_es": "dormir",
+      "voice_out_ar": "يَنَام"
+    }
+  ]
+}

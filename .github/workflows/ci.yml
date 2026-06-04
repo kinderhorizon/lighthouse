@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Least-privilege GITHUB_TOKEN (CodeQL "Workflow does not contain permissions").
+# This workflow only reads the repo (checkout) and runs tests; it never writes
+# contents, PRs, packages, pages, or deployments. Declaring it at the top level
+# applies the read-only default to every job.
+permissions:
+  contents: read
+
+# Cancel in-progress runs of the same workflow when a new commit lands on
+# the same branch. CI cycles are not worth burning on stale revisions.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Analyze + test + asset integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.44.0'
+          cache: true
+
+      - name: Print versions
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Resolve packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
+      - name: Run tests
+        run: flutter test --reporter expanded
+
+      - name: Verify ARASAAC asset integrity (sha256)
+        run: dart run tools/verify_assets.dart
+
+      - name: Brand voice guard (no em or en dashes)
+        run: bash scripts/no-em-dash.sh
+
+      - name: Residue guard (no personal names, AI-tool names, or local paths)
+        run: bash scripts/no-residue.sh
+
+      - name: Binary-source guard (no raw NUL bytes)
+        run: bash scripts/no-binary-source.sh

@@ -1,0 +1,14 @@
+{
+  "_doc": "Clinical/operator overrides, APPLIED BY DEFAULT (use --no-overrides to ignore). The base transition values come from the causal-LM PMI scorer (prior/mlscore.py); an entry here PINS a specific (prev -> candidate) pair and wins over the model, for cases where domain knowledge beats general-text statistics. Schema: _shared (all locales) / <locale> (locale-specific) / _notes; value is a target prior mean 0..1. Pins should be guarded by a golden frame (see data/golden.json) so a rebuild cannot silently drop them.",
+  "_shared": {
+    "btn_want": {
+      "btn_bathroom": 0.95
+    }
+  },
+  "en": {},
+  "es": {},
+  "ar": {},
+  "_notes": {
+    "ar": "Arabic labels are MSA; children often use dialect, so some suggestions may read as formal. Not a blocker. Pin corrections here if a specific pair looks wrong."
+  }
+}

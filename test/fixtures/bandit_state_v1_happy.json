@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "description": "Happy-path BanditStateV1 fixture: a handful of well-formed rows representing a few weeks of real use. Drives the V1->V2 migration-chain test (ADR 0005). Add rows here when new V1-shape edge cases need coverage; never delete existing rows once committed (the V1->V2 test depends on the exact set being parseable).",
+  "rows": [
+    {
+      "state_key": "Morning_Weekday|wifi_HOMEHASH|Prev:|Context:",
+      "button_id": "btn_help",
+      "alpha": 4.0,
+      "beta": 1.0,
+      "observation_count": 5,
+      "updated_at": "2026-05-15T09:00:00Z"
+    },
+    {
+      "state_key": "Morning_Weekday|wifi_HOMEHASH|Prev:btn_help|Context:Needs",
+      "button_id": "btn_bathroom",
+      "alpha": 8.5,
+      "beta": 2.5,
+      "observation_count": 11,
+      "updated_at": "2026-05-16T07:45:00Z"
+    },
+    {
+      "state_key": "School_Weekday|wifi_SCHOOLHASH|Prev:|Context:",
+      "button_id": "btn_water",
+      "alpha": 6.0,
+      "beta": 1.5,
+      "observation_count": 7,
+      "updated_at": "2026-05-16T12:15:00Z"
+    },
+    {
+      "state_key": "Night_Weekday|wifi_HOMEHASH|Prev:btn_tired|Context:Feelings",
+      "button_id": "btn_done",
+      "alpha": 3.5,
+      "beta": 1.0,
+      "observation_count": 4,
+      "updated_at": "2026-05-17T20:30:00Z"
+    },
+    {
+      "state_key": "Afternoon_Weekend|wifi_HOMEHASH|Prev:|Context:",
+      "button_id": "btn_play",
+      "alpha": 5.0,
+      "beta": 1.0,
+      "observation_count": 5,
+      "updated_at": "2026-05-18T15:00:00Z"
+    }
+  ]
+}
