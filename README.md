@@ -16,7 +16,7 @@ BC Society incorporated April 17, 2026.
 
 ## Status
 
-In closed testing (alpha) on iOS and Android.
+Version 1.0, submitted to the App Store and Google Play for review.
 
 ## Repository layout
 
