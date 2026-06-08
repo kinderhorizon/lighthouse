@@ -17,7 +17,7 @@ publish_to: 'none'
 # with its neural clip, the 7-step tour, record-voice on add, Export + fixed
 # cross-platform Import). The +N drives both Android versionCode and iOS
 # CFBundleVersion.
-version: 0.1.0+10
+version: 1.0.0+11
 
 environment:
   # Match the host dev toolchain (Flutter 3.44 / Dart 3.12). Tightened from
