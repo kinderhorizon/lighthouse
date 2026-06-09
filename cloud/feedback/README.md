@@ -1,16 +1,14 @@
 # Lighthouse feedback relay (ADR 0018)
 
 A zero-trust, **stateless** HTTP relay: it takes a validated in-app feedback
-submission and forwards it to the KHF feedback inbox (whatever
-`FEEDBACK_TO_ADDRESS` is set to at deploy time) as a plain-text email.
-**Nothing is stored** (no Table, no database): a durable store of vulnerable
-families' free text would be a PII honeypot. The secured inbox is the record.
+submission and forwards it to the KHF inbox (`aac@kinderhorizon.org`) as a
+plain-text email. **Nothing is stored** (no Table, no database): a durable
+store of vulnerable families' free text would be a PII honeypot. The secured
+inbox is the record.
 
-> **`FEEDBACK_TO_ADDRESS` must be a verified, non-suppressed mailbox.** Do not
-> reuse an address that has previously bounced or been suppressed by Azure
-> Communication Services: ACS still returns 202 for a suppressed recipient, so
-> the relay reports success while the mail is silently black-holed (and every
-> send extends the suppression lease). Confirm the live inbox before setting it.
+> Set `FEEDBACK_TO_ADDRESS` to `aac@kinderhorizon.org`. Do **not** use
+> `lighthouse@kinderhorizon.org` for the relay: the email provider flagged it,
+> so sends to it are not reliably delivered.
 
 Azure Functions v4 (Node, TypeScript, ESM).
 

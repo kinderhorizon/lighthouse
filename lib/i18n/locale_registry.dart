@@ -34,8 +34,12 @@ enum TtsStrategy {
 /// Whether this locale's content has cleared native + clinical review.
 ///
 /// Per ADR 0008 the review bar is an alpha-EXIT criterion, not a merge gate:
-/// MT + LLM drafts ship to alpha as [provisional]; the 48 `voice_out` words
-/// must be flipped to [nativeReviewed] before the public store release.
+/// MT + LLM drafts ship as [provisional]. The 48 `voice_out` words were to be
+/// native + BCBA reviewed and flipped to [nativeReviewed] before the public
+/// release, but that gate was consciously WAIVED for GA (no review capacity or
+/// means; see ADR 0008 amendment 2026-06-09): es + ar ship at GA still
+/// [provisional]. Flip the affected locale(s) if/when a native + clinical pass
+/// happens.
 enum ReviewStatus { provisional, nativeReviewed }
 
 /// One declarative row per supported language.

@@ -1,12 +1,31 @@
 # ADR 0008: Localization architecture + launch languages (en, ar, es)
 
-**Status:** Accepted
+**Status:** Accepted (amended 2026-06-09, see Amendment below)
 **Date:** 2026-05-28 (accepted after independent review 2026-05-28)
 
 > Accepted after an independent review of the load-bearing calls (Arabic
 > register, the translation-review bar, the Arabic TTS strategy) by a reviewer
 > other than the author. The alpha-exit native + clinical sign-off of the
 > Arabic + Spanish `voice_out` words (see Reviewers) remains a separate gate.
+
+## Amendment 2026-06-09: GA ships es/ar `provisional` (pre-release review bar waived)
+
+The decisions below set a pre-public-release gate: the 48 `voice_out` words for
+Spanish and Arabic must be native + BCBA reviewed and flipped to
+`nativeReviewed` before the public store release at scale. At GA that review has
+NOT happened, and the Foundation currently has neither the capacity nor the
+means (BCBA or native reviewer) to do it. The decision (founder, 2026-06-09) is
+to ship Spanish and Arabic AS-IS, with `reviewStatus: provisional` in the locale
+registry, rather than hold the release.
+
+This amendment is the "explicit, recorded reversal" this ADR requires in place
+of a silent change: the registry flags stay truthfully `provisional` (the
+strings are MT + LLM-drafted, not native/clinically reviewed), and this is the
+record that the pre-release gate was consciously WAIVED for GA, not overlooked.
+The `voice_out` words remain the highest-stakes strings (a child's expressive
+voice: pain, bathroom, want), so a native + BCBA pass stays a wanted follow-up;
+when it happens, flip the affected locales to `nativeReviewed`. Until then the
+public release knowingly carries provisional Spanish and Arabic.
 
 ## Context
 
