@@ -37,7 +37,13 @@ void main() {
       // licences (lib/config/licenses.dart). Lazy: read only when opened.
       registerBundledLicenses();
 
-      final isar = await IsarSetup.openForApp();
+      // If the DB is corrupt (e.g. mdbx damage after a force-kill), openForApp
+      // discards it and starts fresh rather than letting the app brick on the
+      // splash forever; note the original failure in the crash log. Only glow
+      // learning is lost (see IsarSetup.openForApp).
+      final isar = await IsarSetup.openForApp(
+        onCorruptDbReset: crashCapture.zoneErrorHandler,
+      );
 
       // Wire the bandit-state diagnostic counters into crash logs (ADR
       // 0002). Updated lazily; the values surface in any crash captured

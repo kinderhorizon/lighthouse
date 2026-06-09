@@ -42,14 +42,60 @@ class IsarSetup {
 
   /// Opens Isar against the application support directory, inside [dbSubdir]
   /// so the backup-exclusion rules can target it (see [dbSubdir]).
-  static Future<Isar> openForApp() async {
+  ///
+  /// If the open fails, the corrupt DB is discarded and a fresh one is opened
+  /// (see the catch block for why this is safe and why it deletes rather than
+  /// renames). [onCorruptDbReset] is invoked with the original failure so the
+  /// caller can note it in the crash log; recovery proceeds regardless.
+  static Future<Isar> openForApp({
+    void Function(Object error, StackTrace stack)? onCorruptDbReset,
+  }) async {
     final base = await getApplicationSupportDirectory();
     final dir = Directory('${base.path}/$dbSubdir');
     await dir.create(recursive: true);
-    return Isar.open(
-      activeSchemas,
-      directory: dir.path,
-    );
+    try {
+      return await Isar.open(
+        activeSchemas,
+        directory: dir.path,
+      );
+    } catch (error, stack) {
+      // Startup CANNOT proceed without Isar, and this open is the one
+      // unguarded failure point that would brick the app on EVERY launch: the
+      // same corrupt file is reopened each time, so the child sees the splash
+      // forever (no board, no voice). Field causes for isar_community 3.x
+      // (mdbx): corruption after a power loss or force-kill mid-write; an
+      // unrecoverable schema state would do the same.
+      //
+      // Recovery is safe because of what this DB does and does not hold. It
+      // holds ONLY reconstructible learning data: BanditStateV1 (the glow
+      // predictions) and RawEventLogV1 (the tap log). Every piece of
+      // parent-authored content the child depends on (custom buttons,
+      // recordings, favourites, layouts) lives in separate JSON stores at the
+      // app-support root, OUTSIDE [dbSubdir]. So discarding this directory
+      // resets glow learning and nothing else: the child keeps their voice.
+      //
+      // We DELETE rather than rename-aside on purpose. The backup-exclusion
+      // rules (ADR 0002) exclude this directory BY NAME because RawEventLogV1
+      // is the child's communication content and must never leave the device;
+      // a renamed copy (e.g. lighthouse_db.corrupt) would fall outside that
+      // exclusion and could be swept into Android Auto Backup or a device
+      // transfer. Deleting keeps the privacy invariant intact.
+      onCorruptDbReset?.call(error, stack);
+      try {
+        if (await dir.exists()) {
+          await dir.delete(recursive: true);
+        }
+      } catch (_) {
+        // If the wipe itself fails there is nothing more we can safely do;
+        // fall through and let the reopen throw, which is no worse than the
+        // original unguarded behavior.
+      }
+      await dir.create(recursive: true);
+      return await Isar.open(
+        activeSchemas,
+        directory: dir.path,
+      );
+    }
   }
 
   /// Opens Isar against an explicit directory. Tests pass a tmp dir so

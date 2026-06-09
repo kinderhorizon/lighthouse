@@ -32,6 +32,20 @@ class SystemTTSEngine implements TTSEngine {
       await _backend.setLanguage(tag);
       _currentLanguageTag = tag;
     }
+    // Latest-wins: stop any in-flight utterance before starting this one.
+    // We set awaitSpeakCompletion(true) above, and flutter_tts 4.2.5's Android
+    // plugin DISCARDS a speak() that arrives while a previous awaited utterance
+    // is still speaking (its "speak" handler returns success(0) and plays
+    // nothing). So a child tapping a second system-voice tile (a custom button
+    // with no recording, or any word with no bundled clip) before the first
+    // finished would hear silence, with the tile still animating: a silent
+    // failure. Calling stop() first clears the in-flight utterance AND resolves
+    // its pending future (the plugin's "stop" handler completes speakResult),
+    // so this tap always speaks. This mirrors the supersede-on-tap behavior the
+    // bundled engine already has (BundledAudioTTSEngine, via its generation
+    // token) and the custom-recording path in main._speakSafely. See ADR 0004
+    // and ADR 0010.
+    await _backend.stop();
     await _backend.speak(text);
   }
 
