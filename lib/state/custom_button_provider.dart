@@ -36,11 +36,22 @@ Future<List<AACBoard>> editableBoards(EditableBoardsRef ref) async {
       ref.watch(iconOverridesProvider).valueOrNull ?? const {};
   final boards = <AACBoard>[];
   for (final id in registry.knownBoardIds()) {
-    final base = await registry.tryLoad(id);
-    if (base != null) {
-      boards.add(applyIconOverrides(
-          applyLayout(applyCustomButtons(base, customs), layout),
-          iconOverrides));
+    try {
+      final base = await registry.tryLoad(id);
+      if (base != null) {
+        boards.add(applyIconOverrides(
+            applyLayout(applyCustomButtons(base, customs), layout),
+            iconOverrides));
+      }
+    } catch (e) {
+      // One unparseable board (e.g. a crafted import whose re-ided button id
+      // exceeds the length cap, or any corrupt file) must NOT take down the
+      // whole editor and the home favourites strip, which both derive from this
+      // list. tryLoad rethrows parse failures, so isolate per board: skip the
+      // bad one, load the rest. The import-time re-parse guard now prevents a
+      // poison pack from being written at all; this contains any file that
+      // predates that guard (review item 10).
+      stderr.writeln('editableBoards: skipping unloadable board "$id": $e');
     }
   }
   return boards;

@@ -59,11 +59,36 @@ class BanditRepository implements BanditStore {
     });
   }
 
+  /// Hard cap on raw tap-log rows, with a lower target to trim back to so the
+  /// (relatively expensive) prune runs rarely, not on every overflowing tap.
+  /// One row per tap, forever, with the only prior deletion being the parent's
+  /// full "Reset learned state": at ~300-800 taps/day a long-lived single-device
+  /// install would grow without bound, and topTappedButtons materializes the
+  /// whole table, so an unbounded log slides from multi-second jank into OOM
+  /// territory on a 2 GB tablet over a year or two. A rolling window of the most
+  /// recent taps is ample for the favourites-frequency ranking (which favours
+  /// recent usage anyway) and privacy-neutral: same on-device data, just pruned.
+  static const int maxRawEventRows = 20000;
+  static const int rawEventTrimTarget = 15000;
+
   /// Append a tap event to the raw log. Fire-and-forget from the
   /// caller's perspective; the future completes when the row is durable.
   Future<void> appendEvent(RawEventLogV1 event) async {
     await _isar.writeTxn(() async {
       await _isar.rawEventLogV1.put(event);
+      final count = await _isar.rawEventLogV1.count();
+      if (count > maxRawEventRows) {
+        // Delete the oldest rows (lowest autoIncrement ids, oldest taps) down to
+        // the target. anyId() iterates the id index ascending, so limit() takes
+        // the oldest first.
+        final oldestIds = await _isar.rawEventLogV1
+            .where()
+            .anyId()
+            .limit(count - rawEventTrimTarget)
+            .idProperty()
+            .findAll();
+        await _isar.rawEventLogV1.deleteAll(oldestIds);
+      }
     });
   }
 
@@ -83,8 +108,16 @@ class BanditRepository implements BanditStore {
   /// Count of distinct stateKeys, the cardinality figure that appears
   /// in crash logs per ADR 0002 (`unique_context_keys_count`).
   Future<int> uniqueContextKeyCount() async {
-    final rows = await _isar.banditStateV1.where().findAll();
-    return rows.map((r) => r.stateKey).toSet().length;
+    // Fetch only the deduplicated stateKey strings, not whole BanditStateV1 rows
+    // (alpha/beta/updatedAt), just to count distinct keys. This runs at launch
+    // for the crash-log diagnostic, so it must stay cheap as the table grows
+    // (review item 13).
+    final keys = await _isar.banditStateV1
+        .where()
+        .distinctByStateKey()
+        .stateKeyProperty()
+        .findAll();
+    return keys.length;
   }
 
   /// Approximate on-disk size in bytes. Surfaced in crash logs per ADR

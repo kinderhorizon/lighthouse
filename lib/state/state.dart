@@ -23,6 +23,7 @@ export 'glow_provider.dart';
 export 'legal_provider.dart';
 export 'onboarding_provider.dart';
 export 'persistence_provider.dart';
+export 'replay_generation_provider.dart';
 export 'settings_provider.dart';
 export 'tap_queue_provider.dart';
 export 'tts_provider.dart';

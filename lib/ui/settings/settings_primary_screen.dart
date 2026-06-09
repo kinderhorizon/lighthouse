@@ -176,6 +176,11 @@ class SettingsPrimaryScreen extends ConsumerWidget {
   static const _followSystem = '__follow_system__';
 
   Future<void> _pickLocale(BuildContext context, WidgetRef ref) async {
+    // Gate the only other mutating row on this screen (item 9). A child changing
+    // the app language to one the parent cannot read is disruptive and, ungated,
+    // would itself block the parent from finding the row to change it back; the
+    // gate prevents that. Cheap arithmetic for a parent, a wall for a child.
+    if (!await _passesGate(context) || !context.mounted) return;
     final l10n = AppLocalizations.of(context);
     final currentOverride =
         ref.read(settingsNotifierProvider).valueOrNull?.localeOverride;
@@ -224,6 +229,11 @@ class SettingsPrimaryScreen extends ConsumerWidget {
   }
 
   Future<void> _rerunOnboarding(BuildContext context, WidgetRef ref) async {
+    // Math-gate like every other mutating row: re-running onboarding replaces
+    // the child's board with parent-facing onboarding and wipes the onboarding
+    // answers plus all first-use-tip flags. Without the gate it was three taps
+    // and no arithmetic for a child to trigger (item 9).
+    if (!await _passesGate(context) || !context.mounted) return;
     final l10n = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,

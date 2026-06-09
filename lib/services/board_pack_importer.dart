@@ -90,6 +90,24 @@ class BoardPackImporter {
         ? _reidentify(parsed, registry.allocateImportedBoardId())
         : _sanitizeIcons(parsed);
 
+    // Re-parse the board we are about to persist. _reidentify prefixes every
+    // button id (`<newBoardId>__`), which can push an already-long id (the
+    // source passes fromJson at up to the 4096-char cap) PAST that cap. Persist
+    // it anyway and the file throws on every future load: hydrate() registers it
+    // on a board_id check alone, so the failure surfaces later in the board
+    // loader, and editableBoards would brick the whole editor + favourites strip
+    // on it. Validating the round-trip here fails the import loudly instead of
+    // writing a file that can never be read (review item 10).
+    try {
+      AACBoard.fromJson(board.toJson());
+    } catch (e) {
+      throw BoardPackImportException(
+        'Board pack could not be re-validated after import',
+        source: source.path,
+        cause: e,
+      );
+    }
+
     final dest = await registry.importDestinationFor(board.boardId);
     try {
       if (!dest.parent.existsSync()) {

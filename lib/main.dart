@@ -261,6 +261,7 @@ class _BoardView extends ConsumerWidget {
         settings?.hideTileText ?? SettingsState.defaults.hideTileText;
     final hidePictogram =
         settings?.hidePictogram ?? SettingsState.defaults.hidePictogram;
+    final ttsMode = settings?.ttsMode ?? SettingsState.defaults.ttsMode;
     // Hydrate the custom-voice map (ADR 0019) eagerly so a tap can prefer a
     // parent-recorded clip over TTS without awaiting a load on the hot path.
     ref.watch(customVoiceProvider);
@@ -305,6 +306,13 @@ class _BoardView extends ConsumerWidget {
         if (isHome)
           FavouritesStrip(
             onTap: (button) => _handleTap(context, ref, button),
+            // In On-request mode the long-press IS the communication act, so the
+            // strip needs the same long-press path as the grid; otherwise pinned
+            // tiles are inert while identical grid tiles work (item 8). Wired
+            // only in On-request mode, mirroring the grid (item 7).
+            onLongPress: ttsMode == TtsMode.onRequest
+                ? (button) => _handleLongPress(context, ref, button)
+                : null,
             colorKey: favColorKey,
             hideText: hideTileText,
             hideIcon: hidePictogram,
@@ -328,8 +336,15 @@ class _BoardView extends ConsumerWidget {
               // scrolls, so top-align does not apply.
               topAlign: !isHome && !sizing.scrolls,
               onButtonTap: (button) => _handleTap(context, ref, button),
-              onButtonLongPress: (button) =>
-                  _handleLongPress(context, ref, button),
+              // Only wire long-press in On-request mode. A non-null callback
+              // makes a LongPressGestureRecognizer join the gesture arena on
+              // every tile, so a >=500 ms press-and-hold cancels the tap and
+              // fires a handler that no-ops in on/off/als modes: a silently dead
+              // communication act for a common motor profile (item 7). null in
+              // those modes lets a held press still register as a normal tap.
+              onButtonLongPress: ttsMode == TtsMode.onRequest
+                  ? (button) => _handleLongPress(context, ref, button)
+                  : null,
             );
             // On a scrolling board, show a "more words" cue ONLY while there
             // are rows below the current scroll position; it hides at the
@@ -378,13 +393,17 @@ class _BoardView extends ConsumerWidget {
 
     switch (mode) {
       case TtsMode.on:
-        if (voice.isNotEmpty) {
-          await _speakSafely(ref, button, voice, locale);
-        }
-        // The word lands in the sentence bar (ADR 0010); the composed sentence
-        // is replayed later from the bar's speak control. A PHRASE button is a
-        // complete utterance on its own, so commit() leaves the bar untouched.
+        // Commit to the bar BEFORE awaiting speech. The word lands in the
+        // sentence bar (ADR 0010) regardless of the audio outcome: on iOS an
+        // interrupted system-TTS utterance can leave the awaited speak future
+        // unresolved, which previously left this commit unreachable and silently
+        // dropped the word from the composed sentence (item 3). A PHRASE button
+        // is a complete utterance on its own, so commit() leaves the bar
+        // untouched. The composed sentence is replayed later from the bar.
         ref.read(utteranceProvider.notifier).commit(button);
+        if (voice.isNotEmpty) {
+          await _speakTimeboxed(ref, button, voice, locale);
+        }
       case TtsMode.off:
         // A silent selection still counts as a communication act and still
         // builds the sentence.
@@ -443,13 +462,16 @@ class _BoardView extends ConsumerWidget {
 
     final locale = Localizations.localeOf(context);
     final voice = button.voiceOutFor(locale.languageCode) ?? '';
-    if (voice.isEmpty) return;
-    await _speakSafely(ref, button, voice, locale);
 
-    // The long-press is the communication act in On-request mode, so it is
-    // also what commits to the sentence bar (ADR 0010): a word accumulates, a
-    // phrase speaks standalone and leaves the bar untouched.
+    // The long-press is the communication act in On-request mode, so it is also
+    // what commits to the sentence bar (ADR 0010): a word accumulates, a phrase
+    // speaks standalone and leaves the bar untouched. Commit BEFORE awaiting
+    // speech so a hung iOS system-TTS future cannot drop the word (item 3).
     ref.read(utteranceProvider.notifier).commit(button);
+
+    if (voice.isNotEmpty) {
+      await _speakTimeboxed(ref, button, voice, locale);
+    }
 
     if (!context.mounted) return;
     _maybeReturnHome(context, ref, settings);
@@ -467,6 +489,10 @@ class _BoardView extends ConsumerWidget {
   /// the rare pre-hydration tap it returns null and the built-in voice plays.
   Future<void> _speakSafely(
       WidgetRef ref, AACButton button, String voice, Locale locale) async {
+    // A communication tap supersedes any in-flight sentence replay: bump the
+    // replay generation so the replay loop aborts instead of resuming a sentence
+    // the child has moved on from (item 6).
+    ref.read(replayGenerationProvider).begin();
     try {
       final customPath =
           ref.read(customVoiceProvider.notifier).pathFor(button.id);
@@ -477,10 +503,29 @@ class _BoardView extends ConsumerWidget {
         final played = await ref.read(customVoicePlayerProvider).play(customPath);
         if (played) return;
       }
+      // Stop any in-flight custom recording before speaking via TTS. Mutual
+      // exclusion was previously one-directional (the custom path stopped TTS,
+      // but not the reverse), so a several-second parent clip from a previous
+      // tap could play on top of this word (item 5).
+      await ref.read(customVoicePlayerProvider).stop();
       await ref.read(ttsEngineProvider).speak(voice, locale: locale);
     } catch (_) {
       // Intentionally ignored; see doc comment.
     }
+  }
+
+  /// Bound on awaiting a per-tap speak so a hung iOS system-TTS future cannot
+  /// stall the post-tap flow (auto-return-home). flutter_tts does not complete
+  /// the awaited speak when an utterance is later cancelled on iOS, so without a
+  /// bound the await could hang forever. Speech still plays; we just stop
+  /// awaiting it after this long.
+  static const Duration _speakTimeout = Duration(seconds: 10);
+
+  /// [_speakSafely] bounded by [_speakTimeout]; see that constant (item 3).
+  Future<void> _speakTimeboxed(
+      WidgetRef ref, AACButton button, String voice, Locale locale) {
+    return _speakSafely(ref, button, voice, locale)
+        .timeout(_speakTimeout, onTimeout: () {});
   }
 
   /// Records a tap (bandit observation + raw event log + context advance).

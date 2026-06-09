@@ -150,6 +150,17 @@ class SentenceBar extends ConsumerWidget {
     final locale = Localizations.localeOf(context);
     final engine = ref.read(ttsEngineProvider);
     final voices = ref.read(customVoiceProvider.notifier);
+    final player = ref.read(customVoicePlayerProvider);
+    // The tokens this replay will speak. The finally clears exactly these from
+    // the FRONT of the bar, so a word the child taps DURING playback (appended
+    // at the end) survives instead of being wiped with the whole bar (item 4).
+    final spokenCount = tokens.length;
+    // Claim a replay generation. An interrupting communication tap
+    // (main._speakSafely) or a fresh Speak bumps it; the custom-voice loop below
+    // aborts the moment it changes, so the old sentence never resumes after the
+    // child has moved on (item 6).
+    final replay = ref.read(replayGenerationProvider);
+    final myGen = replay.begin();
     // Folders never reach the bar, but filter defensively to match the composer.
     final speakable =
         tokens.where((t) => t.type != AACButtonType.folder).toList();
@@ -157,11 +168,15 @@ class SentenceBar extends ConsumerWidget {
     // the whole replay on the gapless bundled path (best quality, ADR 0010).
     final hasCustomVoice = speakable.any((t) => voices.pathFor(t.id) != null);
     try {
-      // Cancel any in-flight per-word playback before replaying the sentence.
-      // Tapping a word speaks it immediately on the shared audio player; without
-      // this stop, that fire-and-forget clip can race the replay and swallow the
-      // first word (clinical review: "I want water didn't repeat").
+      // Cancel any in-flight per-word playback before replaying the sentence:
+      // both the TTS engine AND the custom-voice player. Tapping a word speaks
+      // it immediately on the shared players; without these stops a fire-and-
+      // forget clip can race the replay and swallow the first word (clinical
+      // review: "I want water didn't repeat"). Stopping the custom player too
+      // closes the one-directional gap where a still-playing parent recording
+      // played under the replay (item 5).
       await engine.stop();
+      await player.stop();
       if (!hasCustomVoice) {
         // Pass the ordered word list (not a single string) so the engine can
         // concatenate the per-word bundled clips and keep the replay on the
@@ -174,7 +189,6 @@ class SentenceBar extends ConsumerWidget {
         // of ordinary tiles gaplessly via speakSequence, breaking only to play a
         // recorded clip in order. This keeps clinical review's gapless feel within
         // runs while honouring the recording at each custom tile.
-        final player = ref.read(customVoicePlayerProvider);
         var run = <AACButton>[];
         Future<void> flushRun() async {
           if (run.isEmpty) return;
@@ -184,9 +198,14 @@ class SentenceBar extends ConsumerWidget {
         }
 
         for (final token in speakable) {
+          // Superseded by an interrupting tap or a newer replay: stop here
+          // rather than playing out the rest of a sentence the child has
+          // abandoned (item 6). The finally still runs.
+          if (replay.current != myGen) return;
           final clip = voices.pathFor(token.id);
           if (clip != null) {
             await flushRun();
+            if (replay.current != myGen) return;
             await engine.stop();
             // A missing/corrupt recording returns false: don't drop the word,
             // fold it back into the TTS run so it is still spoken in order via
@@ -201,11 +220,13 @@ class SentenceBar extends ConsumerWidget {
       }
     } finally {
       // Auto-clear after the sentence plays (clinical review, 2026-05-29): the bar resets
-      // for the next message. In a `finally` so a playback error still clears
-      // the bar rather than stranding stale tokens (clinical review: "does not always
-      // auto clear"). Resync so the post-speak glow reflects a fresh start, not
-      // the just-spoken last word.
-      _editSentence(ref, () => ref.read(utteranceProvider.notifier).clear());
+      // for the next message. Clears only the tokens THIS replay spoke (the
+      // captured prefix), so a word tapped during playback survives (item 4). In
+      // a `finally` so a playback error still resets rather than stranding stale
+      // tokens (clinical review: "does not always auto clear"). Resync so the
+      // post-speak glow reflects the new bar, not the just-spoken last word.
+      _editSentence(ref,
+          () => ref.read(utteranceProvider.notifier).removeLeading(spokenCount));
     }
   }
 }

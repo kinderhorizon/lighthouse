@@ -51,4 +51,18 @@ class Utterance extends _$Utterance {
     if (state.isEmpty) return;
     state = const [];
   }
+
+  /// Removes the first [count] tokens, leaving the rest. Used by the replay
+  /// auto-clear to drop only the tokens it actually spoke (the prefix captured
+  /// when Speak was pressed), so words the child taps DURING playback (appended
+  /// at the end) survive instead of being wiped with the whole bar. Clamps to
+  /// the current length and is a no-op for a non-positive count.
+  void removeLeading(int count) {
+    if (count <= 0 || state.isEmpty) return;
+    if (count >= state.length) {
+      state = const [];
+      return;
+    }
+    state = state.sublist(count);
+  }
 }

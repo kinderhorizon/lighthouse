@@ -21,12 +21,19 @@ class FavouritesStrip extends ConsumerWidget {
   const FavouritesStrip({
     required this.onTap,
     required this.colorKey,
+    this.onLongPress,
     this.hideText = false,
     this.hideIcon = false,
     super.key,
   });
 
   final void Function(AACButton button) onTap;
+
+  /// On-request mode routes the communication act through a long-press, so the
+  /// strip mirrors the grid's long-press path; null in every other mode (where a
+  /// long-press handler would otherwise sit in the gesture arena and cancel
+  /// taps, the grid's item-7 issue applied to favourites).
+  final void Function(AACButton button)? onLongPress;
 
   /// Category -> hex color map (the home board's), so each favourite is colored
   /// by its Fitzgerald category exactly like the grid tile it mirrors.
@@ -57,6 +64,7 @@ class FavouritesStrip extends ConsumerWidget {
         itemBuilder: (context, i) => _FavTile(
           button: favs[i],
           onTap: onTap,
+          onLongPress: onLongPress,
           colorKey: colorKey,
           hideText: hideText,
           hideIcon: hideIcon,
@@ -71,12 +79,14 @@ class _FavTile extends StatelessWidget {
     required this.button,
     required this.onTap,
     required this.colorKey,
+    this.onLongPress,
     this.hideText = false,
     this.hideIcon = false,
   });
 
   final AACButton button;
   final void Function(AACButton) onTap;
+  final void Function(AACButton)? onLongPress;
   final Map<String, String> colorKey;
   final bool hideText;
   final bool hideIcon;
@@ -109,6 +119,8 @@ class _FavTile extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () => onTap(button),
+          onLongPress:
+              onLongPress == null ? null : () => onLongPress!(button),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             child: Row(

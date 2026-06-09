@@ -36,7 +36,10 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 // Import the pure-Dart manifest model directly, NOT the ota.dart barrel: the
 // barrel pulls in content_overlay_store -> path_provider -> dart:ui, which a
-// plain `dart run` (no Flutter engine) cannot load.
+// plain `dart run` (no Flutter engine) cannot load. The model layer
+// (aac_board -> aac_button) is likewise pure Dart, so AACBoard.fromJson is
+// usable here to validate the board files we sign (ADR 0017 / 0014).
+import 'package:lighthouse/models/aac_board.dart';
 import 'package:lighthouse/services/ota/content_manifest.dart';
 
 Future<int> main(List<String> args) async {
@@ -78,6 +81,21 @@ Future<int> main(List<String> args) async {
     }
   }
 
+  // For a board overlay that REPLACES a bundled board, the button-id-
+  // preservation invariant (ADR 0014) is checked against the shipped board of
+  // the same id. Default to the repo's boards/ dir (this script lives at
+  // tools/ota/); overridable for tests / non-standard layouts.
+  final bundledBoardsArg = _argValue(args, '--bundled-boards');
+  final bundledBoardsDir = bundledBoardsArg != null
+      ? Directory(bundledBoardsArg)
+      : Directory.fromUri(Platform.script.resolve('../../boards'));
+  final canCheckIds = bundledBoardsDir.existsSync();
+  if (!canCheckIds) {
+    stderr.writeln('WARNING: bundled boards dir not found '
+        '(${bundledBoardsDir.path}); the button-id-preservation check for '
+        'board overlays is SKIPPED. Pass --bundled-boards <dir> to enable it.');
+  }
+
   final entries = <ContentManifestEntry>[];
   final rootPath = root.absolute.path;
   for (final entity in root.listSync(recursive: true, followLinks: false)) {
@@ -97,6 +115,57 @@ Future<int> main(List<String> args) async {
       sha256: sha256.convert(bytes).toString(),
       bytes: bytes.length,
     ));
+
+    // ADR 0017: validate every board JSON we sign. The signature chain proves
+    // PROVENANCE, not that the file parses on-device; a signed-but-unparseable
+    // board would render an error screen on the grid on every launch. Parse it
+    // here, at authoring time (this tool previously signed board bytes without
+    // ever decoding them). Review items 11 + 12.
+    if (rel.startsWith('boards/') && rel.endsWith('.json')) {
+      final AACBoard overlayBoard;
+      try {
+        overlayBoard = AACBoard.fromJson(
+            jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>);
+      } catch (e) {
+        stderr.writeln('board "$rel" does not parse as an AACBoard: $e');
+        return 65;
+      }
+      // Enforce button-id preservation for a board that replaces a bundled one
+      // (item 12). Bandit arms, glow, favourites, layout, recordings, icon
+      // overrides and hidden tiles all key on button.id, so a corrected board
+      // that drops or renames an id silently detaches months of learned state
+      // and parent customization. Require the overlay to cover every bundled id
+      // (additions are fine; removals / renames are not).
+      if (canCheckIds) {
+        final bundledFile = File(
+            '${bundledBoardsDir.path}/${rel.substring('boards/'.length)}');
+        if (bundledFile.existsSync()) {
+          final AACBoard bundledBoard;
+          try {
+            bundledBoard = AACBoard.fromJson(
+                jsonDecode(bundledFile.readAsStringSync())
+                    as Map<String, dynamic>);
+          } catch (e) {
+            stderr.writeln(
+                'bundled board ${bundledFile.path} does not parse: $e');
+            return 70;
+          }
+          final overlayIds = {for (final b in overlayBoard.buttons) b.id};
+          final missing = [
+            for (final b in bundledBoard.buttons)
+              if (!overlayIds.contains(b.id)) b.id,
+          ];
+          if (missing.isNotEmpty) {
+            stderr.writeln(
+                'board overlay "$rel" drops or renames button id(s) present in '
+                'the bundled board: ${missing.join(', ')}. Learned state and '
+                'customization key on button.id (ADR 0014); preserve every id, '
+                'or ship this as a new board id.');
+            return 65;
+          }
+        }
+      }
+    }
   }
   entries.sort((a, b) => a.path.compareTo(b.path));
 

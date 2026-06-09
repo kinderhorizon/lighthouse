@@ -107,7 +107,20 @@ class BoardRegistry {
     final overlay = _contentOverlay;
     if (overlay != null) {
       final overlaid = await overlay.overlayFileFor('boards/$boardId.json');
-      if (overlaid != null) return _loader.loadFromFile(overlaid);
+      if (overlaid != null) {
+        try {
+          return await _loader.loadFromFile(overlaid);
+        } catch (e) {
+          // ADR 0017 mandate: a validly-signed overlay proves provenance, NOT
+          // that the board PARSES. An unparseable overlaid board must fall back
+          // to the bundled asset rather than propagate an error screen, so "the
+          // grid for a non-speaking child never breaks" (review item 11). The
+          // overlay stays on disk; a later higher-sequence manifest can correct
+          // it. Falls through to the bundled / file sources below.
+          stderr.writeln('BoardRegistry: overlaid board "$boardId" failed to '
+              'parse, falling back to the bundled asset: $e');
+        }
+      }
     }
 
     final assetPath = _assetSources[boardId];
