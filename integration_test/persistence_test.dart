@@ -146,6 +146,53 @@ void main() {
       expect(all.single.buttonId, 'btn_help');
     });
 
+    test('appendEvent prunes OLDEST-first to the trim target past the cap',
+        () async {
+      // One of the only two code paths that delete the child's data (review
+      // item 11). Seed exactly the cap directly in one txn (appendEvent-per-row
+      // would be 20k transactions); autoincrement ids run 1..cap in order.
+      const cap = BanditRepository.maxRawEventRows;
+      const target = BanditRepository.rawEventTrimTarget;
+      final seed = <RawEventLogV1>[
+        for (var i = 0; i < cap; i++)
+          RawEventLogV1()
+            ..timestamp = DateTime.utc(2026, 1, 1).add(Duration(seconds: i))
+            ..eventType = 'tap'
+            ..buttonId = 'b$i'
+            ..boardId = 'core_main'
+            ..stateKey = 'k',
+      ];
+      await isar.writeTxn(() => isar.rawEventLogV1.putAll(seed));
+      expect(await isar.rawEventLogV1.where().count(), cap);
+
+      // One more tap tips past the cap and triggers the prune.
+      await repo.appendEvent(RawEventLogV1()
+        ..timestamp = DateTime.utc(2026, 1, 2)
+        ..eventType = 'tap'
+        ..buttonId = 'newest'
+        ..boardId = 'core_main'
+        ..stateKey = 'k');
+
+      // Trimmed back to the TARGET, not merely to the cap.
+      expect(await isar.rawEventLogV1.where().count(), target);
+
+      // The guard the reviewer asked for: a swapped sort direction would keep
+      // the oldest and silently delete the child's MOST RECENT taps. Assert the
+      // oldest (lowest ids) were the ones removed and the newest survived.
+      final survivors = await isar.rawEventLogV1.where().findAll();
+      final ids = survivors.map((e) => e.id).toList();
+      final minId = ids.reduce(math.min);
+      final maxId = ids.reduce(math.max);
+      const inserted = cap + 1; // ids 1..(cap+1)
+      const deleted = inserted - target; // the oldest `deleted` ids go
+      expect(minId, greaterThan(deleted),
+          reason: 'oldest rows (lowest ids) must be the ones deleted');
+      expect(maxId, inserted,
+          reason: 'the newest row must survive the prune');
+      expect(survivors.any((e) => e.buttonId == 'newest'), isTrue,
+          reason: 'the just-appended tap is the newest and must remain');
+    });
+
     test('uniqueContextKeyCount counts distinct stateKey values',
         () async {
       await repo.putState(BanditStateV1()

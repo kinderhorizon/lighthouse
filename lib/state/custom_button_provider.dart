@@ -76,6 +76,17 @@ class CustomButtons extends _$CustomButtons {
     File? imageSource,
   }) async {
     final store = ref.read(customButtonStoreProvider);
+    final requested = (row: row, col: col);
+    // Resolve the creation slot in BASE-board coordinates (P0-1). The editor
+    // offers empty slots from the LAYOUT-COMPOSED board, but a custom button's
+    // slot is merged onto the BASE board (applyCustomButtons, before applyLayout).
+    // When the parent has rearranged the board, a slot empty in the display can be
+    // occupied in the base, so storing the display slot verbatim used to evict the
+    // base word there. Store a slot that is genuinely free in the base (+ existing
+    // customs); if that differs from where the parent tapped, pin the new button
+    // to the tapped slot with a layout override so it still appears exactly there.
+    final creationSlot = await _baseFreeSlotFor(boardId, requested);
+
     // Reserve the stable id first (ADR 0014), then use it as the image
     // filename so the copied photo is named by identity, not by slot.
     final id = await store.allocateId(boardId);
@@ -86,14 +97,42 @@ class CustomButtons extends _$CustomButtons {
     final button = CustomButton(
       id: id,
       boardId: boardId,
-      row: row,
-      col: col,
+      row: creationSlot.row,
+      col: creationSlot.col,
       label: label,
       voiceOut: (voiceOut == null || voiceOut.isEmpty) ? label : voiceOut,
       imagePath: imagePath,
     );
     state = AsyncData(await store.add(button));
+    // Honour the tapped slot when the base-free creation slot differs from it:
+    // an override displays the new button exactly where the parent placed it,
+    // while its base creation slot stays collision-free.
+    if (creationSlot != requested) {
+      await ref
+          .read(boardLayoutProvider.notifier)
+          .setPositions(boardId, {id: requested});
+    }
     return id;
+  }
+
+  /// The slot to STORE a new custom button at so it never collides with a live
+  /// button on the base board (P0-1). Returns [requested] when it is free in the
+  /// base (+ current customs); otherwise the first base-free slot; falling back
+  /// to [requested] if the base board can't be loaded or is full (applyCustomButtons
+  /// then relocates/handles it as a last resort).
+  Future<Position> _baseFreeSlotFor(String boardId, Position requested) async {
+    try {
+      final registry = await ref.read(boardRegistryProvider.future);
+      final base = await registry.tryLoad(boardId);
+      if (base == null) return requested;
+      final withCustoms =
+          applyCustomButtons(base, state.valueOrNull ?? const <CustomButton>[]);
+      final empties = withCustoms.emptySlots();
+      if (empties.contains(requested)) return requested;
+      return empties.isNotEmpty ? empties.first : requested;
+    } catch (_) {
+      return requested;
+    }
   }
 
   Future<void> remove(String id) async {

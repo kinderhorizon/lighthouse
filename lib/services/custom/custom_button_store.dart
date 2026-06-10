@@ -34,6 +34,23 @@ class CustomButtonImageException implements Exception {
   String toString() => 'CustomButtonImageException: $message';
 }
 
+/// Thrown by a MUTATING operation when the store file exists but cannot be
+/// read/parsed as a whole. Writing in that state would persist empty-derived
+/// state: every custom button gone AND the id counters reset, so a future
+/// button reuses a dead id and inherits its bandit posteriors, recording, pin,
+/// and hidden flag (item 7, breaking the never-reuse invariant this file
+/// documents). Mutators refuse instead, leaving the on-disk file intact for
+/// recovery; the UI surfaces this rather than silently wiping. (A single
+/// malformed BUTTON entry is tolerated and skipped in [_readRaw], so this fires
+/// only on whole-file corruption, which is rare.)
+class CustomButtonStoreReadException implements Exception {
+  const CustomButtonStoreReadException();
+  @override
+  String toString() =>
+      'CustomButtonStoreReadException: refusing to overwrite an unreadable '
+      'custom-button store';
+}
+
 class CustomButtonStore {
   CustomButtonStore({Directory? dirOverride}) : _dirOverride = dirOverride;
 
@@ -67,14 +84,24 @@ class CustomButtonStore {
 
   /// Reads the raw persisted state: buttons (with RELATIVE image paths, as
   /// stored) plus the per-board id counters. Tolerates both the new object
-  /// shape and the legacy bare array. Returns empty state on first run or any
-  /// corruption (a bad file must never block the board).
-  Future<({List<CustomButton> buttons, Map<String, int> counters})>
+  /// shape and the legacy bare array.
+  ///
+  /// [ok] distinguishes a clean read (including a genuinely absent/first-run
+  /// file) from a FAILED read (the file exists but is unparseable, or has an
+  /// unexpected top-level shape). A failed read returns empty buttons + counters
+  /// but `ok: false`, so [load] can still degrade to "no buttons" for display
+  /// while MUTATORS refuse to write (item 7): persisting empty-derived state
+  /// would wipe every button and reset the counters, re-enabling id reuse.
+  ///
+  /// A single malformed BUTTON entry is skipped (not fatal): the rest load and
+  /// the counters survive, so one bad row can't trip the whole-file failure path.
+  Future<({List<CustomButton> buttons, Map<String, int> counters, bool ok})>
       _readRaw() async {
     try {
       final f = await _file();
       if (!f.existsSync()) {
-        return (buttons: <CustomButton>[], counters: <String, int>{});
+        // Genuinely absent: a clean first run, NOT a read failure.
+        return (buttons: <CustomButton>[], counters: <String, int>{}, ok: true);
       }
       final raw = jsonDecode(await f.readAsString());
       final List<dynamic> listPart;
@@ -92,15 +119,29 @@ class CustomButtonStore {
           }
         }
       } else {
-        return (buttons: <CustomButton>[], counters: <String, int>{});
+        // File exists but is not a recognizable shape: a failed read, not empty.
+        return (
+          buttons: <CustomButton>[],
+          counters: <String, int>{},
+          ok: false
+        );
       }
-      final buttons = <CustomButton>[
-        for (final e in listPart)
-          if (e is Map<String, dynamic>) CustomButton.fromJson(e),
-      ];
-      return (buttons: buttons, counters: counters);
+      final buttons = <CustomButton>[];
+      for (final e in listPart) {
+        if (e is! Map<String, dynamic>) continue;
+        try {
+          buttons.add(CustomButton.fromJson(e));
+        } catch (_) {
+          // One malformed entry (e.g. missing board_id/row/col) must not fail
+          // the whole read and wipe every other button + reset the counters
+          // (item 7). Skip it; it was unrenderable anyway.
+        }
+      }
+      return (buttons: buttons, counters: counters, ok: true);
     } catch (_) {
-      return (buttons: <CustomButton>[], counters: <String, int>{});
+      // Read or JSON-decode failure: the file is there but unreadable. Report
+      // NOT ok so mutators refuse to overwrite it (item 7).
+      return (buttons: <CustomButton>[], counters: <String, int>{}, ok: false);
     }
   }
 
@@ -139,6 +180,10 @@ class CustomButtonStore {
   /// the button. See the class doc for why this must not be recomputed.
   Future<String> allocateId(String boardId) async {
     final raw = await _readRaw();
+    // Never allocate against a failed read: it would persist a fresh counter map
+    // (losing every other board's high-water mark) and an empty button list,
+    // wiping all custom buttons and re-enabling id reuse (item 7).
+    if (!raw.ok) throw const CustomButtonStoreReadException();
     final n = raw.counters[boardId] ?? 0;
     await _write(raw.buttons, {...raw.counters, boardId: n + 1});
     return 'custom_${boardId}_$n';
@@ -186,6 +231,7 @@ class CustomButtonStore {
   /// updated list with absolute image paths.
   Future<List<CustomButton>> add(CustomButton button) async {
     final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
     final next = [
       for (final b in raw.buttons)
         if (b.id != button.id) b,
@@ -199,6 +245,7 @@ class CustomButtonStore {
   /// updated list with absolute image paths.
   Future<List<CustomButton>> removeById(String id) async {
     final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
     final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
     for (final b in raw.buttons.where((b) => b.id == id)) {
       final abs = _withAbsoluteImage(b, imagesDirPath);
@@ -221,6 +268,7 @@ class CustomButtonStore {
   /// "reset this board".
   Future<List<CustomButton>> removeForBoard(String boardId) async {
     final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
     final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
     for (final b in raw.buttons.where((b) => b.boardId == boardId)) {
       await _deleteImageQuietly(_withAbsoluteImage(b, imagesDirPath));
@@ -235,6 +283,7 @@ class CustomButtonStore {
   /// "reset everything".
   Future<List<CustomButton>> clearAll() async {
     final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
     final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
     for (final b in raw.buttons) {
       await _deleteImageQuietly(_withAbsoluteImage(b, imagesDirPath));

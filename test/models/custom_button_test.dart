@@ -92,7 +92,13 @@ void main() {
     expect(applyCustomButtons(base, [other]).buttons, hasLength(1));
   });
 
-  test('custom button wins on a slot collision', () {
+  test('a custom button does NOT evict a live word on a slot collision (P0-1)',
+      () {
+    // Augment, Don't Rearrange: a stored slot that is already occupied (legacy
+    // data, OTA layout skew, or a base-coordinate mismatch) must NEVER displace
+    // the live button. The occupant keeps its slot; the custom button relocates
+    // to the first free slot. Evicting it silently destroyed a word the child
+    // relied on, dropped its favourites pin, and orphaned its bandit posteriors.
     final base = _board([_btn('btn_food_apple', 0, 0)]);
     const custom = CustomButton(
       id: 'custom_board_food_0',
@@ -104,8 +110,14 @@ void main() {
       imagePath: '',
     );
     final merged = applyCustomButtons(base, [custom]);
-    expect(merged.buttons, hasLength(1));
-    expect(merged.buttonAt((row: 0, col: 0))?.label, 'Mine');
+    expect(merged.buttons, hasLength(2),
+        reason: 'both the existing word and the new custom button survive');
+    expect(merged.buttonAt((row: 0, col: 0))?.id, 'btn_food_apple',
+        reason: 'the live word keeps its slot; it is never evicted');
+    final placed = merged.buttonAt((row: 0, col: 1));
+    expect(placed?.label, 'Mine',
+        reason: 'the custom button relocates to the first free slot');
+    expect(placed?.category, kCustomCategory);
   });
 
   test('a custom button does NOT evict a folder on a slot collision (M6)', () {

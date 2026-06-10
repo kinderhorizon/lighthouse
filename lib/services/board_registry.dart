@@ -109,14 +109,25 @@ class BoardRegistry {
       final overlaid = await overlay.overlayFileFor('boards/$boardId.json');
       if (overlaid != null) {
         try {
-          return await _loader.loadFromFile(overlaid);
+          final board = await _loader.loadFromFile(overlaid);
+          // ADR 0017 + item 8: a validly-signed overlay proves PROVENANCE, not
+          // that it carries the right board. The device loads a board BY ID, and
+          // custom buttons, layouts, and hidden tiles all key on board_id, so an
+          // overlay whose declared board_id does not match the id we were asked
+          // for would silently REPLACE a different board: it detaches that
+          // board's customization and brings deliberately hidden tiles back to
+          // the child. Treat an id mismatch exactly like a parse failure: keep
+          // the overlay on disk (a later manifest can correct it) and fall back
+          // to the bundled asset.
+          if (board.boardId == boardId) return board;
+          stderr.writeln('BoardRegistry: overlaid board "$boardId" declares '
+              'mismatched board_id "${board.boardId}", falling back to the '
+              'bundled asset.');
         } catch (e) {
-          // ADR 0017 mandate: a validly-signed overlay proves provenance, NOT
-          // that the board PARSES. An unparseable overlaid board must fall back
-          // to the bundled asset rather than propagate an error screen, so "the
-          // grid for a non-speaking child never breaks" (review item 11). The
-          // overlay stays on disk; a later higher-sequence manifest can correct
-          // it. Falls through to the bundled / file sources below.
+          // An unparseable overlaid board must fall back to the bundled asset
+          // rather than propagate an error screen, so "the grid for a
+          // non-speaking child never breaks" (review item 11). Falls through to
+          // the bundled / file sources below.
           stderr.writeln('BoardRegistry: overlaid board "$boardId" failed to '
               'parse, falling back to the bundled asset: $e');
         }

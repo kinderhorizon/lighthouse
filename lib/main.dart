@@ -37,12 +37,17 @@ void main() {
       // licences (lib/config/licenses.dart). Lazy: read only when opened.
       registerBundledLicenses();
 
-      // If the DB is corrupt (e.g. mdbx damage after a force-kill), openForApp
-      // discards it and starts fresh rather than letting the app brick on the
-      // splash forever; note the original failure in the crash log. Only glow
-      // learning is lost (see IsarSetup.openForApp).
+      // If the DB is unrecoverable (e.g. mdbx damage after a force-kill), openForApp
+      // retries once then quarantines it (rename aside, backup-excluded) and starts
+      // fresh rather than letting the app brick on the splash forever. Set the
+      // bandit-corruption diagnostic flag (the one signal designed for this event,
+      // previously never set) AND note the original failure in the crash log; only
+      // glow learning is lost (see IsarSetup.openForApp).
       final isar = await IsarSetup.openForApp(
-        onCorruptDbReset: crashCapture.zoneErrorHandler,
+        onCorruptDbReset: (error, stack) {
+          crashCapture.banditStateCorruptionFlag = true;
+          crashCapture.zoneErrorHandler(error, stack);
+        },
       );
 
       // Wire the bandit-state diagnostic counters into crash logs (ADR
@@ -508,6 +513,15 @@ class _BoardView extends ConsumerWidget {
       // but not the reverse), so a several-second parent clip from a previous
       // tap could play on top of this word (item 5).
       await ref.read(customVoicePlayerProvider).stop();
+      // Also stop the TTS engine itself, not just speak over it. A system-voiced
+      // tap (this branch) routes to flutter_tts, which does NOT stop an in-flight
+      // BUNDLED sentence replay playing on the separate just_audio player, so the
+      // replay would continue UNDER the tapped word (P0-2 interleaving A). stop()
+      // on the composite halts the bundled playlist (and bumps the fallback
+      // engine's generation, aborting any in-flight mixed per-token loop) before
+      // this word speaks. A bundled-clip tap already self-supersedes via the
+      // bundled player's own token; this makes the system-voiced tap do the same.
+      await ref.read(ttsEngineProvider).stop();
       await ref.read(ttsEngineProvider).speak(voice, locale: locale);
     } catch (_) {
       // Intentionally ignored; see doc comment.

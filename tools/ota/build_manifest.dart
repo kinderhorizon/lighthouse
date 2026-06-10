@@ -89,11 +89,23 @@ Future<int> main(List<String> args) async {
   final bundledBoardsDir = bundledBoardsArg != null
       ? Directory(bundledBoardsArg)
       : Directory.fromUri(Platform.script.resolve('../../boards'));
+  final skipIdCheck = args.contains('--skip-id-check');
   final canCheckIds = bundledBoardsDir.existsSync();
+  // FAIL CLOSED (item 9): a check that protects months of learned state must not
+  // silently skip itself when its inputs are missing. The default bundled-boards
+  // path is invocation-sensitive (Platform.script.resolve), so refuse to emit a
+  // signable manifest when the dir is absent unless the author EXPLICITLY opts
+  // out with --skip-id-check.
+  if (!canCheckIds && !skipIdCheck) {
+    stderr.writeln('refusing: bundled boards dir not found '
+        '(${bundledBoardsDir.path}). The button-id-preservation check protects '
+        'months of learned state and must not be skipped silently. Pass '
+        '--bundled-boards <dir> to point at it, or --skip-id-check to opt out.');
+    return 66;
+  }
   if (!canCheckIds) {
-    stderr.writeln('WARNING: bundled boards dir not found '
-        '(${bundledBoardsDir.path}); the button-id-preservation check for '
-        'board overlays is SKIPPED. Pass --bundled-boards <dir> to enable it.');
+    stderr.writeln('WARNING: --skip-id-check set; the button-id-preservation '
+        'check for board overlays is SKIPPED for this build.');
   }
 
   final entries = <ContentManifestEntry>[];
@@ -128,6 +140,20 @@ Future<int> main(List<String> args) async {
             jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>);
       } catch (e) {
         stderr.writeln('board "$rel" does not parse as an AACBoard: $e');
+        return 65;
+      }
+      // Bind board_id to the filename (item 8). The device loads a board BY ID
+      // and pairs it to the overlay file by name; nothing else asserts the two
+      // agree. An overlay whose declared board_id differs from its filename stem
+      // would, once shipped, replace the WRONG board on-device, silently
+      // detaching custom buttons, layouts, and hidden tiles (all key on
+      // board_id) and resurfacing deliberately hidden tiles. Hard-fail here.
+      final expectedId = rel.substring('boards/'.length, rel.length - '.json'.length);
+      if (overlayBoard.boardId != expectedId) {
+        stderr.writeln('board "$rel" declares board_id "${overlayBoard.boardId}" '
+            'but its filename implies "$expectedId". The device loads by id and '
+            'pairs by filename; a mismatch detaches custom buttons, layouts, and '
+            'hidden tiles on-device. Rename the file or fix its board_id.');
         return 65;
       }
       // Enforce button-id preservation for a board that replaces a bundled one

@@ -1,6 +1,7 @@
 # ADR 0005: Isar schema versioning and migration safety
 
-**Status:** Accepted (persistence engine amended by ADR 0007)
+**Status:** Accepted (persistence engine amended by ADR 0007; corrupt-open
+recovery amended 2026-06-10)
 **Date:** 2026-05-28
 
 > **Amendment (ADR 0007, 2026-05-28):** the persistence engine moved from the
@@ -8,6 +9,27 @@
 > collection-name versioning strategy, the `SchemaMigrator` interface, the
 > failure-mode UX, and the per-version fixtures described below are all
 > unchanged; only the underlying package changed. See ADR 0007.
+
+> **Amendment (2026-06-10): conservative corrupt-open recovery.** A reviewer
+> found the original corrupt-DB recovery (`IsarSetup.openForApp`) too
+> aggressive: it DELETED the whole DB directory on ANY open failure. That
+> destroys data on recoverable causes (a full disk, where freeing storage was
+> the real fix; a 32-bit `armeabi-v7a` mmap-placement failure), and it
+> contradicts this ADR's "the decision is the parent's, never the app's" for
+> `RawEventLogV1`, which this ADR itself treats as the recovery source of truth,
+> not merely "reconstructible". This is the explicit, recorded reversal of that
+> delete-on-failure behavior. The open now: (1) passes an explicit
+> `maxSizeMiB` (128) so the default 512 MiB mapping does not itself fail to
+> place in a 32-bit process; (2) retries ONCE (clearing any half-registered
+> instance) so a transient lock does not trigger recovery at all; (3) only then
+> QUARANTINES the directory by renaming it aside to `lighthouse_db_corrupt/`
+> (backup-excluded exactly like the live DB, tied in `backup_exclusion_test`) so
+> the child's tap history is preserved for inspection or hand-recovery rather
+> than destroyed; and (4) sets `CrashCapture.banditStateCorruptionFlag` (the
+> diagnostic designed for this event, which was previously never set anywhere).
+> A fresh DB is then opened so the board returns; only glow learning resets,
+> which is genuinely reconstructible. The app still never blocks the child's
+> board on a corrupt DB; it just no longer destroys recoverable data to do so.
 
 ## Context
 

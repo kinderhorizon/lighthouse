@@ -41,14 +41,21 @@
 <data-extraction-rules>
     <cloud-backup>
         <exclude domain="file" path="lighthouse_db/" />
+        <exclude domain="file" path="lighthouse_db_corrupt/" />
         <exclude domain="file" path="custom_buttons.json" />
+        <exclude domain="file" path="custom_buttons.json.tmp" />
         <exclude domain="file" path="custom_images/" />
         <exclude domain="file" path="home_favourites.json" />
+        <exclude domain="file" path="home_favourites.json.tmp" />
         <exclude domain="file" path="board_layout.json" />
+        <exclude domain="file" path="board_layout.json.tmp" />
         <exclude domain="file" path="hidden_tiles.json" />
+        <exclude domain="file" path="hidden_tiles.json.tmp" />
         <exclude domain="file" path="icon_overrides.json" />
+        <exclude domain="file" path="icon_overrides.json.tmp" />
         <exclude domain="file" path="icon_overrides/" />
         <exclude domain="file" path="custom_voices.json" />
+        <exclude domain="file" path="custom_voices.json.tmp" />
         <exclude domain="file" path="custom_voices/" />
         <exclude domain="file" path="imported_boards/" />
         <exclude domain="file" path="content_overlay/" />
@@ -58,14 +65,21 @@
     </cloud-backup>
     <device-transfer>
         <exclude domain="file" path="lighthouse_db/" />
+        <exclude domain="file" path="lighthouse_db_corrupt/" />
         <exclude domain="file" path="custom_buttons.json" />
+        <exclude domain="file" path="custom_buttons.json.tmp" />
         <exclude domain="file" path="custom_images/" />
         <exclude domain="file" path="home_favourites.json" />
+        <exclude domain="file" path="home_favourites.json.tmp" />
         <exclude domain="file" path="board_layout.json" />
+        <exclude domain="file" path="board_layout.json.tmp" />
         <exclude domain="file" path="hidden_tiles.json" />
+        <exclude domain="file" path="hidden_tiles.json.tmp" />
         <exclude domain="file" path="icon_overrides.json" />
+        <exclude domain="file" path="icon_overrides.json.tmp" />
         <exclude domain="file" path="icon_overrides/" />
         <exclude domain="file" path="custom_voices.json" />
+        <exclude domain="file" path="custom_voices.json.tmp" />
         <exclude domain="file" path="custom_voices/" />
         <exclude domain="file" path="imported_boards/" />
         <exclude domain="file" path="content_overlay/" />

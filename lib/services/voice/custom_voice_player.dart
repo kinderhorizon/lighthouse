@@ -30,7 +30,15 @@ class CustomVoicePlayer {
     try {
       await player.setFilePath(filePath);
     } catch (_) {
-      // A missing/corrupt clip: signal failure so the caller falls back to TTS.
+      // Distinguish supersession from a genuinely bad clip (item 2). just_audio
+      // throws PlayerInterruptedException out of setFilePath when a NEWER request
+      // interrupts this load; that is not a corrupt clip, it is latest-wins
+      // working as intended, so report success. Returning false here would make
+      // the caller "fall back to TTS", which stops the newer tap's playback and
+      // speaks the OLD word: latest-wins inverted, the parent recording dropped.
+      // Only a failure with the generation UNCHANGED is a real missing/corrupt
+      // clip the caller must fall back on.
+      if (gen != _generation) return true;
       return false;
     }
     if (gen != _generation) return true; // a newer request took over: not a fail
@@ -56,14 +64,21 @@ class CustomVoicePlayer {
     try {
       await player.setFilePath(filePath);
     } catch (_) {
+      // Supersession (PlayerInterruptedException) is not a corrupt clip; only a
+      // failure with the generation unchanged is. See [play] (item 2).
+      if (gen != _generation) return true;
       return false; // missing/corrupt clip: signal failure for TTS fallback
     }
     if (gen != _generation) return true; // a newer request took over: not a fail
+    // Resolve on completed OR idle: a newer request's [stop] drives the shared
+    // player to idle (not completed), so accepting idle lets a superseding tap
+    // end this wait crisply instead of parking on it until the 10s timeout.
     final Future<ProcessingState> finished =
         player.processingState == ProcessingState.completed
             ? Future.value(ProcessingState.completed)
             : player.processingStateStream
-                .firstWhere((s) => s == ProcessingState.completed)
+                .firstWhere((s) =>
+                    s == ProcessingState.completed || s == ProcessingState.idle)
                 .timeout(const Duration(seconds: 10),
                     onTimeout: () => ProcessingState.completed);
     unawaited(player.play().catchError((Object _) {}));

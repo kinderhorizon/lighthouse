@@ -210,6 +210,12 @@ class _AddCustomButtonDialogState
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l10n.imageRejected)));
       return;
+    } on CustomButtonStoreReadException {
+      // Whole-file-corrupt store refused to overwrite (item 7); the parent's
+      // existing buttons are preserved. Stop the spinner and bail; rare path,
+      // no bespoke unvalidated-locale toast.
+      if (mounted) setState(() => _saving = false);
+      return;
     }
     if (mounted) Navigator.of(context).pop();
   }

@@ -144,6 +144,14 @@ class SentenceBar extends ConsumerWidget {
     });
   }
 
+  /// Bound on each system-TTS await in the replay. The per-TAP path is timeboxed
+  /// in main._speakTimeboxed for the documented iOS hang (flutter_tts does not
+  /// complete a cancelled utterance on iOS); the replay must be bounded the same
+  /// way, or a hung token pins _speak forever, auto-clear never runs, and a later
+  /// stop() revives the parked loop (item 4). The bundled playlist and the custom
+  /// player already self-bound at 10s internally; this covers the system path.
+  static const Duration _replayTokenTimeout = Duration(seconds: 10);
+
   Future<void> _speak(BuildContext context, WidgetRef ref) async {
     final tokens = ref.read(utteranceProvider);
     if (tokens.isEmpty) return;
@@ -156,17 +164,43 @@ class SentenceBar extends ConsumerWidget {
     // at the end) survives instead of being wiped with the whole bar (item 4).
     final spokenCount = tokens.length;
     // Claim a replay generation. An interrupting communication tap
-    // (main._speakSafely) or a fresh Speak bumps it; the custom-voice loop below
+    // (main._speakSafely) or a fresh Speak bumps it; EVERY checkpoint below
     // aborts the moment it changes, so the old sentence never resumes after the
-    // child has moved on (item 6).
+    // child has moved on, AND a superseded replay never clears the bar (P0-2 /
+    // items 1, 4, 6).
     final replay = ref.read(replayGenerationProvider);
     final myGen = replay.begin();
+    bool superseded() => replay.current != myGen;
     // Folders never reach the bar, but filter defensively to match the composer.
     final speakable =
         tokens.where((t) => t.type != AACButtonType.folder).toList();
     // Does any tile in this sentence carry a parent-recorded clip? If not, keep
     // the whole replay on the gapless bundled path (best quality, ADR 0010).
     final hasCustomVoice = speakable.any((t) => voices.pathFor(t.id) != null);
+
+    // Speak a run of ordinary (non-recorded) tiles. Bounded against the iOS
+    // system-TTS hang (item 4); on a thrown token (e.g. a corrupt bundled clip)
+    // it re-speaks token-by-token so ONE bad token can never abort the whole
+    // replay and leave the child's highest-stakes act silent (item 3).
+    Future<void> speakRun(List<AACButton> run) async {
+      final words = composeUtteranceTokens(run, locale.languageCode);
+      if (words.isEmpty || superseded()) return;
+      try {
+        await engine
+            .speakSequence(words, locale: locale)
+            .timeout(_replayTokenTimeout, onTimeout: () {});
+      } catch (_) {
+        for (final w in words) {
+          if (superseded()) return;
+          try {
+            await engine
+                .speakSequence([w], locale: locale)
+                .timeout(_replayTokenTimeout, onTimeout: () {});
+          } catch (_) {/* skip the one bad token, never the whole sentence */}
+        }
+      }
+    }
+
     try {
       // Cancel any in-flight per-word playback before replaying the sentence:
       // both the TTS engine AND the custom-voice player. Tapping a word speaks
@@ -181,8 +215,7 @@ class SentenceBar extends ConsumerWidget {
         // Pass the ordered word list (not a single string) so the engine can
         // concatenate the per-word bundled clips and keep the replay on the
         // reliable path (ADR 0010).
-        final words = composeUtteranceTokens(tokens, locale.languageCode);
-        if (words.isNotEmpty) await engine.speakSequence(words, locale: locale);
+        await speakRun(speakable);
       } else {
         // Mixed sentence: a self-made tile with a recorded clip must be HEARD in
         // the replay, not silently swapped for TTS (clinical review). Speak each run
@@ -191,21 +224,24 @@ class SentenceBar extends ConsumerWidget {
         // runs while honouring the recording at each custom tile.
         var run = <AACButton>[];
         Future<void> flushRun() async {
-          if (run.isEmpty) return;
-          final words = composeUtteranceTokens(run, locale.languageCode);
+          if (run.isEmpty || superseded()) {
+            run = <AACButton>[];
+            return;
+          }
+          final toSpeak = run;
           run = <AACButton>[];
-          if (words.isNotEmpty) await engine.speakSequence(words, locale: locale);
+          await speakRun(toSpeak);
         }
 
         for (final token in speakable) {
           // Superseded by an interrupting tap or a newer replay: stop here
           // rather than playing out the rest of a sentence the child has
-          // abandoned (item 6). The finally still runs.
-          if (replay.current != myGen) return;
+          // abandoned (item 6). The finally still runs (and no-ops its clear).
+          if (superseded()) return;
           final clip = voices.pathFor(token.id);
           if (clip != null) {
             await flushRun();
-            if (replay.current != myGen) return;
+            if (superseded()) return;
             await engine.stop();
             // A missing/corrupt recording returns false: don't drop the word,
             // fold it back into the TTS run so it is still spoken in order via
@@ -218,15 +254,23 @@ class SentenceBar extends ConsumerWidget {
         }
         await flushRun();
       }
+    } catch (_) {
+      // A routine supersession race (e.g. PlayerInterruptedException surfacing
+      // through the engine) must never escape to the zone handler and write a
+      // phantom crash log a parent might mail to bugs@ (item 3). Swallow; the
+      // finally still tidies the bar. Speech must never crash a tap or a replay.
     } finally {
       // Auto-clear after the sentence plays (clinical review, 2026-05-29): the bar resets
       // for the next message. Clears only the tokens THIS replay spoke (the
-      // captured prefix), so a word tapped during playback survives (item 4). In
-      // a `finally` so a playback error still resets rather than stranding stale
-      // tokens (clinical review: "does not always auto clear"). Resync so the
-      // post-speak glow reflects the new bar, not the just-spoken last word.
-      _editSentence(ref,
-          () => ref.read(utteranceProvider.notifier).removeLeading(spokenCount));
+      // captured prefix), so a word tapped during playback survives (item 4).
+      // ONLY when this replay is still current: a superseded replay must NOT
+      // clear, or the late completion of its now-orphaned bundled waiter would
+      // double-run removeLeading and wipe the child's mid-replay taps (item 1 /
+      // P0-2). The superseding tap or replay owns the bar now.
+      if (!superseded()) {
+        _editSentence(ref,
+            () => ref.read(utteranceProvider.notifier).removeLeading(spokenCount));
+      }
     }
   }
 }

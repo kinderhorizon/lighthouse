@@ -37,6 +37,10 @@ void main() {
   // parent-authored content / customization (ADR 0002, 0012/0013/0014/0017).
   final excludedPaths = <String>{
     '${IsarSetup.dbSubdir}/',
+    // The quarantine the live DB is renamed aside to on an unrecoverable open
+    // (item 5). It holds the same RawEventLogV1 communication content, so it
+    // MUST be excluded exactly like the live DB or the recovery itself leaks.
+    '${IsarSetup.corruptDbSubdir}/',
     CustomButtonStore.fileName,
     '${CustomButtonStore.imagesSubdir}/',
     FavouritesStore.fileName,
@@ -50,10 +54,22 @@ void main() {
     '${ContentOverlayStore.subdirName}/',
   };
 
+  // The atomic-write temp siblings (<store>.json.tmp, atomic_file.dart) live at
+  // the same files-dir root and hold the same communication content mid-write; a
+  // hard kill between write and rename strands one, which would then sync to the
+  // parent's Google account on every backup (item 6). Every excluded root JSON
+  // store must also exclude its .tmp sibling.
+  final tmpPaths = <String>{
+    for (final p in excludedPaths)
+      if (p.endsWith('.json')) '$p.tmp',
+  };
+
+  final allExcluded = <String>{...excludedPaths, ...tmpPaths};
+
   test('every privacy-bearing path is excluded in both backup XML files', () {
     final data = read(dataRules);
     final full = read(fullBackup);
-    for (final p in excludedPaths) {
+    for (final p in allExcluded) {
       expect(data, contains(fileExclude(p)),
           reason: 'data_extraction_rules must exclude "$p" or that content is '
               'backed up to the parent Google account');
@@ -75,7 +91,7 @@ void main() {
             ?.group(1);
     expect(cloud, isNotNull);
     expect(transfer, isNotNull);
-    for (final p in excludedPaths) {
+    for (final p in allExcluded) {
       expect(cloud, contains(fileExclude(p)),
           reason: '"$p" missing in <cloud-backup>');
       expect(transfer, contains(fileExclude(p)),

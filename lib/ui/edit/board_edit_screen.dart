@@ -1764,6 +1764,13 @@ class _AddAtSlotDialogState extends ConsumerState<_AddAtSlotDialog> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l10n.imageRejected)));
       return;
+    } on CustomButtonStoreReadException {
+      // The store file is whole-file corrupt and refused to overwrite (item 7),
+      // so the parent's existing buttons are preserved. Stop the spinner; the
+      // new button just isn't added this time. Rare; surfaced via the crash log
+      // rather than a bespoke unvalidated-locale toast.
+      if (mounted) setState(() => _saving = false);
+      return;
     }
     if (mounted) Navigator.of(context).pop();
   }

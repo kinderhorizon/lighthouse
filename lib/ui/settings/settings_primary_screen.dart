@@ -147,7 +147,10 @@ class SettingsPrimaryScreen extends ConsumerWidget {
               ),
             ),
             // Hosted privacy policy. Dead-UI gate: appears only once a policy
-            // URL is baked in. Not math-gated: public read-only information.
+            // URL is baked in. Math-gated like every other external launch
+            // (item 10): it leaves the app to a browser two taps from the
+            // child's board, the same child-audience escape the About website
+            // link gates, so it must gate too (4+/Families consistency).
             if (privacyPolicyUrl.isNotEmpty)
               LhSettingsRow(
                 icon: Icons.shield_moon_outlined,
@@ -430,6 +433,11 @@ class SettingsPrimaryScreen extends ConsumerWidget {
   }
 
   Future<void> _openPrivacyPolicy(BuildContext context, String url) async {
+    // Parental gate before leaving the app to an external browser (item 10):
+    // the same math gate used for every other external launch and for the About
+    // screen's website link. Leaving this one ungated was an internal
+    // inconsistency and a real child-audience (4+/Families) review risk.
+    if (!await _passesGate(context) || !context.mounted) return;
     final l10n = AppLocalizations.of(context);
     var opened = false;
     try {

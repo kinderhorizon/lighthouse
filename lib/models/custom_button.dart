@@ -113,23 +113,52 @@ class CustomButton {
 }
 
 /// Overlays [customs] belonging to [base] onto it, returning a new board.
-/// Pure: no IO. A custom button takes its slot; on a collision with an existing
-/// WORD the custom one wins (the editor only offers empty slots, so this is
-/// robustness, not normal flow). A collision with a FOLDER preserves the folder:
-/// under ADR 0017 OTA layout skew a bundled folder can shift onto a custom's
-/// target slot, and a folder is the only path into a sub-board, so a custom word
-/// must never silently evict it (applyLayout's folder-protection runs later and
-/// cannot recover a folder no longer in board.buttons). Review M6.
+/// Pure: no IO. A custom button takes its slot WHEN THAT SLOT IS FREE; on a
+/// collision with ANY live button (word, folder, or another custom) it NEVER
+/// evicts the occupant: it is relocated to the first free slot instead, and
+/// dropped only if the board is completely full.
+///
+/// This is the hard "Augment, Don't Rearrange" safety net (P0-1). Slots are
+/// minted by the editor from the LAYOUT-COMPOSED board, but this merge runs on
+/// the BASE board (before applyLayout), so once the parent has rearranged a
+/// board a display-empty slot can be base-occupied. Evicting the occupant there
+/// silently destroyed a word the child relies on, dropped its favourites pin,
+/// and orphaned its bandit posteriors. addButton now resolves creation slots in
+/// base coordinates so a collision is not expected in normal flow, but this
+/// guarantees that even a legacy entry or OTA layout skew (ADR 0017) can never
+/// delete a live button: a folder (the only path into a sub-board) and every
+/// existing word are preserved, and the new custom button still appears.
 AACBoard applyCustomButtons(AACBoard base, List<CustomButton> customs) {
   final mine = customs.where((c) => c.boardId == base.boardId).toList();
   if (mine.isEmpty) return base;
 
+  final rows = base.gridDimensions.rows;
+  final cols = base.gridDimensions.cols;
   final bySlot = <Position, AACButton>{
     for (final b in base.buttons) b.position: b,
   };
+
+  Position? firstFreeSlot() {
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        final p = (row: r, col: c);
+        if (!bySlot.containsKey(p)) return p;
+      }
+    }
+    return null;
+  }
+
   for (final c in mine) {
-    if (bySlot[c.position]?.type == AACButtonType.folder) continue;
-    bySlot[c.position] = c.toAacButton();
+    final button = c.toAacButton();
+    if (!bySlot.containsKey(c.position)) {
+      bySlot[c.position] = button; // normal path: the stored slot is free
+    } else {
+      // Occupied: never evict the live occupant. Place this custom button at the
+      // first free slot; if the board is full, drop the NEW button rather than
+      // displace an existing one.
+      final free = firstFreeSlot();
+      if (free != null) bySlot[free] = button.withPosition(free);
+    }
   }
   return base.copyWithButtons(bySlot.values.toList(growable: false));
 }

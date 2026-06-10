@@ -174,11 +174,20 @@ class BundledAudioTTSEngine implements TTSEngine {
     // 10s timeout. Capturing the future first closes that race; the short-circuit
     // handles the already-completed reused-player case. Bounded so a corrupt clip
     // still can't hang.
+    //
+    // Resolve on completed OR idle: a superseding [stop] (a child's tap during
+    // this replay) drives the player to idle, not completed, so without
+    // accepting idle this waiter would stay subscribed to the shared broadcast
+    // stream and only resolve when a LATER replay completes, double-running the
+    // caller's finally and wiping the child's mid-replay taps (item 1). After
+    // setAudioSources + play the player passes through loading/ready/playing to
+    // completed and reaches idle only via stop(), so idle here means superseded.
     final Future<ProcessingState> finished =
         player.processingState == ProcessingState.completed
             ? Future.value(ProcessingState.completed)
             : player.processingStateStream
-                .firstWhere((s) => s == ProcessingState.completed)
+                .firstWhere((s) =>
+                    s == ProcessingState.completed || s == ProcessingState.idle)
                 .timeout(const Duration(seconds: 10),
                     onTimeout: () => ProcessingState.completed);
     // Swallow a late playback error (see speak()): a bad clip must not crash a tap.
