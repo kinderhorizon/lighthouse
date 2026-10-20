@@ -8,3 +8,6 @@ export 'aac_button.dart';
 export 'board_layout.dart';
 export 'custom_button.dart';
 export 'hidden_tiles.dart';
+export 'daily_schedule.dart';
+export 'personal_card.dart';
+export 'user_profile.dart';

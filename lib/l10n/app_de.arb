@@ -1,0 +1,645 @@
+{
+  "@@locale": "de",
+  "back": "Zurück",
+  "skip": "Überspringen",
+  "next": "Weiter",
+  "done": "Fertig",
+  "cancel": "Abbrechen",
+  "close": "Schließen",
+  "continueLabel": "Fortfahren",
+  "settingsTooltip": "Einstellungen",
+  "packNotLoaded": "Paket nicht geladen: {folder}",
+  "@packNotLoaded": {
+    "placeholders": {
+      "folder": {
+        "type": "String"
+      }
+    }
+  },
+  "couldNotLoadBoard": "Standard-Tafel konnte nicht geladen werden.",
+  "settingsTitle": "Einstellungen",
+  "language": "Sprache",
+  "followSystem": "Systemstandard",
+  "sectionCrashLogs": "Absturzberichte",
+  "viewCrashLogs": "Absturzberichte anzeigen",
+  "viewCrashLogsSubtitle": "See exactly what would be sent before you send it",
+  "shareCrashLogs": "Send Absturz Berichte",
+  "shareCrashLogsSubtitle": "Opens your mail app to send the Berichte to KHF; you Tippen send",
+  "sectionBoards": "Boards",
+  "importBoardPack": "Importieren a Tafel pack",
+  "importBoardPackSubtitle": "Add a Tafel JSON file from this device",
+  "sectionOnboarding": "Onboarding",
+  "rerunOnboarding": "Re-run the Willkommen",
+  "rerunOnboardingSubtitle": "Anzeigen the first-launch flow again",
+  "sectionAdvanced": "Advanced",
+  "advancedSettings": "Advanced Einstellungen",
+  "advancedSettingsSubtitle": "Stimme, Hervorhebung, Tippen size, learning",
+  "sectionUpdates": "Aktualisierungen",
+  "sectionAbout": "Über",
+  "aboutLighthouse": "Über Lighthouse",
+  "aboutLighthouseSubtitle": "A free project of the Kinder Horizon Foundation",
+  "privacyPolicy": "Datenschutzerklärung",
+  "privacyPolicySubtitle": "How Lighthouse handles your data (opens in your browser)",
+  "couldNotOpenLink": "Konnte nicht open the link.",
+  "noCrashLogsToShare": "No Absturz Berichte to send.",
+  "shareSubject": "Lighthouse AAC Absturz Berichte",
+  "crashEmailBody": "The attached Absturz Berichte are from Lighthouse AAC. Thank you for helping us fix the problem.",
+  "shareBody": "Absturz Berichte from Lighthouse AAC are attached. Please send them to bugs@kinderhorizon.org.",
+  "rerunOnboardingConfirmTitle": "Re-run onboarding?",
+  "rerunOnboardingConfirmBody": "You will see the first-launch flow again. The Tafel and your child's learned patterns are not affected.",
+  "rerun": "Re-run",
+  "couldNotReadFile": "Konnte nicht read the picked file.",
+  "importedBoard": "Imported \"{board}\".",
+  "@importedBoard": {
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "couldNotImport": "Konnte nicht import: {error}",
+  "@couldNotImport": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "advancedTitle": "Advanced",
+  "sectionVoice": "Stimme",
+  "sectionVisual": "How the Tafel looks",
+  "sectionLearning": "Learning",
+  "resetLearnedState": "Gelernte Vorhersagen zurücksetzen",
+  "resetLearnedStateSubtitle": "Löscht den lokalen Lernverlauf und stellt die Standardvorschläge wieder her",
+  "resetLearnedStateConfirmTitle": "Zurücksetzen learned state?",
+  "resetLearnedStateConfirmBody": "This permanently erases the Hervorhebung predictions your Kind has built up. It cannot be undone. The Tafel, language, and other Einstellungen are not affected.\n\nUse this when handing the device to a different Kind, or if the glows no longer match how your Kind communicates.",
+  "erase": "Erase",
+  "learnedStateCleared": "Learned state cleared.",
+  "couldNotClearLearnedState": "Konnte nicht clear learned state. Try again.",
+  "voiceOutput": "Stimme output",
+  "ttsModeOn": "On (speak every tap)",
+  "ttsModeOnRequest": "On-request (long-press to speak)",
+  "ttsModeOff": "Off (no synthesized speech)",
+  "ttsModeAls": "Anzeigen Wort large, no Sprache (ALS)",
+  "glowStyle": "Hervorhebung style",
+  "glowStyleHalo": "Soft halo",
+  "hitboxExpansion": "Tippen size",
+  "hitboxNone": "Standard",
+  "hitboxSubtle": "Comfortable",
+  "hitboxMaximum": "Large",
+  "aboutTitle": "Über",
+  "aboutTagline": "A free project of the Kinder Horizon Foundation.",
+  "aboutBody": "Lighthouse helps non-speaking children communicate. It is free, has no ads, and keeps everything your Kind does on this device.",
+  "visitWebsite": "Visit kinderhorizon.org",
+  "visitWebsiteSubtitle": "Opens our website in your browser",
+  "couldNotOpenBrowser": "Browser konnte nicht geöffnet werden.",
+  "version": "Version",
+  "versionLabel": "Version {version} ({build})",
+  "@versionLabel": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "mathGateError": "Not quite. Try again.",
+  "mathGateTitle": "Elternbereich",
+  "mathGateBody": "These Einstellungen can disrupt how the app works for your Kind. Answer below to continue.",
+  "mathGateEquation": "{a} + {b} = ?",
+  "@mathGateEquation": {
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      }
+    }
+  },
+  "mathGateAnswerLabel": "Answer",
+  "crashLogsTitle": "Absturz Berichte",
+  "noCrashLogsOnDevice": "Keine Absturzberichte auf dem Gerät vorhanden.",
+  "onboardingGridTitle": "This is the Tafel your Kind will see.",
+  "onboardingGridBody": "Tippen any Feld to hear how it sounds. Buttons never move; the layout your Kind learns today is the layout they will always have.",
+  "onboardingPlaceTitle": "Where will your Kind use Lighthouse?",
+  "onboardingPlaceBody": "We use this to Beschriftung the place Lighthouse learns first. It does not change how the app behaves; you can skip it.",
+  "onboardingWifiTitle": "Learn Wörter for each place",
+  "onboardingWifiBody": "Lighthouse can use your Wi-Fi Netzwerk name, scrambled on this device, to learn which Wörter your Kind needs in different places like home and school. The name never leaves the tablet, and this is optional.",
+  "onboardingWifiAllow": "Allow",
+  "onboardingWifiGranted": "On. Lighthouse will learn Wörter for each place.",
+  "onboardingWifiDenied": "Not now. You can turn this on later in Einstellungen.",
+  "placeHome": "Home",
+  "placeSchool": "School",
+  "placeBoth": "Home and school",
+  "placeOther": "Somewhere else",
+  "privacyTitle": "Privacy",
+  "privacyTooltip": "How we know this is true",
+  "privacyBody": "What you just told us, and everything your Kind taps next, stays here. Lighthouse has no account and never sends your child's Wörter anywhere.",
+  "howWeKnowTitle": "How we know",
+  "howWeKnowBody1": "Lighthouse does not connect to any cloud. There is no analytics SDK in the app. There is no automatic Absturz reporting. Data leaves the device only when you choose to send it: if you Tippen \"Send Absturz logs\", which opens your own mail app pre-addressed to us so you can review and Tippen send, or if you Teilen a vocabulary Tafel with another family, where you pick the destination. You stay in control either way; nothing is sent automatically.",
+  "howWeKnowBody2": "You can verify this on the Einstellungen screen, which lets you preview the exact Absturz log contents before you send. A Absturz log holds the device model, the OS Version, and a technical Fehler report (the Fehler type, its message, and the code trace). The app is built not to Aufnehmen the Wörter your Kind taps or your Tafel content, and because you preview each log and choose whether to send it, you stay in control of what leaves the device.",
+  "howWeKnowUpdates": "If you Tippen \"Check for updates\", the app sends only its Version number to ask whether corrected Wörter, pictures, or sounds are available. It sends nothing Über your Kind or how the app is used.",
+  "howWeKnowFeedback": "If you Tippen \"Send feedback\", the app sends only the message you write, plus the app and system Version. The message is not stored, and it carries nothing Über your Kind or your boards.",
+  "sectionNavigation": "Moving around",
+  "@sectionNavigation": {
+    "description": "Advanced settings: auto-return navigation control"
+  },
+  "autoReturnToHome": "Go home after a Wort",
+  "@autoReturnToHome": {
+    "description": "Advanced settings: auto-return navigation control"
+  },
+  "autoReturnToHomeSubtitle": "After a Wort inside a Ordner, return to the home Tafel",
+  "@autoReturnToHomeSubtitle": {
+    "description": "Advanced settings: auto-return navigation control"
+  },
+  "hideTileText": "Ausblenden text on tiles",
+  "@hideTileText": {
+    "description": "Advanced settings: symbol-only mode toggle"
+  },
+  "hideTileTextSubtitle": "Anzeigen pictures only, without the Wort under each Feld",
+  "@hideTileTextSubtitle": {
+    "description": "Advanced settings: symbol-only mode toggle"
+  },
+  "sentenceBarLabel": "Satz",
+  "@sentenceBarLabel": {
+    "description": "Accessibility label for the sentence bar above the board"
+  },
+  "sentenceBarHint": "Tippen Wörter to build a Satz",
+  "@sentenceBarHint": {
+    "description": "Placeholder shown in the empty sentence bar"
+  },
+  "boardScrollHint": "more Wörter",
+  "@boardScrollHint": {
+    "description": "Scroll cue shown under the board on small screens where the board scrolls"
+  },
+  "sentenceSpeak": "Sprechen Satz",
+  "@sentenceSpeak": {
+    "description": "Tooltip for the button that speaks the whole sentence"
+  },
+  "sentenceBackspace": "Entfernen last Wort",
+  "@sentenceBackspace": {
+    "description": "Tooltip for the sentence-bar backspace button"
+  },
+  "sentenceClear": "Leeren Satz",
+  "@sentenceClear": {
+    "description": "Tooltip for the sentence-bar clear button"
+  },
+  "customButtonsTitle": "Eigene Felder",
+  "@customButtonsTitle": {
+    "description": "Title of the parent custom-button editor"
+  },
+  "customButtonsSubtitle": "Eigene Wörter mit Fotos und Sprachaufnahmen hinzufügen",
+  "@customButtonsSubtitle": {
+    "description": "Settings subtitle for the custom-button editor entry"
+  },
+  "imageRejected": "That Bild is too large or not a supported type. Please choose a smaller Foto.",
+  "customButtonsAdd": "Add a Taste",
+  "@customButtonsAdd": {
+    "description": "Button that opens the add-custom-button dialog"
+  },
+  "customButtonsBoardLabel": "Tafel",
+  "@customButtonsBoardLabel": {
+    "description": "Label for the board picker in the add-custom-button dialog"
+  },
+  "customButtonsWordLabel": "Wort",
+  "@customButtonsWordLabel": {
+    "description": "Label for the word field in the add-custom-button dialog"
+  },
+  "customButtonsChoosePhoto": "Choose Foto",
+  "@customButtonsChoosePhoto": {
+    "description": "Button to pick an image for a custom button"
+  },
+  "customButtonsNoFreeSlots": "This Tafel is full. Choose another Tafel.",
+  "@customButtonsNoFreeSlots": {
+    "description": "Shown when the selected board has no empty slot"
+  },
+  "customButtonsDelete": "Löschen Taste",
+  "@customButtonsDelete": {
+    "description": "Tooltip for deleting a custom button"
+  },
+  "customButtonsSave": "Speichern",
+  "@customButtonsSave": {
+    "description": "Save action in the add-custom-button dialog"
+  },
+  "homeFavouritesTitle": "Favoriten-Leiste",
+  "@homeFavouritesTitle": {
+    "description": "Title of the home favourites editor"
+  },
+  "homeFavouritesSubtitle": "Wichtige Wörter auf der Haupttafel anheften",
+  "@homeFavouritesSubtitle": {
+    "description": "Settings subtitle for the home favourites entry"
+  },
+  "homeFavouritesIntro": "Pinned Wörter appear in a row on the home page, always in the same place.",
+  "@homeFavouritesIntro": {
+    "description": "Intro text in the home favourites editor"
+  },
+  "homeFavouritesSuggested": "Used a lot",
+  "@homeFavouritesSuggested": {
+    "description": "Header for auto-detected suggestion chips"
+  },
+  "homeFavouritesAllWords": "Add from a group",
+  "@homeFavouritesAllWords": {
+    "description": "Header for the full per-board word list"
+  },
+  "homeFavouritesPin": "Anheften",
+  "@homeFavouritesPin": {
+    "description": "Tooltip to pin a word"
+  },
+  "homeFavouritesUnpin": "Lösen",
+  "@homeFavouritesUnpin": {
+    "description": "Tooltip to unpin a word"
+  },
+  "homeFavouritesFull": "Home is full ({count} favourites). Entfernen one to add another.",
+  "@homeFavouritesFull": {
+    "description": "Shown when the favourites cap is reached",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editBoardTooltip": "Arrange Tafel",
+  "@editBoardTooltip": {
+    "description": "AppBar tooltip for entering the parent board-arrange mode"
+  },
+  "editBoardTitle": "Arrange Tafel",
+  "@editBoardTitle": {
+    "description": "Title of the board-arrange (edit) screen"
+  },
+  "editBoardHint": "Tippen a Taste to move it, Anheften it, or replace it. Drag to rearrange. Your Kind sees the new layout when you leave.",
+  "@editBoardHint": {
+    "description": "One-line explainer at the top of the arrange screen"
+  },
+  "editActionMove": "Move",
+  "@editActionMove": {
+    "description": "Action: start moving the selected button to another slot"
+  },
+  "editMoveHint": "Tippen where to place it",
+  "@editMoveHint": {
+    "description": "Banner shown while waiting for the parent to tap a destination"
+  },
+  "editActionPin": "Anheften to favourites",
+  "@editActionPin": {
+    "description": "Action: pin the selected button to the home favourites bar"
+  },
+  "editActionUnpin": "Entfernen from favourites",
+  "@editActionUnpin": {
+    "description": "Action: unpin an already-pinned button"
+  },
+  "editActionAddHere": "Add a Taste here",
+  "@editActionAddHere": {
+    "description": "Action shown when tapping an empty slot in arrange mode"
+  },
+  "editResetBoard": "Zurücksetzen this Tafel",
+  "@editResetBoard": {
+    "description": "Menu action: reset the current board to its default layout"
+  },
+  "editResetAll": "Zurücksetzen everything",
+  "@editResetAll": {
+    "description": "Menu action: clear every board's layout overrides"
+  },
+  "editResetBoardConfirm": "Put this Tafel back the way it came? Every change you made to it (tiles you moved, hid, re-pictured, re-recorded, or added) will be undone. Other boards are not affected.",
+  "@editResetBoardConfirm": {
+    "description": "Confirm dialog body for per-board layout reset"
+  },
+  "editResetAllConfirm": "Put every Tafel back the way it came? All your changes on every Tafel (moved, hidden, re-pictured, re-recorded, and added tiles) will be undone.",
+  "@editResetAllConfirm": {
+    "description": "Confirm dialog body for the global layout reset"
+  },
+  "editResetConfirmButton": "Zurücksetzen",
+  "@editResetConfirmButton": {
+    "description": "Confirm button label for a layout reset"
+  },
+  "editDone": "Done",
+  "@editDone": {
+    "description": "Leaves the arrange screen"
+  },
+  "editArrangeHint": "Drag a Feld to move it. Tippen a Feld for more, or Tippen Auswählen to change several at once.",
+  "editSelectHint": "Tippen tiles to choose them, then pick an action below. Changes apply to all chosen tiles at once.",
+  "editSelect": "Auswählen",
+  "editSelectTiles": "Auswählen tiles",
+  "editSelectedCount": "{count} Ausgewählt",
+  "@editSelectedCount": {
+    "description": "Live count of selected tiles in the editor",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editSelectAll": "All",
+  "editSelectNone": "Keine",
+  "editTileSheetSubtitle": "Choose what to change",
+  "editActionRecordVoice": "Aufnehmen Stimme",
+  "editActionRerecordVoice": "Re-record Stimme",
+  "editActionRecordVoiceSub": "Use your own Stimme",
+  "editActionVoiceSetSub": "Your Stimme is set",
+  "editActionReplacePicture": "Replace picture",
+  "editActionReplacePictureSub": "Choose a Foto",
+  "editActionPinSub": "Anzeigen it in home favourites",
+  "editActionHide": "Ausblenden from the Tafel",
+  "editActionHideSub": "Your Kind will not see it",
+  "editActionShow": "Anzeigen on the Tafel",
+  "editActionShowSub": "Your Kind can see it again",
+  "editBatchHide": "Ausblenden",
+  "editBatchShow": "Anzeigen",
+  "editToastPinned": "{count} pinned to favourites",
+  "@editToastPinned": {
+    "description": "Toast after a batch pin",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editToastUnpinned": "{count} removed from favourites",
+  "@editToastUnpinned": {
+    "description": "Toast after a batch unpin",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editToastHidden": "{count} hidden from the Tafel",
+  "@editToastHidden": {
+    "description": "Toast after a batch hide",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editToastShown": "{count} shown on the Tafel",
+  "@editToastShown": {
+    "description": "Toast after a batch show",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editToastPinnedOne": "Pinned to favourites",
+  "editToastUnpinnedOne": "Removed from favourites",
+  "editToastHiddenOne": "Hidden from the Tafel",
+  "editToastShownOne": "Shown on the Tafel",
+  "editToastPictureReplaced": "Picture replaced",
+  "editToastVoiceSaved": "Stimme saved",
+  "editToastVoiceDeleted": "Recording deleted, using the built-in Stimme",
+  "editVoiceTitle": "Stimme for \"{word}\"",
+  "@editVoiceTitle": {
+    "description": "Title of the custom-voice recording sheet",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editVoiceOverrideSub": "Your recording overrides the default",
+  "editVoicePrompt": "Tippen the Mikrofon and say \"{word}\". Your recording will Abspielen instead of the built-in Stimme for this Feld.",
+  "@editVoicePrompt": {
+    "description": "Idle prompt in the voice recording sheet",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editVoiceTapToRecord": "Tippen to Aufnehmen",
+  "editVoiceListening": "Listening, say \"{word}\"",
+  "@editVoiceListening": {
+    "description": "Shown while recording",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editVoiceTapToStop": "Tippen to stop",
+  "editVoiceReview": "Here is your recording for \"{word}\".",
+  "@editVoiceReview": {
+    "description": "Review state after recording",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editVoicePlay": "Abspielen",
+  "editVoiceRerecord": "Re-record",
+  "editVoiceUseRecording": "Use this recording",
+  "editVoiceSavedMsg": "Your Stimme is set for \"{word}\". You can Abspielen, re-record, or Löschen it at any time. Deleting it brings back the built-in Stimme.",
+  "@editVoiceSavedMsg": {
+    "description": "Saved state in the voice recording sheet",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editVoiceDelete": "Löschen",
+  "editVoiceDone": "Done",
+  "editVoiceMicDenied": "Mikrofon access is off. Turn it on in Einstellungen to Aufnehmen a Stimme.",
+  "editFavouritesFull": "Favourites are full ({count} max)",
+  "@editFavouritesFull": {
+    "description": "Shown when trying to pin past the favourites cap",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editShareBoard": "Teilen this Tafel",
+  "shareVocabTitle": "Teilen this vocabulary?",
+  "shareVocabBody": "You will Teilen the Wörter you built on this Tafel. On the other tablet it arrives as a new, separate Tafel that starts learning fresh; it is not merged into their Tafel. Nothing is shared automatically.",
+  "shareVocabPhotos": "{count} buttons use photos from this tablet. They will be shared as Wörter only; the photos stay on your device.",
+  "@shareVocabPhotos": {
+    "description": "Notice before sharing: photo-backed buttons degrade to text",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shareVocabConfirm": "Teilen",
+  "shareVocabFailed": "Konnte nicht prepare this board to share.",
+  "otaTitle": "Inhalts-Aktualisierungen",
+  "otaSettingsSubtitle": "Get the latest Wort, picture, and Ton corrections",
+  "otaBody": "Lighthouse can Prüfen Kinder Horizon for corrections to Wörter, translations, pictures, and sounds. It only checks when you Tippen below, and sends nothing Über you or your Kind.",
+  "otaCheckNow": "Jetzt prüfen",
+  "otaChecking": "Suche nach Aktualisierungen…",
+  "otaUpToDate": "Alle Inhalte sind auf dem neuesten Stand.",
+  "otaAvailable": "Neue Inhalte verfügbar",
+  "otaApply": "Jetzt aktualisieren",
+  "otaApplying": "Applying...",
+  "otaApplied": "Inhalte erfolgreich aktualisiert.",
+  "otaShowNow": "Anzeigen the Aktualisieren now",
+  "otaApplyFallback": "Or it will be ready the next time you open Lighthouse.",
+  "otaIncompatible": "These corrections need a newer Version of Lighthouse. Please Aktualisieren the app.",
+  "otaError": "Konnte nicht check right now. Please try again later.",
+  "sectionFeedback": "Rückmeldung",
+  "feedbackTitle": "Feedback senden",
+  "feedbackSettingsSubtitle": "Report a bug or suggest an improvement",
+  "feedbackBody": "Tell us what is not working or what would help. We read every message.",
+  "feedbackCategoryLabel": "What is this Über?",
+  "feedbackCategoryBug": "A bug",
+  "feedbackCategorySuggestion": "A suggestion",
+  "feedbackCategoryOther": "Something else",
+  "feedbackMessageLabel": "Your message",
+  "feedbackMessageHint": "What happened, or what would help?",
+  "feedbackEmailLabel": "Your email (optional)",
+  "feedbackEmailHint": "Only if you would like a reply",
+  "feedbackPrivacyNote": "We send only your message and the app Version. Nothing Über your Kind, your boards, or how the app is used.",
+  "feedbackSend": "Send",
+  "feedbackSending": "Sending...",
+  "feedbackErrorEmpty": "Please write a message first.",
+  "feedbackErrorEmail": "That email does not look right.",
+  "feedbackErrorNetwork": "Konnte nicht send right now. Please try again later.",
+  "feedbackErrorTooLong": "That message is too long. Please shorten it.",
+  "sectionYourChildsBoard": "Your child's Tafel",
+  "sectionHowAppBehaves": "How the app behaves",
+  "sectionUpdatesSupport": "Aktualisierungen & support",
+  "crashLogsRowSubtitle": "View what could be shared, then send it",
+  "crashEmptyHeadline": "Nothing has gone wrong",
+  "crashEmptyBody": "There are no Absturz Berichte on this device, so there is nothing to send. If the app ever closes unexpectedly, a log will appear here for you to review before sending.",
+  "glowStyleRing": "Inset ring",
+  "glowStyleLift": "Lift and underline",
+  "glowStyleDot": "Quiet corner dot",
+  "glowStyleOff": "Off",
+  "showWordOnTile": "Anzeigen the Wort on each Feld",
+  "showWordOnTileSubtitle": "Turn off to Anzeigen pictures only",
+  "showPictogramOnTile": "Anzeigen the picture on each Feld",
+  "showPictogramOnTileSubtitle": "Turn off to Anzeigen Wörter only",
+  "otaLastCheckedNever": "Noch nie geprüft",
+  "otaCheckedJustNow": "Gerade eben geprüft",
+  "otaLastChecked": "Last checked: {when}",
+  "@otaLastChecked": {
+    "description": "Idle line on the Check for updates screen when a check has happened before. {when} is a localized relative time (just now / today / yesterday / a short date).",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "otaWhenJustNow": "just now",
+  "otaWhenToday": "today",
+  "otaWhenYesterday": "yesterday",
+  "feedbackThanksTitle": "Thank you. Your message is on its way.",
+  "feedbackThanksBody": "A real person at Kinder Horizon reads every note. If you left an email, we will reply when we can. Lighthouse is built by a small nonprofit team, and your Wörter genuinely shape what we fix next.",
+  "feedbackSendAnother": "Send another",
+  "feedbackBackToBoard": "Back to the Tafel",
+  "aboutLicence": "Open source · MIT Lizenz",
+  "aboutCredits": "Danksagungen & Lizenzen",
+  "aboutLicences": "Open-source Lizenzen",
+  "aboutLicencesSubtitle": "Lizenzen for the code and fonts Lighthouse uses",
+  "tourSkip": "Skip tour",
+  "tourFinish": "Finish",
+  "tourProgress": "{current} of {total}",
+  "@tourProgress": {
+    "description": "Guided tour step progress, e.g. 3 of 11",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tourTakeQuick": "Take the quick tour",
+  "tourSkipToBoard": "Skip, go to the Tafel",
+  "tourSettingsRowTitle": "Take the tour",
+  "tourSettingsRowSubtitle": "A quick guided walkthrough of the app",
+  "tipEditorTitle": "Editing your Tafel",
+  "tipEditorBody": "Press and drag a Feld to move it, or Tippen Auswählen to favourite or Ausblenden several at once.",
+  "tipGateTitle": "A quick Prüfen for grown-ups",
+  "tipGateBody": "Answer a simple sum to get in. It is a Geschwindigkeit bump to keep little hands out, not a password.",
+  "tipButtonsTitle": "Add your own buttons",
+  "tipButtonsBody": "Make tiles for the people, foods, and places your Kind needs, each with a Foto and a Wort.",
+  "tipFavouritesTitle": "Home favourites",
+  "tipFavouritesBody": "Pinned Wörter sit in a row at the top of the home Tafel, so the Wörter used most are the easiest to find.",
+  "tipAdvancedTitle": "Advanced Einstellungen",
+  "tipAdvancedBody": "These options change how the Tafel looks and behaves. Your child's Wörter and layout are never touched here.",
+  "tipGotIt": "Got it",
+  "tourBoardTitle": "This is your child's Tafel",
+  "tourBoardBody": "Your Kind taps these tiles to talk. The tiles never move, so the layout becomes muscle memory over time.",
+  "tourSentenceTitle": "Satzleiste",
+  "tourSentenceBody": "Wörter reihen sich hier aneinander. Tippen Sie auf Vorlesen, um den ganzen Satz zu hören.",
+  "tourGlowTitle": "Sanfte Leucht-Hinweise",
+  "tourGlowBody": "Lighthouse hebt passende nächste Wörter sanft hervor, ohne die Tasten zu verschieben.",
+  "tourFoldersTitle": "Themen-Ordner",
+  "tourFoldersBody": "Ordner mit dem Eck-Symbol öffnen weitere spezifische Wörter.",
+  "tourSettingsTitle": "Geschützte Einstellungen",
+  "tourSettingsBody": "Eltern und Therapeuten gelangen über die Rechenaufgabe in die Einstellungen.",
+  "homeFavouritesPinnedNow": "Aktuell angeheftet",
+  "homeFavouritesEmpty": "Noch keine Wörter angeheftet.",
+  "customButtonsEmptyHeadline": "Noch keine eigenen Felder erstellt",
+  "customButtonsEmptyBody": "Add a Foto and a Wort for the people, foods, and places your Kind needs most. New buttons join the Tafel in the right colour group.",
+  "customButtonsAddFirst": "Add your first Taste",
+  "onboardingStart": "Start using Lighthouse",
+  "placeHomeSub": "Where most days happen",
+  "placeSchoolSub": "A classroom or therapy room",
+  "placeBothSub": "It moves with your Kind",
+  "placeOtherSub": "Tell us later if you like",
+  "onboardingPrivacyHeadline": "Everything stays on this device",
+  "onboardingPrivacyPoint1": "No account, no ads, no tracking",
+  "onboardingPrivacyPoint2": "Works fully Offline",
+  "onboardingPrivacyPoint3": "Open source, so anyone can Prüfen",
+  "crashLogsSentCleared": "Absturz Berichte sent. They have been removed from this device.",
+  "exportBoardPack": "Exportieren this Tafel",
+  "exportBoardPackSubtitle": "Teilen your Tafel as a file another device can Importieren",
+  "tourColorsTitle": "The colours group Wörter",
+  "tourColorsBody": "Each colour is a kind of word: yellow for people and pronouns, green for action Wörter, orange for things, food, and places, blue for feelings and yes or no, pink for social Wörter and urgent needs, purple for questions and time.",
+  "tourArrangeTitle": "Arrange the Tafel",
+  "tourArrangeBody": "The Tafel Taste lets you move, Ausblenden, add, or rename tiles, and Aufnehmen your own Stimme for any Feld. It asks a quick grown-up question first, so your Kind cannot change their own Tafel.",
+  "recordVoiceOptional": "Aufnehmen your own Stimme (optional)",
+  "recordVoiceStop": "Stop",
+  "recordVoiceRecorded": "Stimme recorded",
+  "recordVoiceClear": "Entfernen recording",
+  "userProfilesTitle": "Benutzerprofile",
+  "userProfilesSubtitle": "Kommunikationsprofile wechseln oder verwalten",
+  "userProfilesDescription": "Verwalten Sie unabhängige Benutzerprofile für Kommunikatoren, Schüler oder Familienmitglieder. Jedes Profil behält getrennte Spracheinstellungen, Zugangsmethoden und Vokabular.",
+  "addNewProfile": "Neues Profil hinzufügen",
+  "createProfileTitle": "Profil erstellen",
+  "profileNameLabel": "Profilname",
+  "profileNameHint": "z. B. Maya, Karim, Leo",
+  "editProfileTitle": "Profil bearbeiten: {name}",
+  "deleteProfileTitle": "Profil \"{name}\" löschen?",
+  "deleteProfileConfirm": "Dadurch wird dieses Profil und seine benutzerdefinierten Einstellungen dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.",
+  "switchedToProfile": "Zu Profil gewechselt: {name}",
+  "activeBadge": "AKTIV",
+  "editProfile": "Profil bearbeiten",
+  "deleteProfile": "Profil löschen",
+  "activateProfile": "Profil aktivieren",
+  "saveAction": "Speichern",
+  "deleteAction": "Löschen",
+  "createAction": "Erstellen",
+  "speechOutputLanguage": "Sprachausgabe-Sprache",
+  "matchesInterfaceLanguage": "Entspricht der Benutzeroberfläche ({lang})",
+  "speechSpeed": "Sprechgeschwindigkeit",
+  "speechPitch": "Tonhöhe",
+  "speechVolume": "Sprachlautstärke",
+  "highContrastBoard": "Kontrastreiches Raster",
+  "highContrastBoardSubtitle": "Verbesserte Ränder für klare visuelle Erkennung",
+  "sectionAiAssistance": "KI-Unterstützung",
+  "aiPredictionBar": "KI-Vorhersageleiste",
+  "aiPredictionBarSubtitle": "Offline-Vorschläge für nächste Wörter und Satzbau anzeigen",
+  "sectionSwitchAccessibility": "Taster-Bedienung (Switch Access)",
+  "accessMethod": "Zugangsmethode",
+  "accessDirectTouch": "Direkte Berührung",
+  "accessSwitchSingle": "Einzeltaster (Automatisches Scannen)",
+  "accessSwitchDual": "Zweitaster (Schritt & Auswahl)",
+  "autoScanDwellTime": "Verweildauer für Auto-Scan",
+  "aiAssistantTitle": "KI-Textassistent & Übersetzer",
+  "aiAssistantInputHint": "Wörter, Stichworte oder unvollständige Sätze eingeben...",
+  "aiSuggestionsHeader": "Satzvorschläge (Tippen zum Sprechen oder Kopieren):",
+  "translateTo": "Übersetzen nach: ",
+  "speakSentence": "Satz sprechen",
+  "aiCommunicationAssistantTooltip": "KI-Kommunikationsassistent",
+  "switchStep": "SCHRITT (Leertaste)",
+  "switchSelect": "AUSWÄHLEN (Eingabe)",
+  "symbolLicenseNotice": "Symbole: Open AAC Symbols & Material Symbols. Lizenz: Apache 2.0 (kommerziell nutzbar, permissives Open-Source)."
+}

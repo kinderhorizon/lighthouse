@@ -23,11 +23,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/angry.png",
+      "icon_uri": "assets/symbols/feelings/angry.png",
       "label_es": "enojado",
       "label_ar": "غاضب",
       "voice_out_es": "Me siento enojado",
-      "voice_out_ar": "أَشْعُرُ بِالْغَضَب"
+      "voice_out_ar": "أَشْعُرُ بِالْغَضَب",
+      "label_de": "Wütend",
+      "voice_out_de": "wütend",
+      "label_ar_dz": "زعفان بزاف",
+      "voice_out_ar_dz": "زعفان بزاف"
     },
     {
       "id": "btn_feel_excited",
@@ -40,11 +44,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/excited.png",
+      "icon_uri": "assets/symbols/feelings/excited.png",
       "label_es": "emocionado",
       "label_ar": "متحمس",
       "voice_out_es": "Me siento emocionado",
-      "voice_out_ar": "أَشْعُرُ بِالْحَمَاس"
+      "voice_out_ar": "أَشْعُرُ بِالْحَمَاس",
+      "label_de": "Aufgeregt",
+      "voice_out_de": "aufgeregt",
+      "label_ar_dz": "فرحان بزاف",
+      "voice_out_ar_dz": "فرحان بزاف"
     },
     {
       "id": "btn_feel_frustrated",
@@ -57,11 +65,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/frustrated.png",
+      "icon_uri": "assets/symbols/feelings/frustrated.png",
       "label_es": "frustrado",
       "label_ar": "محبط",
       "voice_out_es": "Me siento frustrado",
-      "voice_out_ar": "أَشْعُرُ بِالْإِحْبَاط"
+      "voice_out_ar": "أَشْعُرُ بِالْإِحْبَاط",
+      "label_de": "Frustriert",
+      "voice_out_de": "frustriert",
+      "label_ar_dz": "محبط",
+      "voice_out_ar_dz": "أَشْعُرُ بِالْإِحْبَاط"
     },
     {
       "id": "btn_feel_calm",
@@ -74,11 +86,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/calm.png",
+      "icon_uri": "assets/symbols/feelings/calm.png",
       "label_es": "tranquilo",
       "label_ar": "هادئ",
       "voice_out_es": "Me siento tranquilo",
-      "voice_out_ar": "أَشْعُرُ بِالْهُدُوء"
+      "voice_out_ar": "أَشْعُرُ بِالْهُدُوء",
+      "label_de": "Ruhig",
+      "voice_out_de": "ruhig",
+      "label_ar_dz": "متهني",
+      "voice_out_ar_dz": "متهني"
     },
     {
       "id": "btn_feel_sick",
@@ -91,11 +107,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/sick.png",
+      "icon_uri": "assets/symbols/feelings/sick.png",
       "label_es": "enfermo",
       "label_ar": "مريض",
       "voice_out_es": "Me siento enfermo",
-      "voice_out_ar": "أَشْعُرُ بِالْمَرَض"
+      "voice_out_ar": "أَشْعُرُ بِالْمَرَض",
+      "label_de": "Sick",
+      "voice_out_de": "I feel sick",
+      "label_ar_dz": "راني مريض",
+      "voice_out_ar_dz": "راني مريض"
     },
     {
       "id": "btn_feel_bored",
@@ -108,11 +128,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/bored.png",
+      "icon_uri": "assets/symbols/feelings/bored.png",
       "label_es": "aburrido",
       "label_ar": "ملل",
       "voice_out_es": "Me siento aburrido",
-      "voice_out_ar": "أَشْعُرُ بِالْمَلَل"
+      "voice_out_ar": "أَشْعُرُ بِالْمَلَل",
+      "label_de": "Gelangweilt",
+      "voice_out_de": "gelangweilt",
+      "label_ar_dz": "كرهت",
+      "voice_out_ar_dz": "كرهت"
     },
     {
       "id": "btn_feel_silly",
@@ -125,11 +149,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/silly.png",
+      "icon_uri": "assets/symbols/feelings/silly.png",
       "label_es": "tonto",
       "label_ar": "سخيف",
       "voice_out_es": "Me siento tonto",
-      "voice_out_ar": "أَشْعُرُ بِالسَّخَافَة"
+      "voice_out_ar": "أَشْعُرُ بِالسَّخَافَة",
+      "label_de": "Albern",
+      "voice_out_de": "albern",
+      "label_ar_dz": "سخيف",
+      "voice_out_ar_dz": "أَشْعُرُ بِالسَّخَافَة"
     },
     {
       "id": "btn_feel_surprised",
@@ -142,11 +170,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/surprised.png",
+      "icon_uri": "assets/symbols/feelings/surprised.png",
       "label_es": "sorprendido",
       "label_ar": "متفاجئ",
       "voice_out_es": "Me siento sorprendido",
-      "voice_out_ar": "أَشْعُرُ بِالدَّهْشَة"
+      "voice_out_ar": "أَشْعُرُ بِالدَّهْشَة",
+      "label_de": "Überrascht",
+      "voice_out_de": "überrascht",
+      "label_ar_dz": "متفاجئ",
+      "voice_out_ar_dz": "أَشْعُرُ بِالدَّهْشَة"
     },
     {
       "id": "btn_feel_proud",
@@ -159,11 +191,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/proud.png",
+      "icon_uri": "assets/symbols/feelings/proud.png",
       "label_es": "orgulloso",
       "label_ar": "فخور",
       "voice_out_es": "Me siento orgulloso",
-      "voice_out_ar": "أَشْعُرُ بِالْفَخْر"
+      "voice_out_ar": "أَشْعُرُ بِالْفَخْر",
+      "label_de": "Stolz",
+      "voice_out_de": "stolz",
+      "label_ar_dz": "فخور",
+      "voice_out_ar_dz": "أَشْعُرُ بِالْفَخْر"
     },
     {
       "id": "btn_feel_nervous",
@@ -176,11 +212,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/nervous.png",
+      "icon_uri": "assets/symbols/feelings/nervous.png",
       "label_es": "nervioso",
       "label_ar": "متوتر",
       "voice_out_es": "Me siento nervioso",
-      "voice_out_ar": "أَشْعُرُ بِالتَّوَتُّر"
+      "voice_out_ar": "أَشْعُرُ بِالتَّوَتُّر",
+      "label_de": "Nervous",
+      "voice_out_de": "I feel nervous",
+      "label_ar_dz": "متوتر",
+      "voice_out_ar_dz": "أَشْعُرُ بِالتَّوَتُّر"
     },
     {
       "id": "btn_feel_lonely",
@@ -193,11 +233,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/lonely.png",
+      "icon_uri": "assets/symbols/feelings/lonely.png",
       "label_es": "solo",
       "label_ar": "وحيد",
       "voice_out_es": "Me siento solo",
-      "voice_out_ar": "أَشْعُرُ بِالْوَحْدَة"
+      "voice_out_ar": "أَشْعُرُ بِالْوَحْدَة",
+      "label_de": "Lonely",
+      "voice_out_de": "I feel lonely",
+      "label_ar_dz": "وحيد",
+      "voice_out_ar_dz": "أَشْعُرُ بِالْوَحْدَة"
     },
     {
       "id": "btn_feel_confused",
@@ -210,11 +254,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/confused.png",
+      "icon_uri": "assets/symbols/feelings/confused.png",
       "label_es": "confundido",
       "label_ar": "مرتبك",
       "voice_out_es": "Me siento confundido",
-      "voice_out_ar": "أَشْعُرُ بِالِارْتِبَاك"
+      "voice_out_ar": "أَشْعُرُ بِالِارْتِبَاك",
+      "label_de": "Confused",
+      "voice_out_de": "I feel confused",
+      "label_ar_dz": "ما فهمتش",
+      "voice_out_ar_dz": "ما فهمتش"
     },
     {
       "id": "btn_feel_shy",
@@ -227,11 +275,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/shy.png",
+      "icon_uri": "assets/symbols/feelings/shy.png",
       "label_es": "tímido",
       "label_ar": "خجول",
       "voice_out_es": "Me siento tímido",
-      "voice_out_ar": "أَشْعُرُ بِالْخَجَل"
+      "voice_out_ar": "أَشْعُرُ بِالْخَجَل",
+      "label_de": "Schüchtern",
+      "voice_out_de": "schüchtern",
+      "label_ar_dz": "خجول",
+      "voice_out_ar_dz": "أَشْعُرُ بِالْخَجَل"
     },
     {
       "id": "btn_feel_worried",
@@ -244,11 +296,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/worried.png",
+      "icon_uri": "assets/symbols/feelings/worried.png",
       "label_es": "preocupado",
       "label_ar": "قلق",
       "voice_out_es": "Me siento preocupado",
-      "voice_out_ar": "أَشْعُرُ بِالْقَلَق"
+      "voice_out_ar": "أَشْعُرُ بِالْقَلَق",
+      "label_de": "Besorgt",
+      "voice_out_de": "besorgt",
+      "label_ar_dz": "قلق",
+      "voice_out_ar_dz": "أَشْعُرُ بِالْقَلَق"
     },
     {
       "id": "btn_feel_okay",
@@ -261,11 +317,15 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/okay.png",
+      "icon_uri": "assets/symbols/feelings/okay.png",
       "label_es": "bien",
       "label_ar": "بخير",
       "voice_out_es": "Me siento bien",
-      "voice_out_ar": "أَشْعُرُ بِأَنِّي بِخَيْر"
+      "voice_out_ar": "أَشْعُرُ بِأَنِّي بِخَيْر",
+      "label_de": "In Ordnung",
+      "voice_out_de": "in Ordnung",
+      "label_ar_dz": "لاباس",
+      "voice_out_ar_dz": "راني لاباس"
     },
     {
       "id": "btn_feel_love",
@@ -278,11 +338,17 @@
       },
       "category": "feeling",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/feelings/love.png",
+      "icon_uri": "assets/symbols/feelings/love.png",
       "label_es": "amor",
       "label_ar": "حب",
       "voice_out_es": "Siento amor",
-      "voice_out_ar": "أَشْعُرُ بِالْحُبّ"
+      "voice_out_ar": "أَشْعُرُ بِالْحُبّ",
+      "label_de": "Lieb",
+      "voice_out_de": "lieb",
+      "label_ar_dz": "نبغي",
+      "voice_out_ar_dz": "نبغيك بزاف"
     }
-  ]
+  ],
+  "board_name_de": "Gefühle",
+  "board_name_ar_dz": "المشاعر"
 }

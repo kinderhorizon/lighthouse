@@ -23,11 +23,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/read.png",
+      "icon_uri": "assets/symbols/activities/read.png",
       "label_es": "leer",
       "label_ar": "يقرأ",
       "voice_out_es": "leer",
-      "voice_out_ar": "يَقْرَأ"
+      "voice_out_ar": "يَقْرَأ",
+      "label_de": "Lesen",
+      "voice_out_de": "lesen",
+      "label_ar_dz": "نقرا",
+      "voice_out_ar_dz": "حاب نقرا"
     },
     {
       "id": "btn_act_draw",
@@ -40,11 +44,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/draw.png",
+      "icon_uri": "assets/symbols/activities/draw.png",
       "label_es": "dibujar",
       "label_ar": "يرسم",
       "voice_out_es": "dibujar",
-      "voice_out_ar": "يَرْسُم"
+      "voice_out_ar": "يَرْسُم",
+      "label_de": "Malen",
+      "voice_out_de": "malen",
+      "label_ar_dz": "نرسم",
+      "voice_out_ar_dz": "حاب نرسم"
     },
     {
       "id": "btn_act_color",
@@ -57,11 +65,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/color.png",
+      "icon_uri": "assets/symbols/activities/color.png",
       "label_es": "colorear",
       "label_ar": "يلون",
       "voice_out_es": "colorear",
-      "voice_out_ar": "يُلَوِّن"
+      "voice_out_ar": "يُلَوِّن",
+      "label_de": "Ausmalen",
+      "voice_out_de": "ausmalen",
+      "label_ar_dz": "يلون",
+      "voice_out_ar_dz": "يُلَوِّن"
     },
     {
       "id": "btn_act_paint",
@@ -74,11 +86,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/paint.png",
+      "icon_uri": "assets/symbols/activities/paint.png",
       "label_es": "pintar",
       "label_ar": "يدهن",
       "voice_out_es": "pintar",
-      "voice_out_ar": "يَدْهُن"
+      "voice_out_ar": "يَدْهُن",
+      "label_de": "Pinseln",
+      "voice_out_de": "pinseln",
+      "label_ar_dz": "يدهن",
+      "voice_out_ar_dz": "يَدْهُن"
     },
     {
       "id": "btn_act_sing",
@@ -91,11 +107,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/sing.png",
+      "icon_uri": "assets/symbols/activities/sing.png",
       "label_es": "cantar",
       "label_ar": "يغني",
       "voice_out_es": "cantar",
-      "voice_out_ar": "يُغَنِّي"
+      "voice_out_ar": "يُغَنِّي",
+      "label_de": "Singen",
+      "voice_out_de": "singen",
+      "label_ar_dz": "يغني",
+      "voice_out_ar_dz": "يُغَنِّي"
     },
     {
       "id": "btn_act_dance",
@@ -108,11 +128,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/dance.png",
+      "icon_uri": "assets/symbols/activities/dance.png",
       "label_es": "bailar",
       "label_ar": "يرقص",
       "voice_out_es": "bailar",
-      "voice_out_ar": "يَرْقُص"
+      "voice_out_ar": "يَرْقُص",
+      "label_de": "Tanzen",
+      "voice_out_de": "tanzen",
+      "label_ar_dz": "يرقص",
+      "voice_out_ar_dz": "يَرْقُص"
     },
     {
       "id": "btn_act_swim",
@@ -125,11 +149,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/swim.png",
+      "icon_uri": "assets/symbols/activities/swim.png",
       "label_es": "nadar",
       "label_ar": "يسبح",
       "voice_out_es": "nadar",
-      "voice_out_ar": "يَسْبَح"
+      "voice_out_ar": "يَسْبَح",
+      "label_de": "Schwimmen",
+      "voice_out_de": "schwimmen",
+      "label_ar_dz": "يسبح",
+      "voice_out_ar_dz": "يَسْبَح"
     },
     {
       "id": "btn_act_run",
@@ -142,11 +170,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/run.png",
+      "icon_uri": "assets/symbols/activities/run.png",
       "label_es": "correr",
       "label_ar": "يجري",
       "voice_out_es": "correr",
-      "voice_out_ar": "يَجْرِي"
+      "voice_out_ar": "يَجْرِي",
+      "label_de": "Rennen",
+      "voice_out_de": "rennen",
+      "label_ar_dz": "نجري",
+      "voice_out_ar_dz": "نجري"
     },
     {
       "id": "btn_act_jump",
@@ -159,11 +191,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/jump.png",
+      "icon_uri": "assets/symbols/activities/jump.png",
       "label_es": "saltar",
       "label_ar": "يقفز",
       "voice_out_es": "saltar",
-      "voice_out_ar": "يَقْفِز"
+      "voice_out_ar": "يَقْفِز",
+      "label_de": "Hüpfen",
+      "voice_out_de": "hüpfen",
+      "label_ar_dz": "يقفز",
+      "voice_out_ar_dz": "يَقْفِز"
     },
     {
       "id": "btn_act_ride",
@@ -176,11 +212,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/ride.png",
+      "icon_uri": "assets/symbols/activities/ride.png",
       "label_es": "montar",
       "label_ar": "يركب",
       "voice_out_es": "montar",
-      "voice_out_ar": "يَرْكَب"
+      "voice_out_ar": "يَرْكَب",
+      "label_de": "Fahren",
+      "voice_out_de": "fahren",
+      "label_ar_dz": "يركب",
+      "voice_out_ar_dz": "يَرْكَب"
     },
     {
       "id": "btn_act_build",
@@ -193,11 +233,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/build.png",
+      "icon_uri": "assets/symbols/activities/build.png",
       "label_es": "construir",
       "label_ar": "يبني",
       "voice_out_es": "construir",
-      "voice_out_ar": "يَبْنِي"
+      "voice_out_ar": "يَبْنِي",
+      "label_de": "Bauen",
+      "voice_out_de": "bauen",
+      "label_ar_dz": "يبني",
+      "voice_out_ar_dz": "يَبْنِي"
     },
     {
       "id": "btn_act_watch",
@@ -210,11 +254,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/watch.png",
+      "icon_uri": "assets/symbols/activities/watch.png",
       "label_es": "ver televisión",
       "label_ar": "مشاهدة التلفاز",
       "voice_out_es": "ver televisión",
-      "voice_out_ar": "مُشَاهَدَةُ التِّلْفَاز"
+      "voice_out_ar": "مُشَاهَدَةُ التِّلْفَاز",
+      "label_de": "Schauen",
+      "voice_out_de": "schauen",
+      "label_ar_dz": "نتفرج",
+      "voice_out_ar_dz": "نتفرج التيليفزيون"
     },
     {
       "id": "btn_act_listen",
@@ -227,11 +275,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/listen.png",
+      "icon_uri": "assets/symbols/activities/listen.png",
       "label_es": "escuchar",
       "label_ar": "يستمع",
       "voice_out_es": "escuchar",
-      "voice_out_ar": "يَسْتَمِع"
+      "voice_out_ar": "يَسْتَمِع",
+      "label_de": "Zuhören",
+      "voice_out_de": "zuhören",
+      "label_ar_dz": "يستمع",
+      "voice_out_ar_dz": "يَسْتَمِع"
     },
     {
       "id": "btn_act_cook",
@@ -244,11 +296,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/cook.png",
+      "icon_uri": "assets/symbols/activities/cook.png",
       "label_es": "cocinar",
       "label_ar": "يطبخ",
       "voice_out_es": "cocinar",
-      "voice_out_ar": "يَطْبُخ"
+      "voice_out_ar": "يَطْبُخ",
+      "label_de": "Kochen",
+      "voice_out_de": "kochen",
+      "label_ar_dz": "يطبخ",
+      "voice_out_ar_dz": "يَطْبُخ"
     },
     {
       "id": "btn_act_walk",
@@ -261,11 +317,15 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/walk.png",
+      "icon_uri": "assets/symbols/activities/walk.png",
       "label_es": "caminar",
       "label_ar": "يمشي",
       "voice_out_es": "caminar",
-      "voice_out_ar": "يَمْشِي"
+      "voice_out_ar": "يَمْشِي",
+      "label_de": "Spazieren",
+      "voice_out_de": "spazieren",
+      "label_ar_dz": "نتمشى",
+      "voice_out_ar_dz": "نتمشى"
     },
     {
       "id": "btn_act_sleep",
@@ -278,11 +338,17 @@
       },
       "category": "activity",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/activities/sleep.png",
+      "icon_uri": "assets/symbols/activities/sleep.png",
       "label_es": "dormir",
       "label_ar": "ينام",
       "voice_out_es": "dormir",
-      "voice_out_ar": "يَنَام"
+      "voice_out_ar": "يَنَام",
+      "label_de": "Schlafen",
+      "voice_out_de": "schlafen",
+      "label_ar_dz": "نرقد",
+      "voice_out_ar_dz": "حاب نرقد"
     }
-  ]
+  ],
+  "board_name_de": "Aktivitäten",
+  "board_name_ar_dz": "الأنشطة واللعب"
 }

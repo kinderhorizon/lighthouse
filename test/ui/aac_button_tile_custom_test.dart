@@ -30,7 +30,7 @@ Widget _host(AACButton button) => MaterialApp(
 void main() {
   testWidgets('a bundled asset path renders via AssetImage', (tester) async {
     await tester.pumpWidget(
-      _host(_button(iconUri: 'assets/arasaac/food/apple.png')),
+      _host(_button(iconUri: 'assets/symbols/food/apple.png')),
     );
     final image = tester.widget<Image>(find.byType(Image));
     expect(image.image, isA<AssetImage>());

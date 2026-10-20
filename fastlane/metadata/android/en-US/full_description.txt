@@ -1,0 +1,15 @@
+NūriTalk is a modern, privacy-first Augmentative and Alternative Communication (AAC) application designed for non-speaking children, autistic individuals, and people with speech and language differences.
+
+NūriTalk operates 100% offline with zero advertisements, zero subscriptions, and zero tracking.
+
+KEY FEATURES:
+• Stable Motor-Planning Grid: Fixed-coordinate Core 48 AAC communication boards ensure predictable motor memory without disorienting button movements.
+• Daily Visual Schedules & Routines: Structured daily activity planning, First/Then visual sequences, and visual countdown timers designed for sensory calm and smooth transitions.
+• Native Multilingual Speech: High-clarity Text-to-Speech support across Modern Standard Arabic, Algerian Darija, German, and English with authentic dialect intonation and custom voice recording.
+• Smart AAC Keyboard: Predictive typing with large accessible targets, high-contrast symbols, and Quick Chat common phrases.
+• Personal Custom Cards: Create family cards, favourite foods, school routines, and activities with custom photo uploads and multilingual labels.
+• Complete Accessibility: Built for TalkBack screen readers, single-switch and two-switch scanning access, with generous 48dp touch targets meeting WCAG 2.1 AA standards.
+• Offline Backup & Restore: Effortlessly export and import complete profile bundles, schedules, and custom vocabularies without requiring cloud accounts.
+
+Developed with care by Kinder Horizon Foundation.
+Privacy Policy: https://kinderhorizon.org/lighthouse/privacy

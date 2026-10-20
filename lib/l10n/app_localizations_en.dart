@@ -1049,4 +1049,148 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordVoiceClear => 'Remove recording';
+
+  @override
+  String get userProfilesTitle => 'User Profiles';
+
+  @override
+  String get userProfilesSubtitle => 'Switch or manage communicator profiles';
+
+  @override
+  String get userProfilesDescription =>
+      'Manage independent user profiles for communicators, students, or family members. Each profile retains isolated speech settings, access preferences, and vocabulary.';
+
+  @override
+  String get addNewProfile => 'Add New Profile';
+
+  @override
+  String get createProfileTitle => 'Create Profile';
+
+  @override
+  String get profileNameLabel => 'Profile Name';
+
+  @override
+  String get profileNameHint => 'e.g., Maya, Karim, Leo';
+
+  @override
+  String editProfileTitle(String name) {
+    return 'Edit Profile: $name';
+  }
+
+  @override
+  String deleteProfileTitle(String name) {
+    return 'Delete Profile \"$name\"?';
+  }
+
+  @override
+  String get deleteProfileConfirm =>
+      'This will permanently delete this profile and its custom settings. This action cannot be undone.';
+
+  @override
+  String switchedToProfile(String name) {
+    return 'Switched to profile: $name';
+  }
+
+  @override
+  String get activeBadge => 'ACTIVE';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get deleteProfile => 'Delete Profile';
+
+  @override
+  String get activateProfile => 'Activate Profile';
+
+  @override
+  String get saveAction => 'Save';
+
+  @override
+  String get deleteAction => 'Delete';
+
+  @override
+  String get createAction => 'Create';
+
+  @override
+  String get speechOutputLanguage => 'Speech Output Language';
+
+  @override
+  String matchesInterfaceLanguage(String lang) {
+    return 'Matches interface language ($lang)';
+  }
+
+  @override
+  String get speechSpeed => 'Speech Speed';
+
+  @override
+  String get speechPitch => 'Speech Pitch';
+
+  @override
+  String get speechVolume => 'Speech Volume';
+
+  @override
+  String get highContrastBoard => 'High-Contrast Board';
+
+  @override
+  String get highContrastBoardSubtitle =>
+      'Enhanced contrast borders for visual clarity';
+
+  @override
+  String get sectionAiAssistance => 'AI Assistance';
+
+  @override
+  String get aiPredictionBar => 'AI Prediction Bar';
+
+  @override
+  String get aiPredictionBarSubtitle =>
+      'Show offline next-word and sentence builder suggestions';
+
+  @override
+  String get sectionSwitchAccessibility => 'Switch Accessibility';
+
+  @override
+  String get accessMethod => 'Access Method';
+
+  @override
+  String get accessDirectTouch => 'Direct Touch';
+
+  @override
+  String get accessSwitchSingle => 'Single Switch (Auto-Scan)';
+
+  @override
+  String get accessSwitchDual => 'Dual Switch (Step & Select)';
+
+  @override
+  String get autoScanDwellTime => 'Auto-Scan Dwell Time';
+
+  @override
+  String get aiAssistantTitle => 'AI Text Assistant & Translator';
+
+  @override
+  String get aiAssistantInputHint =>
+      'Type words, shorthand, or incomplete phrase...';
+
+  @override
+  String get aiSuggestionsHeader =>
+      'Sentence Suggestions (Tap to speak or copy):';
+
+  @override
+  String get translateTo => 'Translate to: ';
+
+  @override
+  String get speakSentence => 'Speak sentence';
+
+  @override
+  String get aiCommunicationAssistantTooltip => 'AI Communication Assistant';
+
+  @override
+  String get switchStep => 'STEP (Space)';
+
+  @override
+  String get switchSelect => 'SELECT (Enter)';
+
+  @override
+  String get symbolLicenseNotice =>
+      'Symbols: Open AAC Symbols & Material Symbols. License: Apache 2.0 (Commercial-ready, permissive open-source).';
 }

@@ -16,7 +16,7 @@ void main() {
         'position': {'row': 0, 'col': 2},
         'category': 'verb',
         'base_weight': 0.8,
-        'icon_uri': 'assets/arasaac/verbs/want.webp',
+        'icon_uri': 'assets/symbols/verbs/want.webp',
       });
 
       expect(btn.id, 'btn_want');
@@ -41,7 +41,7 @@ void main() {
         'position': {'row': 0, 'col': 5},
         'category': 'needs',
         'base_weight': 0.9,
-        'icon_uri': 'assets/arasaac/needs/help.webp',
+        'icon_uri': 'assets/symbols/needs/help.webp',
       });
       expect(btn.type, AACButtonType.phrase);
       expect(btn.voiceOut, 'I need help');
@@ -56,7 +56,7 @@ void main() {
         'position': {'row': 4, 'col': 0},
         'category': 'food_nav',
         'base_weight': 0.6,
-        'icon_uri': 'assets/arasaac/folders/food.webp',
+        'icon_uri': 'assets/symbols/folders/food.webp',
       });
       expect(btn.type, AACButtonType.folder);
       expect(btn.linkId, 'board_food');

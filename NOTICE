@@ -9,13 +9,10 @@ and contributors, licensed under the MIT License (see LICENSE).
 Third-party assets bundled with this product
 ================================================================================
 
-1. ARASAAC pictograms
-   Path:    assets/arasaac/
-   Author:  Sergio Palao
-   Origin:  ARASAAC (https://arasaac.org)
-   Owner:   Government of Aragón, Spain
-   License: CC BY-NC-SA 4.0
-   Details: LICENSES/ARASAAC.md
+1. Open AAC Symbols & Icons
+   Path:    assets/symbols/
+   License: Apache 2.0 (Permissive, commercial-ready)
+   Details: LICENSES/OpenSymbols.md
 
 ================================================================================
 Third-party Dart / Flutter packages

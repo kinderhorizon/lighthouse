@@ -26,7 +26,7 @@ ContextualColdStart _artifact(String locale) =>
 
 void main() {
   test('clinical pin: want -> bathroom glows gold in every locale', () {
-    for (final locale in ['en', 'es', 'ar']) {
+    for (final locale in ['en', 'es', 'de', 'ar']) {
       final w = _artifact(locale)
           .meanFor(prevKey: 'btn_want', candidateId: 'btn_bathroom');
       expect(w, isNotNull,
@@ -47,7 +47,7 @@ void main() {
   group('clinical review: fresh-start (_NONE) glow set', () {
     const wanted = ['btn_want', 'btn_bathroom', 'btn_break', 'btn_water'];
     const excluded = ['btn_sad', 'btn_drink', 'btn_here'];
-    for (final locale in ['en', 'es', 'ar']) {
+    for (final locale in ['en', 'es', 'de', 'ar']) {
       test('$locale promotes useful words, excludes sad/drink/here', () {
         final a = _artifact(locale);
         for (final id in wanted) {
@@ -69,7 +69,7 @@ void main() {
   // the table (so it never glowed) and "eat" sat below the floor; both are now
   // pinned glow-eligible in every locale.
   group('clinical review: after "I", want + eat glow', () {
-    for (final locale in ['en', 'es', 'ar']) {
+    for (final locale in ['en', 'es', 'de', 'ar']) {
       test(locale, () {
         final a = _artifact(locale);
         for (final id in ['btn_want', 'btn_eat']) {

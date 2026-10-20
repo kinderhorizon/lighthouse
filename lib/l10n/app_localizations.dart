@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 
@@ -96,6 +97,8 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
+    Locale('ar', 'DZ'),
+    Locale('de'),
     Locale('en'),
     Locale('es'),
   ];
@@ -1971,6 +1974,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove recording'**
   String get recordVoiceClear;
+
+  /// No description provided for @userProfilesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'User Profiles'**
+  String get userProfilesTitle;
+
+  /// No description provided for @userProfilesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch or manage communicator profiles'**
+  String get userProfilesSubtitle;
+
+  /// No description provided for @userProfilesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage independent user profiles for communicators, students, or family members. Each profile retains isolated speech settings, access preferences, and vocabulary.'**
+  String get userProfilesDescription;
+
+  /// No description provided for @addNewProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Profile'**
+  String get addNewProfile;
+
+  /// No description provided for @createProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Profile'**
+  String get createProfileTitle;
+
+  /// No description provided for @profileNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Name'**
+  String get profileNameLabel;
+
+  /// No description provided for @profileNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Maya, Karim, Leo'**
+  String get profileNameHint;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile: {name}'**
+  String editProfileTitle(String name);
+
+  /// No description provided for @deleteProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Profile \"{name}\"?'**
+  String deleteProfileTitle(String name);
+
+  /// No description provided for @deleteProfileConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete this profile and its custom settings. This action cannot be undone.'**
+  String get deleteProfileConfirm;
+
+  /// No description provided for @switchedToProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Switched to profile: {name}'**
+  String switchedToProfile(String name);
+
+  /// No description provided for @activeBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVE'**
+  String get activeBadge;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @deleteProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Profile'**
+  String get deleteProfile;
+
+  /// No description provided for @activateProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate Profile'**
+  String get activateProfile;
+
+  /// No description provided for @saveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get saveAction;
+
+  /// No description provided for @deleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteAction;
+
+  /// No description provided for @createAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get createAction;
+
+  /// No description provided for @speechOutputLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech Output Language'**
+  String get speechOutputLanguage;
+
+  /// No description provided for @matchesInterfaceLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Matches interface language ({lang})'**
+  String matchesInterfaceLanguage(String lang);
+
+  /// No description provided for @speechSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech Speed'**
+  String get speechSpeed;
+
+  /// No description provided for @speechPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech Pitch'**
+  String get speechPitch;
+
+  /// No description provided for @speechVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech Volume'**
+  String get speechVolume;
+
+  /// No description provided for @highContrastBoard.
+  ///
+  /// In en, this message translates to:
+  /// **'High-Contrast Board'**
+  String get highContrastBoard;
+
+  /// No description provided for @highContrastBoardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enhanced contrast borders for visual clarity'**
+  String get highContrastBoardSubtitle;
+
+  /// No description provided for @sectionAiAssistance.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistance'**
+  String get sectionAiAssistance;
+
+  /// No description provided for @aiPredictionBar.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Prediction Bar'**
+  String get aiPredictionBar;
+
+  /// No description provided for @aiPredictionBarSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show offline next-word and sentence builder suggestions'**
+  String get aiPredictionBarSubtitle;
+
+  /// No description provided for @sectionSwitchAccessibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch Accessibility'**
+  String get sectionSwitchAccessibility;
+
+  /// No description provided for @accessMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Access Method'**
+  String get accessMethod;
+
+  /// No description provided for @accessDirectTouch.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct Touch'**
+  String get accessDirectTouch;
+
+  /// No description provided for @accessSwitchSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Single Switch (Auto-Scan)'**
+  String get accessSwitchSingle;
+
+  /// No description provided for @accessSwitchDual.
+  ///
+  /// In en, this message translates to:
+  /// **'Dual Switch (Step & Select)'**
+  String get accessSwitchDual;
+
+  /// No description provided for @autoScanDwellTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Scan Dwell Time'**
+  String get autoScanDwellTime;
+
+  /// No description provided for @aiAssistantTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Text Assistant & Translator'**
+  String get aiAssistantTitle;
+
+  /// No description provided for @aiAssistantInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type words, shorthand, or incomplete phrase...'**
+  String get aiAssistantInputHint;
+
+  /// No description provided for @aiSuggestionsHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentence Suggestions (Tap to speak or copy):'**
+  String get aiSuggestionsHeader;
+
+  /// No description provided for @translateTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate to: '**
+  String get translateTo;
+
+  /// No description provided for @speakSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak sentence'**
+  String get speakSentence;
+
+  /// No description provided for @aiCommunicationAssistantTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Communication Assistant'**
+  String get aiCommunicationAssistantTooltip;
+
+  /// No description provided for @switchStep.
+  ///
+  /// In en, this message translates to:
+  /// **'STEP (Space)'**
+  String get switchStep;
+
+  /// No description provided for @switchSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT (Enter)'**
+  String get switchSelect;
+
+  /// No description provided for @symbolLicenseNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols: Open AAC Symbols & Material Symbols. License: Apache 2.0 (Commercial-ready, permissive open-source).'**
+  String get symbolLicenseNotice;
 }
 
 class _AppLocalizationsDelegate
@@ -1984,17 +2245,31 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['ar', 'en', 'es'].contains(locale.languageCode);
+      <String>['ar', 'de', 'en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'ar':
+      {
+        switch (locale.countryCode) {
+          case 'DZ':
+            return AppLocalizationsArDz();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'ar':
       return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
     case 'es':

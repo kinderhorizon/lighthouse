@@ -1062,4 +1062,150 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get recordVoiceClear => 'Quitar grabación';
+
+  @override
+  String get userProfilesTitle => 'Perfiles de usuario';
+
+  @override
+  String get userProfilesSubtitle =>
+      'Cambiar o gestionar perfiles de comunicación';
+
+  @override
+  String get userProfilesDescription =>
+      'Administre perfiles de usuario independientes para comunicadores, estudiantes o familiares. Cada perfil conserva su propia configuración de voz, método de acceso y vocabulario.';
+
+  @override
+  String get addNewProfile => 'Añadir nuevo perfil';
+
+  @override
+  String get createProfileTitle => 'Crear perfil';
+
+  @override
+  String get profileNameLabel => 'Nombre del perfil';
+
+  @override
+  String get profileNameHint => 'p. ej., Maya, Karim, Leo';
+
+  @override
+  String editProfileTitle(String name) {
+    return 'Editar perfil: $name';
+  }
+
+  @override
+  String deleteProfileTitle(String name) {
+    return '¿Eliminar perfil \"$name\"?';
+  }
+
+  @override
+  String get deleteProfileConfirm =>
+      'Esto eliminará permanentemente este perfil y su configuración personalizada. Esta acción no se puede deshacer.';
+
+  @override
+  String switchedToProfile(String name) {
+    return 'Cambiado al perfil: $name';
+  }
+
+  @override
+  String get activeBadge => 'ACTIVO';
+
+  @override
+  String get editProfile => 'Editar perfil';
+
+  @override
+  String get deleteProfile => 'Eliminar perfil';
+
+  @override
+  String get activateProfile => 'Activar perfil';
+
+  @override
+  String get saveAction => 'Guardar';
+
+  @override
+  String get deleteAction => 'Eliminar';
+
+  @override
+  String get createAction => 'Crear';
+
+  @override
+  String get speechOutputLanguage => 'Idioma de salida de voz';
+
+  @override
+  String matchesInterfaceLanguage(String lang) {
+    return 'Coincide con el idioma de la interfaz ($lang)';
+  }
+
+  @override
+  String get speechSpeed => 'Velocidad de habla';
+
+  @override
+  String get speechPitch => 'Tono de voz';
+
+  @override
+  String get speechVolume => 'Volumen de voz';
+
+  @override
+  String get highContrastBoard => 'Tablero de alto contraste';
+
+  @override
+  String get highContrastBoardSubtitle =>
+      'Bordes de contraste mejorados para mayor claridad visual';
+
+  @override
+  String get sectionAiAssistance => 'Asistencia por IA';
+
+  @override
+  String get aiPredictionBar => 'Barra de predicción por IA';
+
+  @override
+  String get aiPredictionBarSubtitle =>
+      'Mostrar sugerencias de palabras y creador de frases sin conexión';
+
+  @override
+  String get sectionSwitchAccessibility => 'Accesibilidad por conmutadores';
+
+  @override
+  String get accessMethod => 'Método de acceso';
+
+  @override
+  String get accessDirectTouch => 'Toque directo';
+
+  @override
+  String get accessSwitchSingle => 'Conmutador único (Escaneo automático)';
+
+  @override
+  String get accessSwitchDual => 'Conmutador doble (Paso y selección)';
+
+  @override
+  String get autoScanDwellTime => 'Tiempo de permanencia del escaneo';
+
+  @override
+  String get aiAssistantTitle => 'Asistente de texto y traductor por IA';
+
+  @override
+  String get aiAssistantInputHint =>
+      'Escriba palabras, abreviaturas o frases incompletas...';
+
+  @override
+  String get aiSuggestionsHeader =>
+      'Sugerencias de frases (toque para hablar o copiar):';
+
+  @override
+  String get translateTo => 'Traducir a: ';
+
+  @override
+  String get speakSentence => 'Pronunciar frase';
+
+  @override
+  String get aiCommunicationAssistantTooltip =>
+      'Asistente de comunicación por IA';
+
+  @override
+  String get switchStep => 'PASO (Espacio)';
+
+  @override
+  String get switchSelect => 'SELECCIONAR (Enter)';
+
+  @override
+  String get symbolLicenseNotice =>
+      'Símbolos: Open AAC Symbols y Material Symbols. Licencia: Apache 2.0 (listo para uso comercial, código abierto permisivo).';
 }

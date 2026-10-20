@@ -7,15 +7,16 @@
 /// speaks the sentence, a large forgiving target.
 library;
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../i18n/locale_registry.dart';
 import '../l10n/app_localizations.dart';
 import '../logic/logic.dart';
 import '../models/models.dart';
+import '../services/services.dart';
 import '../state/state.dart';
+import 'keyboard/smart_keyboard_screen.dart';
 import 'theme/lighthouse_theme.dart';
 
 class SentenceBar extends ConsumerWidget {
@@ -50,71 +51,272 @@ class SentenceBar extends ConsumerWidget {
       label: l10n.sentenceBarLabel,
       child: Padding(
         padding: compact
-            ? const EdgeInsetsDirectional.fromSTEB(12, 10, 12, 2)
-            : const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 4),
-        child: Container(
-          constraints: BoxConstraints(minHeight: compact ? 74 : 96),
-          decoration: BoxDecoration(
-            color: LhColors.surface,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            border: Border.all(color: LhColors.line, width: 1.5),
-            boxShadow: LhShadows.card,
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: compact ? 8 : 12,
-            vertical: compact ? 8 : 10,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  onTap: hasTokens ? () => _speak(context, ref) : null,
-                  child: SizedBox(
-                    height: chipsHeight,
-                    child: hasTokens
-                        ? _ChipStrip(
-                            tokens: tokens,
-                            compact: compact,
-                            hideText: hideText,
-                            hideIcon: hideIcon,
-                          )
-                        : _Placeholder(text: l10n.sentenceBarHint),
+            ? const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 2)
+            : const EdgeInsetsDirectional.fromSTEB(16, 10, 16, 4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Main Sentence Composer Card (Spacious, rounded, modern)
+            Container(
+              constraints: BoxConstraints(minHeight: compact ? 80 : 104),
+              decoration: BoxDecoration(
+                color: LhColors.surface,
+                borderRadius: const BorderRadius.all(Radius.circular(22)),
+                border: Border.all(color: LhColors.nuriSky, width: 2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x0C000000),
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
                   ),
-                ),
+                ],
               ),
-              SizedBox(width: compact ? 2 : 4),
-              _Control(
-                icon: Icons.backspace_outlined,
-                tooltip: l10n.sentenceBackspace,
-                compact: compact,
-                onPressed: hasTokens
-                    ? () => _editSentence(
-                          ref,
-                          () => ref.read(utteranceProvider.notifier).backspace(),
-                        )
-                    : null,
+              padding: EdgeInsets.symmetric(
+                horizontal: compact ? 10 : 14,
+                vertical: compact ? 8 : 10,
               ),
-              _Control(
-                icon: Icons.close_rounded,
-                tooltip: l10n.sentenceClear,
-                compact: compact,
-                onPressed: hasTokens
-                    ? () => _editSentence(
-                          ref,
-                          () => ref.read(utteranceProvider.notifier).clear(),
-                        )
-                    : null,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(14)),
+                      onTap: hasTokens ? () => _speak(context, ref) : null,
+                      child: SizedBox(
+                        height: chipsHeight,
+                        child: hasTokens
+                            ? _ChipStrip(
+                                tokens: tokens,
+                                compact: compact,
+                                hideText: hideText,
+                                hideIcon: hideIcon,
+                              )
+                            : _Placeholder(text: l10n.sentenceBarHint),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  _Control(
+                    icon: Icons.keyboard_outlined,
+                    tooltip: 'Keyboard',
+                    compact: compact,
+                    onPressed: () => SmartKeyboardScreen.show(context, ref),
+                  ),
+                  _Control(
+                    icon: Icons.backspace_outlined,
+                    tooltip: l10n.sentenceBackspace,
+                    compact: compact,
+                    onPressed: hasTokens
+                        ? () => _editSentence(
+                              ref,
+                              () => ref.read(utteranceProvider.notifier).backspace(),
+                            )
+                        : null,
+                  ),
+                  _Control(
+                    icon: Icons.close_rounded,
+                    tooltip: l10n.sentenceClear,
+                    compact: compact,
+                    onPressed: hasTokens
+                        ? () => _editSentence(
+                              ref,
+                              () => ref.read(utteranceProvider.notifier).clear(),
+                            )
+                        : null,
+                  ),
+                  _SpeakButton(
+                    enabled: hasTokens,
+                    tooltip: l10n.sentenceSpeak,
+                    compact: compact,
+                    onPressed: () => _speak(context, ref),
+                  ),
+                ],
               ),
-              _SpeakButton(
-                enabled: hasTokens,
-                tooltip: l10n.sentenceSpeak,
-                compact: compact,
-                onPressed: () => _speak(context, ref),
+            ),
+            // Sub-actions row (Schnellsätze, Löschen) matching Mockup 2
+            Padding(
+              padding: const EdgeInsets.only(top: 6, left: 4, right: 4),
+              child: Row(
+                children: [
+                  InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () => showQuickPhrasesSheet(context, ref),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: LhColors.surface,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: LhColors.line2),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.auto_awesome, size: 14, color: LhColors.nuriGold),
+                          SizedBox(width: 4),
+                          Text(
+                            'Schnellsätze',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: LhColors.ink,
+                            ),
+                          ),
+                          Icon(Icons.arrow_drop_down, size: 16, color: LhColors.ink2),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  if (hasTokens)
+                    InkWell(
+                      borderRadius: BorderRadius.circular(14),
+                      onTap: () => _editSentence(
+                        ref,
+                        () => ref.read(utteranceProvider.notifier).clear(),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.delete_outline, size: 15, color: LhColors.ink2),
+                            const SizedBox(width: 4),
+                            Text(
+                              l10n.sentenceClear,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: LhColors.ink2,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  static void showQuickPhrasesSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: LhColors.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) => Consumer(
+        builder: (context, ref, _) {
+          final quickPhrasesAsync = ref.watch(quickPhrasesProvider);
+          final tokens = ref.read(utteranceProvider);
+          final currentText = tokens.map((t) => t.label).join(' ').trim();
+
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.auto_awesome, color: LhColors.nuriGold, size: 22),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Schnellsätze',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: LhColors.nuriNavy,
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(ctx),
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  if (currentText.isNotEmpty) ...[
+                    ListTile(
+                      leading: const Icon(Icons.bookmark_add, color: LhColors.nuriTeal),
+                      title: Text('"$currentText" speichern'),
+                      subtitle: const Text('Zu schnellen Sätzen hinzufügen'),
+                      onTap: () async {
+                        await ref.read(quickPhrasesProvider.notifier).addPhrase(currentText);
+                        if (context.mounted) Navigator.pop(ctx);
+                      },
+                    ),
+                    const Divider(),
+                  ],
+                  Flexible(
+                    child: quickPhrasesAsync.when(
+                      data: (phrases) {
+                        if (phrases.isEmpty) {
+                          return const Padding(
+                            padding: EdgeInsets.all(24),
+                            child: Center(
+                              child: Text(
+                                'Noch keine Schnellsätze gespeichert.\nSätze können hier für schnellen Zugriff abgelegt werden.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: LhColors.ink2),
+                              ),
+                            ),
+                          );
+                        }
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: phrases.length,
+                          separatorBuilder: (_, __) => const Divider(height: 1),
+                          itemBuilder: (context, index) {
+                            final phrase = phrases[index];
+                            return ListTile(
+                              leading: const CircleAvatar(
+                                backgroundColor: LhColors.nuriSky,
+                                child: Icon(Icons.chat_bubble_outline, color: LhColors.nuriBlue, size: 18),
+                              ),
+                              title: Text(
+                                phrase,
+                                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.volume_up, color: LhColors.nuriBlue),
+                                onPressed: () {
+                                  final tts = ref.read(ttsEngineProvider);
+                                  tts.speak(phrase, locale: Localizations.localeOf(context));
+                                },
+                              ),
+                              onTap: () {
+                                final button = AACButton.fromJson({
+                                  'id': 'phrase_${DateTime.now().millisecondsSinceEpoch}',
+                                  'label': phrase,
+                                  'type': 'phrase',
+                                  'voice_out': phrase,
+                                  'position': {'row': 0, 'col': 0},
+                                  'category': 'social',
+                                });
+                                ref.read(utteranceProvider.notifier).append(button);
+                                Navigator.pop(ctx);
+                              },
+                            );
+                          },
+                        );
+                      },
+                      loading: () => const Center(child: CircularProgressIndicator()),
+                      error: (e, _) => Center(child: Text('Fehler: $e')),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -183,18 +385,25 @@ class SentenceBar extends ConsumerWidget {
     // it re-speaks token-by-token so ONE bad token can never abort the whole
     // replay and leave the child's highest-stakes act silent (item 3).
     Future<void> speakRun(List<AACButton> run) async {
-      final words = composeUtteranceTokens(run, locale.languageCode);
+      final settings = ref.read(settingsNotifierProvider).valueOrNull ??
+          SettingsState.defaults;
+      final uiLangCode = LocaleRegistry.codeForLocale(locale);
+      final speechCode = settings.speechLocaleOverride ?? uiLangCode;
+      final speechSpec = LocaleRegistry.specForCode(speechCode);
+      final effectiveSpeechLocale = speechSpec?.locale ?? locale;
+
+      final words = composeUtteranceTokens(run, speechCode);
       if (words.isEmpty || superseded()) return;
       try {
         await engine
-            .speakSequence(words, locale: locale)
+            .speakSequence(words, locale: effectiveSpeechLocale)
             .timeout(_replayTokenTimeout, onTimeout: () {});
       } catch (_) {
         for (final w in words) {
           if (superseded()) return;
           try {
             await engine
-                .speakSequence([w], locale: locale)
+                .speakSequence([w], locale: effectiveSpeechLocale)
                 .timeout(_replayTokenTimeout, onTimeout: () {});
           } catch (_) {/* skip the one bad token, never the whole sentence */}
         }
@@ -290,7 +499,8 @@ class _ChipStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageCode = Localizations.localeOf(context).languageCode;
+    final languageCode =
+        LocaleRegistry.codeForLocale(Localizations.localeOf(context));
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(vertical: compact ? 2 : 4, horizontal: 2),
@@ -331,10 +541,9 @@ class _TokenChip extends StatelessWidget {
   Widget build(BuildContext context) {
     // Show the pictogram unless it is turned off (setting) or absent.
     final showIcon = !hideIcon && token.iconUri.isNotEmpty;
-    // Show the word when the word setting allows it and we are not in the phone
-    // compact layout (which drops labels to fit more words); always show it when
-    // there is no pictogram, so a chip is never empty.
-    final showText = (!hideText && !compact) || !showIcon;
+    // Show the word text unless explicitly hidden by settings (hideText).
+    // In NūriTalk, words and sentences must always be prominently legible.
+    final showText = !hideText;
     return Container(
       height: compact ? 56 : 64,
       padding: compact
@@ -383,11 +592,14 @@ class _ChipIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget onError(BuildContext _, Object __, StackTrace? ___) =>
-        const SizedBox.shrink();
-    final image = uri.startsWith('assets/')
-        ? Image.asset(uri, width: size, height: size, fit: BoxFit.contain, errorBuilder: onError)
-        : Image.file(File(uri), width: size, height: size, fit: BoxFit.contain, errorBuilder: onError);
+    final image = CompositeSymbolProvider.defaultInstance.buildSymbol(
+      context,
+      uri: uri,
+      label: '',
+      width: size,
+      height: size,
+      fit: BoxFit.contain,
+    );
     return Container(
       width: size,
       height: size,
@@ -487,10 +699,10 @@ class _SpeakButton extends StatelessWidget {
       child: Tooltip(
         message: tooltip,
         child: Material(
-          color: enabled ? LhColors.brown : LhColors.amberTint,
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          color: enabled ? LhColors.nuriBlue : LhColors.cream2,
+          borderRadius: BorderRadius.all(Radius.circular(compact ? 25 : 32)),
           clipBehavior: Clip.antiAlias,
-          elevation: enabled ? 1 : 0,
+          elevation: enabled ? 2 : 0,
           shadowColor: LhColors.inkAlpha(.2),
           child: InkWell(
             onTap: enabled ? onPressed : null,
@@ -500,7 +712,7 @@ class _SpeakButton extends StatelessWidget {
               child: Icon(
                 Icons.volume_up_rounded,
                 size: compact ? 26 : 30,
-                color: enabled ? Colors.white : LhColors.amberDeep,
+                color: enabled ? Colors.white : LhColors.ink3,
               ),
             ),
           ),

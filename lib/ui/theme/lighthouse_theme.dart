@@ -41,6 +41,16 @@ abstract final class LhColors {
   static const brownPress = Color(0xFF56301A);
   static const navy = Color(0xFF1F3A4A); // logo ink, used sparingly
 
+  // NūriTalk Brand Identity Colors (from brand logo & redesign mockups).
+  static const nuriNavy = Color(0xFF0A2540); // "Nūri" deep ocean navy
+  static const nuriTeal = Color(0xFF00A3C4); // "Talk" luminous cyan / teal
+  static const nuriGold = Color(0xFFFFB800); // Lighthouse warm beam golden yellow
+  static const nuriBlue = Color(0xFF0284C7); // Primary action & speaker blue
+  static const nuriSky = Color(0xFFE0F2FE); // Soft sky blue accent fill
+  static const nuriSkyLight = Color(0xFFF0F9FF); // Very light sky tint for composers
+  static const nuriCardBg = Color(0xFFFFFDF9); // Clean rounded card fill
+  static const nuriChipBg = Color(0xFFF1EBE1); // Soft chip ground
+
   // Glow (next-likely-word).
   static const glow = Color(0xFFF2A53A);
   static const glowStrong = Color(0xFFE8873C);
@@ -48,6 +58,12 @@ abstract final class LhColors {
   // Feedback.
   static const good = Color(0xFF2F7D55);
   static const goodBg = Color(0xFFDCEFE2);
+
+  // Semantic aliases
+  static const primary = brown;
+  static const sand = cream2;
+  static const green = good;
+  static const card = surface;
 
   /// Ink at a given opacity, for hairline shadows.
   static Color inkAlpha(double a) => ink.withValues(alpha: a);

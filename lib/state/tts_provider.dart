@@ -13,11 +13,15 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../services/services.dart';
 import 'content_overlay_provider.dart';
+import 'settings_provider.dart';
 
 part 'tts_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 TTSEngine ttsEngine(TtsEngineRef ref) {
+  final settings = ref.watch(settingsNotifierProvider).valueOrNull ??
+      SettingsState.defaults;
+
   final engine = FallbackTTSEngine([
     // Shares the one overlay store so a corrected clip (OTA, ADR 0017) plays
     // instead of the bundled asset.
@@ -26,6 +30,11 @@ TTSEngine ttsEngine(TtsEngineRef ref) {
     ),
     SystemTTSEngine(),
   ]);
+
+  engine.setVolume(settings.voiceVolume);
+  engine.setRate(settings.voiceRate);
+  engine.setPitch(settings.voicePitch);
+
   ref.onDispose(engine.dispose);
   return engine;
 }

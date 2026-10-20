@@ -16,6 +16,8 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/aac_board.dart';
+import 'obf/open_board_format.dart';
+
 
 class BoardLoadException implements Exception {
   const BoardLoadException(this.message, {this.source, this.cause});
@@ -100,8 +102,12 @@ class BoardLoader {
       );
     }
     try {
+      if (OpenBoardFormat.isOBF(decoded)) {
+        return OpenBoardFormat.toAACBoard(decoded);
+      }
       return AACBoard.fromJson(decoded);
     } on FormatException catch (e) {
+
       throw BoardLoadException(
         'Schema mismatch',
         source: source,

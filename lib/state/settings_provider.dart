@@ -48,6 +48,34 @@ class SettingsNotifier extends _$SettingsNotifier {
     ));
   }
 
+  Future<void> setSpeechLocaleOverride(String? code) async {
+    await ref.read(settingsRepositoryProvider).setSpeechLocaleOverride(code);
+    state = AsyncData(_current.copyWith(
+      speechLocaleOverride: code,
+      clearSpeechLocaleOverride: code == null,
+    ));
+  }
+
+  Future<void> setVoiceRate(double rate) async {
+    await ref.read(settingsRepositoryProvider).setVoiceRate(rate);
+    state = AsyncData(_current.copyWith(voiceRate: rate));
+  }
+
+  Future<void> setVoicePitch(double pitch) async {
+    await ref.read(settingsRepositoryProvider).setVoicePitch(pitch);
+    state = AsyncData(_current.copyWith(voicePitch: pitch));
+  }
+
+  Future<void> setVoiceVolume(double volume) async {
+    await ref.read(settingsRepositoryProvider).setVoiceVolume(volume);
+    state = AsyncData(_current.copyWith(voiceVolume: volume));
+  }
+
+  Future<void> setHighContrast(bool value) async {
+    await ref.read(settingsRepositoryProvider).setHighContrast(value);
+    state = AsyncData(_current.copyWith(highContrast: value));
+  }
+
   Future<void> setAutoReturnToHome(bool value) async {
     await ref.read(settingsRepositoryProvider).setAutoReturnToHome(value);
     state = AsyncData(_current.copyWith(autoReturnToHome: value));
@@ -80,4 +108,21 @@ class SettingsNotifier extends _$SettingsNotifier {
       state = AsyncData(_current.copyWith(hidePictogram: value));
     }
   }
+
+  Future<void> setEnableAiPrediction(bool value) async {
+    await ref.read(settingsRepositoryProvider).setEnableAiPrediction(value);
+    state = AsyncData(_current.copyWith(enableAiPrediction: value));
+  }
+
+  Future<void> setAccessMethod(AccessMethod method) async {
+    await ref.read(settingsRepositoryProvider).setAccessMethod(method);
+    state = AsyncData(_current.copyWith(accessMethod: method));
+  }
+
+  Future<void> setSwitchDwellMs(int ms) async {
+    await ref.read(settingsRepositoryProvider).setSwitchDwellMs(ms);
+    state = AsyncData(_current.copyWith(switchDwellMs: ms));
+  }
 }
+
+

@@ -40,6 +40,15 @@ abstract class TTSEngine {
   /// text-agnostic and answers purely on locale support.
   Future<bool> canSpeak(String text, {required Locale locale});
 
+  /// Sets playback volume (0.0 to 1.0).
+  Future<void> setVolume(double volume) async {}
+
+  /// Sets speech rate multiplier (0.1 to 2.0).
+  Future<void> setRate(double rate) async {}
+
+  /// Sets speech pitch multiplier (0.5 to 2.0).
+  Future<void> setPitch(double pitch) async {}
+
   /// Interrupts any in-progress utterance.
   Future<void> stop();
 

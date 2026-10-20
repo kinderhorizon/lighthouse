@@ -134,7 +134,7 @@ void main() {
     }
 
     test('unsupported locale falls back to the registry default', () {
-      expect(LocaleRegistry.resolve(const Locale('de'), supported),
+      expect(LocaleRegistry.resolve(const Locale('fr'), supported),
           LocaleRegistry.fallback);
       expect(LocaleRegistry.resolve(null, supported),
           LocaleRegistry.fallback);

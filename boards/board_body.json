@@ -23,11 +23,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/head.png",
+      "icon_uri": "assets/symbols/body/head.png",
       "label_es": "cabeza",
       "label_ar": "رأس",
       "voice_out_es": "cabeza",
-      "voice_out_ar": "رَأْس"
+      "voice_out_ar": "رَأْس",
+      "label_de": "Kopf",
+      "voice_out_de": "Kopf",
+      "label_ar_dz": "رأس",
+      "voice_out_ar_dz": "رَأْس"
     },
     {
       "id": "btn_body_hair",
@@ -40,11 +44,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/hair.png",
+      "icon_uri": "assets/symbols/body/hair.png",
       "label_es": "pelo",
       "label_ar": "شعر",
       "voice_out_es": "pelo",
-      "voice_out_ar": "شَعْر"
+      "voice_out_ar": "شَعْر",
+      "label_de": "Haare",
+      "voice_out_de": "Haare",
+      "label_ar_dz": "شعر",
+      "voice_out_ar_dz": "شَعْر"
     },
     {
       "id": "btn_body_eye",
@@ -57,11 +65,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/eye.png",
+      "icon_uri": "assets/symbols/body/eye.png",
       "label_es": "ojo",
       "label_ar": "عين",
       "voice_out_es": "ojo",
-      "voice_out_ar": "عَيْن"
+      "voice_out_ar": "عَيْن",
+      "label_de": "Auge",
+      "voice_out_de": "Auge",
+      "label_ar_dz": "عين",
+      "voice_out_ar_dz": "عَيْن"
     },
     {
       "id": "btn_body_ear",
@@ -74,11 +86,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/ear.png",
+      "icon_uri": "assets/symbols/body/ear.png",
       "label_es": "oreja",
       "label_ar": "أذن",
       "voice_out_es": "oreja",
-      "voice_out_ar": "أُذُن"
+      "voice_out_ar": "أُذُن",
+      "label_de": "Ohr",
+      "voice_out_de": "Ohr",
+      "label_ar_dz": "أذن",
+      "voice_out_ar_dz": "أُذُن"
     },
     {
       "id": "btn_body_nose",
@@ -91,11 +107,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/nose.png",
+      "icon_uri": "assets/symbols/body/nose.png",
       "label_es": "nariz",
       "label_ar": "أنف",
       "voice_out_es": "nariz",
-      "voice_out_ar": "أَنْف"
+      "voice_out_ar": "أَنْف",
+      "label_de": "Nase",
+      "voice_out_de": "Nase",
+      "label_ar_dz": "أنف",
+      "voice_out_ar_dz": "أَنْف"
     },
     {
       "id": "btn_body_mouth",
@@ -108,11 +128,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/mouth.png",
+      "icon_uri": "assets/symbols/body/mouth.png",
       "label_es": "boca",
       "label_ar": "فم",
       "voice_out_es": "boca",
-      "voice_out_ar": "فَم"
+      "voice_out_ar": "فَم",
+      "label_de": "Mund",
+      "voice_out_de": "Mund",
+      "label_ar_dz": "فم",
+      "voice_out_ar_dz": "فَم"
     },
     {
       "id": "btn_body_teeth",
@@ -125,11 +149,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/teeth.png",
+      "icon_uri": "assets/symbols/body/teeth.png",
       "label_es": "dientes",
       "label_ar": "أسنان",
       "voice_out_es": "dientes",
-      "voice_out_ar": "أَسْنَان"
+      "voice_out_ar": "أَسْنَان",
+      "label_de": "Zähne",
+      "voice_out_de": "Zähne",
+      "label_ar_dz": "أسنان",
+      "voice_out_ar_dz": "أَسْنَان"
     },
     {
       "id": "btn_body_hand",
@@ -142,11 +170,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/hand.png",
+      "icon_uri": "assets/symbols/body/hand.png",
       "label_es": "mano",
       "label_ar": "يد",
       "voice_out_es": "mano",
-      "voice_out_ar": "يَد"
+      "voice_out_ar": "يَد",
+      "label_de": "Hand",
+      "voice_out_de": "Hand",
+      "label_ar_dz": "يد",
+      "voice_out_ar_dz": "يَد"
     },
     {
       "id": "btn_body_finger",
@@ -159,11 +191,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/finger.png",
+      "icon_uri": "assets/symbols/body/finger.png",
       "label_es": "dedo",
       "label_ar": "إصبع",
       "voice_out_es": "dedo",
-      "voice_out_ar": "إِصْبَع"
+      "voice_out_ar": "إِصْبَع",
+      "label_de": "Finger",
+      "voice_out_de": "finger",
+      "label_ar_dz": "إصبع",
+      "voice_out_ar_dz": "إِصْبَع"
     },
     {
       "id": "btn_body_arm",
@@ -176,11 +212,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/arm.png",
+      "icon_uri": "assets/symbols/body/arm.png",
       "label_es": "brazo",
       "label_ar": "ذراع",
       "voice_out_es": "brazo",
-      "voice_out_ar": "ذِرَاع"
+      "voice_out_ar": "ذِرَاع",
+      "label_de": "Arm",
+      "voice_out_de": "Arm",
+      "label_ar_dz": "ذراع",
+      "voice_out_ar_dz": "ذِرَاع"
     },
     {
       "id": "btn_body_tummy",
@@ -193,11 +233,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/tummy.png",
+      "icon_uri": "assets/symbols/body/tummy.png",
       "label_es": "barriga",
       "label_ar": "بطن",
       "voice_out_es": "barriga",
-      "voice_out_ar": "بَطْن"
+      "voice_out_ar": "بَطْن",
+      "label_de": "Bauch",
+      "voice_out_de": "Bauch",
+      "label_ar_dz": "بطن",
+      "voice_out_ar_dz": "بَطْن"
     },
     {
       "id": "btn_body_back",
@@ -210,11 +254,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/back.png",
+      "icon_uri": "assets/symbols/body/back.png",
       "label_es": "espalda",
       "label_ar": "ظهر",
       "voice_out_es": "espalda",
-      "voice_out_ar": "ظَهْر"
+      "voice_out_ar": "ظَهْر",
+      "label_de": "Rücken",
+      "voice_out_de": "Rücken",
+      "label_ar_dz": "ظهر",
+      "voice_out_ar_dz": "ظَهْر"
     },
     {
       "id": "btn_body_leg",
@@ -227,11 +275,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/leg.png",
+      "icon_uri": "assets/symbols/body/leg.png",
       "label_es": "pierna",
       "label_ar": "ساق",
       "voice_out_es": "pierna",
-      "voice_out_ar": "سَاق"
+      "voice_out_ar": "سَاق",
+      "label_de": "Bein",
+      "voice_out_de": "Bein",
+      "label_ar_dz": "ساق",
+      "voice_out_ar_dz": "سَاق"
     },
     {
       "id": "btn_body_knee",
@@ -244,11 +296,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/knee.png",
+      "icon_uri": "assets/symbols/body/knee.png",
       "label_es": "rodilla",
       "label_ar": "ركبة",
       "voice_out_es": "rodilla",
-      "voice_out_ar": "رُكْبَة"
+      "voice_out_ar": "رُكْبَة",
+      "label_de": "Knee",
+      "voice_out_de": "knee",
+      "label_ar_dz": "ركبة",
+      "voice_out_ar_dz": "رُكْبَة"
     },
     {
       "id": "btn_body_foot",
@@ -261,11 +317,15 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/foot.png",
+      "icon_uri": "assets/symbols/body/foot.png",
       "label_es": "pie",
       "label_ar": "قدم",
       "voice_out_es": "pie",
-      "voice_out_ar": "قَدَم"
+      "voice_out_ar": "قَدَم",
+      "label_de": "Fuß",
+      "voice_out_de": "Fuß",
+      "label_ar_dz": "قدم",
+      "voice_out_ar_dz": "قَدَم"
     },
     {
       "id": "btn_body_toe",
@@ -278,11 +338,17 @@
       },
       "category": "body",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/body/toe.png",
+      "icon_uri": "assets/symbols/body/toe.png",
       "label_es": "dedo del pie",
       "label_ar": "إصبع القدم",
       "voice_out_es": "dedo del pie",
-      "voice_out_ar": "إِصْبَعُ الْقَدَم"
+      "voice_out_ar": "إِصْبَعُ الْقَدَم",
+      "label_de": "Toe",
+      "voice_out_de": "toe",
+      "label_ar_dz": "إصبع القدم",
+      "voice_out_ar_dz": "إِصْبَعُ الْقَدَم"
     }
-  ]
+  ],
+  "board_name_de": "Körper",
+  "board_name_ar_dz": "الجسم"
 }

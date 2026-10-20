@@ -19,7 +19,7 @@ AACButton _button({required String type}) {
     'voice_out': 'food',
     'position': {'row': 0, 'col': 0},
     'category': 'food_nav',
-    'icon_uri': 'assets/arasaac/nav/food.png',
+    'icon_uri': 'assets/symbols/nav/food.png',
   });
 }
 

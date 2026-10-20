@@ -9,11 +9,14 @@ library;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../logic/logic.dart';
+import '../../models/user_profile.dart' show AccessMethod;
 
 // GlowStyle and HitboxMagnitude live in lib/logic/ (domain layer) and
 // are re-exported below so existing imports of services keep working.
 export '../../logic/bandit/glow_style.dart' show GlowStyle;
 export '../../logic/hitbox/hitbox_expansion.dart' show HitboxMagnitude;
+export '../../models/user_profile.dart' show AccessMethod;
+
 
 enum TtsMode {
   on,
@@ -36,6 +39,14 @@ class SettingsState {
     required this.glowStyle,
     required this.hitboxMagnitude,
     required this.localeOverride,
+    this.speechLocaleOverride,
+    this.voiceRate = 1.0,
+    this.voicePitch = 1.0,
+    this.voiceVolume = 1.0,
+    this.highContrast = false,
+    this.enableAiPrediction = false,
+    this.accessMethod = AccessMethod.directTouch,
+    this.switchDwellMs = 1000,
     required this.autoReturnToHome,
     required this.hideTileText,
     required this.hidePictogram,
@@ -47,17 +58,52 @@ class SettingsState {
     glowStyle: GlowStyle.halo,
     hitboxMagnitude: HitboxMagnitude.subtle,
     localeOverride: null,
+    speechLocaleOverride: null,
+    voiceRate: 1.0,
+    voicePitch: 1.0,
+    voiceVolume: 1.0,
+    highContrast: false,
+    enableAiPrediction: false,
+    accessMethod: AccessMethod.directTouch,
+    switchDwellMs: 1000,
     autoReturnToHome: true,
     hideTileText: false,
     hidePictogram: false,
   );
 
+
+
   final TtsMode ttsMode;
   final GlowStyle glowStyle;
   final HitboxMagnitude hitboxMagnitude;
 
-  /// Two-letter ISO 639-1 code (en, ar, es). null means "follow system".
+  /// Interface language override (e.g. 'en', 'ar', 'ar_dz', 'de'). null means "follow system".
   final String? localeOverride;
+
+  /// Speech-output language override independent of interface language.
+  /// null means "match interface language".
+  final String? speechLocaleOverride;
+
+  /// Speech rate multiplier (0.5 to 2.0).
+  final double voiceRate;
+
+  /// Speech pitch multiplier (0.5 to 2.0).
+  final double voicePitch;
+
+  /// Speech output volume (0.0 to 1.0).
+  final double voiceVolume;
+
+  /// Accessibility high-contrast theme flag.
+  final bool highContrast;
+
+  /// Enable optional offline AI word prediction and sentence assistance strip.
+  final bool enableAiPrediction;
+
+  /// Accessibility access method (direct touch, single-switch auto scan, dual-switch step scan).
+  final AccessMethod accessMethod;
+
+  /// Switch scanning dwell time in milliseconds (500ms to 2000ms).
+  final int switchDwellMs;
 
   /// After speaking a fringe word inside a sub-board, return to the home board
   /// automatically (WordPower-style; cuts navigation burden and avoids
@@ -65,17 +111,10 @@ class SettingsState {
   /// See ADR 0009.
   final bool autoReturnToHome;
 
-  /// Hide the text label under each tile, leaving only the pictogram. Default
-  /// off (text shows). Clinician-configurable: a symbol-only grid suits
-  /// pre-literate children or reduces reliance on text for some learners.
+  /// Hide the text label under each tile, leaving only the pictogram.
   final bool hideTileText;
 
-  /// Hide the pictogram on each tile, leaving only the text label. Default off
-  /// (pictogram shows). The complement of [hideTileText]: a text-only grid
-  /// suits literate AAC users. INVARIANT: [hideTileText] and [hidePictogram]
-  /// are never both true (a blank tile is unusable); the settings notifier
-  /// enforces this by forcing the other back on. See
-  /// [[project-lighthouse-board-engine]].
+  /// Hide the pictogram on each tile, leaving only the text label.
   final bool hidePictogram;
 
   SettingsState copyWith({
@@ -84,6 +123,15 @@ class SettingsState {
     HitboxMagnitude? hitboxMagnitude,
     String? localeOverride,
     bool clearLocaleOverride = false,
+    String? speechLocaleOverride,
+    bool clearSpeechLocaleOverride = false,
+    double? voiceRate,
+    double? voicePitch,
+    double? voiceVolume,
+    bool? highContrast,
+    bool? enableAiPrediction,
+    AccessMethod? accessMethod,
+    int? switchDwellMs,
     bool? autoReturnToHome,
     bool? hideTileText,
     bool? hidePictogram,
@@ -95,12 +143,23 @@ class SettingsState {
       localeOverride: clearLocaleOverride
           ? null
           : (localeOverride ?? this.localeOverride),
+      speechLocaleOverride: clearSpeechLocaleOverride
+          ? null
+          : (speechLocaleOverride ?? this.speechLocaleOverride),
+      voiceRate: voiceRate ?? this.voiceRate,
+      voicePitch: voicePitch ?? this.voicePitch,
+      voiceVolume: voiceVolume ?? this.voiceVolume,
+      highContrast: highContrast ?? this.highContrast,
+      enableAiPrediction: enableAiPrediction ?? this.enableAiPrediction,
+      accessMethod: accessMethod ?? this.accessMethod,
+      switchDwellMs: switchDwellMs ?? this.switchDwellMs,
       autoReturnToHome: autoReturnToHome ?? this.autoReturnToHome,
       hideTileText: hideTileText ?? this.hideTileText,
       hidePictogram: hidePictogram ?? this.hidePictogram,
     );
   }
 }
+
 
 class SettingsRepository {
   SettingsRepository({SharedPreferences? prefs}) : _prefsOverride = prefs;
@@ -109,6 +168,14 @@ class SettingsRepository {
   static const _keyGlow = 'settings.glow_style';
   static const _keyHit = 'settings.hitbox_magnitude';
   static const _keyLocale = 'settings.locale_override';
+  static const _keySpeechLocale = 'settings.speech_locale_override';
+  static const _keyVoiceRate = 'settings.voice_rate';
+  static const _keyVoicePitch = 'settings.voice_pitch';
+  static const _keyVoiceVolume = 'settings.voice_volume';
+  static const _keyHighContrast = 'settings.high_contrast';
+  static const _keyEnableAiPrediction = 'settings.enable_ai_prediction';
+  static const _keyAccessMethod = 'settings.access_method';
+  static const _keySwitchDwellMs = 'settings.switch_dwell_ms';
   static const _keyAutoReturn = 'settings.auto_return_to_home';
   static const _keyHideTileText = 'settings.hide_tile_text';
   static const _keyHidePictogram = 'settings.hide_pictogram';
@@ -132,6 +199,19 @@ class SettingsRepository {
       hitboxMagnitude: HitboxMagnitude.tryParse(p.getString(_keyHit)) ??
           SettingsState.defaults.hitboxMagnitude,
       localeOverride: p.getString(_keyLocale),
+      speechLocaleOverride: p.getString(_keySpeechLocale),
+      voiceRate: p.getDouble(_keyVoiceRate) ?? SettingsState.defaults.voiceRate,
+      voicePitch:
+          p.getDouble(_keyVoicePitch) ?? SettingsState.defaults.voicePitch,
+      voiceVolume:
+          p.getDouble(_keyVoiceVolume) ?? SettingsState.defaults.voiceVolume,
+      highContrast:
+          p.getBool(_keyHighContrast) ?? SettingsState.defaults.highContrast,
+      enableAiPrediction: p.getBool(_keyEnableAiPrediction) ??
+          SettingsState.defaults.enableAiPrediction,
+      accessMethod: AccessMethod.tryParse(p.getString(_keyAccessMethod)),
+      switchDwellMs: p.getInt(_keySwitchDwellMs) ??
+          SettingsState.defaults.switchDwellMs,
       autoReturnToHome: p.getBool(_keyAutoReturn) ??
           SettingsState.defaults.autoReturnToHome,
       hideTileText: p.getBool(_keyHideTileText) ??
@@ -179,4 +259,49 @@ class SettingsRepository {
       await p.setString(_keyLocale, code);
     }
   }
+
+  Future<void> setSpeechLocaleOverride(String? code) async {
+    final p = await _prefs();
+    if (code == null) {
+      await p.remove(_keySpeechLocale);
+    } else {
+      await p.setString(_keySpeechLocale, code);
+    }
+  }
+
+  Future<void> setVoiceRate(double rate) async {
+    final p = await _prefs();
+    await p.setDouble(_keyVoiceRate, rate);
+  }
+
+  Future<void> setVoicePitch(double pitch) async {
+    final p = await _prefs();
+    await p.setDouble(_keyVoicePitch, pitch);
+  }
+
+  Future<void> setVoiceVolume(double volume) async {
+    final p = await _prefs();
+    await p.setDouble(_keyVoiceVolume, volume);
+  }
+
+  Future<void> setHighContrast(bool value) async {
+    final p = await _prefs();
+    await p.setBool(_keyHighContrast, value);
+  }
+
+  Future<void> setEnableAiPrediction(bool value) async {
+    final p = await _prefs();
+    await p.setBool(_keyEnableAiPrediction, value);
+  }
+
+  Future<void> setAccessMethod(AccessMethod method) async {
+    final p = await _prefs();
+    await p.setString(_keyAccessMethod, method.toJson());
+  }
+
+  Future<void> setSwitchDwellMs(int ms) async {
+    final p = await _prefs();
+    await p.setInt(_keySwitchDwellMs, ms);
+  }
 }
+

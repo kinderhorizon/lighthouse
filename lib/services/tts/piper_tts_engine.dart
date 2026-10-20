@@ -36,4 +36,13 @@ class PiperTTSEngine implements TTSEngine {
 
   @override
   Future<void> dispose() async {}
+
+  @override
+  Future<void> setVolume(double volume) async {}
+
+  @override
+  Future<void> setRate(double rate) async {}
+
+  @override
+  Future<void> setPitch(double pitch) async {}
 }

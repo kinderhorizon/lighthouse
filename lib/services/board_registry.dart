@@ -18,6 +18,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/models.dart';
+import '../state/personal_card_provider.dart';
 import 'board_loader.dart';
 import 'ota/content_overlay_store.dart';
 
@@ -26,12 +27,15 @@ class BoardRegistry {
     BoardLoader? loader,
     Directory? importedBoardsDirOverride,
     ContentOverlayStore? contentOverlay,
+    List<PersonalCard> Function(String boardId)? personalCardsResolver,
   })  : _loader = loader ?? const BoardLoader(),
         _dirOverride = importedBoardsDirOverride,
-        _contentOverlay = contentOverlay;
+        _contentOverlay = contentOverlay,
+        _personalCardsResolver = personalCardsResolver;
 
   final BoardLoader _loader;
   final Directory? _dirOverride;
+  final List<PersonalCard> Function(String boardId)? _personalCardsResolver;
 
   /// OTA overlay (ADR 0017). When present, an overlaid `boards/<id>.json` wins
   /// over the bundled asset. Null = no OTA layer (bundled-only behavior).
@@ -79,12 +83,13 @@ class BoardRegistry {
   /// whether to attempt load or short-circuit to the missing-pack toast.
   bool knows(String boardId) =>
       _assetSources.containsKey(boardId) ||
-      _fileSources.containsKey(boardId);
+      _fileSources.containsKey(boardId) ||
+      PersonalBoardId.all.contains(boardId);
 
-  /// All board ids this registry can load (bundled + imported), in a stable
+  /// All board ids this registry can load (bundled + personal + imported), in a stable
   /// order (assets first). The custom-button editor lists these.
   List<String> knownBoardIds() =>
-      [..._assetSources.keys, ..._fileSources.keys];
+      [..._assetSources.keys, ...PersonalBoardId.all, ..._fileSources.keys];
 
   /// Attempts to load the board with [boardId]. Returns null if no source
   /// is registered for it. A registered source that fails to load
@@ -101,6 +106,11 @@ class BoardRegistry {
   }
 
   Future<AACBoard?> _loadRaw(String boardId) async {
+    if (PersonalBoardId.all.contains(boardId)) {
+      final cards = _personalCardsResolver?.call(boardId) ?? const [];
+      return generatePersonalBoard(boardId: boardId, cards: cards);
+    }
+
     // OTA board overlay wins over the bundled asset (ADR 0017): a corrected
     // board JSON replaces the shipped one for the same id. Falls through to
     // bundled when no overlay (or no OTA layer) is present.

@@ -1,7 +1,7 @@
 /// Manifest integrity tests.
 ///
 /// Asserts the relationship between boards/core_main.json, the on-disk
-/// PNG files under assets/arasaac/, and assets/arasaac/manifest.json
+/// PNG files under assets/symbols/, and assets/symbols/manifest.json
 /// holds at all times:
 ///
 /// - Every button's icon_uri in the default board has a manifest entry.
@@ -36,7 +36,7 @@ void main() {
         boardIconUris.add(btn['icon_uri'] as String);
       }
     }
-    manifest = jsonDecode(File('assets/arasaac/manifest.json').readAsStringSync())
+    manifest = jsonDecode(File('assets/symbols/manifest.json').readAsStringSync())
         as Map<String, dynamic>;
     manifestSymbols =
         (manifest['symbols'] as List).cast<Map<String, dynamic>>();

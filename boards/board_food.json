@@ -23,11 +23,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/milk.png",
+      "icon_uri": "assets/symbols/food/milk.png",
       "label_es": "leche",
       "label_ar": "حليب",
       "voice_out_es": "leche",
-      "voice_out_ar": "حَلِيب"
+      "voice_out_ar": "حَلِيب",
+      "label_de": "Milch",
+      "voice_out_de": "Milch",
+      "label_ar_dz": "حليب",
+      "voice_out_ar_dz": "حليب"
     },
     {
       "id": "btn_food_juice",
@@ -40,11 +44,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/juice.png",
+      "icon_uri": "assets/symbols/food/juice.png",
       "label_es": "jugo",
       "label_ar": "عصير",
       "voice_out_es": "jugo",
-      "voice_out_ar": "عَصِير"
+      "voice_out_ar": "عَصِير",
+      "label_de": "Saft",
+      "voice_out_de": "Saft",
+      "label_ar_dz": "عصير",
+      "voice_out_ar_dz": "عصير"
     },
     {
       "id": "btn_food_apple",
@@ -57,11 +65,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/apple.png",
+      "icon_uri": "assets/symbols/food/apple.png",
       "label_es": "manzana",
       "label_ar": "تفاحة",
       "voice_out_es": "manzana",
-      "voice_out_ar": "تُفَّاحَة"
+      "voice_out_ar": "تُفَّاحَة",
+      "label_de": "Apfel",
+      "voice_out_de": "Apfel",
+      "label_ar_dz": "تفاحة",
+      "voice_out_ar_dz": "تُفَّاحَة"
     },
     {
       "id": "btn_food_banana",
@@ -74,11 +86,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/banana.png",
+      "icon_uri": "assets/symbols/food/banana.png",
       "label_es": "plátano",
       "label_ar": "موز",
       "voice_out_es": "plátano",
-      "voice_out_ar": "مَوْز"
+      "voice_out_ar": "مَوْز",
+      "label_de": "Banane",
+      "voice_out_de": "Banane",
+      "label_ar_dz": "بنان",
+      "voice_out_ar_dz": "بنان"
     },
     {
       "id": "btn_food_cookie",
@@ -91,11 +107,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/cookie.png",
+      "icon_uri": "assets/symbols/food/cookie.png",
       "label_es": "galleta",
       "label_ar": "بسكويت",
       "voice_out_es": "galleta",
-      "voice_out_ar": "بِسْكِويت"
+      "voice_out_ar": "بِسْكِويت",
+      "label_de": "Keks",
+      "voice_out_de": "Keks",
+      "label_ar_dz": "قاطو",
+      "voice_out_ar_dz": "قاطو"
     },
     {
       "id": "btn_food_cracker",
@@ -108,11 +128,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/cracker.png",
+      "icon_uri": "assets/symbols/food/cracker.png",
       "label_es": "galleta salada",
       "label_ar": "مقرمشات",
       "voice_out_es": "galleta salada",
-      "voice_out_ar": "مُقَرْمَشَات"
+      "voice_out_ar": "مُقَرْمَشَات",
+      "label_de": "Kräcker",
+      "voice_out_de": "Kräcker",
+      "label_ar_dz": "قاطو مالح",
+      "voice_out_ar_dz": "قاطو مالح"
     },
     {
       "id": "btn_food_bread",
@@ -125,11 +149,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/bread.png",
+      "icon_uri": "assets/symbols/food/bread.png",
       "label_es": "pan",
       "label_ar": "خبز",
       "voice_out_es": "pan",
-      "voice_out_ar": "خُبْز"
+      "voice_out_ar": "خُبْز",
+      "label_de": "Brot",
+      "voice_out_de": "Brot",
+      "label_ar_dz": "خبز",
+      "voice_out_ar_dz": "خبز"
     },
     {
       "id": "btn_food_cheese",
@@ -142,11 +170,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/cheese.png",
+      "icon_uri": "assets/symbols/food/cheese.png",
       "label_es": "queso",
       "label_ar": "جبن",
       "voice_out_es": "queso",
-      "voice_out_ar": "جُبْن"
+      "voice_out_ar": "جُبْن",
+      "label_de": "Käse",
+      "voice_out_de": "Käse",
+      "label_ar_dz": "جبن",
+      "voice_out_ar_dz": "جُبْن"
     },
     {
       "id": "btn_food_yogurt",
@@ -159,11 +191,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/yogurt.png",
+      "icon_uri": "assets/symbols/food/yogurt.png",
       "label_es": "yogur",
       "label_ar": "زبادي",
       "voice_out_es": "yogur",
-      "voice_out_ar": "زَبَادِي"
+      "voice_out_ar": "زَبَادِي",
+      "label_de": "Joghurt",
+      "voice_out_de": "Joghurt",
+      "label_ar_dz": "زبادي",
+      "voice_out_ar_dz": "زَبَادِي"
     },
     {
       "id": "btn_food_cereal",
@@ -176,11 +212,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/cereal.png",
+      "icon_uri": "assets/symbols/food/cereal.png",
       "label_es": "cereal",
       "label_ar": "حبوب",
       "voice_out_es": "cereal",
-      "voice_out_ar": "حُبُوب"
+      "voice_out_ar": "حُبُوب",
+      "label_de": "Müsli",
+      "voice_out_de": "Müsli",
+      "label_ar_dz": "حبوب",
+      "voice_out_ar_dz": "حُبُوب"
     },
     {
       "id": "btn_food_pizza",
@@ -193,11 +233,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/pizza.png",
+      "icon_uri": "assets/symbols/food/pizza.png",
       "label_es": "pizza",
       "label_ar": "بيتزا",
       "voice_out_es": "pizza",
-      "voice_out_ar": "بِيتْزَا"
+      "voice_out_ar": "بِيتْزَا",
+      "label_de": "Pizza",
+      "voice_out_de": "Pizza",
+      "label_ar_dz": "بيتزا",
+      "voice_out_ar_dz": "بيتزا"
     },
     {
       "id": "btn_food_chicken",
@@ -210,11 +254,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/chicken.png",
+      "icon_uri": "assets/symbols/food/chicken.png",
       "label_es": "pollo",
       "label_ar": "دجاج",
       "voice_out_es": "pollo",
-      "voice_out_ar": "دَجَاج"
+      "voice_out_ar": "دَجَاج",
+      "label_de": "Hähnchen",
+      "voice_out_de": "Hähnchen",
+      "label_ar_dz": "دجاج",
+      "voice_out_ar_dz": "دَجَاج"
     },
     {
       "id": "btn_food_rice",
@@ -227,11 +275,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/rice.png",
+      "icon_uri": "assets/symbols/food/rice.png",
       "label_es": "arroz",
       "label_ar": "أرز",
       "voice_out_es": "arroz",
-      "voice_out_ar": "أَرُز"
+      "voice_out_ar": "أَرُز",
+      "label_de": "Reis",
+      "voice_out_de": "Reis",
+      "label_ar_dz": "أرز",
+      "voice_out_ar_dz": "أَرُز"
     },
     {
       "id": "btn_food_egg",
@@ -244,11 +296,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/egg.png",
+      "icon_uri": "assets/symbols/food/egg.png",
       "label_es": "huevo",
       "label_ar": "بيضة",
       "voice_out_es": "huevo",
-      "voice_out_ar": "بَيْضَة"
+      "voice_out_ar": "بَيْضَة",
+      "label_de": "Ei",
+      "voice_out_de": "Ei",
+      "label_ar_dz": "بيضة",
+      "voice_out_ar_dz": "بَيْضَة"
     },
     {
       "id": "btn_food_grapes",
@@ -261,11 +317,15 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/grapes.png",
+      "icon_uri": "assets/symbols/food/grapes.png",
       "label_es": "uvas",
       "label_ar": "عنب",
       "voice_out_es": "uvas",
-      "voice_out_ar": "عِنَب"
+      "voice_out_ar": "عِنَب",
+      "label_de": "Weintrauben",
+      "voice_out_de": "Weintrauben",
+      "label_ar_dz": "عنب",
+      "voice_out_ar_dz": "عِنَب"
     },
     {
       "id": "btn_food_ice_cream",
@@ -278,11 +338,17 @@
       },
       "category": "food",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/food/ice_cream.png",
+      "icon_uri": "assets/symbols/food/ice_cream.png",
       "label_es": "helado",
       "label_ar": "آيس كريم",
       "voice_out_es": "helado",
-      "voice_out_ar": "آيس كْرِيم"
+      "voice_out_ar": "آيس كْرِيم",
+      "label_de": "Eis",
+      "voice_out_de": "Eis",
+      "label_ar_dz": "لاكرام",
+      "voice_out_ar_dz": "لاكرام"
     }
-  ]
+  ],
+  "board_name_de": "Essen & Trinken",
+  "board_name_ar_dz": "الماكلة والشراب"
 }

@@ -519,7 +519,9 @@
   "@otaLastChecked": {
     "description": "Idle line on the Check for updates screen when a check has happened before. {when} is a localized relative time (just now / today / yesterday / a short date).",
     "placeholders": {
-      "when": { "type": "String" }
+      "when": {
+        "type": "String"
+      }
     }
   },
   "otaWhenJustNow": "just now",
@@ -596,5 +598,76 @@
   "recordVoiceOptional": "Record your own voice (optional)",
   "recordVoiceStop": "Stop",
   "recordVoiceRecorded": "Voice recorded",
-  "recordVoiceClear": "Remove recording"
+  "recordVoiceClear": "Remove recording",
+  "userProfilesTitle": "User Profiles",
+  "userProfilesSubtitle": "Switch or manage communicator profiles",
+  "userProfilesDescription": "Manage independent user profiles for communicators, students, or family members. Each profile retains isolated speech settings, access preferences, and vocabulary.",
+  "addNewProfile": "Add New Profile",
+  "createProfileTitle": "Create Profile",
+  "profileNameLabel": "Profile Name",
+  "profileNameHint": "e.g., Maya, Karim, Leo",
+  "editProfileTitle": "Edit Profile: {name}",
+  "@editProfileTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteProfileTitle": "Delete Profile \"{name}\"?",
+  "@deleteProfileTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteProfileConfirm": "This will permanently delete this profile and its custom settings. This action cannot be undone.",
+  "switchedToProfile": "Switched to profile: {name}",
+  "@switchedToProfile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "activeBadge": "ACTIVE",
+  "editProfile": "Edit Profile",
+  "deleteProfile": "Delete Profile",
+  "activateProfile": "Activate Profile",
+  "saveAction": "Save",
+  "deleteAction": "Delete",
+  "createAction": "Create",
+  "speechOutputLanguage": "Speech Output Language",
+  "matchesInterfaceLanguage": "Matches interface language ({lang})",
+  "@matchesInterfaceLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "speechSpeed": "Speech Speed",
+  "speechPitch": "Speech Pitch",
+  "speechVolume": "Speech Volume",
+  "highContrastBoard": "High-Contrast Board",
+  "highContrastBoardSubtitle": "Enhanced contrast borders for visual clarity",
+  "sectionAiAssistance": "AI Assistance",
+  "aiPredictionBar": "AI Prediction Bar",
+  "aiPredictionBarSubtitle": "Show offline next-word and sentence builder suggestions",
+  "sectionSwitchAccessibility": "Switch Accessibility",
+  "accessMethod": "Access Method",
+  "accessDirectTouch": "Direct Touch",
+  "accessSwitchSingle": "Single Switch (Auto-Scan)",
+  "accessSwitchDual": "Dual Switch (Step & Select)",
+  "autoScanDwellTime": "Auto-Scan Dwell Time",
+  "aiAssistantTitle": "AI Text Assistant & Translator",
+  "aiAssistantInputHint": "Type words, shorthand, or incomplete phrase...",
+  "aiSuggestionsHeader": "Sentence Suggestions (Tap to speak or copy):",
+  "translateTo": "Translate to: ",
+  "speakSentence": "Speak sentence",
+  "aiCommunicationAssistantTooltip": "AI Communication Assistant",
+  "switchStep": "STEP (Space)",
+  "switchSelect": "SELECT (Enter)",
+  "symbolLicenseNotice": "Symbols: Open AAC Symbols & Material Symbols. License: Apache 2.0 (Commercial-ready, permissive open-source)."
 }

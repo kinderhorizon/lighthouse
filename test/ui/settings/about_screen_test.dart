@@ -8,7 +8,7 @@ void main() {
   testWidgets('shows KHF attribution and app name', (tester) async {
     await tester.pumpWidget(localizedApp(const AboutScreen()));
     await tester.pump();
-    expect(find.text('Lighthouse AAC'), findsOneWidget);
+    expect(find.text('NūriTalk'), findsOneWidget);
     expect(
       find.text('A free project of the Kinder Horizon Foundation.'),
       findsOneWidget,

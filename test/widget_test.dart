@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +34,15 @@ class _RecordingTTSEngine implements TTSEngine {
 
   @override
   Future<void> dispose() async {}
+
+  @override
+  Future<void> setVolume(double volume) async {}
+
+  @override
+  Future<void> setRate(double rate) async {}
+
+  @override
+  Future<void> setPitch(double pitch) async {}
 }
 
 /// Loads the board from the on-disk fixture (NOT through rootBundle) so the

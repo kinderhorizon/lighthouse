@@ -1,0 +1,7 @@
+Initial production release of NūriTalk AAC:
+- Core 48 motor-planning communication board
+- Daily visual schedule, First/Then routines, and countdown timer
+- Multilingual support for Arabic, Algerian Darija, German, and English
+- Smart AAC keyboard and personal custom cards
+- Switch access and TalkBack accessibility compliance
+- 100% offline, privacy-first, zero advertisements

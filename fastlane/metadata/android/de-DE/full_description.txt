@@ -1,0 +1,15 @@
+NūriTalk ist eine moderne, datenschutzfreundliche App für Unterstützte Kommunikation (UK), entwickelt für nicht-sprechende Kinder, autistische Menschen und Personen mit Sprachbeeinträchtigungen.
+
+NūriTalk funktioniert zu 100 % offline, ganz ohne Werbung, ohne Abonnements und ohne Datentracking.
+
+HAUPTMERKMALE:
+• Stabiles motorisches Lernen: Feste Koordinaten auf den Core-48-Tafeln sorgen für verlässliche Bewegungsmuster, ohne dass Tasten verrutschen.
+• Visuelle Tagespläne & Routinen: Strukturierte Abläufe, Zuerst/Dann-Pläne und visuelle Timer erleichtern Übergänge im Alltag.
+• Mehrsprachige Sprachausgabe: Natürliche Text-to-Speech-Wiedergabe auf Deutsch, Arabisch, algerischem Darija und Englisch sowie eigene Audioaufnahmen.
+• Smarte UK-Tastatur: Große Tasten, Symbolunterstützung und Schnell-Chat-Funktion.
+• Eigene Karten: Erstellen Sie persönliche Bildkarten für Familie, Hobbys und Schule mit eigenen Fotos.
+• Volle Barrierefreiheit: Optimiert für TalkBack-Screenreader und Taster-Steuerung (1-Taster / 2-Taster) mit 48dp Touch-Targets nach WCAG 2.1 AA.
+• Offline-Sicherung: Vollständige Profile, Pläne und Wortschätze einfach lokal exportieren und importieren.
+
+Entwickelt von der Kinder Horizon Foundation.
+Datenschutzerklärung: https://kinderhorizon.org/lighthouse/privacy

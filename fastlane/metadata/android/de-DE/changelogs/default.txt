@@ -1,0 +1,7 @@
+Erste offizielle Veröffentlichung von NūriTalk:
+- Core-48 Kommunikationstafel für motorisches Lernen
+- Visuelle Tagespläne, Zuerst/Dann-Ansichten und Timer
+- Mehrsprachige Sprachausgabe auf Deutsch, Arabisch, Darija und Englisch
+- Eigene Symbolkarten und barrierefreie UK-Tastatur
+- TalkBack- und Taster-Unterstützung
+- 100 % offline und ohne Werbung

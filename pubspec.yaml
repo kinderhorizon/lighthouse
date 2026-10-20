@@ -189,7 +189,7 @@ dev_dependencies:
 flutter_launcher_icons:
   image_path: "tools/branding/app-icon-1024.png"
   android: "ic_launcher"
-  adaptive_icon_background: "#1F3A44"
+  adaptive_icon_background: "#0A2540"
   adaptive_icon_foreground: "tools/branding/app-icon-foreground-1024.png"
   # The foreground PNG already bakes in the safe-zone padding (mark at
   # ~55% so the beam tip lands just inside the 66% circle). The package
@@ -225,35 +225,30 @@ flutter:
     # sitting directly in it. A missing/unsupported-locale file degrades to
     # base_weight at runtime (ContextualColdStart.empty), never an error.
     - assets/cold_start/
-    - assets/arasaac/manifest.json
-    # Flutter asset directory entries are NON-RECURSIVE: a bare
-    # `assets/arasaac/` bundles only files sitting directly in that folder
-    # (just the manifest), NOT the pictograms nested one level down. Each
-    # Fitzgerald-category subdirectory must be listed explicitly or its
-    # PNGs never ship (the grid renders with no symbols). tools/verify_assets.dart
-    # asserts every manifest icon_uri's parent dir appears in this list.
-    - assets/arasaac/activities/
-    - assets/arasaac/body/
-    - assets/arasaac/feelings/
-    - assets/arasaac/folders/
-    - assets/arasaac/food/
-    - assets/arasaac/modifiers/
-    - assets/arasaac/needs/
-    - assets/arasaac/people/
-    - assets/arasaac/places/
-    - assets/arasaac/pronouns/
-    - assets/arasaac/questions/
-    - assets/arasaac/responses/
-    - assets/arasaac/social/
-    - assets/arasaac/things/
-    - assets/arasaac/time/
-    - assets/arasaac/verbs/
+    - assets/symbols/manifest.json
+    - assets/symbols/activities/
+    - assets/symbols/body/
+    - assets/symbols/feelings/
+    - assets/symbols/folders/
+    - assets/symbols/food/
+    - assets/symbols/modifiers/
+    - assets/symbols/needs/
+    - assets/symbols/people/
+    - assets/symbols/places/
+    - assets/symbols/pronouns/
+    - assets/symbols/questions/
+    - assets/symbols/responses/
+    - assets/symbols/social/
+    - assets/symbols/things/
+    - assets/symbols/time/
+    - assets/symbols/verbs/
     - assets/brand/
     # Bundled third-party license texts, shown verbatim on the in-app
     # "Open-source licences" page via LicenseRegistry (lib/config/licenses.dart).
     # Loaded from these assets so the displayed text stays in sync with the file.
     - LICENSES/AtkinsonHyperlegible-OFL.txt
     - LICENSES/Cairo-OFL.txt
+    - LICENSES/OpenSymbols.md
     # Pre-rendered TTS clips (docs/adr/0004 amendment). The manifest always
     # ships; the per-locale clip directories are added below as each locale's
     # clips are generated and committed (tools/tts/generate_clips.dart). Same
@@ -289,3 +284,6 @@ flutter:
         - asset: assets/fonts/AtkinsonHyperlegible-BoldItalic.ttf
           weight: 700
           style: italic
+
+dependency_overrides:
+  shared_preferences_android: 2.4.1

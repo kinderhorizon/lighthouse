@@ -12,12 +12,12 @@
 /// falls back to text rather than a broken-image glyph.
 library;
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
+import '../i18n/locale_registry.dart';
 import '../logic/logic.dart';
 import '../models/models.dart';
+import '../services/symbols/symbols.dart';
 import 'theme/lighthouse_theme.dart';
 
 class AACButtonTile extends StatefulWidget {
@@ -28,6 +28,7 @@ class AACButtonTile extends StatefulWidget {
     this.onLongPress,
     this.hideText = false,
     this.hideIcon = false,
+    this.isSwitchFocused = false,
     super.key,
   });
 
@@ -35,6 +36,8 @@ class AACButtonTile extends StatefulWidget {
   final Map<String, String> colorKey;
   final VoidCallback onTap;
   final VoidCallback? onLongPress;
+  final bool isSwitchFocused;
+
 
   /// When true, render the pictogram only and omit the text label (symbol-only
   /// mode, clinician setting). The Semantics label is kept regardless, so
@@ -60,7 +63,8 @@ class _AACButtonTileState extends State<AACButtonTile> {
   @override
   Widget build(BuildContext context) {
     final button = widget.button;
-    final languageCode = Localizations.localeOf(context).languageCode;
+    final languageCode =
+        LocaleRegistry.codeForLocale(Localizations.localeOf(context));
     final label = button.labelFor(languageCode);
     final fill = resolveCategoryColor(
       button.category,
@@ -144,17 +148,20 @@ class _AACButtonTileState extends State<AACButtonTile> {
                       ],
                     ),
                   ),
-                  // 1.5px edge border painted over the fill edge.
+                  // 1.5px edge border painted over the fill edge, or 3.5px amber focus ring when switch scanning.
                   Positioned.fill(
                     child: IgnorePointer(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           borderRadius: LhRadii.tileR,
-                          border: Border.all(color: edge, width: 1.5),
+                          border: widget.isSwitchFocused
+                              ? Border.all(color: LhColors.amber, width: 3.5)
+                              : Border.all(color: edge, width: 1.5),
                         ),
                       ),
                     ),
                   ),
+
                   // Folder dog-ear chip (top-trailing, mirrors under RTL).
                   if (isFolder)
                     const PositionedDirectional(
@@ -222,28 +229,11 @@ class _ButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Bundled pictograms are asset paths ("assets/..."); parent-authored
-    // custom buttons (ADR 0012) carry an absolute file path. A missing image
-    // falls back to the text-only layout: a broken-image icon would be worse
-    // than no icon for a non-speaking child.
-    const onError = _iconError;
-    if (uri.startsWith('assets/')) {
-      return Image.asset(
-        uri,
-        fit: BoxFit.contain,
-        semanticLabel: label,
-        errorBuilder: onError,
-      );
-    }
-    return Image.file(
-      File(uri),
+    return CompositeSymbolProvider.defaultInstance.buildSymbol(
+      context,
+      uri: uri,
+      label: label,
       fit: BoxFit.contain,
-      semanticLabel: label,
-      errorBuilder: onError,
     );
   }
-
-  static Widget _iconError(
-          BuildContext context, Object error, StackTrace? stack) =>
-      const SizedBox.shrink();
 }

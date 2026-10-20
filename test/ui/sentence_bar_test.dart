@@ -1,8 +1,6 @@
 /// Sentence bar widget (ADR 0010).
 library;
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +34,15 @@ class _RecordingTTSEngine implements TTSEngine {
 
   @override
   Future<void> dispose() async {}
+
+  @override
+  Future<void> setVolume(double volume) async {}
+
+  @override
+  Future<void> setRate(double rate) async {}
+
+  @override
+  Future<void> setPitch(double pitch) async {}
 }
 
 AACButton _verb(String word, {String iconUri = ''}) => AACButton.fromJson({
@@ -189,7 +196,7 @@ void main() {
       (tester) async {
     await tester.pumpWidget(_host(container, hideIcon: true));
     container.read(utteranceProvider.notifier).append(
-          _verb('want', iconUri: 'assets/arasaac/verbs/want.png'),
+          _verb('want', iconUri: 'assets/symbols/verbs/want.png'),
         );
     await tester.pump();
     expect(find.text('want'), findsOneWidget);
@@ -201,7 +208,7 @@ void main() {
       (tester) async {
     await tester.pumpWidget(_host(container, hideText: true));
     container.read(utteranceProvider.notifier).append(
-          _verb('want', iconUri: 'assets/arasaac/verbs/want.png'),
+          _verb('want', iconUri: 'assets/symbols/verbs/want.png'),
         );
     await tester.pump();
     expect(find.text('want'), findsNothing);

@@ -1,0 +1,1453 @@
+{
+  "schema_version": "2.0",
+  "description": "Permissive, commercial-ready Open AAC Symbols for mobile communication.",
+  "license": "Apache-2.0",
+  "symbols_count": 180,
+  "checksum_policy": {
+    "algorithm": "sha256",
+    "verifier": "tools/verify_assets.dart",
+    "phase": "Phase 1"
+  },
+  "symbols": [
+    {
+      "button_id": "btn_act_read",
+      "english_label": "Read",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/read.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6d13e89b766ed6b231f4af049a1b42bc4849247c0a73089ea33ad5b242b06bf0"
+    },
+    {
+      "button_id": "btn_act_draw",
+      "english_label": "Draw",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/draw.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d8f24dc516e7ceb267efe26bb90b467a141d9a421331bb8377d7827c55f5e7bb"
+    },
+    {
+      "button_id": "btn_act_color",
+      "english_label": "Color",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/color.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f6d9492a08486f18750222f2d05d46cdbec39c41e222bf6c5f96aa10bc5c35f4"
+    },
+    {
+      "button_id": "btn_act_paint",
+      "english_label": "Paint",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/paint.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "df291b58a2a464b690715bc9094e90ed63844409249a219e9df69dd79490925d"
+    },
+    {
+      "button_id": "btn_act_sing",
+      "english_label": "Sing",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/sing.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "458ab65178f9ffa3c481e33b9f0102b5a870e3e6743e23e44633cd388cfd6357"
+    },
+    {
+      "button_id": "btn_act_dance",
+      "english_label": "Dance",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/dance.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "c42c4f9e6f15c4f6a9a4abeb886b2187848b773890377c05098094cc8b256171"
+    },
+    {
+      "button_id": "btn_act_swim",
+      "english_label": "Swim",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/swim.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0bf757c2446cd9279c1308234afe93d3f92a3fc13e88d102cb817ea05e374dc9"
+    },
+    {
+      "button_id": "btn_act_run",
+      "english_label": "Run",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/run.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1db30990c9d8e2d3c37f4c7d0bdf4717342712d7984d90bd85c754581d94dce4"
+    },
+    {
+      "button_id": "btn_act_jump",
+      "english_label": "Jump",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/jump.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d8130c13975b2be1dd481393a52b5126ff2400ea40a2ffb34bd8aa2bb35fd713"
+    },
+    {
+      "button_id": "btn_act_ride",
+      "english_label": "Ride",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/ride.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "4afa00e3b994af93c2df4b304ca9649974339cbbe6bee22a8f9e0d8ce18c05bd"
+    },
+    {
+      "button_id": "btn_act_build",
+      "english_label": "Build",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/build.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "93d5cdcb08ac33a1c0b3fc2bf86e9137331382a0bfc568fafedec90e3a505ad6"
+    },
+    {
+      "button_id": "btn_act_watch",
+      "english_label": "Watch TV",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/watch.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ce6358233878bbdc80abdbe3ff0e9cb674b54699eaf61d3100d73a39869bf5f2"
+    },
+    {
+      "button_id": "btn_act_listen",
+      "english_label": "Listen",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/listen.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "2b4cc5394b648ca6b762a6ff82863d11017d4631932c0f630500c38e97757a14"
+    },
+    {
+      "button_id": "btn_act_cook",
+      "english_label": "Cook",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/cook.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "58f49771f01c71b5ad8d249520026c040ff04d6e848dde894a884ef5adc4e1b5"
+    },
+    {
+      "button_id": "btn_act_walk",
+      "english_label": "Walk",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/walk.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "66f18443e5bb4e108c3426113260d0d17713e6db4885d86e9019c1604ef205b4"
+    },
+    {
+      "button_id": "btn_act_sleep",
+      "english_label": "Sleep",
+      "fitzgerald_category": "activity",
+      "icon_uri": "assets/symbols/activities/sleep.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9ae71ac6d311768fed84fa342c811eeddc3bff6e73ffb705bfc317e95f0d2932"
+    },
+    {
+      "button_id": "btn_body_head",
+      "english_label": "Head",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/head.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9a6f386d917b55a7722e691deb732b6c32f2181c7d71256933fa7faac075d297"
+    },
+    {
+      "button_id": "btn_body_hair",
+      "english_label": "Hair",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/hair.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "78e78e6ad37a74e167cc480f822d3b044b13410b4c23312b1d3b760d020b5417"
+    },
+    {
+      "button_id": "btn_body_eye",
+      "english_label": "Eye",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/eye.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1f502d5da713afee14e3e010dbb97471ae711fa21c2e6c73f408c878ec5ab712"
+    },
+    {
+      "button_id": "btn_body_ear",
+      "english_label": "Ear",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/ear.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "80b755204d100cba874afae4ee5eed27bc181e007c079a62b3f65ba6b39e84fa"
+    },
+    {
+      "button_id": "btn_body_nose",
+      "english_label": "Nose",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/nose.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "3aba952763344878d4cdf8bdab371e89828a838d193a6992cf808566f6043e47"
+    },
+    {
+      "button_id": "btn_body_mouth",
+      "english_label": "Mouth",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/mouth.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1878e9a38e3cf04bdb37ad10e0de1a8801d02976b30a75d1aabb14008091420d"
+    },
+    {
+      "button_id": "btn_body_teeth",
+      "english_label": "Teeth",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/teeth.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "c40c5a57acabf8ad3855720551217fcd38790b6b44738c4379d47ab796c268dc"
+    },
+    {
+      "button_id": "btn_body_hand",
+      "english_label": "Hand",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/hand.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "54e29be2328a5834256558ec853f3f94fa71ab2ece2beb25f61bcf8114c71b60"
+    },
+    {
+      "button_id": "btn_body_finger",
+      "english_label": "Finger",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/finger.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "54e29be2328a5834256558ec853f3f94fa71ab2ece2beb25f61bcf8114c71b60"
+    },
+    {
+      "button_id": "btn_body_arm",
+      "english_label": "Arm",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/arm.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b6bd2f7110b4adff1a4505a2bdeae1e6fcbedae9959ba6c9671f74c9e2bb943a"
+    },
+    {
+      "button_id": "btn_body_tummy",
+      "english_label": "Tummy",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/tummy.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1929c74ea5793b107d3ed81758b726fb8101e5a59084fdda64882eed7e506609"
+    },
+    {
+      "button_id": "btn_body_back",
+      "english_label": "Back",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/back.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6765d5097846aaf763cdd24cc2cbddec7f812a25ea33d95909a5a6cdfdcc4389"
+    },
+    {
+      "button_id": "btn_body_leg",
+      "english_label": "Leg",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/leg.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a33d3c14f3adbc6267c330d47596d0b14a6da32a335de47b0956579f2b4e8fd1"
+    },
+    {
+      "button_id": "btn_body_knee",
+      "english_label": "Knee",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/knee.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "bc30b0ae406e163dd3ec8a6f88c12a7d56fec8eafe08d8d0fe20cd9b51eae710"
+    },
+    {
+      "button_id": "btn_body_foot",
+      "english_label": "Foot",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/foot.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f2c5c86e1387e187bd81dc7961b319d0cd505730a7fed65dd8fddc6799af5a17"
+    },
+    {
+      "button_id": "btn_body_toe",
+      "english_label": "Toe",
+      "fitzgerald_category": "body",
+      "icon_uri": "assets/symbols/body/toe.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "be7e0b69e6a76058d8015c0c86277faffb9f72b43a4d07d7c4f0ef6d571a2469"
+    },
+    {
+      "button_id": "btn_feel_angry",
+      "english_label": "Angry",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/angry.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0e52fad236fadefe8d48bf8d44927c5cb22a20071d4f2ed81ac5a20735e9df3d"
+    },
+    {
+      "button_id": "btn_feel_excited",
+      "english_label": "Excited",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/excited.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "057e644bbb313d2216aef078914f95c2231a9b3b585671c5a611204efe2a4f43"
+    },
+    {
+      "button_id": "btn_feel_frustrated",
+      "english_label": "Frustrated",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/frustrated.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "683bb2e64bec1800c944a09ffb952d4d2e6a9e0633ec5ab07dcc270e06b2ac06"
+    },
+    {
+      "button_id": "btn_feel_calm",
+      "english_label": "Calm",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/calm.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "91dd2d6873301e5ea55c1dab66cfa5f703c82b40af139dcf88075710a29ef603"
+    },
+    {
+      "button_id": "btn_feel_sick",
+      "english_label": "Sick",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/sick.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5c1b2b6fddcb8534f73968333bb10f26bce85b5a51a94e39033554135db99c98"
+    },
+    {
+      "button_id": "btn_feel_bored",
+      "english_label": "Bored",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/bored.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a94c712839519083cf306ef011a2f47d164debacae9dbe75584d0a9a51e89cd9"
+    },
+    {
+      "button_id": "btn_feel_silly",
+      "english_label": "Silly",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/silly.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9fc6f90258c2a2e6adcdb8e67111ce8bbbbf620b6afb0923a44284ec798204b8"
+    },
+    {
+      "button_id": "btn_feel_surprised",
+      "english_label": "Surprised",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/surprised.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "82f6e2556b8acb1073d1c8ea74f530115e3d7a5021fb9c21bc83250f6bb15133"
+    },
+    {
+      "button_id": "btn_feel_proud",
+      "english_label": "Proud",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/proud.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6a6266b2cc887cc8da07bae7a62882a6267ecbea3e6a24011827679419ad8162"
+    },
+    {
+      "button_id": "btn_feel_nervous",
+      "english_label": "Nervous",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/nervous.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6fac4a16a87bec68cf720660d5d3d37fcac436ddb514655abcadbb818118bb52"
+    },
+    {
+      "button_id": "btn_feel_lonely",
+      "english_label": "Lonely",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/lonely.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5563e9b4956e7ec9fe47e98a7948acda6a1de520c63661f1a64c1b78f2880e4f"
+    },
+    {
+      "button_id": "btn_feel_confused",
+      "english_label": "Confused",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/confused.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7c31cc795182587defdbec01054924f3bd2d5972ab86ac7b6539cc93356829fb"
+    },
+    {
+      "button_id": "btn_feel_shy",
+      "english_label": "Shy",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/shy.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f1805ee266fe50790e26bd10a3adf2cb8ea03a9ee78b1c0175394bf8fd22cb4a"
+    },
+    {
+      "button_id": "btn_feel_worried",
+      "english_label": "Worried",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/worried.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "789c5589ce3b49e4157744866815c59f7c3deeb8a3a4486e1a492b8330223ebf"
+    },
+    {
+      "button_id": "btn_feel_okay",
+      "english_label": "Okay",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/okay.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5154bbfc315ad020640463bf507077e7d1d010d428d6be23306765d8569bfc0d"
+    },
+    {
+      "button_id": "btn_feel_love",
+      "english_label": "Love",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/love.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a903c28724830394b4a26520346597ff3f79c2e31495ff714faa98b145f0fec8"
+    },
+    {
+      "button_id": "btn_food_milk",
+      "english_label": "Milk",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/milk.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "3041935f7987e4e9b53fce77f344af96417fd874e6b24cd1ecdad2e292e6c79c"
+    },
+    {
+      "button_id": "btn_food_juice",
+      "english_label": "Juice",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/juice.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7e646bdd30109ba3f2dc0c7586e28a6f83f92d0a243c90465965afdcc061321d"
+    },
+    {
+      "button_id": "btn_food_apple",
+      "english_label": "Apple",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/apple.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "4bd4729a425eaccf2904a533b21bdf263091f5763a6ea198c050b34f1d82bd1e"
+    },
+    {
+      "button_id": "btn_food_banana",
+      "english_label": "Banana",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/banana.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1710e77c28fc81e282deb944f0612e834ccfedeac2f674149c41d9b3b9523feb"
+    },
+    {
+      "button_id": "btn_food_cookie",
+      "english_label": "Cookie",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/cookie.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a010304b226c6ef25b1267888b50939196d4d01727bcb7d75641f36665500984"
+    },
+    {
+      "button_id": "btn_food_cracker",
+      "english_label": "Cracker",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/cracker.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "95aa4f35bf3dcabf49abecc1e53e9802061b8f5e788b33bebf06dd6004e044e4"
+    },
+    {
+      "button_id": "btn_food_bread",
+      "english_label": "Bread",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/bread.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "68062255bb0f73790bd8f3e86d5b721bede8f305e2299abdefb55403a9250594"
+    },
+    {
+      "button_id": "btn_food_cheese",
+      "english_label": "Cheese",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/cheese.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b6b7522fbf769d2746e1a02138dea1053a5bc6b53182994a94f138a91afdd839"
+    },
+    {
+      "button_id": "btn_food_yogurt",
+      "english_label": "Yogurt",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/yogurt.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "07a93e3fb8232ff3144f83a7bf97641f3b93557dcc4eee7a63c9ba7369d26a67"
+    },
+    {
+      "button_id": "btn_food_cereal",
+      "english_label": "Cereal",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/cereal.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "53dbb71b4b3ab9f8001d6fa08f65a67000d5b3eea561da117558217d2c21e914"
+    },
+    {
+      "button_id": "btn_food_pizza",
+      "english_label": "Pizza",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/pizza.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "28e2669f16fc94a8a4e983fda79cdac7b9098ef4e6ba1bb38d26d2094fbc7572"
+    },
+    {
+      "button_id": "btn_food_chicken",
+      "english_label": "Chicken",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/chicken.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "354d6a794f2f738c4883604d6edfb9a7418012719d0b95a7ccf07bc17cfd5516"
+    },
+    {
+      "button_id": "btn_food_rice",
+      "english_label": "Rice",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/rice.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ecd316d2b401a40fb443b2315d8f9280334ec037ee3a885cecdc6fedb10b371a"
+    },
+    {
+      "button_id": "btn_food_egg",
+      "english_label": "Egg",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/egg.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "09856df212c7169a26cc66e22370e6bf19dedc152108222e53ee4d38057ea1a4"
+    },
+    {
+      "button_id": "btn_food_grapes",
+      "english_label": "Grapes",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/grapes.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1b4eef39d0c601b694d05b76f8c2a31f8e05538fd743e8937e25755a943e9d74"
+    },
+    {
+      "button_id": "btn_food_ice_cream",
+      "english_label": "Ice cream",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/ice_cream.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b21e80ae5b22697505a0e3da4f8c4aa09a1590451aec197ae8d0f6578d5b4227"
+    },
+    {
+      "button_id": "btn_people_grandma",
+      "english_label": "Grandma",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/grandma.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "49ed4bc9f2418459d16b47162efdc758d08a09bbde5337fe5b8d93ed7739064d"
+    },
+    {
+      "button_id": "btn_people_grandpa",
+      "english_label": "Grandpa",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/grandpa.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1100564103b00ff25e54ff7c4232a6ddd0f2dcdd614bd56fe117c347912542df"
+    },
+    {
+      "button_id": "btn_people_sister",
+      "english_label": "Sister",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/sister.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "de4d8a40d0ba81c342b71e37d693fa521302e13fbcb03711dd98744a9c621433"
+    },
+    {
+      "button_id": "btn_people_brother",
+      "english_label": "Brother",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/brother.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "cd33f1e5a02f068aee13f39af3c4f65c8d6b623640504ebfdd270c6009b4d788"
+    },
+    {
+      "button_id": "btn_people_baby",
+      "english_label": "Baby",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/baby.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "dd4fdcf86dedd99e39cc8b35af80c49f2723d4571171ebcbf957f4c0ae95fbf9"
+    },
+    {
+      "button_id": "btn_people_friend",
+      "english_label": "Friend",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/friend.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6ee1140545f50b524ed990b9286f9b45e6c8a7240d55e2b7e3895b449170c183"
+    },
+    {
+      "button_id": "btn_people_teacher",
+      "english_label": "Teacher",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/teacher.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6307a37c93a278d8b8749b6b84b3e0fc712fc241e86c0cd669583b5bb4413e18"
+    },
+    {
+      "button_id": "btn_people_nurse",
+      "english_label": "Nurse",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/nurse.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "25bb8516e048c6685728fdb5d01cf7edc1e2b66d70d7bba85566f5edc08a6ef4"
+    },
+    {
+      "button_id": "btn_people_boy",
+      "english_label": "Boy",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/boy.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "e25739c5b58a51726a307e731b6076b876fc7fc7559b8e46eaf33589430c8daa"
+    },
+    {
+      "button_id": "btn_people_girl",
+      "english_label": "Girl",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/girl.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "15cddf09ba3ebdb643062426b37704eea5b58fb107ee4062d073d5c64bdfec78"
+    },
+    {
+      "button_id": "btn_people_aunt",
+      "english_label": "Aunt",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/aunt.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "98cb63d5af3a422b0e13ddadc3b8f28afeae9c3bb46cfa3ccd9dcab15c8b9974"
+    },
+    {
+      "button_id": "btn_people_uncle",
+      "english_label": "Uncle",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/uncle.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d2d9250462d9f689d7b69a28ce60df76a173506d66ae8667f705b312a1db7726"
+    },
+    {
+      "button_id": "btn_people_family",
+      "english_label": "Family",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/family.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "1a55f6538e2debca9ef48b9dc9b74da1eacafd61fe598db824773fb731979106"
+    },
+    {
+      "button_id": "btn_people_doctor",
+      "english_label": "Doctor",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/doctor.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d57d17e1a6e4bb889546994bd10c4ee69f553ebf8056ad3a863b58918674191e"
+    },
+    {
+      "button_id": "btn_people_neighbor",
+      "english_label": "Neighbor",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/neighbor.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "44c8cb85b52ef7f591f50b7355f2cc86cabe6ceb91414c78326316de9becb1cd"
+    },
+    {
+      "button_id": "btn_places_park",
+      "english_label": "Park",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/park.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ef47b4cac6ab5f0c308ffff4f18bd2eca7574eceafd074b3058455ed7e7c3b84"
+    },
+    {
+      "button_id": "btn_places_store",
+      "english_label": "Store",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/store.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "e449b6c2b33d3c4d0ba11a0b0907e57d6c852bb5f0531b113e826b1c0a2079a5"
+    },
+    {
+      "button_id": "btn_places_restaurant",
+      "english_label": "Restaurant",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/restaurant.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7b42c7d9dc58d2614339d6156e79b4ddc568e1efb6917d1ee086fd8e362387e9"
+    },
+    {
+      "button_id": "btn_places_doctor",
+      "english_label": "Doctor's office",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/doctor.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d57d17e1a6e4bb889546994bd10c4ee69f553ebf8056ad3a863b58918674191e"
+    },
+    {
+      "button_id": "btn_places_hospital",
+      "english_label": "Hospital",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/hospital.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "550cb6ed2a0b67369c15aec91ad6b8c8eb21b20001863d21e791e1f70a1139a9"
+    },
+    {
+      "button_id": "btn_places_playground",
+      "english_label": "Playground",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/playground.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "cc90be630a9fbf75f2ba6f604f2ba5a9e4258d6533c2b56b08391c10d3a16e41"
+    },
+    {
+      "button_id": "btn_places_beach",
+      "english_label": "Beach",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/beach.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "fd40b0f3a026493bdc98b746dbf9547ae39e817713393bd0efb69e3675b8314d"
+    },
+    {
+      "button_id": "btn_places_library",
+      "english_label": "Library",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/library.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ac0c166282482de7f346da4d53a30ecc677929c60a1ccb8220db5758907e03a7"
+    },
+    {
+      "button_id": "btn_places_bus",
+      "english_label": "Bus",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/bus.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6597172a1b8cafc969b95f7c434717ffb1ebefb425e37d2c466d97e50cf5d82b"
+    },
+    {
+      "button_id": "btn_places_zoo",
+      "english_label": "Zoo",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/zoo.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "8b2f352fd5d26f894ea384f99ffdd3bbe809fabf668dadc0b8f01ac3eb95b131"
+    },
+    {
+      "button_id": "btn_places_pool",
+      "english_label": "Pool",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/pool.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0bf757c2446cd9279c1308234afe93d3f92a3fc13e88d102cb817ea05e374dc9"
+    },
+    {
+      "button_id": "btn_places_kitchen",
+      "english_label": "Kitchen",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/kitchen.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "cc12c7085435fe675ef77c0193d2ce79aa085144bd7c4186e88baa3eaf70fb58"
+    },
+    {
+      "button_id": "btn_places_bedroom",
+      "english_label": "Bedroom",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/bedroom.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9ae71ac6d311768fed84fa342c811eeddc3bff6e73ffb705bfc317e95f0d2932"
+    },
+    {
+      "button_id": "btn_places_church",
+      "english_label": "Church",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/church.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "eb3fb616c206e99d2363bfca8185905c0320cc1c3d6e581d5b746380abf949ef"
+    },
+    {
+      "button_id": "btn_places_gym",
+      "english_label": "Gym",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/gym.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f80ef9dad3d8cc242d2b127bec095175ad03105163875c61473f7a8c600d7b3e"
+    },
+    {
+      "button_id": "btn_things_ball",
+      "english_label": "Ball",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/ball.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "4198e3f40ac1b2ff097f615378e64c9c89c6267e2619861d0aef6609d83aef43"
+    },
+    {
+      "button_id": "btn_things_book",
+      "english_label": "Book",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/book.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6d13e89b766ed6b231f4af049a1b42bc4849247c0a73089ea33ad5b242b06bf0"
+    },
+    {
+      "button_id": "btn_things_toy",
+      "english_label": "Toy",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/toy.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a816f6f0638a4b2905aa304041d4a2aec6636fa04eb77454c4088445cf3fd5e1"
+    },
+    {
+      "button_id": "btn_things_blocks",
+      "english_label": "Blocks",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/blocks.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "93d5cdcb08ac33a1c0b3fc2bf86e9137331382a0bfc568fafedec90e3a505ad6"
+    },
+    {
+      "button_id": "btn_things_doll",
+      "english_label": "Doll",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/doll.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a816f6f0638a4b2905aa304041d4a2aec6636fa04eb77454c4088445cf3fd5e1"
+    },
+    {
+      "button_id": "btn_things_car",
+      "english_label": "Car",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/car.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5b85171305b2fa90f0bbf0020a6c00792da18430b76cbde8b68662958a378165"
+    },
+    {
+      "button_id": "btn_things_phone",
+      "english_label": "Phone",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/phone.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9354f4288444807e3fda6f6b44d8e7ad55384dd20fa401bcb7cd63e8def40174"
+    },
+    {
+      "button_id": "btn_things_tablet",
+      "english_label": "Tablet",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/tablet.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0b33bdd215f6f20479098888a7e409a61521e9d8d5381f563a2b160e95dbb987"
+    },
+    {
+      "button_id": "btn_things_tv",
+      "english_label": "TV",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/tv.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ce6358233878bbdc80abdbe3ff0e9cb674b54699eaf61d3100d73a39869bf5f2"
+    },
+    {
+      "button_id": "btn_things_blanket",
+      "english_label": "Blanket",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/blanket.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "637446c1f792d20d80f63ffca976f473fe4cb78fde3e15885ee84d35a297d124"
+    },
+    {
+      "button_id": "btn_things_cup",
+      "english_label": "Cup",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/cup.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "aecf45e1ce68295b5c9980925464c38cba33f0c7f176426d0de48f3db21ee285"
+    },
+    {
+      "button_id": "btn_things_spoon",
+      "english_label": "Spoon",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/spoon.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "694980e18bda5cbae73a610cde9161c388739960c98c4ffbe3fbfaeb94f039a7"
+    },
+    {
+      "button_id": "btn_things_shoes",
+      "english_label": "Shoes",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/shoes.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9add70822ca3e4022ba434d85b61d0f5ce86ab8c0a5eb3acd3bf65d1427fd2a0"
+    },
+    {
+      "button_id": "btn_things_hat",
+      "english_label": "Hat",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/hat.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "39beecb2ec5669fac3cf2a063a4bb8db0ae543812ce00f4e2e1564fe149ab3e6"
+    },
+    {
+      "button_id": "btn_things_crayon",
+      "english_label": "Crayon",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/crayon.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d8f24dc516e7ceb267efe26bb90b467a141d9a421331bb8377d7827c55f5e7bb"
+    },
+    {
+      "button_id": "btn_things_bubbles",
+      "english_label": "Bubbles",
+      "fitzgerald_category": "things",
+      "icon_uri": "assets/symbols/things/bubbles.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9c8a7e75274b299a3dd74268919280ebbbcc622e683ae972100aa1510c83738e"
+    },
+    {
+      "button_id": "btn_time_now",
+      "english_label": "Now",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/now.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6bbf1fca6ee446962a0f7722419c0d6a35d2d718c0b26679bf392373fac3241b"
+    },
+    {
+      "button_id": "btn_time_later",
+      "english_label": "Later",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/later.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b3983ba54fb850134a2277ea4095e19138e3664bf9a72eabf24d12474e835cfb"
+    },
+    {
+      "button_id": "btn_time_today",
+      "english_label": "Today",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/today.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0b6330541d83d5c52087398c0af3ec5fb00643df4225315cb62a82ca3fade403"
+    },
+    {
+      "button_id": "btn_time_tomorrow",
+      "english_label": "Tomorrow",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/tomorrow.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "4b1d4dd3953d3c22654cec3b0dffe1b1522092d728be539513174ed0c4c4bb95"
+    },
+    {
+      "button_id": "btn_time_yesterday",
+      "english_label": "Yesterday",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/yesterday.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f1778c673f038c286c49138d73debdfbb1e10091c845d61e0475eba7a0f0ea65"
+    },
+    {
+      "button_id": "btn_time_morning",
+      "english_label": "Morning",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/morning.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "034ad260baacd7034563b559566756f22f3e20a2839f9f282313ac14a1ac5d5d"
+    },
+    {
+      "button_id": "btn_time_afternoon",
+      "english_label": "Afternoon",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/afternoon.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0317e19cc490539e43343489396cd7689e8207244284585b2574450de7b4760b"
+    },
+    {
+      "button_id": "btn_time_night",
+      "english_label": "Night",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/night.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "85e12d6d85201cff1382e183e2b1df1bf303b4154496dc044a8db37272059869"
+    },
+    {
+      "button_id": "btn_time_before",
+      "english_label": "Before",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/before.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b3983ba54fb850134a2277ea4095e19138e3664bf9a72eabf24d12474e835cfb"
+    },
+    {
+      "button_id": "btn_time_day",
+      "english_label": "Day",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/day.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "034ad260baacd7034563b559566756f22f3e20a2839f9f282313ac14a1ac5d5d"
+    },
+    {
+      "button_id": "btn_time_week",
+      "english_label": "Week",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/week.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "fc716899f367e25b28c42f762ee7db8aa1e9d06271c0de1b2feed9552aaf108e"
+    },
+    {
+      "button_id": "btn_time_weekend",
+      "english_label": "Weekend",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/weekend.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0b6330541d83d5c52087398c0af3ec5fb00643df4225315cb62a82ca3fade403"
+    },
+    {
+      "button_id": "btn_time_minute",
+      "english_label": "Minute",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/minute.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6bbf1fca6ee446962a0f7722419c0d6a35d2d718c0b26679bf392373fac3241b"
+    },
+    {
+      "button_id": "btn_time_late",
+      "english_label": "Late",
+      "fitzgerald_category": "time",
+      "icon_uri": "assets/symbols/time/late.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6bbf1fca6ee446962a0f7722419c0d6a35d2d718c0b26679bf392373fac3241b"
+    },
+    {
+      "button_id": "btn_i",
+      "english_label": "I",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/symbols/pronouns/i.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a751a3c2dd83a5f7ee3c8e03a9138ae82c9ddfaf3c7596fd63a752ca67a4d953"
+    },
+    {
+      "button_id": "btn_you",
+      "english_label": "You",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/symbols/pronouns/you.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f9fbb25941399c894fbcac093d2085ae78d62a269f92de7d21e59f8ab04ab439"
+    },
+    {
+      "button_id": "btn_want",
+      "english_label": "Want",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/want.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "083e01935f1167a41ad570632fa701af9b111d8011d3fa6ce2a5e964614f1963"
+    },
+    {
+      "button_id": "btn_need",
+      "english_label": "Need",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/need.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5f5b6c4dd09b0607e56d28e83e5c8a34433bf21097cd036a0d933b97ade92828"
+    },
+    {
+      "button_id": "btn_like",
+      "english_label": "Like",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/like.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "dac6835b582d1792562721398d830a0d2ce4f134832f1fca5a57de5d035c9ee1"
+    },
+    {
+      "button_id": "btn_help",
+      "english_label": "Help",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/help.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "658f6238c90b7482629393d78d30c632d0a9d64a787c637d3d51cab41542a061"
+    },
+    {
+      "button_id": "btn_stop",
+      "english_label": "Stop",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/stop.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "737baef1e0c4dd23dddd27fc7890dfa0239302b05f4727ae142a1141b41f6c07"
+    },
+    {
+      "button_id": "btn_more",
+      "english_label": "More",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/symbols/modifiers/more.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7c3d5335f0be3a6d93ebd1ae557f6ce2c76b3ec0960f6866ca35f537e4770bf1"
+    },
+    {
+      "button_id": "btn_go",
+      "english_label": "Go",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/go.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b730e3cb00e03420d5d41736273cc92233e88cf1e66df2d3b8727a0433d24c0e"
+    },
+    {
+      "button_id": "btn_get",
+      "english_label": "Get",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/get.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0d218fb86d7aa8ca78aef6e1f528b196f2cad0706e5b5e83e73531f22e1945d1"
+    },
+    {
+      "button_id": "btn_make",
+      "english_label": "Make",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/make.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d8389db19bfb31c26319e68bd8bd43d5cb67d345a615064b8c19ade04ea2fea8"
+    },
+    {
+      "button_id": "btn_look",
+      "english_label": "Look",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/look.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "794ee6f2b71f6cf3c2584fe1498ca652ea525b91e5895a0b5b9347a6ad9e933f"
+    },
+    {
+      "button_id": "btn_play",
+      "english_label": "Play",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/play.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "8c7e3ea32fbb88ed6a1493960a937ed45c79f27cacdec6c5b034c75f96fdec24"
+    },
+    {
+      "button_id": "btn_eat",
+      "english_label": "Eat",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/eat.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7b42c7d9dc58d2614339d6156e79b4ddc568e1efb6917d1ee086fd8e362387e9"
+    },
+    {
+      "button_id": "btn_drink",
+      "english_label": "Drink",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/drink.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7e646bdd30109ba3f2dc0c7586e28a6f83f92d0a243c90465965afdcc061321d"
+    },
+    {
+      "button_id": "btn_open",
+      "english_label": "Open",
+      "fitzgerald_category": "verb",
+      "icon_uri": "assets/symbols/verbs/open.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "e01fb8f1abbb31ab3f7e4c48952a7d413ae3aca87d2b0616adbdc527a9846c1e"
+    },
+    {
+      "button_id": "btn_yes",
+      "english_label": "Yes",
+      "fitzgerald_category": "response",
+      "icon_uri": "assets/symbols/responses/yes.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "93516faabdb86a66e0b137ae1ad875d7b1f6d2e958d57fdea6649a03598614b9"
+    },
+    {
+      "button_id": "btn_no",
+      "english_label": "No",
+      "fitzgerald_category": "response",
+      "icon_uri": "assets/symbols/responses/no.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a9f6a85c55903de811874f03de25f1bb4e26cfcdd7d05a009cc3728c4011d3d9"
+    },
+    {
+      "button_id": "btn_break",
+      "english_label": "Break",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/break.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "a5b6a33c6d21e93debc41b2d0dc26b793974ca666ec11a92299d61c3dbd96555"
+    },
+    {
+      "button_id": "btn_thankyou",
+      "english_label": "Thank you",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/symbols/social/thank_you.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "658f6238c90b7482629393d78d30c632d0a9d64a787c637d3d51cab41542a061"
+    },
+    {
+      "button_id": "btn_please",
+      "english_label": "Please",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/symbols/social/please.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "10758e8a4f37cc280227f5970dd8b799360961628ea91a9279c28e12c2443f7c"
+    },
+    {
+      "button_id": "btn_sorry",
+      "english_label": "Sorry",
+      "fitzgerald_category": "social",
+      "icon_uri": "assets/symbols/social/sorry.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "8ed0bf080800799f112421c9915f2921d5ea90d8385609b941004ff2a2384828"
+    },
+    {
+      "button_id": "btn_good",
+      "english_label": "Good",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/good.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "21685ec18b65dfa556ec79f8500fa459371ac1fec106a8e95d49b32d9b02c937"
+    },
+    {
+      "button_id": "btn_bad",
+      "english_label": "Bad",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/bad.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "cab836a8fb9864869bd94f7304b8cfad4f1a07783f3f4c9a9c9d753ed81eed2e"
+    },
+    {
+      "button_id": "btn_bathroom",
+      "english_label": "Bathroom",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/bathroom.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b279814a66539eabc26c34180c44fd9eed073670d0347ef7ffe742346098004b"
+    },
+    {
+      "button_id": "btn_water",
+      "english_label": "Water",
+      "fitzgerald_category": "food",
+      "icon_uri": "assets/symbols/food/water.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "7e646bdd30109ba3f2dc0c7586e28a6f83f92d0a243c90465965afdcc061321d"
+    },
+    {
+      "button_id": "btn_hungry",
+      "english_label": "Hungry",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/hungry.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0021b19016c6bc26185e3cea45fec954c7f15c957307386bf882ec6aa467300a"
+    },
+    {
+      "button_id": "btn_tired",
+      "english_label": "Tired",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/tired.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "9ae71ac6d311768fed84fa342c811eeddc3bff6e73ffb705bfc317e95f0d2932"
+    },
+    {
+      "button_id": "btn_hurt",
+      "english_label": "Hurt",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/hurt.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "c3fa45b754c49c08b5328049fb73088c8b88d486c51b5883b8b267aa465c3bce"
+    },
+    {
+      "button_id": "btn_scared",
+      "english_label": "Scared",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/scared.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "b637292cf980eefc10cd3a922ea306914b133470a7274908ccd7a3abe26b6db3"
+    },
+    {
+      "button_id": "btn_happy",
+      "english_label": "Happy",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/happy.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5e0976f51c4bc81442df2ba0bdebc9d13d0e9801ba83dc8554f7d318045a7d11"
+    },
+    {
+      "button_id": "btn_sad",
+      "english_label": "Sad",
+      "fitzgerald_category": "feeling",
+      "icon_uri": "assets/symbols/feelings/sad.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "99e2816e4a1f698eb831464861250af379e93f720067147cae38beed6041e0ca"
+    },
+    {
+      "button_id": "btn_food_folder",
+      "english_label": "Food",
+      "fitzgerald_category": "food_nav",
+      "icon_uri": "assets/symbols/folders/food.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "07eb7229e7fa2f4158215669cf3af6d4be1829ae78fcfcda2bf033a419689ebb"
+    },
+    {
+      "button_id": "btn_places_folder",
+      "english_label": "Places",
+      "fitzgerald_category": "places_nav",
+      "icon_uri": "assets/symbols/folders/places.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "5b7f1172669641f226f27b3d75ed1868a003f55cadaace52baea7ea8ff7e6c82"
+    },
+    {
+      "button_id": "btn_people_folder",
+      "english_label": "People",
+      "fitzgerald_category": "people_nav",
+      "icon_uri": "assets/symbols/folders/people.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "58ae90e3b7ba91da935fcae9120985e40814c585d0fb1975bf00ff61dc0092b7"
+    },
+    {
+      "button_id": "btn_activities_folder",
+      "english_label": "Activities",
+      "fitzgerald_category": "activities_nav",
+      "icon_uri": "assets/symbols/folders/activities.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "54dc74dc4dd082c9ddab57d667a8cd0dd06e35ab32590b69e5b9caf9896e7f2b"
+    },
+    {
+      "button_id": "btn_things_folder",
+      "english_label": "Things",
+      "fitzgerald_category": "things_nav",
+      "icon_uri": "assets/symbols/folders/things.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "40f2172e191d90e156a747d7e9ab76bea68d07be43b379b5de66d5db5163a2f9"
+    },
+    {
+      "button_id": "btn_feelings_folder",
+      "english_label": "Feelings",
+      "fitzgerald_category": "feelings_nav",
+      "icon_uri": "assets/symbols/folders/feelings.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d3b087c38f52b88ded58bedb138df69aeaba50e731733a8f9682003b2fd0a719"
+    },
+    {
+      "button_id": "btn_time_folder",
+      "english_label": "Time",
+      "fitzgerald_category": "time_nav",
+      "icon_uri": "assets/symbols/folders/time.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6022fab34911dd4b95f4dc41b7e778433b4b424f85c0af8cb7aa8ebc0baa646b"
+    },
+    {
+      "button_id": "btn_mom",
+      "english_label": "Mom",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/mom.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "11ea11d57833118fbd68070c8ec458467dc06d68e031b22a8732ec2107a5f2c8"
+    },
+    {
+      "button_id": "btn_dad",
+      "english_label": "Dad",
+      "fitzgerald_category": "people",
+      "icon_uri": "assets/symbols/people/dad.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "102ae93dabab13c74ae0cd11df5a6a946326349b0a1598e025709c657926a023"
+    },
+    {
+      "button_id": "btn_home",
+      "english_label": "Home",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/home.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "e5e3fae8e5857ab120cf48a88bff8f3f5aac8de69a8e04b59710b470e887dd0f"
+    },
+    {
+      "button_id": "btn_school",
+      "english_label": "School",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/school.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "855dc13e28c3dc584248cf50fcdf2f90977a3896b072165f354108fb0264fb15"
+    },
+    {
+      "button_id": "btn_outside",
+      "english_label": "Outside",
+      "fitzgerald_category": "places",
+      "icon_uri": "assets/symbols/places/outside.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "41aeda55c3b8e603c6cb8567660297e058d0dd761afd2364801bd87e9c6fdbb6"
+    },
+    {
+      "button_id": "btn_wait",
+      "english_label": "Wait",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/wait.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6bcdbd61a6a18493463eca565a290272eb1a48d8621e734cf7e61ee49b4ffc6a"
+    },
+    {
+      "button_id": "btn_again",
+      "english_label": "Again",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/symbols/modifiers/again.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "8de1a387fa7bed207fe9d54af8ee24bc8a7b19d5038e40523443a559f1e17be3"
+    },
+    {
+      "button_id": "btn_all_done",
+      "english_label": "All Done",
+      "fitzgerald_category": "needs",
+      "icon_uri": "assets/symbols/needs/all_done.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "e99e2143823f67813b99e38f06b5423e18d6835973686053ac919343db1ba1c5"
+    },
+    {
+      "button_id": "btn_what",
+      "english_label": "What",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/what.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "126d06c44d99efee6d9d0f37ee91ea191005ff62ea5d29ae76efec92dd06c823"
+    },
+    {
+      "button_id": "btn_where",
+      "english_label": "Where",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/where.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "38eb963c9ab8c36772ab5a5d300b93bc247b34be4ae752865abe87a00d627735"
+    },
+    {
+      "button_id": "btn_who",
+      "english_label": "Who",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/who.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "f9fbb25941399c894fbcac093d2085ae78d62a269f92de7d21e59f8ab04ab439"
+    },
+    {
+      "button_id": "btn_when",
+      "english_label": "When",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/when.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "6bbf1fca6ee446962a0f7722419c0d6a35d2d718c0b26679bf392373fac3241b"
+    },
+    {
+      "button_id": "btn_why",
+      "english_label": "Why",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/why.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "126d06c44d99efee6d9d0f37ee91ea191005ff62ea5d29ae76efec92dd06c823"
+    },
+    {
+      "button_id": "btn_how",
+      "english_label": "How",
+      "fitzgerald_category": "question",
+      "icon_uri": "assets/symbols/questions/how.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "d8389db19bfb31c26319e68bd8bd43d5cb67d345a615064b8c19ade04ea2fea8"
+    },
+    {
+      "button_id": "btn_here",
+      "english_label": "Here",
+      "fitzgerald_category": "modifier",
+      "icon_uri": "assets/symbols/modifiers/here.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "38eb963c9ab8c36772ab5a5d300b93bc247b34be4ae752865abe87a00d627735"
+    },
+    {
+      "button_id": "btn_that",
+      "english_label": "That",
+      "fitzgerald_category": "pronoun",
+      "icon_uri": "assets/symbols/pronouns/that.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "0e61c92b4730cc5cc17c5c6a3a2fc1585e158f51a6068a7372ce8f33793d3d6f"
+    },
+    {
+      "button_id": "btn_body_folder",
+      "english_label": "Body",
+      "fitzgerald_category": "body_nav",
+      "icon_uri": "assets/symbols/folders/body.png",
+      "license": "Apache-2.0 / Permissive Open AAC Symbol",
+      "sha256": "ddb521eff9e8be4bec27a4cc30a034323d31510cc14d9e7ffee0e941ce07c878"
+    }
+  ]
+}

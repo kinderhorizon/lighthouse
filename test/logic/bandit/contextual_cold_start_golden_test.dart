@@ -106,7 +106,7 @@ void main() {
   // even if the asset entry were missing, since the provider fails safe).
   TestWidgetsFlutterBinding.ensureInitialized();
   test('cold-start artifacts are bundled and load via rootBundle', () async {
-    for (final locale in ['en', 'es', 'ar']) {
+    for (final locale in ['en', 'es', 'de', 'ar']) {
       final raw = await rootBundle.loadString('assets/cold_start/$locale.json');
       final ccs = ContextualColdStart.fromArtifactJson(
         jsonDecode(raw) as Map<String, dynamic>,
@@ -126,7 +126,7 @@ void main() {
   double effective(ContextualColdStart ccs, String prev, String cand) =>
       ccs.meanFor(prevKey: prev, candidateId: cand) ?? base[cand] ?? 0.5;
 
-  for (final locale in ['en', 'es', 'ar']) {
+  for (final locale in ['en', 'es', 'de', 'ar']) {
     group('golden suppression contract ($locale)', () {
       final ccs = _artifact(locale);
 
@@ -154,7 +154,7 @@ void main() {
   }
 
   test('all shipped locales parse and are non-empty', () {
-    for (final locale in ['en', 'es', 'ar']) {
+    for (final locale in ['en', 'es', 'de', 'ar']) {
       final ccs = _artifact(locale);
       // btn_eat -> btn_more is a stable, model-independent anchor in every
       // locale; if parsing silently produced an empty map this would be null.

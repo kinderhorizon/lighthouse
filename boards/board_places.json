@@ -23,11 +23,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/park.png",
+      "icon_uri": "assets/symbols/places/park.png",
       "label_es": "parque",
       "label_ar": "حديقة",
       "voice_out_es": "parque",
-      "voice_out_ar": "حَدِيقَة"
+      "voice_out_ar": "حَدِيقَة",
+      "label_de": "Park",
+      "voice_out_de": "Park",
+      "label_ar_dz": "حديقة",
+      "voice_out_ar_dz": "حَدِيقَة"
     },
     {
       "id": "btn_places_store",
@@ -40,11 +44,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/store.png",
+      "icon_uri": "assets/symbols/places/store.png",
       "label_es": "tienda",
       "label_ar": "متجر",
       "voice_out_es": "tienda",
-      "voice_out_ar": "مَتْجَر"
+      "voice_out_ar": "مَتْجَر",
+      "label_de": "Geschäft",
+      "voice_out_de": "Geschäft",
+      "label_ar_dz": "متجر",
+      "voice_out_ar_dz": "مَتْجَر"
     },
     {
       "id": "btn_places_restaurant",
@@ -57,11 +65,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/restaurant.png",
+      "icon_uri": "assets/symbols/places/restaurant.png",
       "label_es": "restaurante",
       "label_ar": "مطعم",
       "voice_out_es": "restaurante",
-      "voice_out_ar": "مَطْعَم"
+      "voice_out_ar": "مَطْعَم",
+      "label_de": "Restaurant",
+      "voice_out_de": "Restaurant",
+      "label_ar_dz": "مطعم",
+      "voice_out_ar_dz": "مَطْعَم"
     },
     {
       "id": "btn_places_doctor",
@@ -74,11 +86,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/doctor.png",
+      "icon_uri": "assets/symbols/places/doctor.png",
       "label_es": "consultorio médico",
       "label_ar": "عيادة الطبيب",
       "voice_out_es": "consultorio médico",
-      "voice_out_ar": "عِيَادَةُ الطَّبِيب"
+      "voice_out_ar": "عِيَادَةُ الطَّبِيب",
+      "label_de": "Arztpraxis",
+      "voice_out_de": "Arztpraxis",
+      "label_ar_dz": "عيادة الطبيب",
+      "voice_out_ar_dz": "عِيَادَةُ الطَّبِيب"
     },
     {
       "id": "btn_places_hospital",
@@ -91,11 +107,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/hospital.png",
+      "icon_uri": "assets/symbols/places/hospital.png",
       "label_es": "hospital",
       "label_ar": "مستشفى",
       "voice_out_es": "hospital",
-      "voice_out_ar": "مُسْتَشْفَى"
+      "voice_out_ar": "مُسْتَشْفَى",
+      "label_de": "Krankenhaus",
+      "voice_out_de": "Krankenhaus",
+      "label_ar_dz": "مستشفى",
+      "voice_out_ar_dz": "مُسْتَشْفَى"
     },
     {
       "id": "btn_places_playground",
@@ -108,11 +128,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/playground.png",
+      "icon_uri": "assets/symbols/places/playground.png",
       "label_es": "parque infantil",
       "label_ar": "ملعب",
       "voice_out_es": "parque infantil",
-      "voice_out_ar": "مَلْعَب"
+      "voice_out_ar": "مَلْعَب",
+      "label_de": "Spielplatz",
+      "voice_out_de": "Spielplatz",
+      "label_ar_dz": "ملعب",
+      "voice_out_ar_dz": "مَلْعَب"
     },
     {
       "id": "btn_places_beach",
@@ -125,11 +149,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/beach.png",
+      "icon_uri": "assets/symbols/places/beach.png",
       "label_es": "playa",
       "label_ar": "شاطئ",
       "voice_out_es": "playa",
-      "voice_out_ar": "شَاطِئ"
+      "voice_out_ar": "شَاطِئ",
+      "label_de": "Strand",
+      "voice_out_de": "Strand",
+      "label_ar_dz": "شاطئ",
+      "voice_out_ar_dz": "شَاطِئ"
     },
     {
       "id": "btn_places_library",
@@ -142,11 +170,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/library.png",
+      "icon_uri": "assets/symbols/places/library.png",
       "label_es": "biblioteca",
       "label_ar": "مكتبة",
       "voice_out_es": "biblioteca",
-      "voice_out_ar": "مَكْتَبَة"
+      "voice_out_ar": "مَكْتَبَة",
+      "label_de": "Bibliothek",
+      "voice_out_de": "Bibliothek",
+      "label_ar_dz": "مكتبة",
+      "voice_out_ar_dz": "مَكْتَبَة"
     },
     {
       "id": "btn_places_bus",
@@ -159,11 +191,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/bus.png",
+      "icon_uri": "assets/symbols/places/bus.png",
       "label_es": "autobús",
       "label_ar": "حافلة",
       "voice_out_es": "autobús",
-      "voice_out_ar": "حَافِلَة"
+      "voice_out_ar": "حَافِلَة",
+      "label_de": "Bus",
+      "voice_out_de": "Bus",
+      "label_ar_dz": "حافلة",
+      "voice_out_ar_dz": "حَافِلَة"
     },
     {
       "id": "btn_places_zoo",
@@ -176,11 +212,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/zoo.png",
+      "icon_uri": "assets/symbols/places/zoo.png",
       "label_es": "zoológico",
       "label_ar": "حديقة الحيوان",
       "voice_out_es": "zoológico",
-      "voice_out_ar": "حَدِيقَةُ الْحَيَوَان"
+      "voice_out_ar": "حَدِيقَةُ الْحَيَوَان",
+      "label_de": "Zoo",
+      "voice_out_de": "Zoo",
+      "label_ar_dz": "حديقة الحيوان",
+      "voice_out_ar_dz": "حَدِيقَةُ الْحَيَوَان"
     },
     {
       "id": "btn_places_pool",
@@ -193,11 +233,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/pool.png",
+      "icon_uri": "assets/symbols/places/pool.png",
       "label_es": "piscina",
       "label_ar": "مسبح",
       "voice_out_es": "piscina",
-      "voice_out_ar": "مَسْبَح"
+      "voice_out_ar": "مَسْبَح",
+      "label_de": "Schwimmbad",
+      "voice_out_de": "Schwimmbad",
+      "label_ar_dz": "مسبح",
+      "voice_out_ar_dz": "مَسْبَح"
     },
     {
       "id": "btn_places_kitchen",
@@ -210,11 +254,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/kitchen.png",
+      "icon_uri": "assets/symbols/places/kitchen.png",
       "label_es": "cocina",
       "label_ar": "مطبخ",
       "voice_out_es": "cocina",
-      "voice_out_ar": "مَطْبَخ"
+      "voice_out_ar": "مَطْبَخ",
+      "label_de": "Küche",
+      "voice_out_de": "Küche",
+      "label_ar_dz": "مطبخ",
+      "voice_out_ar_dz": "مَطْبَخ"
     },
     {
       "id": "btn_places_bedroom",
@@ -227,11 +275,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/bedroom.png",
+      "icon_uri": "assets/symbols/places/bedroom.png",
       "label_es": "dormitorio",
       "label_ar": "غرفة النوم",
       "voice_out_es": "dormitorio",
-      "voice_out_ar": "غُرْفَةُ النَّوْم"
+      "voice_out_ar": "غُرْفَةُ النَّوْم",
+      "label_de": "Schlafzimmer",
+      "voice_out_de": "Schlafzimmer",
+      "label_ar_dz": "غرفة النوم",
+      "voice_out_ar_dz": "غُرْفَةُ النَّوْم"
     },
     {
       "id": "btn_places_church",
@@ -244,11 +296,15 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/church.png",
+      "icon_uri": "assets/symbols/places/church.png",
       "label_es": "iglesia",
       "label_ar": "كنيسة",
       "voice_out_es": "iglesia",
-      "voice_out_ar": "كَنِيسَة"
+      "voice_out_ar": "كَنِيسَة",
+      "label_de": "Kirche",
+      "voice_out_de": "Kirche",
+      "label_ar_dz": "كنيسة",
+      "voice_out_ar_dz": "كَنِيسَة"
     },
     {
       "id": "btn_places_gym",
@@ -261,11 +317,17 @@
       },
       "category": "places",
       "base_weight": 0.5,
-      "icon_uri": "assets/arasaac/places/gym.png",
+      "icon_uri": "assets/symbols/places/gym.png",
       "label_es": "gimnasio",
       "label_ar": "صالة رياضية",
       "voice_out_es": "gimnasio",
-      "voice_out_ar": "صَالَةٌ رِيَاضِيَّة"
+      "voice_out_ar": "صَالَةٌ رِيَاضِيَّة",
+      "label_de": "Turnhalle",
+      "voice_out_de": "Turnhalle",
+      "label_ar_dz": "صالة رياضية",
+      "voice_out_ar_dz": "صَالَةٌ رِيَاضِيَّة"
     }
-  ]
+  ],
+  "board_name_de": "Orte",
+  "board_name_ar_dz": "البلايص"
 }

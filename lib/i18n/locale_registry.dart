@@ -81,7 +81,9 @@ class LocaleSpec {
   /// is a tracked follow-up; the field exists so that becomes a data change.
   final String? requiredFontFamily;
 
-  Locale get locale => Locale(code);
+  Locale get locale => code.contains('_')
+      ? Locale(code.split('_')[0], code.split('_')[1].toUpperCase())
+      : Locale(code);
 
   bool get isRtl => direction == TextDirection.rtl;
 }
@@ -111,6 +113,14 @@ class LocaleRegistry {
       nativeName: 'Español',
     ),
     LocaleSpec(
+      code: 'de',
+      direction: TextDirection.ltr,
+      ttsStrategy: TtsStrategy.systemOnly,
+      reviewStatus: ReviewStatus.provisional,
+      englishName: 'German',
+      nativeName: 'Deutsch',
+    ),
+    LocaleSpec(
       code: 'ar',
       direction: TextDirection.rtl,
       // Bundled clips primary (ADR 0008): many Android devices ship no Arabic
@@ -121,6 +131,15 @@ class LocaleRegistry {
       nativeName: 'العربية',
       // Bundled Cairo (OFL) rather than the platform Arabic font, which is
       // absent or poor on many tablets. Applied in main.dart's ThemeData.
+      requiredFontFamily: 'Cairo',
+    ),
+    LocaleSpec(
+      code: 'ar_dz',
+      direction: TextDirection.rtl,
+      ttsStrategy: TtsStrategy.systemOnly,
+      reviewStatus: ReviewStatus.provisional,
+      englishName: 'Algerian Darija',
+      nativeName: 'الدارجة الجزائرية',
       requiredFontFamily: 'Cairo',
     ),
   ];
@@ -134,33 +153,62 @@ class LocaleRegistry {
   static List<String> get supportedCodes =>
       all.map((s) => s.code).toList(growable: false);
 
+  /// Resolves the canonical registry code (e.g., `ar_dz` or `ar`) for a given [Locale].
+  static String codeForLocale(Locale locale) {
+    if (locale.countryCode != null && locale.countryCode!.isNotEmpty) {
+      final composite =
+          '${locale.languageCode}_${locale.countryCode}'.toLowerCase();
+      if (specForCode(composite) != null) return composite;
+    }
+    return locale.languageCode;
+  }
+
   static LocaleSpec? specForCode(String code) {
+    final normalized = code.replaceAll('-', '_').toLowerCase();
     for (final s in all) {
-      if (s.code == code) return s;
+      if (s.code.toLowerCase() == normalized) return s;
     }
     return null;
   }
 
-  static LocaleSpec specForLocale(Locale locale) =>
-      specForCode(locale.languageCode) ?? specForCode(fallback.languageCode)!;
+  static LocaleSpec specForLocale(Locale locale) {
+    if (locale.countryCode != null) {
+      final composite =
+          '${locale.languageCode}_${locale.countryCode}'.toLowerCase();
+      final match = specForCode(composite);
+      if (match != null) return match;
+    }
+    return specForCode(locale.languageCode) ?? specForCode(fallback.languageCode)!;
+  }
 
-  /// `MaterialApp.localeResolutionCallback`. Matches on language code only
-  /// (we do not regionalize yet); anything unsupported resolves to [fallback].
+  /// Whether a given locale has RTL text direction.
+  static bool isRtl(Locale locale) => specForLocale(locale).isRtl;
+
+  /// `MaterialApp.localeResolutionCallback`. Matches dialect/country first,
+  /// then base language code; anything unsupported resolves to [fallback].
   static Locale resolve(Locale? device, Iterable<Locale> supported) {
-    if (device != null && specForCode(device.languageCode) != null) {
-      return Locale(device.languageCode);
+    if (device != null) {
+      if (device.countryCode != null) {
+        final composite =
+            '${device.languageCode}_${device.countryCode}'.toLowerCase();
+        final spec = specForCode(composite);
+        if (spec != null) return spec.locale;
+      }
+      final spec = specForCode(device.languageCode);
+      if (spec != null) return spec.locale;
     }
     return fallback;
   }
 
   /// The locale the app is actually presenting: the explicit settings
   /// [override] when set, otherwise the device locale resolved against the
-  /// supported set (same rule [MaterialApp] applies via [resolve]). Use this,
-  /// not a hardcoded 'en', anywhere the effective locale drives behavior (e.g.
-  /// the bandit context key's day-type / weekend calc), so a follow-system
-  /// Arabic or Spanish user is modeled with their real locale.
+  /// supported set (same rule [MaterialApp] applies via [resolve]).
   static Locale effectiveLocale(String? override) {
-    if (override != null && override.isNotEmpty) return Locale(override);
+    if (override != null && override.isNotEmpty) {
+      final spec = specForCode(override);
+      if (spec != null) return spec.locale;
+      return Locale(override);
+    }
     return resolve(PlatformDispatcher.instance.locale, supportedLocales);
   }
 }

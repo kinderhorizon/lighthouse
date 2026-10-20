@@ -64,8 +64,17 @@ class AACBoard {
       _boardIdPattern.hasMatch(boardId);
 
   /// Resolves the board name for [languageCode], falling back to the default.
-  String boardNameFor(String languageCode) =>
-      boardNameByLocale[languageCode] ?? boardName;
+  String boardNameFor(String languageCode) {
+    final normalized = languageCode.replaceAll('-', '_').toLowerCase();
+    if (boardNameByLocale.containsKey(normalized)) {
+      return boardNameByLocale[normalized]!;
+    }
+    if (normalized.contains('_')) {
+      final base = normalized.split('_')[0];
+      if (boardNameByLocale.containsKey(base)) return boardNameByLocale[base]!;
+    }
+    return boardNameByLocale[languageCode] ?? boardName;
+  }
 
   /// Returns a copy with [newButtons] replacing the button list; all other
   /// metadata is preserved. Used to overlay parent-authored custom buttons

@@ -13,9 +13,9 @@
 /// notice inside the audio manifest) rather than hardcoded, so the displayed
 /// text stays in sync with the source of truth.
 ///
-/// The ARASAAC pictogram attribution is deliberately NOT added here: its
-/// CC BY-NC-SA credit is shown verbatim and always-visible on the About screen
-/// (ADR 0001), so duplicating it on the licence page would be redundant.
+/// The Open AAC Symbol library attribution and license is registered alongside
+/// the bundled fonts, so commercial and open-source licensing terms are
+/// fully transparent in-app.
 library;
 
 import 'dart:convert';
@@ -39,6 +39,10 @@ Stream<LicenseEntryWithLineBreaks> _bundledLicenses() async* {
   yield LicenseEntryWithLineBreaks(
     const ['Cairo'],
     await rootBundle.loadString('LICENSES/Cairo-OFL.txt'),
+  );
+  yield LicenseEntryWithLineBreaks(
+    const ['Open AAC Symbols (Apache-2.0)'],
+    await rootBundle.loadString('LICENSES/OpenSymbols.md'),
   );
 
   // Google Cloud Text-to-Speech: the provenance/licence note lives in the audio

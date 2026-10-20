@@ -11,8 +11,24 @@ import java.util.Properties
 // see android/README signing notes. Keep the keystore and passwords out of the repo.
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
+var hasValidReleaseKey = false
+
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    val storeFilePath = keystoreProperties.getProperty("storeFile")
+    val keyAlias = keystoreProperties.getProperty("keyAlias")
+    val storePassword = keystoreProperties.getProperty("storePassword")
+    val keyPassword = keystoreProperties.getProperty("keyPassword")
+
+    val resolvedStoreFile = if (!storeFilePath.isNullOrBlank()) {
+        val f = file(storeFilePath)
+        if (f.exists()) f else rootProject.file(storeFilePath)
+    } else null
+
+    if (resolvedStoreFile != null && resolvedStoreFile.exists() &&
+        !keyAlias.isNullOrBlank() && !storePassword.isNullOrBlank() && !keyPassword.isNullOrBlank()) {
+        hasValidReleaseKey = true
+    }
 }
 
 plugins {
@@ -48,29 +64,29 @@ android {
     }
 
     signingConfigs {
-        if (keystorePropertiesFile.exists()) {
+        if (hasValidReleaseKey) {
             create("release") {
-                keyAlias = keystoreProperties["keyAlias"] as String?
-                keyPassword = keystoreProperties["keyPassword"] as String?
-                storeFile = (keystoreProperties["storeFile"] as String?)?.let { file(it) }
-                storePassword = keystoreProperties["storePassword"] as String?
+                val storeFilePath = keystoreProperties.getProperty("storeFile")
+                val f = file(storeFilePath)
+                storeFile = if (f.exists()) f else rootProject.file(storeFilePath)
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
             }
         }
     }
 
     buildTypes {
         release {
-            // Real release keys when key.properties is present (store builds).
-            // Otherwise fall back to debug keys so CONFIGURATION never fails and
-            // `flutter run --release` is possible WITH the explicit opt-in below.
-            // A distribution release build without the keystore is hard-blocked
-            // by the taskGraph guard after this block, so a debug-signed AAB/APK
-            // is never produced unintentionally.
-            signingConfig = if (keystorePropertiesFile.exists()) {
+            signingConfig = if (hasValidReleaseKey) {
                 signingConfigs.getByName("release")
             } else {
                 signingConfigs.getByName("debug")
             }
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
@@ -78,21 +94,40 @@ android {
 // Fail-closed: a distribution release build must NOT silently use debug keys.
 // Evaluated at execution time (so it does not break plain debug builds or
 // configuration). An assemble/bundle/package *Release* task with neither a
-// release keystore nor the -PallowDebugSigningForRelease opt-in is aborted.
+// valid release keystore nor the -PallowDebugSigningForRelease opt-in is aborted.
 gradle.taskGraph.whenReady {
     val releasing = allTasks.any { t ->
         val n = t.name
         (n.startsWith("assemble") || n.startsWith("bundle") ||
             n.startsWith("package")) && n.contains("Release")
     }
-    if (releasing && !keystorePropertiesFile.exists() &&
-        !project.hasProperty("allowDebugSigningForRelease")) {
-        throw GradleException(
-            "Release build requires android/key.properties (release signing). " +
-            "For an intentional debug-signed local release build, pass " +
-            "-PallowDebugSigningForRelease=true. " +
-            "Never distribute a debug-signed artifact."
-        )
+    if (releasing) {
+        if (hasValidReleaseKey) {
+            println("========================================================================")
+            println("[RELEASE SIGNING] Signing release artifact with production upload key.")
+            println("Key Alias: " + keystoreProperties.getProperty("keyAlias"))
+            println("========================================================================")
+        } else if (project.hasProperty("allowDebugSigningForRelease")) {
+            println("========================================================================")
+            println("[WARNING] Building release artifact with INSECURE DEBUG signing key.")
+            println("- Flag: -PallowDebugSigningForRelease=true was provided.")
+            println("- Artifacts produced are signed with Android Debug certificate.")
+            println("- DO NOT DISTRIBUTE OR UPLOAD THESE ARTIFACTS TO GOOGLE PLAY STORE.")
+            println("========================================================================")
+        } else {
+            throw GradleException(
+                "========================================================================\n" +
+                "ERROR: PRODUCTION RELEASE BUILD BLOCKED - SIGNING KEY REQUIRED\n" +
+                "No valid android/key.properties found.\n\n" +
+                "To build a production-ready artifact for Google Play:\n" +
+                "  1. Copy android/key.properties.example to android/key.properties\n" +
+                "  2. Configure storeFile, storePassword, keyAlias, and keyPassword\n" +
+                "  3. Ensure the upload keystore exists and is kept secure (never committed)\n\n" +
+                "For an intentional local testing build ONLY, explicitly pass:\n" +
+                "  -PallowDebugSigningForRelease=true\n" +
+                "========================================================================"
+            )
+        }
     }
 }
 

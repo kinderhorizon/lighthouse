@@ -21,6 +21,7 @@ void main() {
   test('Latin launch locales use the system default (no required font)', () {
     expect(LocaleRegistry.specForCode('en')?.requiredFontFamily, isNull);
     expect(LocaleRegistry.specForCode('es')?.requiredFontFamily, isNull);
+    expect(LocaleRegistry.specForCode('de')?.requiredFontFamily, isNull);
   });
 
   test('the bundled Cairo font asset exists and is non-trivial', () {

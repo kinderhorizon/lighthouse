@@ -19,6 +19,8 @@ import 'custom_button_provider.dart';
 import 'hidden_tiles_provider.dart';
 import 'icon_override_provider.dart';
 
+import 'personal_card_provider.dart';
+
 part 'board_stack.g.dart';
 
 /// Async because the registry hydrates from the persistent import
@@ -28,8 +30,18 @@ part 'board_stack.g.dart';
 Future<BoardRegistry> boardRegistry(BoardRegistryRef ref) async {
   // Share the one overlay store so the registry READS overlaid boards that the
   // ContentUpdateService WROTE (ADR 0017).
-  final registry =
-      BoardRegistry(contentOverlay: ref.watch(contentOverlayStoreProvider));
+  final registry = BoardRegistry(
+    contentOverlay: ref.watch(contentOverlayStoreProvider),
+    personalCardsResolver: (boardId) {
+      final all = ref.watch(personalCardsProvider).valueOrNull ?? const [];
+      return all.where((c) => c.boardIds.contains(boardId)).toList()
+        ..sort((a, b) {
+          final ord = a.sortOrder.compareTo(b.sortOrder);
+          if (ord != 0) return ord;
+          return a.createdAt.compareTo(b.createdAt);
+        });
+    },
+  );
   await registry.hydrate();
   return registry;
 }
@@ -72,6 +84,11 @@ class BoardStack extends _$BoardStack {
 AACBoard? activeBoard(ActiveBoardRef ref) {
   final stack = ref.watch(boardStackProvider);
   if (stack.isEmpty) return null;
+  var top = stack.last;
+  if (PersonalBoardId.all.contains(top.boardId)) {
+    final cards = ref.watch(personalCardsForBoardProvider(top.boardId));
+    top = generatePersonalBoard(boardId: top.boardId, cards: cards);
+  }
   // Overlay parent-authored custom buttons (ADR 0012) then the layout overrides
   // (ADR 0014) onto whatever board is on top. Single integration point: every
   // consumer (grid, glow predictions) sees the merged board, while the stack
@@ -89,6 +106,6 @@ AACBoard? activeBoard(ActiveBoardRef ref) {
       ref.watch(iconOverridesProvider).valueOrNull ?? const {};
   final hidden =
       ref.watch(hiddenTilesProvider).valueOrNull ?? const HiddenTiles.empty();
-  final placed = applyLayout(applyCustomButtons(stack.last, customs), layout);
+  final placed = applyLayout(applyCustomButtons(top, customs), layout);
   return applyHiddenTiles(applyIconOverrides(placed, iconOverrides), hidden);
 }

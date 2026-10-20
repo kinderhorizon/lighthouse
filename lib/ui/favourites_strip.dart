@@ -7,13 +7,13 @@
 /// sentence bar + feed the bandit).
 library;
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../i18n/locale_registry.dart';
 import '../logic/logic.dart';
 import '../models/models.dart';
+import '../services/symbols/symbols.dart';
 import '../state/state.dart';
 import 'theme/lighthouse_theme.dart';
 
@@ -52,17 +52,20 @@ class FavouritesStrip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favs = ref.watch(homeFavouritesProvider).valueOrNull ?? const [];
-    if (favs.isEmpty) return const SizedBox.shrink();
+    final personalFavs = ref.watch(favoritePersonalCardsProvider);
+    final personalButtons = personalFavs.map((c) => c.toAacButton()).toList();
+    final allFavs = [...personalButtons, ...favs];
+    if (allFavs.isEmpty) return const SizedBox.shrink();
 
     return SizedBox(
       height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        itemCount: favs.length,
+        itemCount: allFavs.length,
         separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (context, i) => _FavTile(
-          button: favs[i],
+          button: allFavs[i],
           onTap: onTap,
           onLongPress: onLongPress,
           colorKey: colorKey,
@@ -93,7 +96,8 @@ class _FavTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label = button.labelFor(Localizations.localeOf(context).languageCode);
+    final label = button.labelFor(
+        LocaleRegistry.codeForLocale(Localizations.localeOf(context)));
     // Mirror the grid tile: show the pictogram unless it is turned off / absent,
     // and keep the label whenever the word setting allows OR no pictogram is
     // shown, so a favourite is never blank (the star marker is not a pictogram).
@@ -159,15 +163,12 @@ class _FavIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const onError = _shrink;
-    if (uri.startsWith('assets/')) {
-      return Image.asset(uri, height: 44, fit: BoxFit.contain,
-          semanticLabel: label, errorBuilder: onError);
-    }
-    return Image.file(File(uri), height: 44, fit: BoxFit.contain,
-        semanticLabel: label, errorBuilder: onError);
+    return CompositeSymbolProvider.defaultInstance.buildSymbol(
+      context,
+      uri: uri,
+      label: label,
+      height: 44,
+      fit: BoxFit.contain,
+    );
   }
-
-  static Widget _shrink(BuildContext c, Object e, StackTrace? s) =>
-      const SizedBox.shrink();
 }

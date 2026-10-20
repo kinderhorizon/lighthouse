@@ -1,0 +1,3 @@
+# Fastlane configuration for NūriTalk / ACC2
+json_key_file("") # Path to Google Play JSON credentials key (to be supplied by release engineer)
+package_name("org.kinderhorizon.lighthouse")

@@ -6,10 +6,13 @@
 /// (Pack Loader, Phase 1 follow-up).
 library;
 
+export 'backup/aac_backup_service.dart';
 export 'board_loader.dart';
 export 'board_pack_exporter.dart';
 export 'board_pack_importer.dart';
 export 'board_registry.dart';
+export 'obf/open_board_format.dart';
+
 export 'crash/crash.dart';
 export 'custom/custom_button_store.dart';
 export 'feedback/feedback.dart';
@@ -23,7 +26,9 @@ export 'voice/custom_voice_store.dart';
 export 'network/network.dart';
 export 'onboarding/onboarding.dart';
 export 'ota/ota.dart';
+export 'profile/profile_store.dart';
 export 'settings/settings.dart';
+export 'symbols/symbols.dart';
 export 'tts/bundled_audio_tts_engine.dart';
 export 'tts/fallback_tts_engine.dart';
 export 'tts/piper_tts_engine.dart';

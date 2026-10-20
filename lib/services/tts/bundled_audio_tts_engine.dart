@@ -50,6 +50,32 @@ class BundledAudioTTSEngine implements TTSEngine {
 
   /// Lazily created; null until the first clip actually plays.
   AudioPlayer? _player;
+  double _volume = 1.0;
+  double _rate = 1.0;
+
+  static final _tashkeelRegex = RegExp(r'[\u064B-\u065F\u0670]');
+  static String _stripTashkeel(String s) => s.replaceAll(_tashkeelRegex, '');
+
+  @override
+  Future<void> setVolume(double volume) async {
+    _volume = volume.clamp(0.0, 1.0);
+    try {
+      await _player?.setVolume(_volume);
+    } catch (_) {}
+  }
+
+  @override
+  Future<void> setRate(double rate) async {
+    _rate = rate.clamp(0.5, 2.0);
+    try {
+      await _player?.setSpeed(_rate);
+    } catch (_) {}
+  }
+
+  @override
+  Future<void> setPitch(double pitch) async {
+    // Bundled pre-recorded audio clips have fixed vocal pitch.
+  }
 
   /// Monotonic token guarding the single shared [_player]. Every playback
   /// request (a per-tap [speak], a [speakSequence] replay, or a [stop])
@@ -89,7 +115,9 @@ class BundledAudioTTSEngine implements TTSEngine {
 
   Future<String?> _clipPathFor(String text, Locale locale) async {
     final index = await (_index ??= _loadIndex());
-    return index[_key(locale.languageCode, text)];
+    final direct = index[_key(locale.languageCode, text)];
+    if (direct != null) return direct;
+    return index[_key(locale.languageCode, _stripTashkeel(text))];
   }
 
   /// If a corrected clip has been OTA-applied for the bundled [assetPath],
@@ -112,12 +140,22 @@ class BundledAudioTTSEngine implements TTSEngine {
   Future<bool> canSpeak(String text, {required Locale locale}) async =>
       await _clipPathFor(text, locale) != null;
 
+  AudioPlayer _getOrCreatePlayer() {
+    if (_player == null) {
+      final p = AudioPlayer();
+      p.setVolume(_volume);
+      p.setSpeed(_rate);
+      _player = p;
+    }
+    return _player!;
+  }
+
   @override
   Future<void> speak(String text, {required Locale locale}) async {
     final path = await _clipPathFor(text, locale);
     if (path == null) return; // Not ours; the composite should not route here.
 
-    final player = _player ??= AudioPlayer();
+    final player = _getOrCreatePlayer();
     // Claim the shared player; supersedes any in-flight clip or replay (NEW-C).
     final gen = ++_generation;
     // Prefer an OTA-overlaid clip file over the bundled asset (ADR 0017).
@@ -162,7 +200,7 @@ class BundledAudioTTSEngine implements TTSEngine {
     }
     if (sources.isEmpty) return;
 
-    final player = _player ??= AudioPlayer();
+    final player = _getOrCreatePlayer();
     final gen = ++_generation; // claim the player; supersedes prior playback (NEW-C)
     await player.setAudioSources(sources);
     if (gen != _generation) return; // a newer tap/replay took over while loading

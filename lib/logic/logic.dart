@@ -6,6 +6,7 @@
 /// hitbox geometry helper (Phase 3).
 library;
 
+export 'ai/ai.dart';
 export 'bandit/bandit.dart';
 export 'context/context.dart';
 export 'favourites/favourites.dart';

@@ -16,6 +16,9 @@ import 'dart:io';
 /// Writes [contents] to [target] atomically: write a temp sibling, flush, then
 /// rename over the target. The temp file is best-effort cleaned up on failure.
 Future<void> writeStringAtomically(File target, String contents) async {
+  if (!target.parent.existsSync()) {
+    await target.parent.create(recursive: true);
+  }
   final tmp = File('${target.path}.tmp');
   try {
     await tmp.writeAsString(contents, flush: true);
@@ -26,6 +29,12 @@ Future<void> writeStringAtomically(File target, String contents) async {
         await tmp.delete();
       } catch (_) {/* best-effort cleanup */}
     }
-    rethrow;
+    // Fallback: write directly to target if atomic rename failed
+    // (e.g. cross-device link, OS rename limitation, or test mount)
+    try {
+      await target.writeAsString(contents, flush: true);
+    } catch (_) {
+      rethrow;
+    }
   }
 }

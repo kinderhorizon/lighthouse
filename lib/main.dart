@@ -117,7 +117,7 @@ class LighthouseApp extends ConsumerWidget {
             : LocaleRegistry.specForCode(localeCode)?.requiredFontFamily) ??
         'Atkinson Hyperlegible';
     return MaterialApp(
-      title: 'Lighthouse AAC',
+      title: 'NūriTalk',
       theme: buildLighthouseTheme(fontFamily: fontFamily),
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -129,7 +129,9 @@ class LighthouseApp extends ConsumerWidget {
       // a registry edit, not a change here.
       supportedLocales: LocaleRegistry.supportedLocales,
       localeResolutionCallback: LocaleRegistry.resolve,
-      locale: localeCode == null ? null : Locale(localeCode),
+      locale: localeCode == null
+          ? null
+          : (LocaleRegistry.specForCode(localeCode)?.locale ?? Locale(localeCode)),
       home: const LighthouseAppRoot(),
     );
   }
@@ -222,11 +224,146 @@ class _BoardScreen extends ConsumerWidget {
                       ref.read(boardStackProvider.notifier).pop(),
                 )
               : null,
-          title: Text(
-            board?.boardNameFor(Localizations.localeOf(context).languageCode) ??
-                'Lighthouse AAC',
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const NuriTalkBrandLogo(height: 24, showText: false),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(
+                  board?.boardNameFor(
+                          LocaleRegistry.codeForLocale(Localizations.localeOf(context))) ??
+                      'NūriTalk',
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            ],
           ),
           actions: [
+            IconButton(
+              tooltip: 'Smart AAC Keyboard',
+              icon: const Icon(Icons.keyboard_outlined),
+              onPressed: () => SmartKeyboardScreen.show(context, ref),
+            ),
+            IconButton(
+              tooltip: 'Daily Routine & Time',
+              icon: const Icon(Icons.event_note_outlined),
+              onPressed: () => DailyScheduleScreen.show(context),
+            ),
+            PopupMenuButton<String>(
+              tooltip: 'Switch Board',
+              icon: const Icon(Icons.grid_view_outlined),
+              onSelected: (targetId) async {
+                if (targetId == 'daily_schedule') {
+                  DailyScheduleScreen.show(context);
+                  return;
+                }
+                final registry = await ref.read(boardRegistryProvider.future);
+                final loaded = await registry.tryLoad(targetId);
+                if (loaded != null) {
+                  if (targetId == 'core_main') {
+                    ref.read(boardStackProvider.notifier).resetToRoot();
+                  } else {
+                    ref.read(boardStackProvider.notifier).push(loaded);
+                  }
+                }
+              },
+              itemBuilder: (ctx) => [
+                const PopupMenuItem(
+                  value: 'core_main',
+                  child: Row(
+                    children: [
+                      Icon(Icons.home_outlined, color: LhColors.brown),
+                      SizedBox(width: 8),
+                      Text('Home Core (الرئيسية)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'daily_schedule',
+                  child: Row(
+                    children: [
+                      Icon(Icons.event_note_outlined, color: LhColors.primary),
+                      SizedBox(width: 8),
+                      Text('Daily Routine & Time (الروتين والوقت)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuDivider(),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myFamily,
+                  child: Row(
+                    children: [
+                      Icon(Icons.family_restroom, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Family (عائلتي)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myFriends,
+                  child: Row(
+                    children: [
+                      Icon(Icons.people_outline, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Friends (أصدقائي)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myThings,
+                  child: Row(
+                    children: [
+                      Icon(Icons.backpack_outlined, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Things (أشيائي)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myFavoriteFood,
+                  child: Row(
+                    children: [
+                      Icon(Icons.restaurant, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Favorite Food (طعامي المفضل)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myPlaces,
+                  child: Row(
+                    children: [
+                      Icon(Icons.place_outlined, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Places (أماكني)'),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: PersonalBoardId.myActivities,
+                  child: Row(
+                    children: [
+                      Icon(Icons.sports_soccer, color: LhColors.amberDeep),
+                      SizedBox(width: 8),
+                      Text('My Activities (نشاطاتي)'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              tooltip: 'New Personal Card',
+              icon: const Icon(Icons.person_add_alt_1_outlined),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const PersonalCardEditorScreen(),
+                  ),
+                );
+              },
+            ),
             IconButton(
               key: tourArrangeKey,
               tooltip: AppLocalizations.of(context).editBoardTooltip,
@@ -251,6 +388,42 @@ class _BoardScreen extends ConsumerWidget {
           ],
         ),
         body: SafeArea(child: body),
+        bottomNavigationBar: _isLandscapePhone(context)
+            ? null
+            : BottomNavigationBar(
+                currentIndex: 0,
+                backgroundColor: LhColors.surface,
+                selectedItemColor: LhColors.nuriBlue,
+                unselectedItemColor: LhColors.ink2,
+                selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                elevation: 8,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home_rounded),
+                    label: 'Hauptseite',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_month_rounded),
+                    label: 'Abläufe & Zeit',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.bookmark_border_rounded),
+                    label: 'Gespeicherte Sätze',
+                  ),
+                ],
+                onTap: (index) {
+                  if (index == 0) {
+                    if (depth > 1) {
+                      ref.read(boardStackProvider.notifier).resetToRoot();
+                    }
+                  } else if (index == 1) {
+                    DailyScheduleScreen.show(context);
+                  } else if (index == 2) {
+                    SentenceBar.showQuickPhrasesSheet(context, ref);
+                  }
+                },
+              ),
       ),
     );
     // The tour overlay sits ABOVE the Scaffold (so its dim covers the app bar
@@ -278,6 +451,8 @@ class _BoardView extends ConsumerWidget {
         settings?.hideTileText ?? SettingsState.defaults.hideTileText;
     final hidePictogram =
         settings?.hidePictogram ?? SettingsState.defaults.hidePictogram;
+    final enableAi =
+        settings?.enableAiPrediction ?? SettingsState.defaults.enableAiPrediction;
     final ttsMode = settings?.ttsMode ?? SettingsState.defaults.ttsMode;
     // Hydrate the custom-voice map (ADR 0019) eagerly so a tap can prefer a
     // parent-recorded clip over TTS without awaiting a load on the hot path.
@@ -308,6 +483,15 @@ class _BoardView extends ConsumerWidget {
     );
     final l10n = AppLocalizations.of(context);
 
+    final switchFocusIndex = ref.watch(switchFocusIndexProvider);
+    final isSwitchActive = ref.watch(isSwitchAccessEnabledProvider);
+    final String? focusedButtonId = (isSwitchActive &&
+            board.buttons.isNotEmpty &&
+            switchFocusIndex >= 0 &&
+            switchFocusIndex < board.buttons.length)
+        ? board.buttons[switchFocusIndex].id
+        : null;
+
     return Column(
       children: [
         // tourSentenceKey / tourBoardKey mark the guided-tour spotlight targets
@@ -320,6 +504,7 @@ class _BoardView extends ConsumerWidget {
             hideIcon: hidePictogram,
           ),
         ),
+        if (enableAi) PredictionBar(board: board),
         if (isHome)
           FavouritesStrip(
             onTap: (button) => _handleTap(context, ref, button),
@@ -337,44 +522,53 @@ class _BoardView extends ConsumerWidget {
         Expanded(
           child: KeyedSubtree(
             key: tourBoardKey,
-            child: () {
-            final grid = AACGrid(
+            child: SwitchScanner(
               board: board,
-              glow: glow,
-              glowStyle: glowStyle,
-              hitboxMagnitude: hitboxMagnitude,
-              hideTileText: hideTileText,
-              hidePictogram: hidePictogram,
-              columns: sizing.columns,
-              scroll: sizing.scrolls,
-              // Home fills the screen; a sub-board keeps its tiles large and
-              // top-aligned with calm space below (handoff sub-board rule). In
-              // scroll mode (phone / small tablet) the board reflows +
-              // scrolls, so top-align does not apply.
-              topAlign: !isHome && !sizing.scrolls,
-              onButtonTap: (button) => _handleTap(context, ref, button),
-              // Only wire long-press in On-request mode. A non-null callback
-              // makes a LongPressGestureRecognizer join the gesture arena on
-              // every tile, so a >=500 ms press-and-hold cancels the tap and
-              // fires a handler that no-ops in on/off/als modes: a silently dead
-              // communication act for a common motor profile (item 7). null in
-              // those modes lets a held press still register as a normal tap.
-              onButtonLongPress: ttsMode == TtsMode.onRequest
-                  ? (button) => _handleLongPress(context, ref, button)
-                  : null,
-            );
-            // On a scrolling board, show a "more words" cue ONLY while there
-            // are rows below the current scroll position; it hides at the
-            // bottom (and never shows if the board fits). A tablet's filled
-            // board never scrolls, so no cue.
-            return sizing.scrolls
-                ? _ScrollHintedBoard(cueText: l10n.boardScrollHint, child: grid)
-                : grid;
-          }(),
+              onSelect: (button) => _handleTap(context, ref, button),
+              child: Builder(
+                builder: (context) {
+                  final grid = AACGrid(
+                    board: board,
+                    focusedButtonId: focusedButtonId,
+                    glow: glow,
+                    glowStyle: glowStyle,
+                    hitboxMagnitude: hitboxMagnitude,
+                    hideTileText: hideTileText,
+                    hidePictogram: hidePictogram,
+                    columns: sizing.columns,
+                    scroll: sizing.scrolls,
+                    // Home fills the screen; a sub-board keeps its tiles large and
+                    // top-aligned with calm space below (handoff sub-board rule). In
+                    // scroll mode (phone / small tablet) the board reflows +
+                    // scrolls, so top-align does not apply.
+                    topAlign: !isHome && !sizing.scrolls,
+                    onButtonTap: (button) => _handleTap(context, ref, button),
+                    // Only wire long-press in On-request mode. A non-null callback
+                    // makes a LongPressGestureRecognizer join the gesture arena on
+                    // every tile, so a >=500 ms press-and-hold cancels the tap and
+                    // fires a handler that no-ops in on/off/als modes: a silently dead
+                    // communication act for a common motor profile (item 7). null in
+                    // those modes lets a held press still register as a normal tap.
+                    onButtonLongPress: ttsMode == TtsMode.onRequest
+                        ? (button) => _handleLongPress(context, ref, button)
+                        : null,
+                  );
+                  // On a scrolling board, show a "more words" cue ONLY while there
+                  // are rows below the current scroll position; it hides at the
+                  // bottom (and never shows if the board fits). A tablet's filled
+                  // board never scrolls, so no cue.
+                  return sizing.scrolls
+                      ? _ScrollHintedBoard(
+                          cueText: l10n.boardScrollHint, child: grid)
+                      : grid;
+                },
+              ),
+            ),
           ),
         ),
       ],
     );
+
   }
 
   Future<void> _handleTap(
@@ -382,6 +576,29 @@ class _BoardView extends ConsumerWidget {
     WidgetRef ref,
     AACButton button,
   ) async {
+    if (button.id.startsWith('btn_add_card_')) {
+      final boardId = button.id.replaceFirst('btn_add_card_', '');
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => PersonalCardEditorScreen(initialBoardId: boardId),
+        ),
+      );
+      return;
+    }
+
+    if (button.id == 'btn_time_schedule') {
+      await DailyScheduleScreen.show(context, initialTab: 0);
+      return;
+    }
+    if (button.id == 'btn_time_first_then') {
+      await DailyScheduleScreen.show(context, initialTab: 1);
+      return;
+    }
+    if (button.id == 'btn_time_timer') {
+      await DailyScheduleScreen.show(context, initialTab: 2);
+      return;
+    }
+
     if (button.type == AACButtonType.folder) {
       await _handleFolderTap(context, ref, button);
       return;
@@ -404,26 +621,23 @@ class _BoardView extends ConsumerWidget {
       unawaited(_recordTap(ref, button));
     }
 
-    final locale = Localizations.localeOf(context);
-    final label = button.labelFor(locale.languageCode);
-    final voice = button.voiceOutFor(locale.languageCode) ?? '';
+    final uiLocale = Localizations.localeOf(context);
+    final uiLangCode = LocaleRegistry.codeForLocale(uiLocale);
+
+    final speechCode = settings.speechLocaleOverride ?? uiLangCode;
+    final speechSpec = LocaleRegistry.specForCode(speechCode);
+    final speechLocale = speechSpec?.locale ?? uiLocale;
+
+    final label = button.labelFor(uiLangCode);
+    final voice = button.voiceOutFor(speechCode) ?? '';
 
     switch (mode) {
       case TtsMode.on:
-        // Commit to the bar BEFORE awaiting speech. The word lands in the
-        // sentence bar (ADR 0010) regardless of the audio outcome: on iOS an
-        // interrupted system-TTS utterance can leave the awaited speak future
-        // unresolved, which previously left this commit unreachable and silently
-        // dropped the word from the composed sentence (item 3). A PHRASE button
-        // is a complete utterance on its own, so commit() leaves the bar
-        // untouched. The composed sentence is replayed later from the bar.
         ref.read(utteranceProvider.notifier).commit(button);
         if (voice.isNotEmpty) {
-          await _speakTimeboxed(ref, button, voice, locale);
+          await _speakTimeboxed(ref, button, voice, speechLocale);
         }
       case TtsMode.off:
-        // A silent selection still counts as a communication act and still
-        // builds the sentence.
         ref.read(utteranceProvider.notifier).commit(button);
       case TtsMode.onRequest:
         // Tap is silent; the long-press is the communication act. Do not
@@ -477,17 +691,18 @@ class _BoardView extends ConsumerWidget {
     // surfaced through a different gesture. Same bandit + log update.
     unawaited(_recordTap(ref, button));
 
-    final locale = Localizations.localeOf(context);
-    final voice = button.voiceOutFor(locale.languageCode) ?? '';
+    final uiLocale = Localizations.localeOf(context);
+    final uiLangCode = LocaleRegistry.codeForLocale(uiLocale);
 
-    // The long-press is the communication act in On-request mode, so it is also
-    // what commits to the sentence bar (ADR 0010): a word accumulates, a phrase
-    // speaks standalone and leaves the bar untouched. Commit BEFORE awaiting
-    // speech so a hung iOS system-TTS future cannot drop the word (item 3).
+    final speechCode = settings.speechLocaleOverride ?? uiLangCode;
+    final speechSpec = LocaleRegistry.specForCode(speechCode);
+    final speechLocale = speechSpec?.locale ?? uiLocale;
+    final voice = button.voiceOutFor(speechCode) ?? '';
+
     ref.read(utteranceProvider.notifier).commit(button);
 
     if (voice.isNotEmpty) {
-      await _speakTimeboxed(ref, button, voice, locale);
+      await _speakTimeboxed(ref, button, voice, speechLocale);
     }
 
     if (!context.mounted) return;

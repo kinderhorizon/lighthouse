@@ -82,7 +82,7 @@ void main() {
   testWidgets('picture-only mode (hideText) hides the favourite label',
       (tester) async {
     await tester.pumpWidget(_host(
-      [_btn('btn_food_apple', 'Apple', iconUri: 'assets/arasaac/food/apple.png')],
+      [_btn('btn_food_apple', 'Apple', iconUri: 'assets/symbols/food/apple.png')],
       (_) {},
       hideText: true,
     ));
@@ -95,7 +95,7 @@ void main() {
   testWidgets('word-only mode (hideIcon) hides the favourite pictogram',
       (tester) async {
     await tester.pumpWidget(_host(
-      [_btn('btn_food_apple', 'Apple', iconUri: 'assets/arasaac/food/apple.png')],
+      [_btn('btn_food_apple', 'Apple', iconUri: 'assets/symbols/food/apple.png')],
       (_) {},
       hideIcon: true,
     ));

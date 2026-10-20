@@ -6,8 +6,6 @@
 /// nothing here reorders the child's strip on its own.
 library;
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -286,11 +284,11 @@ class _ChipIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget onError(BuildContext _, Object __, StackTrace? ___) =>
-        const SizedBox.shrink();
-    if (uri.startsWith('assets/')) {
-      return Image.asset(uri, fit: BoxFit.contain, errorBuilder: onError);
-    }
-    return Image.file(File(uri), fit: BoxFit.contain, errorBuilder: onError);
+    return CompositeSymbolProvider.defaultInstance.buildSymbol(
+      context,
+      uri: uri,
+      label: '',
+      fit: BoxFit.contain,
+    );
   }
 }

@@ -36,7 +36,7 @@ const Map<String, String> _brandAssets = {
 
 Future<void> main(List<String> args) async {
   final root = Directory.current.path;
-  final manifestFile = File('$root/assets/arasaac/manifest.json');
+  final manifestFile = File('$root/assets/symbols/manifest.json');
   if (!manifestFile.existsSync()) {
     stderr.writeln('verify_assets: manifest not found at ${manifestFile.path}');
     exit(1);
@@ -82,7 +82,7 @@ Future<void> main(List<String> args) async {
 
   // Bundling-gap check. A checksum-correct, on-disk-present pictogram is
   // still useless if pubspec.yaml does not actually bundle it: Flutter
-  // asset directory entries are non-recursive, so listing `assets/arasaac/`
+  // asset directory entries are non-recursive, so listing `assets/symbols/`
   // ships the manifest but none of the nested category PNGs, and every tile
   // renders symbol-less. This caught exactly that regression. We assert each
   // manifest icon_uri is covered by the declared asset list, using Flutter's

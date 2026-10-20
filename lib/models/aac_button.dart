@@ -84,13 +84,31 @@ class AACButton {
   final String? linkId;
 
   /// Returns the localized label for [languageCode], or [label] as fallback.
-  String labelFor(String languageCode) =>
-      labelByLocale[languageCode] ?? label;
+  String labelFor(String languageCode) {
+    final normalized = languageCode.replaceAll('-', '_').toLowerCase();
+    if (labelByLocale.containsKey(normalized)) {
+      return labelByLocale[normalized]!;
+    }
+    if (normalized.contains('_')) {
+      final base = normalized.split('_')[0];
+      if (labelByLocale.containsKey(base)) return labelByLocale[base]!;
+    }
+    return labelByLocale[languageCode] ?? label;
+  }
 
   /// Returns the localized voice-out for [languageCode], or [voiceOut] if
   /// localized version absent, or null for folder buttons.
-  String? voiceOutFor(String languageCode) =>
-      voiceOutByLocale[languageCode] ?? voiceOut;
+  String? voiceOutFor(String languageCode) {
+    final normalized = languageCode.replaceAll('-', '_').toLowerCase();
+    if (voiceOutByLocale.containsKey(normalized)) {
+      return voiceOutByLocale[normalized];
+    }
+    if (normalized.contains('_')) {
+      final base = normalized.split('_')[0];
+      if (voiceOutByLocale.containsKey(base)) return voiceOutByLocale[base];
+    }
+    return voiceOutByLocale[languageCode] ?? voiceOut;
+  }
 
   /// Returns a copy with [iconUri] replaced; identity (id/category) and
   /// everything else unchanged. Used to repoint a button at an OTA-overlaid

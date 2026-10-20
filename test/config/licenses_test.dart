@@ -24,13 +24,19 @@ void main() {
 
     expect(
       byPackage.keys,
-      containsAll(
-          ['Atkinson Hyperlegible', 'Cairo', 'Google Cloud Text-to-Speech']),
+      containsAll([
+        'Atkinson Hyperlegible',
+        'Cairo',
+        'Open AAC Symbols (Apache-2.0)',
+        'Google Cloud Text-to-Speech',
+      ]),
     );
     // Bodies came from the real assets, not a placeholder.
     expect(byPackage['Atkinson Hyperlegible'],
         contains('SIL Open Font License'));
     expect(byPackage['Cairo'], contains('SIL Open Font License'));
+    expect(byPackage['Open AAC Symbols (Apache-2.0)'],
+        contains('Apache License, Version 2.0'));
     expect(byPackage['Google Cloud Text-to-Speech'],
         contains('Google Cloud Text-to-Speech'));
   });

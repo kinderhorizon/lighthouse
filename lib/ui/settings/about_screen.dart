@@ -39,15 +39,15 @@ class AboutScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/brand/lighthouse-mark.png',
+                    'assets/brand/nuritalk_emblem.png',
                     height: 96,
-                    semanticLabel: 'Lighthouse AAC',
+                    semanticLabel: 'NūriTalk',
                     errorBuilder: (context, error, stack) =>
                         const SizedBox(height: 96),
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Lighthouse AAC',
+                    'NūriTalk',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Atkinson Hyperlegible',
@@ -115,7 +115,7 @@ class AboutScreen extends StatelessWidget {
     if (!context.mounted) return;
     showLicensePage(
       context: context,
-      applicationName: 'Lighthouse AAC',
+      applicationName: 'NūriTalk',
       applicationVersion: info.version,
     );
   }
@@ -143,17 +143,9 @@ class AboutScreen extends StatelessWidget {
   }
 }
 
-/// ARASAAC picture-symbol attribution. The CC BY-NC-SA license requires this
-/// credit to be VISIBLE in the app (ADR 0001 / LICENSES/ARASAAC.md). The label
-/// is localized; the credit string itself is a verbatim license term and is
-/// NOT translated or altered (a documented hardcoded-string exception, like the
-/// contact-address constants).
+/// Open AAC Symbol attribution.
 class _Credits extends StatelessWidget {
   const _Credits();
-
-  static const String _arasaacCredit =
-      'Symbols Author: Sergio Palao. Origin: ARASAAC (https://arasaac.org). '
-      'License: CC (BY-NC-SA). Owner: Government of Aragón (Spain).';
 
   @override
   Widget build(BuildContext context) {
@@ -170,10 +162,10 @@ class _Credits extends StatelessWidget {
           const SizedBox(height: 8),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
-            child: const Text(
-              _arasaacCredit,
+            child: Text(
+              l10n.symbolLicenseNotice,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Atkinson Hyperlegible',
                 fontSize: 15,
                 height: 1.45,

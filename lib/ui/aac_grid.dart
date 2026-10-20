@@ -41,12 +41,17 @@ class AACGrid extends StatelessWidget {
     this.padding = const EdgeInsets.fromLTRB(12, 8, 12, 12),
     this.crossAxisSpacing = 10,
     this.mainAxisSpacing = 10,
+    this.focusedButtonId,
     super.key,
   });
 
   final AACBoard board;
   final ValueChanged<AACButton> onButtonTap;
   final ValueChanged<AACButton>? onButtonLongPress;
+
+  /// Focused button ID for switch-accessibility scanning.
+  final String? focusedButtonId;
+
 
   /// Per-button glow level. Buttons not present render without a glow.
   final Map<String, GlowLevel> glow;
@@ -147,11 +152,13 @@ class AACGrid extends StatelessWidget {
             colorKey: board.colorKey,
             hideText: hideTileText,
             hideIcon: hidePictogram,
+            isSwitchFocused: btn.id == focusedButtonId,
             onTap: () => onButtonTap(btn),
             onLongPress: onButtonLongPress == null
                 ? null
                 : () => onButtonLongPress!(btn),
           ),
+
         ),
       );
     }

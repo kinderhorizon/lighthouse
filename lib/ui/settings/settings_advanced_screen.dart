@@ -7,6 +7,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../i18n/locale_registry.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/services.dart';
 import '../../state/state.dart';
@@ -20,6 +21,8 @@ class SettingsAdvancedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final languageCode =
+        LocaleRegistry.codeForLocale(Localizations.localeOf(context));
     final settings =
         ref.watch(settingsNotifierProvider).valueOrNull ?? SettingsState.defaults;
 
@@ -40,8 +43,49 @@ class SettingsAdvancedScreen extends ConsumerWidget {
               subtitle: _ttsLabel(l10n, settings.ttsMode),
               onTap: () => _pickTts(context, ref, settings.ttsMode),
             ),
+            LhSettingsRow(
+              icon: Icons.translate_rounded,
+              title: l10n.speechOutputLanguage,
+              subtitle: settings.speechLocaleOverride == null
+                  ? l10n.matchesInterfaceLanguage(
+                      LocaleRegistry.specForCode(languageCode)?.nativeName ??
+                          languageCode)
+                  : (LocaleRegistry.specForCode(settings.speechLocaleOverride!)
+                          ?.nativeName ??
+                      settings.speechLocaleOverride!),
+              onTap: () => _pickSpeechLocale(
+                  context, ref, settings.speechLocaleOverride),
+            ),
+            LhSettingsRow(
+              icon: Icons.speed_rounded,
+              title: l10n.speechSpeed,
+              subtitle: '${(settings.voiceRate * 100).toInt()}%',
+              onTap: () => _showRateDialog(context, ref, settings.voiceRate),
+            ),
+            LhSettingsRow(
+              icon: Icons.graphic_eq_rounded,
+              title: l10n.speechPitch,
+              subtitle: '${(settings.voicePitch * 100).toInt()}%',
+              onTap: () => _showPitchDialog(context, ref, settings.voicePitch),
+            ),
+            LhSettingsRow(
+              icon: Icons.volume_up_rounded,
+              title: l10n.speechVolume,
+              subtitle: '${(settings.voiceVolume * 100).toInt()}%',
+              onTap: () =>
+                  _showVolumeDialog(context, ref, settings.voiceVolume),
+            ),
 
             LhSectionLabel(l10n.sectionVisual),
+            LhSwitchRow(
+              icon: Icons.contrast_rounded,
+              title: l10n.highContrastBoard,
+              subtitle: l10n.highContrastBoardSubtitle,
+              value: settings.highContrast,
+              onChanged: (v) => ref
+                  .read(settingsNotifierProvider.notifier)
+                  .setHighContrast(v),
+            ),
             LhSettingsRow(
               icon: Icons.auto_awesome_rounded,
               title: l10n.glowStyle,
@@ -100,9 +144,40 @@ class SettingsAdvancedScreen extends ConsumerWidget {
               trailing: LhRowTrailing.none,
               onTap: () => _confirmAndReset(context, ref),
             ),
+
+            LhSectionLabel(l10n.sectionAiAssistance),
+            LhSwitchRow(
+              icon: Icons.auto_awesome_outlined,
+              title: l10n.aiPredictionBar,
+              subtitle: l10n.aiPredictionBarSubtitle,
+              value: settings.enableAiPrediction,
+              onChanged: (v) => ref
+                  .read(settingsNotifierProvider.notifier)
+                  .setEnableAiPrediction(v),
+            ),
+
+            LhSectionLabel(l10n.sectionSwitchAccessibility),
+            LhSettingsRow(
+              icon: Icons.accessibility_new_outlined,
+              title: l10n.accessMethod,
+              subtitle: _accessMethodLabel(l10n, settings.accessMethod),
+              trailing: LhRowTrailing.chevron,
+              onTap: () => _pickAccessMethod(context, ref, settings.accessMethod),
+            ),
+            if (settings.accessMethod == AccessMethod.switchSingle)
+              LhSettingsRow(
+                icon: Icons.timer_outlined,
+                title: l10n.autoScanDwellTime,
+                subtitle: '${settings.switchDwellMs} ms',
+                trailing: LhRowTrailing.chevron,
+                onTap: () => _pickDwellTime(context, ref, settings.switchDwellMs),
+              ),
           ],
         ),
       ),
+
+
+
       ),
     );
   }
@@ -257,4 +332,242 @@ class SettingsAdvancedScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Future<void> _pickSpeechLocale(
+      BuildContext context, WidgetRef ref, String? current) async {
+    final options = <({String? code, String label})>[
+      (code: null, label: 'Match interface language'),
+      for (final s in LocaleRegistry.all)
+        (code: s.code, label: '${s.nativeName} (${s.englishName})'),
+    ];
+
+    final chosen = await showDialog<String?>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: const Text('Speech Output Language'),
+        children: [
+          for (final opt in options)
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(ctx).pop(opt.code),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      opt.label,
+                      style: TextStyle(
+                        fontWeight:
+                            opt.code == current ? FontWeight.bold : FontWeight.normal,
+                        color: opt.code == current ? LhColors.brown : LhColors.ink,
+                      ),
+                    ),
+                  ),
+                  if (opt.code == current)
+                    const Icon(Icons.check, color: LhColors.brown, size: 20),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+
+    // If dismissed via outside tap, chosen is null, but we need to know if null was tapped
+    // To handle explicit 'Match interface language' choice cleanly:
+    await ref
+        .read(settingsNotifierProvider.notifier)
+        .setSpeechLocaleOverride(chosen);
+  }
+
+  void _showRateDialog(
+      BuildContext context, WidgetRef ref, double currentRate) {
+    final l10n = AppLocalizations.of(context);
+    double rate = currentRate;
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: Text(l10n.speechSpeed),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('${(rate * 100).toInt()}%',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
+              Slider(
+                value: rate,
+                min: 0.5,
+                max: 2.0,
+                divisions: 15,
+                onChanged: (v) => setState(() => rate = v),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () async {
+                await ref
+                    .read(settingsNotifierProvider.notifier)
+                    .setVoiceRate(rate);
+                if (ctx.mounted) Navigator.of(ctx).pop();
+              },
+              child: Text(l10n.saveAction),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showPitchDialog(
+      BuildContext context, WidgetRef ref, double currentPitch) {
+    final l10n = AppLocalizations.of(context);
+    double pitch = currentPitch;
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: Text(l10n.speechPitch),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('${(pitch * 100).toInt()}%',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
+              Slider(
+                value: pitch,
+                min: 0.5,
+                max: 2.0,
+                divisions: 15,
+                onChanged: (v) => setState(() => pitch = v),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () async {
+                await ref
+                    .read(settingsNotifierProvider.notifier)
+                    .setVoicePitch(pitch);
+                if (ctx.mounted) Navigator.of(ctx).pop();
+              },
+              child: Text(l10n.saveAction),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showVolumeDialog(
+      BuildContext context, WidgetRef ref, double currentVolume) {
+    final l10n = AppLocalizations.of(context);
+    double volume = currentVolume;
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: Text(l10n.speechVolume),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('${(volume * 100).toInt()}%',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold)),
+              Slider(
+                value: volume,
+                min: 0.0,
+                max: 1.0,
+                divisions: 10,
+                onChanged: (v) => setState(() => volume = v),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () async {
+                await ref
+                    .read(settingsNotifierProvider.notifier)
+                    .setVoiceVolume(volume);
+                if (ctx.mounted) Navigator.of(ctx).pop();
+              },
+              child: Text(l10n.saveAction),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static String _accessMethodLabel(
+          AppLocalizations l10n, AccessMethod method) =>
+      switch (method) {
+        AccessMethod.directTouch => l10n.accessDirectTouch,
+        AccessMethod.switchSingle => l10n.accessSwitchSingle,
+        AccessMethod.switchDual => l10n.accessSwitchDual,
+      };
+
+  void _pickAccessMethod(
+      BuildContext context, WidgetRef ref, AccessMethod current) {
+    final l10n = AppLocalizations.of(context);
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: Text(l10n.accessMethod),
+        children: [
+          for (final method in AccessMethod.values)
+            RadioListTile<AccessMethod>(
+              title: Text(_accessMethodLabel(l10n, method)),
+              value: method,
+              groupValue: current,
+              onChanged: (val) async {
+                if (val != null) {
+                  await ref
+                      .read(settingsNotifierProvider.notifier)
+                      .setAccessMethod(val);
+                  if (ctx.mounted) Navigator.of(ctx).pop();
+                }
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _pickDwellTime(BuildContext context, WidgetRef ref, int currentMs) {
+    final l10n = AppLocalizations.of(context);
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: Text(l10n.autoScanDwellTime),
+        children: [
+          for (final ms in const [500, 750, 1000, 1500, 2000])
+            RadioListTile<int>(
+              title: Text('$ms ms'),
+              value: ms,
+              groupValue: currentMs,
+              onChanged: (val) async {
+                if (val != null) {
+                  await ref
+                      .read(settingsNotifierProvider.notifier)
+                      .setSwitchDwellMs(val);
+                  if (ctx.mounted) Navigator.of(ctx).pop();
+                }
+              },
+            ),
+        ],
+      ),
+    );
+  }
 }
+

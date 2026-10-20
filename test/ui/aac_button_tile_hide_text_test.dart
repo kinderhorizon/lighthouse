@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lighthouse/models/models.dart';
 import 'package:lighthouse/ui/ui.dart';
 
-AACButton _button({String iconUri = 'assets/arasaac/pronouns/i.png'}) {
+AACButton _button({String iconUri = 'assets/symbols/pronouns/i.png'}) {
   return AACButton.fromJson({
     'id': 'btn_test',
     'label': 'Want',

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/services.dart';
@@ -104,4 +103,10 @@ class _AlwaysSystem implements TTSEngine {
   Future<void> stop() async {}
   @override
   Future<void> dispose() async {}
+  @override
+  Future<void> setVolume(double volume) async {}
+  @override
+  Future<void> setRate(double rate) async {}
+  @override
+  Future<void> setPitch(double pitch) async {}
 }

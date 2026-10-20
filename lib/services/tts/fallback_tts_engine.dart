@@ -40,6 +40,27 @@ class FallbackTTSEngine implements TTSEngine {
   }
 
   @override
+  Future<void> setVolume(double volume) async {
+    for (final e in _engines) {
+      await e.setVolume(volume);
+    }
+  }
+
+  @override
+  Future<void> setRate(double rate) async {
+    for (final e in _engines) {
+      await e.setRate(rate);
+    }
+  }
+
+  @override
+  Future<void> setPitch(double pitch) async {
+    for (final e in _engines) {
+      await e.setPitch(pitch);
+    }
+  }
+
+  @override
   Future<void> speak(String text, {required Locale locale}) async {
     final engine = await _pickFor(text, locale);
     await engine.speak(text, locale: locale);
@@ -49,46 +70,28 @@ class FallbackTTSEngine implements TTSEngine {
   Future<void> speakSequence(List<String> texts, {required Locale locale}) async {
     if (texts.isEmpty) return;
     final gen = ++_generation; // claim; supersedes any in-flight sequence
-    // Walk engines in priority order looking for ONE that covers every token,
-    // so it can play the whole list gaplessly (the bundled engine concatenates
-    // its clips into a single playlist; removes the per-word reload gaps that
-    // made the replay slow/choppy, clinical review). But do NOT let a lower-
-    // priority engine swallow tokens a higher one could speak: the system
-    // engine is text-agnostic ("covers all" always), so if a higher-priority
-    // engine covers SOME but not all, stop and route per-token instead, keeping
-    // its tokens on the warm voice (that all-or-nothing fallback was the #1
-    // voice-switch bug). Common English case: bundled covers all (incl the "to"
-    // connector) -> one gapless warm playlist.
-    for (final e in _engines) {
-      var coversAll = true;
-      var coversAny = false;
-      for (final t in texts) {
-        if (await e.canSpeak(t, locale: locale)) {
-          coversAny = true;
-        } else {
-          coversAll = false;
-        }
-      }
-      if (gen != _generation) return; // superseded while probing engines
-      if (coversAll) {
-        // One engine covers all: it plays the whole list and self-supersedes on
-        // [stop] (bundled via its own token, system because flutter_tts.stop
-        // completes the awaited utterance), so no per-token check is needed here.
-        await e.speakSequence(texts, locale: locale);
-        return;
-      }
-      if (coversAny) break; // preferred-but-partial -> per-token
-    }
-    // Mixed: route EACH token to its own best engine, so only a clip-less token
-    // (a connector with no clip yet) uses system TTS, never the whole sentence.
-    // Re-check the token between (and right before) each dispatch so a tap that
-    // calls stop() mid-sequence aborts here instead of speaking stale tokens
-    // over the child's tap (P0-2 interleaving B).
+
+    List<String> currentRun = [];
+    TTSEngine? currentEngine;
+
     for (final t in texts) {
       if (gen != _generation) return;
       final engine = await _pickFor(t, locale);
-      if (gen != _generation) return; // superseded during the async pick
-      await engine.speakSequence([t], locale: locale);
+      if (gen != _generation) return;
+
+      if (engine == currentEngine) {
+        currentRun.add(t);
+      } else {
+        if (currentEngine != null && currentRun.isNotEmpty) {
+          await currentEngine.speakSequence(currentRun, locale: locale);
+        }
+        currentEngine = engine;
+        currentRun = [t];
+      }
+    }
+
+    if (gen == _generation && currentEngine != null && currentRun.isNotEmpty) {
+      await currentEngine.speakSequence(currentRun, locale: locale);
     }
   }
 
