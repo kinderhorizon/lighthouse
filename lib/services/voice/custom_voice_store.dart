@@ -8,8 +8,9 @@
 /// PRIVACY (disclosed on kinderhorizon.org/lighthouse/privacy): a recording is
 /// kept ONLY on the device. It is never transmitted, never attached to a crash
 /// report or feedback payload, and is reachable only behind the parental math
-/// gate. The device's own backup (iCloud / Google) may include it; that copy is
-/// the parent's, not ours.
+/// gate. It is also kept out of the device's own backup (iCloud / Google): the
+/// Android backup rules exclude `custom_voices/` and its JSON, and iOS excludes
+/// the whole app support directory (AppDelegate).
 ///
 /// A corrupt file or a missing clip loads as "no custom voice", so the tile
 /// simply falls back to the built-in voice: a bad clip must never silence a
