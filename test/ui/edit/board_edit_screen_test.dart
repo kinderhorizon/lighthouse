@@ -20,6 +20,8 @@ import 'package:lighthouse/services/services.dart';
 import 'package:lighthouse/state/state.dart';
 import 'package:lighthouse/ui/ui.dart';
 
+import '../../support/fake_stores.dart';
+
 class _FakeLayoutStore implements BoardLayoutStore {
   _FakeLayoutStore([BoardLayout? seed]) : _l = seed ?? const BoardLayout.empty();
   BoardLayout _l;
@@ -85,46 +87,6 @@ class _FakeVoiceStore implements CustomVoiceStore {
     _m.clear();
     return Map.of(_m);
   }
-}
-
-class _FakeButtonStore implements CustomButtonStore {
-  final List<CustomButton> _items = [];
-  int _n = 0;
-  @override
-  Future<List<CustomButton>> load() async => List.unmodifiable(_items);
-  @override
-  Future<String> allocateId(String boardId) async =>
-      'custom_${boardId}_${_n++}';
-  @override
-  Future<List<CustomButton>> add(CustomButton b) async {
-    _items
-      ..removeWhere((x) => x.id == b.id)
-      ..add(b);
-    return List.unmodifiable(_items);
-  }
-
-  @override
-  Future<List<CustomButton>> removeById(String id) async {
-    _items.removeWhere((b) => b.id == id);
-    return List.unmodifiable(_items);
-  }
-
-  @override
-  Future<List<CustomButton>> removeForBoard(String boardId) async {
-    _items.removeWhere((b) => b.boardId == boardId);
-    return List.unmodifiable(_items);
-  }
-
-  @override
-  Future<List<CustomButton>> clearAll() async {
-    _items.clear();
-    return List.unmodifiable(_items);
-  }
-
-  @override
-  Future<String> importImage(File source,
-          {required String suggestedName}) async =>
-      '';
 }
 
 class _FakeIconStore implements IconOverrideStore {
@@ -224,7 +186,7 @@ ProviderContainer _container({
       favouritesStoreProvider.overrideWithValue(_FakeFavStore(seedPins)),
       hiddenTilesStoreProvider.overrideWithValue(_FakeHiddenStore(seedHidden)),
       customVoiceStoreProvider.overrideWithValue(_FakeVoiceStore()),
-      customButtonStoreProvider.overrideWithValue(_FakeButtonStore()),
+      customButtonStoreProvider.overrideWithValue(FakeCustomButtonStore()),
       iconOverrideStoreProvider.overrideWithValue(_FakeIconStore()),
     ],
   );

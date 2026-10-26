@@ -10,10 +10,15 @@
 ///    them; a bottom batch bar pins/unpins or hides/shows all at once, with a
 ///    live count and All/None.
 /// 3. VOICE: record a custom voice for one tile that plays instead of TTS.
+/// 4. PLACE (ADR 0022): "+ Add" asks where a new button or category goes: an
+///    empty square, or a built-in word to put it in place of (the word is set
+///    aside, not deleted). The only way to add to a full page such as Home.
 ///
-/// Subcategory FOLDERS stay move-locked (ADR 0014): not draggable, not a
-/// drop target, but a doorway (tapping navigates into the sub-board on the
+/// Built-in subcategory FOLDERS stay move-locked (ADR 0014): not draggable, not
+/// a drop target, but a doorway (tapping navigates into the sub-board on the
 /// session's own stack so the child never observes arrange-mode navigation).
+/// The parent's OWN tiles (words and categories, ADR 0022) open a sheet with
+/// Edit (word or name, photo, colour) and move like any word.
 ///
 /// All edits go through the position overlay (ADR 0014), favourites (ADR 0013),
 /// custom buttons (ADR 0012), the hidden-tiles + icon-override + custom-voice
@@ -22,6 +27,7 @@
 library;
 
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -40,7 +46,7 @@ import '../theme/lighthouse_theme.dart';
 import '../tour/first_use_tip.dart';
 import '../tour/tour_controller.dart';
 import '../widgets/lh_widgets.dart';
-import '../widgets/voice_recorder_field.dart';
+import 'custom_tile_dialog.dart';
 
 /// Shows the math gate; on unlock, pushes the editor rooted at the board the
 /// parent is currently viewing. Called from the board AppBar.
@@ -66,15 +72,16 @@ Future<void> showBoardEditorGate(
 /// Pure drag-reorder math (ADR 0019), extracted for testing. Given a board, the
 /// [dragged] word, and the [dest] slot, returns the set of `buttonId -> new
 /// Position` changes to commit (empty = no-op):
-/// - dropping onto a FOLDER (move-locked) -> no change;
+/// - dropping onto a built-in FOLDER (move-locked) -> no change;
 /// - dropping a word onto an EMPTY non-folder slot -> move it there;
 /// - dropping a word onto another WORD -> INSERTION reorder among the board's
 ///   non-folder slots (words shift, folders keep their slots).
+/// A parent-made category folder (ADR 0022) counts as a word here: it moves.
 Map<String, Position> computeReorder(
     AACBoard board, AACButton dragged, Position dest) {
-  if (dragged.type == AACButtonType.folder) return const {};
+  if (isBuiltInFolder(dragged)) return const {};
   final destBtn = board.buttonAt(dest);
-  if (destBtn != null && destBtn.type == AACButtonType.folder) return const {};
+  if (destBtn != null && isBuiltInFolder(destBtn)) return const {};
   if (destBtn == null) {
     if (board.buttons.firstWhere((b) => b.id == dragged.id).position == dest) {
       return const {};
@@ -85,21 +92,20 @@ Map<String, Position> computeReorder(
 
   final rows = board.gridDimensions.rows;
   final cols = board.gridDimensions.cols;
-  // Non-folder slots in row-major order (folders hold their slots).
+  // Non-folder slots in row-major order (built-in folders hold their slots).
   final wordSlots = <Position>[];
   for (var r = 0; r < rows; r++) {
     for (var c = 0; c < cols; c++) {
       final p = (row: r, col: c);
       final b = board.buttonAt(p);
-      if (b == null || b.type != AACButtonType.folder) wordSlots.add(p);
+      if (b == null || !isBuiltInFolder(b)) wordSlots.add(p);
     }
   }
   // Occupied word ids in slot order, with [dragged] removed and re-inserted at
   // the target's position.
   final seq = <String>[
     for (final p in wordSlots)
-      if (board.buttonAt(p) case final b? when b.type != AACButtonType.folder)
-        b.id,
+      if (board.buttonAt(p) case final b? when !isBuiltInFolder(b)) b.id,
   ]..remove(dragged.id);
   var insertAt = seq.indexOf(destBtn.id);
   if (insertAt < 0) insertAt = seq.length;
@@ -113,7 +119,7 @@ Map<String, Position> computeReorder(
   return changed;
 }
 
-enum _EditMode { arrange, select }
+enum _EditMode { arrange, select, place }
 
 class BoardEditScreen extends ConsumerStatefulWidget {
   const BoardEditScreen({required this.rootBoardId, super.key});
@@ -203,6 +209,31 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     final board = boards?.where((b) => b.boardId == _currentBoardId).firstOrNull;
 
     if (board == null) {
+      // A parent-made category page this session was inside has been deleted
+      // (e.g. "Reset everything", ADR 0022): step back to the deepest page that
+      // still exists instead of leaving the parent on a spinner.
+      if (boards != null &&
+          _stackIds.length > 1 &&
+          !ref.read(editableBoardsProvider).isLoading) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          final known = {
+            for (final b
+                in ref.read(editableBoardsProvider).valueOrNull ??
+                    const <AACBoard>[])
+              b.boardId,
+          };
+          final firstMissing = _stackIds.indexWhere(
+            (id) => !known.contains(id),
+            1,
+          );
+          if (firstMissing < 1) return;
+          setState(() {
+            _stackIds.removeRange(firstMissing, _stackIds.length);
+            _exitSelect();
+          });
+        });
+      }
       // Never trap the parent on a bare spinner: always offer Done, and a back
       // affordance if we navigated below root into a bad sub-board.
       return Scaffold(
@@ -229,40 +260,76 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     }
 
     return Scaffold(
-      appBar: _mode == _EditMode.select
-          ? _selectAppBar(l10n, board)
-          : _arrangeAppBar(l10n, board),
+      appBar: switch (_mode) {
+        _EditMode.select => _selectAppBar(l10n, board),
+        _EditMode.place => _placeAppBar(l10n),
+        _EditMode.arrange => _arrangeAppBar(l10n, board),
+      },
       body: SafeArea(
         top: false,
         child: Stack(
           children: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 4),
-                  child: Text(
-                    _mode == _EditMode.select
-                        ? l10n.editSelectHint
-                        : l10n.editArrangeHint,
-                    style: LhText.rowSubtitle,
+            LayoutBuilder(
+              builder: (context, constraints) => Column(
+                children: [
+                  // The hint (and "+ Add") never takes more than 30% of the
+                  // height: on a small phone with large text, or a long
+                  // translation, it scrolls inside that rather than squeezing
+                  // the grid off the screen.
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: math.max(72, constraints.maxHeight * 0.3),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 12, 16, 4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(switch (_mode) {
+                                _EditMode.select => l10n.editSelectHint,
+                                _EditMode.place =>
+                                  board.emptySlots(limit: 1).isEmpty
+                                      ? l10n.editPlaceHintFull
+                                      : l10n.editPlaceHint,
+                                _EditMode.arrange => l10n.editArrangeHint,
+                              }, style: LhText.rowSubtitle),
+                            ),
+                            if (_mode == _EditMode.arrange) ...[
+                              const SizedBox(width: 12),
+                              FilledButton.tonalIcon(
+                                key: const ValueKey('editor_add'),
+                                onPressed: () => setState(() {
+                                  _mode = _EditMode.place;
+                                  _selected.clear();
+                                }),
+                                icon: const Icon(Icons.add_rounded),
+                                label: Text(l10n.editAdd),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: _EditGrid(
-                board: board,
-                mode: _mode,
-                selected: _selected,
-                onTapTile: (btn) => _onTapTile(board, btn),
-                onTapEmpty: (pos) => _addAtSlot(board, pos),
-                onTapFolder: (btn) {
-                  final link = btn.linkId;
-                  if (link != null) _enterFolder(link);
-                },
-                onReorder: (dragged, dest) => _reorder(board, dragged, dest),
+                  Expanded(
+                    child: _EditGrid(
+                      board: board,
+                      mode: _mode,
+                      selected: _selected,
+                      onTapTile: (btn) => _onTapTile(board, btn),
+                      onTapEmpty: (pos) => _addAtSlot(board, pos),
+                      onTapFolder: (btn) {
+                        final link = btn.linkId;
+                        if (link != null) _enterFolder(link);
+                      },
+                      onReorder: (dragged, dest) =>
+                          _reorder(board, dragged, dest),
+                    ),
+                  ),
+                  if (_mode == _EditMode.select) _batchBar(l10n, board),
+                ],
               ),
-            ),
-                if (_mode == _EditMode.select) _batchBar(l10n, board),
-              ],
             ),
           ],
         ),
@@ -316,6 +383,25 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
                     .read(boardLayoutProvider.notifier)
                     .resetBoard(board.boardId);
               });
+            } else if (v == 'blank') {
+              // "Start this page blank" (ADR 0022): hide every word in one
+              // step. Folders stay so no page becomes unreachable; hidden words
+              // keep their slots, and the parent can put their own buttons in
+              // them (Add, or a hidden word's sheet).
+              _confirmReset(
+                l10n.editStartBlankConfirm,
+                confirmLabel: l10n.editStartBlankButton,
+                () async {
+                  await ref
+                      .read(hiddenTilesProvider.notifier)
+                      .setHiddenBulk(
+                        board.boardId,
+                        _selectableIds(board),
+                        true,
+                      );
+                  _toast(l10n.editToastStartBlank);
+                },
+              );
             } else if (v == 'all') {
               // "Reset everything": same, across every board, back to factory.
               _confirmReset(l10n.editResetAllConfirm, () async {
@@ -328,6 +414,8 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             }
           },
           itemBuilder: (context) => [
+            PopupMenuItem(value: 'blank', child: Text(l10n.editStartBlank)),
+            const PopupMenuDivider(),
             PopupMenuItem(value: 'board', child: Text(l10n.editResetBoard)),
             PopupMenuItem(value: 'all', child: Text(l10n.editResetAll)),
           ],
@@ -391,6 +479,26 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
                   : l10n.editSelectAll),
         ),
       ],
+    );
+  }
+
+  /// "+ Add" (ADR 0022): the parent picks where the new tile goes. Cancel
+  /// returns to arranging.
+  PreferredSizeWidget _placeAppBar(AppLocalizations l10n) {
+    return lhAppBar(
+      context,
+      centerTitle: true,
+      title: l10n.editPlaceTitle,
+      automaticallyImplyLeading: false,
+      leadingWidth: 110,
+      leading: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: TextButton(
+          key: const ValueKey('editor_place_cancel'),
+          onPressed: () => setState(_exitSelect),
+          child: Text(l10n.cancel, maxLines: 1, softWrap: false),
+        ),
+      ),
     );
   }
 
@@ -498,6 +606,8 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   // ---------------------------------------------------------- tile tapping
   void _onTapTile(AACBoard board, AACButton btn) {
     if (_mode == _EditMode.select) {
+      // Folders (built-in or the parent's own categories) are not selectable.
+      if (btn.type == AACButtonType.folder) return;
       setState(() {
         if (_selected.contains(btn.id)) {
           _selected.remove(btn.id);
@@ -507,8 +617,25 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
       });
       return;
     }
+    if (_mode == _EditMode.place) {
+      // Only a built-in word can be replaced; other tiles are dimmed + inert.
+      if (_isReplaceable(btn)) _addAt(board, btn.position, replacing: btn);
+      return;
+    }
     _openQuickActions(board, btn);
   }
+
+  /// The parent's own stored tile for [btn], or null for a built-in one (or a
+  /// shared-pack tile, which is not in the parent's store).
+  CustomButton? _ownTile(AACButton btn) =>
+      (ref.read(customButtonsProvider).valueOrNull ?? const <CustomButton>[])
+          .where((c) => c.id == btn.id)
+          .firstOrNull;
+
+  /// A tile a new button can go in place of (ADR 0022): a word that is not the
+  /// parent's own. Never a folder (it can be the only way into a page).
+  bool _isReplaceable(AACButton btn) =>
+      btn.type != AACButtonType.folder && _ownTile(btn) == null;
 
   // ----------------------------------------------------- quick-action sheet
   Future<void> _openQuickActions(AACBoard board, AACButton btn) async {
@@ -522,7 +649,8 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     final isHidden = hidden.isHidden(board.boardId, btn.id);
     final hasVoice =
         (ref.read(customVoiceProvider).valueOrNull ?? const {}).containsKey(btn.id);
-    final isCustom = btn.category == kCustomCategory;
+    final own = _ownTile(btn);
+    final isCategory = own?.isCategory ?? false;
 
     final action = await showModalBottomSheet<String>(
       context: context,
@@ -532,70 +660,139 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(LhRadii.dialog)),
       ),
-      builder: (sheetContext) => SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _SheetHeader(
-                button: btn,
-                colorKey: board.colorKey,
-                title: btn.labelFor(lang),
-                subtitle: l10n.editTileSheetSubtitle,
-              ),
-              const Divider(height: 1, color: LhColors.line),
-              const SizedBox(height: 6),
-              _SheetAction(
-                icon: Icons.mic_none_rounded,
-                iconColor: LhColors.brown,
-                title: hasVoice
-                    ? l10n.editActionRerecordVoice
-                    : l10n.editActionRecordVoice,
-                subtitle: hasVoice
-                    ? l10n.editActionVoiceSetSub
-                    : l10n.editActionRecordVoiceSub,
-                onTap: () => Navigator.of(sheetContext).pop('voice'),
-              ),
-              _SheetAction(
-                icon: Icons.image_outlined,
-                title: l10n.editActionReplacePicture,
-                subtitle: l10n.editActionReplacePictureSub,
-                onTap: () => Navigator.of(sheetContext).pop('picture'),
-              ),
-              _SheetAction(
-                icon: isPinned ? Icons.star_rounded : Icons.star_outline_rounded,
-                title: isPinned ? l10n.editActionUnpin : l10n.editActionPin,
-                subtitle: l10n.editActionPinSub,
-                onTap: () =>
-                    Navigator.of(sheetContext).pop(isPinned ? 'unpin' : 'pin'),
-              ),
-              _SheetAction(
-                icon: isHidden
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined,
-                title: isHidden ? l10n.editActionShow : l10n.editActionHide,
-                subtitle:
-                    isHidden ? l10n.editActionShowSub : l10n.editActionHideSub,
-                onTap: () =>
-                    Navigator.of(sheetContext).pop(isHidden ? 'show' : 'hide'),
-              ),
-              if (isCustom)
-                _SheetAction(
-                  icon: Icons.delete_outline_rounded,
-                  iconColor: LhColors.amberDeep,
-                  title: l10n.customButtonsDelete,
-                  subtitle: null,
-                  onTap: () => Navigator.of(sheetContext).pop('delete'),
+      builder: (sheetContext) {
+        void pick(String a) => Navigator.of(sheetContext).pop(a);
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _SheetHeader(
+                  button: btn,
+                  colorKey: board.colorKey,
+                  title: btn.labelFor(lang),
+                  subtitle: l10n.editTileSheetSubtitle,
                 ),
-            ],
+                const Divider(height: 1, color: LhColors.line),
+                const SizedBox(height: 6),
+                if (isCategory) ...[
+                  // The parent's own category: open it first (that is why they
+                  // usually tap it), then edit, hide, delete.
+                  _SheetAction(
+                    key: const ValueKey('sheet_open'),
+                    icon: Icons.folder_open_outlined,
+                    iconColor: LhColors.brown,
+                    title: l10n.editActionOpenCategory,
+                    subtitle: l10n.editActionOpenCategorySub,
+                    onTap: () => pick('open'),
+                  ),
+                  _SheetAction(
+                    key: const ValueKey('sheet_edit'),
+                    icon: Icons.edit_outlined,
+                    title: l10n.editActionEdit,
+                    subtitle: l10n.editActionEditCategorySub,
+                    onTap: () => pick('edit'),
+                  ),
+                  _SheetAction(
+                    icon: isHidden
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    title: isHidden ? l10n.editActionShow : l10n.editActionHide,
+                    subtitle: isHidden
+                        ? l10n.editActionShowSub
+                        : l10n.editActionHideSub,
+                    onTap: () => pick(isHidden ? 'show' : 'hide'),
+                  ),
+                  _SheetAction(
+                    key: const ValueKey('sheet_delete'),
+                    icon: Icons.delete_outline_rounded,
+                    iconColor: LhColors.amberDeep,
+                    title: l10n.editActionDeleteCategory,
+                    subtitle: null,
+                    onTap: () => pick('delete'),
+                  ),
+                ] else ...[
+                  if (own != null)
+                    _SheetAction(
+                      key: const ValueKey('sheet_edit'),
+                      icon: Icons.edit_outlined,
+                      iconColor: LhColors.brown,
+                      title: l10n.editActionEdit,
+                      subtitle: l10n.editActionEditSub,
+                      onTap: () => pick('edit'),
+                    ),
+                  _SheetAction(
+                    icon: Icons.mic_none_rounded,
+                    iconColor: own == null ? LhColors.brown : LhColors.ink2,
+                    title: hasVoice
+                        ? l10n.editActionRerecordVoice
+                        : l10n.editActionRecordVoice,
+                    subtitle: hasVoice
+                        ? l10n.editActionVoiceSetSub
+                        : l10n.editActionRecordVoiceSub,
+                    onTap: () => pick('voice'),
+                  ),
+                  // A parent's own tile changes its photo in Edit.
+                  if (own == null)
+                    _SheetAction(
+                      icon: Icons.image_outlined,
+                      title: l10n.editActionReplacePicture,
+                      subtitle: l10n.editActionReplacePictureSub,
+                      onTap: () => pick('picture'),
+                    ),
+                  _SheetAction(
+                    icon: isPinned
+                        ? Icons.star_rounded
+                        : Icons.star_outline_rounded,
+                    title: isPinned ? l10n.editActionUnpin : l10n.editActionPin,
+                    subtitle: l10n.editActionPinSub,
+                    onTap: () => pick(isPinned ? 'unpin' : 'pin'),
+                  ),
+                  _SheetAction(
+                    icon: isHidden
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    title: isHidden ? l10n.editActionShow : l10n.editActionHide,
+                    subtitle: isHidden
+                        ? l10n.editActionShowSub
+                        : l10n.editActionHideSub,
+                    onTap: () => pick(isHidden ? 'show' : 'hide'),
+                  ),
+                  if (own == null && _isReplaceable(btn))
+                    _SheetAction(
+                      key: const ValueKey('sheet_replace'),
+                      icon: Icons.swap_horiz_rounded,
+                      title: l10n.editActionReplaceWithOwn,
+                      subtitle: l10n.editActionReplaceWithOwnSub,
+                      onTap: () => pick('replace'),
+                    ),
+                  if (own != null)
+                    _SheetAction(
+                      key: const ValueKey('sheet_delete'),
+                      icon: Icons.delete_outline_rounded,
+                      iconColor: LhColors.amberDeep,
+                      title: l10n.customButtonsDelete,
+                      subtitle: null,
+                      onTap: () => pick('delete'),
+                    ),
+                ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
     if (!mounted || action == null) return;
     switch (action) {
+      case 'open':
+        final link = own?.linkId;
+        if (link != null) _enterFolder(link);
+      case 'edit':
+        if (own != null) await _editOwn(own);
+      case 'replace':
+        await _addAt(board, btn.position, replacing: btn);
       case 'voice':
         await _openVoiceSheet(board, btn);
       case 'picture':
@@ -617,7 +814,62 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             .setHidden(board.boardId, btn.id, false);
         _toast(l10n.editToastShownOne);
       case 'delete':
-        await ref.read(customButtonsProvider.notifier).remove(btn.id);
+        if (own != null) await _deleteOwn(own);
+    }
+  }
+
+  /// Edit one of the parent's own tiles (ADR 0022).
+  Future<void> _editOwn(CustomButton own) async {
+    final l10n = AppLocalizations.of(context);
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (_) => CustomTileDialog.edit(existing: own),
+    );
+    if (saved == true && mounted) _toast(l10n.editToastSaved);
+  }
+
+  /// Delete one of the parent's own tiles. A category asks first (its page and
+  /// everything on it go too). A tile that replaced a built-in word brings that
+  /// word back, and says so.
+  Future<void> _deleteOwn(CustomButton own) async {
+    final l10n = AppLocalizations.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    final notifier = ref.read(customButtonsProvider.notifier);
+    if (own.isCategory) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          content: Text(
+            l10n.deleteCategoryConfirm(
+              own.label,
+              notifier.buttonsInside(own.id),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              key: const ValueKey('editor_delete_confirm'),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text(l10n.deleteConfirm),
+            ),
+          ],
+        ),
+      );
+      if (ok != true || !mounted) return;
+    }
+    try {
+      final back = await notifier.remove(own.id);
+      if (!mounted) return;
+      _toast(
+        back == null
+            ? l10n.editToastDeleted
+            : l10n.editToastWordBack(back.labelFor(lang)),
+      );
+    } catch (_) {
+      if (mounted) _toast(l10n.customTileSaveFailed);
     }
   }
 
@@ -694,17 +946,39 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   }
 
   // ---------------------------------------------------------------- add
+  /// Tapping an empty square (arrange or "+ Add") adds there.
   Future<void> _addAtSlot(AACBoard board, Position pos) async {
     if (_mode == _EditMode.select) return;
-    await showDialog<void>(
+    await _addAt(board, pos);
+  }
+
+  /// Opens the add dialog for the DISPLAYED slot [pos] (ADR 0022), optionally
+  /// in place of the built-in word [replacing]. The colour starts on the
+  /// page's own colour. Leaves "+ Add" mode whatever the outcome.
+  Future<void> _addAt(
+    AACBoard board,
+    Position pos, {
+    AACButton? replacing,
+  }) async {
+    final customs = ref.read(customButtonsProvider).valueOrNull ?? const [];
+    await showDialog<bool>(
       context: context,
-      builder: (_) => _AddAtSlotDialog(boardId: board.boardId, slot: pos),
+      builder: (_) => CustomTileDialog.add(
+        boardId: board.boardId,
+        slot: pos,
+        replacing: replacing,
+        initialColor: defaultTileColorFor(board, customs),
+      ),
     );
+    if (mounted && _mode == _EditMode.place) setState(_exitSelect);
   }
 
   // -------------------------------------------------------------- reset
   Future<void> _confirmReset(
-      String body, Future<void> Function() onConfirm) async {
+    String body,
+    Future<void> Function() onConfirm, {
+    String? confirmLabel,
+  }) async {
     final l10n = AppLocalizations.of(context);
     final ok = await showDialog<bool>(
       context: context,
@@ -718,7 +992,7 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
           FilledButton(
             key: const ValueKey('editor_reset_confirm'),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: Text(l10n.editResetConfirmButton),
+            child: Text(confirmLabel ?? l10n.editResetConfirmButton),
           ),
         ],
       ),
@@ -811,6 +1085,12 @@ class _EditGrid extends ConsumerWidget {
     final hidden =
         ref.watch(hiddenTilesProvider).valueOrNull ?? const HiddenTiles.empty();
     final voices = ref.watch(customVoiceProvider).valueOrNull ?? const {};
+    final ownIds = {
+      for (final c
+          in ref.watch(customButtonsProvider).valueOrNull ??
+              const <CustomButton>[])
+        c.id,
+    };
     final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
     return LayoutBuilder(
@@ -840,6 +1120,7 @@ class _EditGrid extends ConsumerWidget {
                       r.boardId == board.boardId && r.buttonId == btn.id),
               isHidden: btn != null && hidden.isHidden(board.boardId, btn.id),
               hasVoice: btn != null && voices.containsKey(btn.id),
+              isOwn: btn != null && ownIds.contains(btn.id),
               reduceMotion: reduceMotion,
               onTapTile: onTapTile,
               onTapEmpty: onTapEmpty,
@@ -863,6 +1144,7 @@ class _Cell extends StatelessWidget {
     required this.isFavourite,
     required this.isHidden,
     required this.hasVoice,
+    required this.isOwn,
     required this.reduceMotion,
     required this.onTapTile,
     required this.onTapEmpty,
@@ -878,18 +1160,25 @@ class _Cell extends StatelessWidget {
   final bool isFavourite;
   final bool isHidden;
   final bool hasVoice;
+
+  /// The parent made this tile (ADR 0022): it opens a sheet and moves like a
+  /// word even when it is a category folder.
+  final bool isOwn;
   final bool reduceMotion;
   final ValueChanged<AACButton> onTapTile;
   final ValueChanged<Position> onTapEmpty;
   final ValueChanged<AACButton> onTapFolder;
   final void Function(AACButton dragged, Position dest) onReorder;
 
-  bool get _isFolder => button?.type == AACButtonType.folder;
+  /// A built-in folder: a move-locked doorway (ADR 0014).
+  bool get _isLockedFolder => button != null && isBuiltInFolder(button!);
 
   @override
   Widget build(BuildContext context) {
     final btn = button;
-    // Empty slot: a dotted add affordance (arrange) and a word drop target.
+    final placing = mode == _EditMode.place;
+    // Empty slot: a dotted add affordance (arrange / "+ Add", where it is lit
+    // up as a place to choose) and a word drop target.
     if (btn == null) {
       return DragTarget<AACButton>(
         onWillAcceptWithDetails: (_) => mode == _EditMode.arrange,
@@ -899,27 +1188,37 @@ class _Cell extends StatelessWidget {
           child: GestureDetector(
             key: ValueKey('editor_empty_${pos.row}_${pos.col}'),
             behavior: HitTestBehavior.opaque,
-            onTap: mode == _EditMode.arrange ? () => onTapEmpty(pos) : null,
-            child: _AddSlot(active: candidate.isNotEmpty),
+            onTap: mode == _EditMode.select ? null : () => onTapEmpty(pos),
+            child: _AddSlot(active: candidate.isNotEmpty || placing),
           ),
         ),
       );
     }
 
-    final visual = _TileVisual(
-      button: btn,
-      colorKey: board.colorKey,
-      isSelected: isSelected,
-      isFavourite: isFavourite,
-      isHidden: isHidden,
-      hasVoice: hasVoice,
-      selectMode: mode == _EditMode.select,
-      isFolderLocked: _isFolder,
+    // In "+ Add" mode only a built-in word can be chosen (to put the new tile
+    // in its place); everything else is dimmed and inert.
+    final choosable = btn.type != AACButtonType.folder && !isOwn;
+    final dimmed = placing && !choosable;
+
+    final visual = Opacity(
+      opacity: dimmed ? 0.35 : 1.0,
+      child: _TileVisual(
+        button: btn,
+        colorKey: board.colorKey,
+        isSelected: isSelected,
+        isFavourite: isFavourite,
+        isHidden: isHidden,
+        hasVoice: hasVoice,
+        selectMode: mode == _EditMode.select,
+        selectable: btn.type != AACButtonType.folder,
+        isFolderLocked: _isLockedFolder,
+      ),
     );
 
-    // Folder: move-locked doorway. Tappable (navigate / cannot select), never
-    // a drag source, and it rejects drops (a word cannot displace a folder).
-    if (_isFolder) {
+    // Built-in folder: move-locked doorway. Tappable (navigate / cannot
+    // select), never a drag source, and it rejects drops (a word cannot
+    // displace a folder).
+    if (_isLockedFolder) {
       return DragTarget<AACButton>(
         onWillAcceptWithDetails: (_) => false,
         builder: (context, _, __) => Padding(
@@ -937,7 +1236,7 @@ class _Cell extends StatelessWidget {
     final tappable = GestureDetector(
       key: ValueKey('editor_tile_${btn.id}'),
       behavior: HitTestBehavior.opaque,
-      onTap: () => onTapTile(btn),
+      onTap: dimmed ? null : () => onTapTile(btn),
       child: visual,
     );
 
@@ -988,6 +1287,7 @@ class _TileVisual extends StatelessWidget {
     required this.isHidden,
     required this.hasVoice,
     required this.selectMode,
+    required this.selectable,
     required this.isFolderLocked,
   });
 
@@ -998,6 +1298,9 @@ class _TileVisual extends StatelessWidget {
   final bool isHidden;
   final bool hasVoice;
   final bool selectMode;
+
+  /// Can be ticked in select mode (words only; folders cannot).
+  final bool selectable;
   final bool isFolderLocked;
 
   @override
@@ -1050,7 +1353,7 @@ class _TileVisual extends StatelessWidget {
               child: Icon(Icons.lock_rounded, size: 16, color: LhColors.ink3),
             ),
           ),
-        if (selectMode && !isFolderLocked)
+        if (selectMode && selectable)
           PositionedDirectional(
             top: 6,
             end: 6,
@@ -1280,6 +1583,7 @@ class _SheetHeader extends StatelessWidget {
 
 class _SheetAction extends StatelessWidget {
   const _SheetAction({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -1689,149 +1993,6 @@ class _WaveformState extends State<_Waveform>
           ],
         ),
       ),
-    );
-  }
-}
-
-// ============================================================= add-at-slot
-/// Targeted add: drop a new custom button into the specific [slot] the parent
-/// tapped (the visual-placement flow, ADR 0014). Mirrors the custom-buttons add
-/// dialog but with a fixed board + slot.
-class _AddAtSlotDialog extends ConsumerStatefulWidget {
-  const _AddAtSlotDialog({required this.boardId, required this.slot});
-
-  final String boardId;
-  final Position slot;
-
-  @override
-  ConsumerState<_AddAtSlotDialog> createState() => _AddAtSlotDialogState();
-}
-
-class _AddAtSlotDialogState extends ConsumerState<_AddAtSlotDialog> {
-  final _wordController = TextEditingController();
-  final _voiceController = VoiceRecorderController();
-  File? _image;
-  File? _voiceClip;
-  bool _saving = false;
-
-  @override
-  void dispose() {
-    _wordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _pickImage() async {
-    final l10n = AppLocalizations.of(context);
-    final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
-    final path = picked?.path;
-    if (path == null) return;
-    final file = File(path);
-    final dot = path.lastIndexOf('.');
-    final ext = dot < 0 ? '' : path.substring(dot).toLowerCase();
-    final tooBig = await file.length() > CustomButtonStore.maxImageBytes;
-    if (!mounted) return;
-    if (tooBig || !CustomButtonStore.allowedImageExtensions.contains(ext)) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(l10n.imageRejected)));
-      return;
-    }
-    setState(() => _image = file);
-  }
-
-  Future<void> _save() async {
-    final l10n = AppLocalizations.of(context);
-    final word = _wordController.text.trim();
-    if (word.isEmpty) return;
-    setState(() => _saving = true);
-    try {
-      final id = await ref.read(customButtonsProvider.notifier).addButton(
-            boardId: widget.boardId,
-            row: widget.slot.row,
-            col: widget.slot.col,
-            label: word,
-            imageSource: _image,
-          );
-      // Attach the optional recorded voice to the brand-new button (ADR 0019).
-      // Finalize first so a recording the parent never tapped Stop on is still
-      // captured, instead of being silently dropped.
-      final clip = await _voiceController.finalize() ?? _voiceClip;
-      if (clip != null) {
-        await ref.read(customVoiceProvider.notifier).save(id, clip);
-      }
-    } on CustomButtonImageException {
-      if (!mounted) return;
-      setState(() => _saving = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(l10n.imageRejected)));
-      return;
-    } on CustomButtonStoreReadException {
-      // The store file is whole-file corrupt and refused to overwrite (item 7),
-      // so the parent's existing buttons are preserved. Stop the spinner; the
-      // new button just isn't added this time. Rare; surfaced via the crash log
-      // rather than a bespoke unvalidated-locale toast.
-      if (mounted) setState(() => _saving = false);
-      return;
-    }
-    if (mounted) Navigator.of(context).pop();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final canSave = !_saving && _wordController.text.trim().isNotEmpty;
-    return AlertDialog(
-      title: Text(l10n.editActionAddHere),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _wordController,
-              decoration:
-                  InputDecoration(labelText: l10n.customButtonsWordLabel),
-              onChanged: (_) => setState(() {}),
-              textInputAction: TextInputAction.done,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                if (_image != null) ...[
-                  SizedBox(
-                    width: 48,
-                    height: 48,
-                    child: Image.file(_image!, fit: BoxFit.cover),
-                  ),
-                  const SizedBox(width: 12),
-                ],
-                OutlinedButton.icon(
-                  onPressed: _pickImage,
-                  icon: const Icon(Icons.image_outlined),
-                  label: Text(l10n.customButtonsChoosePhoto),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            // Optional: record your own voice for this tile at creation time
-            // (clinical review). Saved against the new button's id after Save.
-            VoiceRecorderField(
-              idHint: widget.boardId,
-              controller: _voiceController,
-              onChanged: (f) => _voiceClip = f,
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: _saving ? null : () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
-        ),
-        FilledButton(
-          onPressed: canSave ? _save : null,
-          child: Text(l10n.customButtonsSave),
-        ),
-      ],
     );
   }
 }

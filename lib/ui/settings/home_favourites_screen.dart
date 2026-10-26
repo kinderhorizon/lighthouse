@@ -89,8 +89,8 @@ class HomeFavouritesScreen extends ConsumerWidget {
                           _PinnedChip(
                             label: p.button.labelFor(lang),
                             iconUri: p.button.iconUri,
-                            color: resolveCategoryColor(
-                              p.button.category,
+                            color: resolveButtonColor(
+                              p.button,
                               p.board.colorKey,
                               fallback: LhColors.cream2,
                             ),

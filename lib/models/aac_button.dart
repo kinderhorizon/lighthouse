@@ -10,6 +10,8 @@
 /// Use [labelFor] / [voiceOutFor] to resolve with fallback to the default.
 library;
 
+import 'tile_color.dart';
+
 enum AACButtonType {
   word,
   phrase,
@@ -63,6 +65,7 @@ class AACButton {
     this.voiceOut,
     this.voiceOutByLocale = const {},
     this.linkId,
+    this.tileColor,
   });
 
   final String id;
@@ -82,6 +85,11 @@ class AACButton {
 
   /// Target board id for [AACButtonType.folder]. Null otherwise.
   final String? linkId;
+
+  /// The fill a parent chose for a button they made (ADR 0022).
+  /// Overrides the category colour for display only; [category] is unchanged.
+  /// Null = colour by category.
+  final TileColor? tileColor;
 
   /// Returns the localized label for [languageCode], or [label] as fallback.
   String labelFor(String languageCode) =>
@@ -108,6 +116,7 @@ class AACButton {
         voiceOut: voiceOut,
         voiceOutByLocale: voiceOutByLocale,
         linkId: linkId,
+        tileColor: tileColor,
       );
 
   /// Returns a copy at [position], everything else unchanged. Used by the
@@ -125,12 +134,13 @@ class AACButton {
         voiceOut: voiceOut,
         voiceOutByLocale: voiceOutByLocale,
         linkId: linkId,
+        tileColor: tileColor,
       );
 
   /// Exact inverse of [fromJson] (ADR 0015): re-parsing the output yields an
   /// equal button. Localized maps are flattened back to `label_<code>` /
-  /// `voice_out_<code>` keys; `voice_out` and `link_id` are omitted when null
-  /// so they parse back to null rather than the empty string.
+  /// `voice_out_<code>` keys; `voice_out`, `link_id` and `tile_color` are
+  /// omitted when null so they parse back to null rather than the empty string.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{
       'id': id,
@@ -143,6 +153,7 @@ class AACButton {
     };
     if (voiceOut != null) json['voice_out'] = voiceOut;
     if (linkId != null) json['link_id'] = linkId;
+    if (tileColor != null) json['tile_color'] = tileColor!.hex;
     labelByLocale.forEach((code, value) => json['label_$code'] = value);
     voiceOutByLocale.forEach((code, value) => json['voice_out_$code'] = value);
     return json;
@@ -235,6 +246,9 @@ class AACButton {
       voiceOut: voiceOut,
       voiceOutByLocale: Map.unmodifiable(voiceOutByLocale),
       linkId: linkId,
+      // Only one of the six palette fills is kept; anything else (an unknown or
+      // crafted value in a shared pack) just colours the tile by category.
+      tileColor: TileColor.fromHex(json['tile_color']),
     );
   }
 

@@ -217,15 +217,7 @@ class CustomButtonStore {
       !name.contains('\u0000');
 
   static CustomButton _copyWithImage(CustomButton b, String imagePath) =>
-      CustomButton(
-        id: b.id,
-        boardId: b.boardId,
-        row: b.row,
-        col: b.col,
-        label: b.label,
-        voiceOut: b.voiceOut,
-        imagePath: imagePath,
-      );
+      b.withImagePath(imagePath);
 
   /// Adds (or replaces, by stable [CustomButton.id]) [button] and returns the
   /// updated list with absolute image paths.
@@ -236,6 +228,21 @@ class CustomButtonStore {
       for (final b in raw.buttons)
         if (b.id != button.id) b,
       button,
+    ];
+    await _write(next, raw.counters);
+    return load();
+  }
+
+  /// Replaces the stored button that has [button]'s id, IN PLACE (list order is
+  /// kept, so a rare slot collision in [applyCustomButtons] still resolves the
+  /// same way), and returns the updated list with absolute image paths. A no-op
+  /// when no button has that id. Used to edit a button (ADR 0022).
+  Future<List<CustomButton>> update(CustomButton button) async {
+    final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
+    if (!raw.buttons.any((b) => b.id == button.id)) return load();
+    final next = [
+      for (final b in raw.buttons) b.id == button.id ? button : b,
     ];
     await _write(next, raw.counters);
     return load();
@@ -259,6 +266,56 @@ class CustomButtonStore {
     final next = raw.buttons.where((b) => b.id != id).toList();
     await _write(next, raw.counters);
     return load();
+  }
+
+  /// Removes every button whose id is in [ids] (deleting their images) in ONE
+  /// write, and returns the updated list. Used to delete a category together
+  /// with everything on its page (ADR 0022), so a failure part-way can never
+  /// leave half a category behind. Counters are kept (ids are never reused).
+  Future<List<CustomButton>> removeMany(Set<String> ids) async {
+    if (ids.isEmpty) return load();
+    final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
+    final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
+    for (final b in raw.buttons.where((b) => ids.contains(b.id))) {
+      await _deleteImageQuietly(_withAbsoluteImage(b, imagesDirPath));
+    }
+    final next = raw.buttons.where((b) => !ids.contains(b.id)).toList();
+    await _write(next, raw.counters);
+    return load();
+  }
+
+  /// Counter key for parent-made category page ids. Not a board id: it cannot
+  /// collide with one, because board ids never start with an underscore.
+  static const String categoryCounterKey = '_categories';
+
+  /// Reserves and returns the id for a new parent-made category page
+  /// (`cat_<n>`, ADR 0022), persisting the high-water mark at once so an id is
+  /// never reused, even after the category is deleted. A reused id would hand
+  /// a new category the old one's hidden, arranged and picture settings.
+  Future<String> allocateCategoryBoardId() async {
+    final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
+    final n = raw.counters[categoryCounterKey] ?? 0;
+    await _write(raw.buttons, {...raw.counters, categoryCounterKey: n + 1});
+    return 'cat_$n';
+  }
+
+  /// Deletes a picked image this store copied in earlier (best-effort), e.g.
+  /// the old photo after an edit picked a new one. Only a file directly inside
+  /// the store's images directory is ever touched.
+  Future<void> deleteImage(String absolutePath) async {
+    if (absolutePath.isEmpty) return;
+    final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
+    final slash = absolutePath.lastIndexOf('/');
+    if (slash < 0) return;
+    final dir = absolutePath.substring(0, slash);
+    final name = absolutePath.substring(slash + 1);
+    if (dir != imagesDirPath || !isSafeStoredName(name)) return;
+    try {
+      final f = File(absolutePath);
+      if (f.existsSync()) await f.delete();
+    } catch (_) {/* best-effort */}
   }
 
   /// Removes EVERY custom button on [boardId] (deleting their images) and

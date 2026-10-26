@@ -48,7 +48,9 @@ class AACButtonTile extends StatefulWidget {
   /// tile defensively by always showing the label when the pictogram is gone.
   final bool hideIcon;
 
-  static const _fallbackColor = Color(0xFFE0E0E0);
+  /// The grey a tile shows when nothing gives it a colour (an unknown category,
+  /// or a parent-made button with no colour chosen).
+  static const fallbackColor = Color(0xFFE0E0E0);
 
   @override
   State<AACButtonTile> createState() => _AACButtonTileState();
@@ -62,10 +64,10 @@ class _AACButtonTileState extends State<AACButtonTile> {
     final button = widget.button;
     final languageCode = Localizations.localeOf(context).languageCode;
     final label = button.labelFor(languageCode);
-    final fill = resolveCategoryColor(
-      button.category,
+    final fill = resolveButtonColor(
+      button,
       widget.colorKey,
-      fallback: AACButtonTile._fallbackColor,
+      fallback: AACButtonTile.fallbackColor,
     );
     final edge = categoryEdgeColor(fill);
 

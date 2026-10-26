@@ -1062,4 +1062,163 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get recordVoiceClear => 'Quitar grabación';
+
+  @override
+  String get tileColorLabel => 'Color';
+
+  @override
+  String get tileColorGrey => 'Gris: sin grupo de color';
+
+  @override
+  String get tileColorYellow => 'Amarillo: personas y pronombres';
+
+  @override
+  String get tileColorGreen => 'Verde: palabras de acción';
+
+  @override
+  String get tileColorOrange => 'Naranja: cosas, comida y lugares';
+
+  @override
+  String get tileColorBlue => 'Azul: sentimientos y sí o no';
+
+  @override
+  String get tileColorPink => 'Rosa: palabras sociales y necesidades urgentes';
+
+  @override
+  String get tileColorPurple => 'Morado: preguntas y tiempo';
+
+  @override
+  String get addKindButton => 'Botón';
+
+  @override
+  String get addKindCategory => 'Categoría';
+
+  @override
+  String get addKindCategoryHint =>
+      'Una carpeta que abre su propia página, como Comida o Personas. Después le añades botones.';
+
+  @override
+  String get categoryNameLabel => 'Nombre de la categoría';
+
+  @override
+  String get addDialogTitle => 'Añadir a esta página';
+
+  @override
+  String replaceDialogTitle(String word) {
+    return 'En lugar de \"$word\"';
+  }
+
+  @override
+  String replaceDialogNote(String word) {
+    return '\"$word\" se aparta, no se borra. Borra tu botón nuevo para recuperarla.';
+  }
+
+  @override
+  String get editButtonTitle => 'Editar botón';
+
+  @override
+  String get editCategoryTitle => 'Editar categoría';
+
+  @override
+  String get customTileChangePhoto => 'Cambiar foto';
+
+  @override
+  String get customTileRemovePhoto => 'Quitar foto';
+
+  @override
+  String get customTileSaveFailed => 'No se pudo guardar. Inténtalo de nuevo.';
+
+  @override
+  String get editAdd => 'Añadir';
+
+  @override
+  String get editPlaceTitle => '¿Dónde lo pongo?';
+
+  @override
+  String get editPlaceHint =>
+      'Toca un espacio vacío, o toca una palabra para poner tu botón nuevo en su lugar.';
+
+  @override
+  String get editPlaceHintFull =>
+      'Esta página está llena. Toca una palabra para poner tu botón nuevo en su lugar. La palabra se guarda y vuelve si borras tu botón.';
+
+  @override
+  String get editActionEdit => 'Editar';
+
+  @override
+  String get editActionEditSub => 'Palabra, imagen y color';
+
+  @override
+  String get editActionEditCategorySub => 'Nombre, imagen y color';
+
+  @override
+  String get editActionOpenCategory => 'Abrir';
+
+  @override
+  String get editActionOpenCategorySub => 'Añade y ordena sus botones';
+
+  @override
+  String get editActionReplaceWithOwn => 'Poner tu propio botón aquí';
+
+  @override
+  String get editActionReplaceWithOwnSub =>
+      'Esta palabra se guarda y vuelve si borras el tuyo';
+
+  @override
+  String get editActionDeleteCategory => 'Eliminar categoría';
+
+  @override
+  String deleteCategoryConfirm(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '¿Eliminar \"$name\"? También se eliminarán su página y los $count botones que contiene.',
+      one:
+          '¿Eliminar \"$name\"? También se eliminarán su página y el botón que contiene.',
+      zero: '¿Eliminar \"$name\" y su página?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteConfirm => 'Eliminar';
+
+  @override
+  String get editToastDeleted => 'Eliminado';
+
+  @override
+  String editToastWordBack(String word) {
+    return '\"$word\" ha vuelto';
+  }
+
+  @override
+  String get editToastSaved => 'Guardado';
+
+  @override
+  String get editStartBlank => 'Empezar esta página en blanco';
+
+  @override
+  String get editStartBlankConfirm =>
+      '¿Ocultar todas las palabras de esta página? Las carpetas se quedan. Para añadir tus propias palabras, toca Añadir. Para recuperar palabras, toca Seleccionar, luego Todas y luego Mostrar.';
+
+  @override
+  String get editStartBlankButton => 'Ocultar todas';
+
+  @override
+  String get editToastStartBlank => 'Todas las palabras ocultas';
+
+  @override
+  String customButtonsInPlaceOf(String board, String word) {
+    return '$board, en lugar de \"$word\"';
+  }
+
+  @override
+  String customButtonsCategoryOn(String board) {
+    return 'Categoría en $board';
+  }
+
+  @override
+  String get customTileVoiceFailed =>
+      'El botón se añadió, pero no se pudo guardar la grabación. Toca el botón para grabarla de nuevo.';
 }

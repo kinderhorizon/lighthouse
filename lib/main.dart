@@ -648,7 +648,12 @@ class _BoardView extends ConsumerWidget {
     if (linkId == null) return;
 
     final registry = await ref.read(boardRegistryProvider.future);
-    final loaded = await registry.tryLoad(linkId);
+    // A parent-made category (ADR 0022) opens its generated page.
+    final loaded = await loadBoardOrCategory(
+      registry,
+      linkId,
+      ref.read(customButtonsProvider).valueOrNull ?? const [],
+    );
     if (!context.mounted) return;
 
     if (loaded == null) {

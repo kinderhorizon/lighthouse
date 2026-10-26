@@ -159,6 +159,7 @@ class BoardPackImporter {
             voiceOut: b.voiceOut,
             voiceOutByLocale: b.voiceOutByLocale,
             linkId: b.linkId == null ? null : '$prefix${b.linkId}',
+            tileColor: b.tileColor,
           ),
       ],
     );

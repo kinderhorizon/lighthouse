@@ -101,9 +101,10 @@ class _FavTile extends StatelessWidget {
     final showText = !hideText || !showIcon;
     // Color by category, mirroring the grid (clinical review: white tiles lost the
     // color coding the rest of the board relies on). A folder favourite keeps
-    // its *_nav category color; an unknown category falls back to grey.
-    final tileColor = resolveCategoryColor(
-      button.category,
+    // its *_nav category color; an unknown category falls back to grey. A
+    // parent-chosen colour on a custom button wins (ADR 0022).
+    final tileColor = resolveButtonColor(
+      button,
       colorKey,
       fallback: FavouritesStrip._fallbackColor,
     );

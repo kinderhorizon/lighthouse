@@ -112,5 +112,6 @@ class BoardPackExporter {
         voiceOut: b.voiceOut,
         voiceOutByLocale: b.voiceOutByLocale,
         linkId: b.linkId,
+        tileColor: b.tileColor,
       );
 }

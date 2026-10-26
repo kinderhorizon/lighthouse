@@ -15,6 +15,7 @@ library;
 
 import 'aac_board.dart';
 import 'aac_button.dart';
+import 'custom_button.dart';
 
 class BoardLayout {
   const BoardLayout(this._byBoard);
@@ -132,7 +133,9 @@ AACBoard applyLayout(AACBoard board, BoardLayout layout) {
   final cols = board.gridDimensions.cols;
   int idx(Position p) => p.row * cols + p.col;
 
-  bool isFolder(AACButton b) => b.type == AACButtonType.folder;
+  // Built-in folders only: a parent-made category folder moves like a word
+  // (ADR 0022).
+  bool isFolder(AACButton b) => isBuiltInFolder(b);
 
   // Phase 1: desired position per live button (override if it still resolves,
   // else the button's bundled/creation slot). Folders (subcategories) are fixed

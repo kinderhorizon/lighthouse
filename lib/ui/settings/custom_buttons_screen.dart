@@ -1,8 +1,11 @@
-/// Parent custom-button editor (ADR 0012).
+/// Parent custom-button editor (ADR 0012, ADR 0022).
 ///
-/// Lists the parent-authored buttons (with delete) and offers an add flow:
-/// pick a board, optionally pick a photo, type the word. The new button is
-/// placed in the board's first empty slot. Reached only through the math gate.
+/// Lists the parent-authored buttons and categories (with delete) and offers
+/// an add flow: pick a board, optionally pick a photo, type the word, choose a
+/// colour. The new button is placed in the board's first empty slot. (Choosing
+/// the exact square, adding a category, or adding to a full page happens in the
+/// board editor, where the parent can see the page.) Reached only through the
+/// math gate.
 library;
 
 import 'dart:io';
@@ -18,6 +21,7 @@ import '../../state/state.dart';
 import '../theme/lighthouse_theme.dart';
 import '../tour/first_use_tip.dart';
 import '../widgets/lh_widgets.dart';
+import '../widgets/tile_color_picker.dart';
 import '../widgets/voice_recorder_field.dart';
 
 class CustomButtonsScreen extends ConsumerWidget {
@@ -76,9 +80,18 @@ class CustomButtonsScreen extends ConsumerWidget {
                       _CustomButtonRow(
                         button: b,
                         boardName: nameById[b.boardId] ?? b.boardId,
-                        onDelete: () => ref
-                            .read(customButtonsProvider.notifier)
-                            .remove(b.id),
+                        // "in place of" subtitle (ADR 0022): the replaced word
+                        // is set aside, so read it from the registry board.
+                        replacedLabel: b.replacesId == null
+                            ? null
+                            : ref
+                                .watch(builtInButtonProvider((
+                                  boardId: b.boardId,
+                                  buttonId: b.replacesId!,
+                                )))
+                                .valueOrNull
+                                ?.labelFor(lang),
+                        onDelete: () => _delete(context, ref, b),
                       ),
                   ],
                 ),
@@ -92,28 +105,86 @@ class CustomButtonsScreen extends ConsumerWidget {
         context: context,
         builder: (_) => const _AddCustomButtonDialog(),
       );
+
+  /// Deletes [b]. A category asks first: its page and everything on it go too
+  /// (ADR 0022).
+  Future<void> _delete(
+      BuildContext context, WidgetRef ref, CustomButton b) async {
+    final l10n = AppLocalizations.of(context);
+    final notifier = ref.read(customButtonsProvider.notifier);
+    if (b.isCategory) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          content: Text(
+              l10n.deleteCategoryConfirm(b.label, notifier.buttonsInside(b.id))),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              key: const ValueKey('custom_delete_confirm'),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text(l10n.deleteConfirm),
+            ),
+          ],
+        ),
+      );
+      if (ok != true) return;
+    }
+    try {
+      await notifier.remove(b.id);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(l10n.customTileSaveFailed)));
+    }
+  }
 }
 
 class _CustomButtonRow extends StatelessWidget {
   const _CustomButtonRow({
     required this.button,
     required this.boardName,
+    required this.replacedLabel,
     required this.onDelete,
   });
 
   final CustomButton button;
   final String boardName;
+
+  /// The built-in word this button takes the place of, if any (ADR 0022).
+  final String? replacedLabel;
   final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final fill = tileColorFill(button.tileColor);
+    final String subtitle;
+    if (button.isCategory) {
+      subtitle = l10n.customButtonsCategoryOn(boardName);
+    } else if (replacedLabel != null) {
+      subtitle = l10n.customButtonsInPlaceOf(boardName, replacedLabel!);
+    } else {
+      subtitle = boardName;
+    }
     return ListTile(
-      leading: SizedBox(
+      // The tile's own colour behind its photo or icon, so the list matches
+      // the board.
+      leading: Container(
         width: 44,
         height: 44,
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        clipBehavior: Clip.antiAlias,
         child: button.imagePath.isEmpty
-            ? const Icon(Icons.label_outline)
+            ? Icon(button.isCategory
+                ? Icons.folder_outlined
+                : Icons.label_outline)
             : Image.file(
                 File(button.imagePath),
                 fit: BoxFit.cover,
@@ -121,7 +192,7 @@ class _CustomButtonRow extends StatelessWidget {
               ),
       ),
       title: Text(button.label),
-      subtitle: Text(boardName),
+      subtitle: Text(subtitle),
       trailing: IconButton(
         icon: const Icon(Icons.delete_outline),
         tooltip: l10n.customButtonsDelete,
@@ -147,6 +218,11 @@ class _AddCustomButtonDialogState
   File? _image;
   File? _voiceClip;
   bool _saving = false;
+
+  /// Chosen colour (ADR 0022). Follows the chosen board's own colour until the
+  /// parent picks one themselves.
+  TileColor? _color;
+  bool _colorChosen = false;
 
   @override
   void dispose() {
@@ -195,6 +271,7 @@ class _AddCustomButtonDialogState
             col: slot.first.col,
             label: word,
             imageSource: _image,
+            tileColor: _color,
           );
       // Attach the optional recorded voice to the brand-new button (ADR 0019).
       // Finalize first so a recording the parent never tapped Stop on is still
@@ -210,11 +287,13 @@ class _AddCustomButtonDialogState
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l10n.imageRejected)));
       return;
-    } on CustomButtonStoreReadException {
-      // Whole-file-corrupt store refused to overwrite (item 7); the parent's
-      // existing buttons are preserved. Stop the spinner and bail; rare path,
-      // no bespoke unvalidated-locale toast.
-      if (mounted) setState(() => _saving = false);
+    } catch (_) {
+      // Includes a whole-file-corrupt store refusing to overwrite (item 7): the
+      // parent's existing buttons are preserved. Never leave the spinner stuck.
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(l10n.customTileSaveFailed)));
       return;
     }
     if (mounted) Navigator.of(context).pop();
@@ -225,9 +304,13 @@ class _AddCustomButtonDialogState
     final l10n = AppLocalizations.of(context);
     final lang = Localizations.localeOf(context).languageCode;
     final boards = ref.watch(editableBoardsProvider).valueOrNull ?? const [];
-    // Only boards with a free slot can host a new button.
-    final placeable =
-        boards.where((b) => b.emptySlots(limit: 1).isNotEmpty).toList();
+    // Only boards with a free slot can host a new button. The chosen board
+    // stays listed even once full: saving into its LAST free slot rebuilds this
+    // dialog before it closes, and the dropdown must still hold its value.
+    final placeable = boards
+        .where((b) =>
+            b.emptySlots(limit: 1).isNotEmpty || b.boardId == _boardId)
+        .toList();
 
     final selected = _boardId == null
         ? null
@@ -258,7 +341,17 @@ class _AddCustomButtonDialogState
                     ),
                   ),
               ],
-              onChanged: (v) => setState(() => _boardId = v),
+              onChanged: (v) => setState(() {
+                _boardId = v;
+                if (!_colorChosen) {
+                  final board = boards.where((b) => b.boardId == v).firstOrNull;
+                  final customs =
+                      ref.read(customButtonsProvider).valueOrNull ?? const [];
+                  _color = board == null
+                      ? null
+                      : defaultTileColorFor(board, customs);
+                }
+              }),
             ),
             const SizedBox(height: 12),
             TextField(
@@ -284,6 +377,14 @@ class _AddCustomButtonDialogState
                   label: Text(l10n.customButtonsChoosePhoto),
                 ),
               ],
+            ),
+            const SizedBox(height: 16),
+            TileColorPicker(
+              value: _color,
+              onChanged: (c) => setState(() {
+                _color = c;
+                _colorChosen = true;
+              }),
             ),
             const SizedBox(height: 12),
             // Optional: record your own voice for this tile at creation time

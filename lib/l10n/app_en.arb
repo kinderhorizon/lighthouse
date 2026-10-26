@@ -596,5 +596,97 @@
   "recordVoiceOptional": "Record your own voice (optional)",
   "recordVoiceStop": "Stop",
   "recordVoiceRecorded": "Voice recorded",
-  "recordVoiceClear": "Remove recording"
+  "recordVoiceClear": "Remove recording",
+  "tileColorLabel": "Colour",
+  "tileColorGrey": "Grey: no colour group",
+  "tileColorYellow": "Yellow: people and pronouns",
+  "tileColorGreen": "Green: action words",
+  "tileColorOrange": "Orange: things, food, and places",
+  "tileColorBlue": "Blue: feelings and yes or no",
+  "tileColorPink": "Pink: social words and urgent needs",
+  "tileColorPurple": "Purple: questions and time",
+  "addKindButton": "Button",
+  "addKindCategory": "Category",
+  "addKindCategoryHint": "A folder that opens its own page, like Food or People. Add buttons to it after.",
+  "categoryNameLabel": "Category name",
+  "addDialogTitle": "Add to this page",
+  "replaceDialogTitle": "In place of \"{word}\"",
+  "@replaceDialogTitle": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "replaceDialogNote": "\"{word}\" is set aside, not deleted. Delete your new button to bring it back.",
+  "@replaceDialogNote": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editButtonTitle": "Edit button",
+  "editCategoryTitle": "Edit category",
+  "customTileChangePhoto": "Change photo",
+  "customTileRemovePhoto": "Remove photo",
+  "customTileSaveFailed": "Could not save. Please try again.",
+  "editAdd": "Add",
+  "editPlaceTitle": "Where should it go?",
+  "editPlaceHint": "Tap an empty square, or tap a word to put your new button in its place.",
+  "editPlaceHintFull": "This page is full. Tap a word to put your new button in its place. The word is kept, and comes back if you delete your button.",
+  "editActionEdit": "Edit",
+  "editActionEditSub": "Word, picture, and colour",
+  "editActionEditCategorySub": "Name, picture, and colour",
+  "editActionOpenCategory": "Open",
+  "editActionOpenCategorySub": "Add and arrange its buttons",
+  "editActionReplaceWithOwn": "Put your own button here",
+  "editActionReplaceWithOwnSub": "This word is kept, and comes back if you delete yours",
+  "editActionDeleteCategory": "Delete category",
+  "deleteCategoryConfirm": "{count, plural, =0{Delete \"{name}\" and its page?} =1{Delete \"{name}\"? Its page and the 1 button on it will be deleted too.} other{Delete \"{name}\"? Its page and the {count} buttons on it will be deleted too.}}",
+  "@deleteCategoryConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteConfirm": "Delete",
+  "editToastDeleted": "Deleted",
+  "editToastWordBack": "\"{word}\" is back",
+  "@editToastWordBack": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "editToastSaved": "Saved",
+  "editStartBlank": "Start this page blank",
+  "editStartBlankConfirm": "Hide every word on this page? Folders stay. To add your own words, tap Add. To bring words back, tap Select, then All, then Show.",
+  "editStartBlankButton": "Hide all words",
+  "editToastStartBlank": "All words hidden",
+  "customButtonsInPlaceOf": "{board}, in place of \"{word}\"",
+  "@customButtonsInPlaceOf": {
+    "placeholders": {
+      "board": {
+        "type": "String"
+      },
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "customButtonsCategoryOn": "Category on {board}",
+  "@customButtonsCategoryOn": {
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "customTileVoiceFailed": "The button was added, but the recording could not be saved. Tap the button to record it again."
 }

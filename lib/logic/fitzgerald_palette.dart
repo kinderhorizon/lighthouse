@@ -11,6 +11,8 @@ library;
 
 import 'package:flutter/painting.dart';
 
+import '../models/models.dart';
+
 /// Parses a #RRGGBB hex string into a [Color].
 ///
 /// Returns null for malformed input. The caller decides on a fallback (e.g.,
@@ -40,6 +42,21 @@ Color resolveCategoryColor(
   final hex = colorKey[category];
   if (hex == null) return fallback;
   return parseHexColor(hex) ?? fallback;
+}
+
+/// The fill for [button]: the colour a parent chose for a button they made
+/// (ADR 0022) when set, otherwise its category colour from
+/// [colorKey] (see [resolveCategoryColor]). Every tile surface (board grid,
+/// editor, favourites) resolves through here so a chosen colour shows the same
+/// everywhere.
+Color resolveButtonColor(
+  AACButton button,
+  Map<String, String> colorKey, {
+  required Color fallback,
+}) {
+  final chosen = button.tileColor;
+  if (chosen != null) return parseHexColor(chosen.hex) ?? fallback;
+  return resolveCategoryColor(button.category, colorKey, fallback: fallback);
 }
 
 /// The six redesign Fitzgerald fills mapped to their slightly darker "edge"

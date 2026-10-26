@@ -8,3 +8,4 @@ export 'aac_button.dart';
 export 'board_layout.dart';
 export 'custom_button.dart';
 export 'hidden_tiles.dart';
+export 'tile_color.dart';

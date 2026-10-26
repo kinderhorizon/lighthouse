@@ -1971,6 +1971,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove recording'**
   String get recordVoiceClear;
+
+  /// No description provided for @tileColorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour'**
+  String get tileColorLabel;
+
+  /// No description provided for @tileColorGrey.
+  ///
+  /// In en, this message translates to:
+  /// **'Grey: no colour group'**
+  String get tileColorGrey;
+
+  /// No description provided for @tileColorYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow: people and pronouns'**
+  String get tileColorYellow;
+
+  /// No description provided for @tileColorGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Green: action words'**
+  String get tileColorGreen;
+
+  /// No description provided for @tileColorOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange: things, food, and places'**
+  String get tileColorOrange;
+
+  /// No description provided for @tileColorBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue: feelings and yes or no'**
+  String get tileColorBlue;
+
+  /// No description provided for @tileColorPink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink: social words and urgent needs'**
+  String get tileColorPink;
+
+  /// No description provided for @tileColorPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple: questions and time'**
+  String get tileColorPurple;
+
+  /// No description provided for @addKindButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Button'**
+  String get addKindButton;
+
+  /// No description provided for @addKindCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get addKindCategory;
+
+  /// No description provided for @addKindCategoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A folder that opens its own page, like Food or People. Add buttons to it after.'**
+  String get addKindCategoryHint;
+
+  /// No description provided for @categoryNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category name'**
+  String get categoryNameLabel;
+
+  /// No description provided for @addDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to this page'**
+  String get addDialogTitle;
+
+  /// No description provided for @replaceDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'In place of \"{word}\"'**
+  String replaceDialogTitle(String word);
+
+  /// No description provided for @replaceDialogNote.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{word}\" is set aside, not deleted. Delete your new button to bring it back.'**
+  String replaceDialogNote(String word);
+
+  /// No description provided for @editButtonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit button'**
+  String get editButtonTitle;
+
+  /// No description provided for @editCategoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit category'**
+  String get editCategoryTitle;
+
+  /// No description provided for @customTileChangePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo'**
+  String get customTileChangePhoto;
+
+  /// No description provided for @customTileRemovePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get customTileRemovePhoto;
+
+  /// No description provided for @customTileSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save. Please try again.'**
+  String get customTileSaveFailed;
+
+  /// No description provided for @editAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get editAdd;
+
+  /// No description provided for @editPlaceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where should it go?'**
+  String get editPlaceTitle;
+
+  /// No description provided for @editPlaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an empty square, or tap a word to put your new button in its place.'**
+  String get editPlaceHint;
+
+  /// No description provided for @editPlaceHintFull.
+  ///
+  /// In en, this message translates to:
+  /// **'This page is full. Tap a word to put your new button in its place. The word is kept, and comes back if you delete your button.'**
+  String get editPlaceHintFull;
+
+  /// No description provided for @editActionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get editActionEdit;
+
+  /// No description provided for @editActionEditSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Word, picture, and colour'**
+  String get editActionEditSub;
+
+  /// No description provided for @editActionEditCategorySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, picture, and colour'**
+  String get editActionEditCategorySub;
+
+  /// No description provided for @editActionOpenCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get editActionOpenCategory;
+
+  /// No description provided for @editActionOpenCategorySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Add and arrange its buttons'**
+  String get editActionOpenCategorySub;
+
+  /// No description provided for @editActionReplaceWithOwn.
+  ///
+  /// In en, this message translates to:
+  /// **'Put your own button here'**
+  String get editActionReplaceWithOwn;
+
+  /// No description provided for @editActionReplaceWithOwnSub.
+  ///
+  /// In en, this message translates to:
+  /// **'This word is kept, and comes back if you delete yours'**
+  String get editActionReplaceWithOwnSub;
+
+  /// No description provided for @editActionDeleteCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete category'**
+  String get editActionDeleteCategory;
+
+  /// No description provided for @deleteCategoryConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Delete \"{name}\" and its page?} =1{Delete \"{name}\"? Its page and the 1 button on it will be deleted too.} other{Delete \"{name}\"? Its page and the {count} buttons on it will be deleted too.}}'**
+  String deleteCategoryConfirm(String name, int count);
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteConfirm;
+
+  /// No description provided for @editToastDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted'**
+  String get editToastDeleted;
+
+  /// No description provided for @editToastWordBack.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{word}\" is back'**
+  String editToastWordBack(String word);
+
+  /// No description provided for @editToastSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get editToastSaved;
+
+  /// No description provided for @editStartBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Start this page blank'**
+  String get editStartBlank;
+
+  /// No description provided for @editStartBlankConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide every word on this page? Folders stay. To add your own words, tap Add. To bring words back, tap Select, then All, then Show.'**
+  String get editStartBlankConfirm;
+
+  /// No description provided for @editStartBlankButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide all words'**
+  String get editStartBlankButton;
+
+  /// No description provided for @editToastStartBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'All words hidden'**
+  String get editToastStartBlank;
+
+  /// No description provided for @customButtonsInPlaceOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{board}, in place of \"{word}\"'**
+  String customButtonsInPlaceOf(String board, String word);
+
+  /// No description provided for @customButtonsCategoryOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Category on {board}'**
+  String customButtonsCategoryOn(String board);
+
+  /// No description provided for @customTileVoiceFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The button was added, but the recording could not be saved. Tap the button to record it again.'**
+  String get customTileVoiceFailed;
 }
 
 class _AppLocalizationsDelegate

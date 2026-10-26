@@ -1044,4 +1044,164 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recordVoiceClear => 'إزالة التسجيل';
+
+  @override
+  String get tileColorLabel => 'اللون';
+
+  @override
+  String get tileColorGrey => 'رمادي: بلا مجموعة لون';
+
+  @override
+  String get tileColorYellow => 'أصفر: الأشخاص والضمائر';
+
+  @override
+  String get tileColorGreen => 'أخضر: كلمات الأفعال';
+
+  @override
+  String get tileColorOrange => 'برتقالي: الأشياء والطعام والأماكن';
+
+  @override
+  String get tileColorBlue => 'أزرق: المشاعر ونعم أو لا';
+
+  @override
+  String get tileColorPink => 'وردي: الكلمات الاجتماعية والاحتياجات العاجلة';
+
+  @override
+  String get tileColorPurple => 'بنفسجي: الأسئلة والوقت';
+
+  @override
+  String get addKindButton => 'زر';
+
+  @override
+  String get addKindCategory => 'فئة';
+
+  @override
+  String get addKindCategoryHint =>
+      'مجلد يفتح صفحته الخاصة، مثل الطعام أو الأشخاص. أضف إليه الأزرار بعد ذلك.';
+
+  @override
+  String get categoryNameLabel => 'اسم الفئة';
+
+  @override
+  String get addDialogTitle => 'إضافة إلى هذه الصفحة';
+
+  @override
+  String replaceDialogTitle(String word) {
+    return 'بدلًا من \"$word\"';
+  }
+
+  @override
+  String replaceDialogNote(String word) {
+    return 'توضع \"$word\" جانبًا ولا تُحذف. احذف زرك الجديد لإعادتها.';
+  }
+
+  @override
+  String get editButtonTitle => 'تعديل الزر';
+
+  @override
+  String get editCategoryTitle => 'تعديل الفئة';
+
+  @override
+  String get customTileChangePhoto => 'تغيير الصورة';
+
+  @override
+  String get customTileRemovePhoto => 'إزالة الصورة';
+
+  @override
+  String get customTileSaveFailed => 'تعذّر الحفظ. حاول مرة أخرى.';
+
+  @override
+  String get editAdd => 'إضافة';
+
+  @override
+  String get editPlaceTitle => 'أين تريد وضعه؟';
+
+  @override
+  String get editPlaceHint =>
+      'اضغط على مربع فارغ، أو اضغط على كلمة لتضع زرك الجديد مكانها.';
+
+  @override
+  String get editPlaceHintFull =>
+      'هذه الصفحة ممتلئة. اضغط على كلمة لتضع زرك الجديد مكانها. تُحفظ الكلمة وتعود إذا حذفت زرك.';
+
+  @override
+  String get editActionEdit => 'تعديل';
+
+  @override
+  String get editActionEditSub => 'الكلمة والصورة واللون';
+
+  @override
+  String get editActionEditCategorySub => 'الاسم والصورة واللون';
+
+  @override
+  String get editActionOpenCategory => 'فتح';
+
+  @override
+  String get editActionOpenCategorySub => 'أضف أزرارها ورتّبها';
+
+  @override
+  String get editActionReplaceWithOwn => 'ضع زرك الخاص هنا';
+
+  @override
+  String get editActionReplaceWithOwnSub =>
+      'تُحفظ هذه الكلمة وتعود إذا حذفت زرك';
+
+  @override
+  String get editActionDeleteCategory => 'حذف الفئة';
+
+  @override
+  String deleteCategoryConfirm(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'حذف \"$name\"؟ ستُحذف أيضًا صفحتها و$count زر موجود فيها.',
+      many: 'حذف \"$name\"؟ ستُحذف أيضًا صفحتها و$count زرًا موجودًا فيها.',
+      few: 'حذف \"$name\"؟ ستُحذف أيضًا صفحتها و$count أزرار موجودة فيها.',
+      two: 'حذف \"$name\"؟ ستُحذف أيضًا صفحتها والزران الموجودان فيها.',
+      one: 'حذف \"$name\"؟ ستُحذف أيضًا صفحتها والزر الموجود فيها.',
+      zero: 'حذف \"$name\" وصفحتها؟',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteConfirm => 'حذف';
+
+  @override
+  String get editToastDeleted => 'تم الحذف';
+
+  @override
+  String editToastWordBack(String word) {
+    return 'عادت \"$word\"';
+  }
+
+  @override
+  String get editToastSaved => 'تم الحفظ';
+
+  @override
+  String get editStartBlank => 'ابدأ هذه الصفحة فارغة';
+
+  @override
+  String get editStartBlankConfirm =>
+      'إخفاء كل الكلمات في هذه الصفحة؟ تبقى المجلدات. لإضافة كلماتك الخاصة، اضغط إضافة. لإعادة الكلمات، اضغط تحديد ثم الكل ثم إظهار.';
+
+  @override
+  String get editStartBlankButton => 'إخفاء كل الكلمات';
+
+  @override
+  String get editToastStartBlank => 'تم إخفاء كل الكلمات';
+
+  @override
+  String customButtonsInPlaceOf(String board, String word) {
+    return '$board، بدلًا من \"$word\"';
+  }
+
+  @override
+  String customButtonsCategoryOn(String board) {
+    return 'فئة في $board';
+  }
+
+  @override
+  String get customTileVoiceFailed =>
+      'تمت إضافة الزر، لكن تعذّر حفظ التسجيل. اضغط على الزر لتسجيله مرة أخرى.';
 }

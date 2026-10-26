@@ -1049,4 +1049,163 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordVoiceClear => 'Remove recording';
+
+  @override
+  String get tileColorLabel => 'Colour';
+
+  @override
+  String get tileColorGrey => 'Grey: no colour group';
+
+  @override
+  String get tileColorYellow => 'Yellow: people and pronouns';
+
+  @override
+  String get tileColorGreen => 'Green: action words';
+
+  @override
+  String get tileColorOrange => 'Orange: things, food, and places';
+
+  @override
+  String get tileColorBlue => 'Blue: feelings and yes or no';
+
+  @override
+  String get tileColorPink => 'Pink: social words and urgent needs';
+
+  @override
+  String get tileColorPurple => 'Purple: questions and time';
+
+  @override
+  String get addKindButton => 'Button';
+
+  @override
+  String get addKindCategory => 'Category';
+
+  @override
+  String get addKindCategoryHint =>
+      'A folder that opens its own page, like Food or People. Add buttons to it after.';
+
+  @override
+  String get categoryNameLabel => 'Category name';
+
+  @override
+  String get addDialogTitle => 'Add to this page';
+
+  @override
+  String replaceDialogTitle(String word) {
+    return 'In place of \"$word\"';
+  }
+
+  @override
+  String replaceDialogNote(String word) {
+    return '\"$word\" is set aside, not deleted. Delete your new button to bring it back.';
+  }
+
+  @override
+  String get editButtonTitle => 'Edit button';
+
+  @override
+  String get editCategoryTitle => 'Edit category';
+
+  @override
+  String get customTileChangePhoto => 'Change photo';
+
+  @override
+  String get customTileRemovePhoto => 'Remove photo';
+
+  @override
+  String get customTileSaveFailed => 'Could not save. Please try again.';
+
+  @override
+  String get editAdd => 'Add';
+
+  @override
+  String get editPlaceTitle => 'Where should it go?';
+
+  @override
+  String get editPlaceHint =>
+      'Tap an empty square, or tap a word to put your new button in its place.';
+
+  @override
+  String get editPlaceHintFull =>
+      'This page is full. Tap a word to put your new button in its place. The word is kept, and comes back if you delete your button.';
+
+  @override
+  String get editActionEdit => 'Edit';
+
+  @override
+  String get editActionEditSub => 'Word, picture, and colour';
+
+  @override
+  String get editActionEditCategorySub => 'Name, picture, and colour';
+
+  @override
+  String get editActionOpenCategory => 'Open';
+
+  @override
+  String get editActionOpenCategorySub => 'Add and arrange its buttons';
+
+  @override
+  String get editActionReplaceWithOwn => 'Put your own button here';
+
+  @override
+  String get editActionReplaceWithOwnSub =>
+      'This word is kept, and comes back if you delete yours';
+
+  @override
+  String get editActionDeleteCategory => 'Delete category';
+
+  @override
+  String deleteCategoryConfirm(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Delete \"$name\"? Its page and the $count buttons on it will be deleted too.',
+      one:
+          'Delete \"$name\"? Its page and the 1 button on it will be deleted too.',
+      zero: 'Delete \"$name\" and its page?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteConfirm => 'Delete';
+
+  @override
+  String get editToastDeleted => 'Deleted';
+
+  @override
+  String editToastWordBack(String word) {
+    return '\"$word\" is back';
+  }
+
+  @override
+  String get editToastSaved => 'Saved';
+
+  @override
+  String get editStartBlank => 'Start this page blank';
+
+  @override
+  String get editStartBlankConfirm =>
+      'Hide every word on this page? Folders stay. To add your own words, tap Add. To bring words back, tap Select, then All, then Show.';
+
+  @override
+  String get editStartBlankButton => 'Hide all words';
+
+  @override
+  String get editToastStartBlank => 'All words hidden';
+
+  @override
+  String customButtonsInPlaceOf(String board, String word) {
+    return '$board, in place of \"$word\"';
+  }
+
+  @override
+  String customButtonsCategoryOn(String board) {
+    return 'Category on $board';
+  }
+
+  @override
+  String get customTileVoiceFailed =>
+      'The button was added, but the recording could not be saved. Tap the button to record it again.';
 }
