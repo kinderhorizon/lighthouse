@@ -17,18 +17,32 @@
 library;
 
 import 'aac_board.dart';
+import 'aac_button.dart';
 
 /// Drops the buttons hidden on [board] (ADR 0019). Used on the CHILD render path
 /// (`activeBoardProvider`) AFTER the layout overlay: a hidden button simply
 /// leaves the board, so its slot renders empty while every other tile keeps its
-/// exact position (muscle memory, ADR 0006). The editor does NOT call this, so a
-/// parent still sees hidden tiles (greyed) to un-hide them.
+/// exact position (muscle memory, ADR 0006). The dropped slots are recorded in
+/// [AACBoard.hiddenSlots] so the reflowed phone / small-tablet grid keeps a
+/// blank cell there instead of moving the later tiles up. The editor does NOT
+/// call this, so a parent still sees hidden tiles (greyed) to un-hide them.
 AACBoard applyHiddenTiles(AACBoard board, HiddenTiles hidden) {
   final ids = hidden.forBoard(board.boardId);
   if (ids.isEmpty) return board;
-  final visible = [for (final b in board.buttons) if (!ids.contains(b.id)) b];
-  if (visible.length == board.buttons.length) return board;
-  return board.copyWithButtons(visible);
+  final visible = <AACButton>[];
+  final hiddenSlots = <Position>{};
+  for (final b in board.buttons) {
+    if (ids.contains(b.id)) {
+      hiddenSlots.add(b.position);
+    } else {
+      visible.add(b);
+    }
+  }
+  if (hiddenSlots.isEmpty) return board;
+  return board.copyWithButtons(
+    visible,
+    hiddenSlots: Set.unmodifiable(hiddenSlots),
+  );
 }
 
 class HiddenTiles {

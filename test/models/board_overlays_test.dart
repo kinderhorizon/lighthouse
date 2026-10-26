@@ -68,6 +68,15 @@ void main() {
       expect(out.buttonAt((row: 0, col: 2))?.id, 'c');
     });
 
+    test('applyHiddenTiles records the hidden slots for the reflowed grid', () {
+      final board = _board();
+      final hidden =
+          const HiddenTiles.empty().withVisibility('core_main', 'b', true);
+      final out = applyHiddenTiles(board, hidden);
+      expect(out.hiddenSlots, {(row: 0, col: 1)});
+      expect(board.hiddenSlots, isEmpty);
+    });
+
     test('applyHiddenTiles with no hides returns the same board', () {
       final board = _board();
       expect(identical(applyHiddenTiles(board, const HiddenTiles.empty()),

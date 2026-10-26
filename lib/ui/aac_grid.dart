@@ -78,6 +78,7 @@ class AACGrid extends StatelessWidget {
   /// the board vertically rather than shrinking below the legibility floor.
   /// Tiles reflow into [columns] in their original reading order; positions are
   /// stable for the device (column count is locked across rotation upstream).
+  /// A hidden tile's slot ([AACBoard.hiddenSlots]) stays as a blank cell.
   final bool scroll;
 
   final EdgeInsetsGeometry padding;
@@ -188,12 +189,23 @@ class AACGrid extends StatelessWidget {
         // scarce, matching the prototype's 132 portrait / 118 landscape).
         if (scroll) {
           final scrollCols = columns ?? cols;
-          final ordered = [...board.buttons]..sort((a, b) {
-              final byRow = a.position.row.compareTo(b.position.row);
-              return byRow != 0
-                  ? byRow
-                  : a.position.col.compareTo(b.position.col);
+          // A slot whose tile the parent hid (ADR 0019) keeps its place in the
+          // reading order as a blank cell, so hiding or showing a tile never
+          // shifts the tiles after it. Slots that are simply empty are still
+          // skipped, so boards with nothing hidden reflow exactly as before.
+          final slots = <Position>{
+            for (final b in board.buttons) b.position,
+            ...board.hiddenSlots,
+          }.toList()
+            ..sort((a, b) {
+              final byRow = a.row.compareTo(b.row);
+              return byRow != 0 ? byRow : a.col.compareTo(b.col);
             });
+          // Blank cells at the very end would only add an empty row (and a
+          // "more words" cue pointing at nothing), and no tile follows them.
+          while (slots.isNotEmpty && board.buttonAt(slots.last) == null) {
+            slots.removeLast();
+          }
           final isLandscape = constraints.maxWidth > constraints.maxHeight;
           final cellExtent = isLandscape ? 124.0 : 138.0;
           return Padding(
@@ -207,8 +219,13 @@ class AACGrid extends StatelessWidget {
                 mainAxisSpacing: 0,
                 mainAxisExtent: cellExtent,
               ),
-              itemCount: ordered.length,
-              itemBuilder: (context, i) => cellForButton(ordered[i]),
+              itemCount: slots.length,
+              itemBuilder: (context, i) {
+                final btn = board.buttonAt(slots[i]);
+                return btn == null
+                    ? const SizedBox.shrink()
+                    : cellForButton(btn);
+              },
             ),
           );
         }

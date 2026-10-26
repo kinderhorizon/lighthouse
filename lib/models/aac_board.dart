@@ -24,6 +24,7 @@ class AACBoard {
     required this.colorKey,
     required this.buttons,
     this.boardNameByLocale = const {},
+    this.hiddenSlots = const {},
   }) {
     _buttonsByPosition = {
       for (final b in buttons) b.position: b,
@@ -46,6 +47,13 @@ class AACBoard {
   final Map<String, String> colorKey;
 
   final List<AACButton> buttons;
+
+  /// Slots whose tile the parent hid from the child (ADR 0019). The hidden
+  /// buttons are already gone from [buttons]; this only tells the renderer
+  /// which slots to keep blank. The position grid leaves them empty anyway, but
+  /// the reflowed phone / small-tablet grid needs it so the remaining tiles do
+  /// not close the gap. Render-only: never serialized.
+  final Set<Position> hiddenSlots;
 
   late final Map<Position, AACButton> _buttonsByPosition;
 
@@ -70,7 +78,12 @@ class AACBoard {
   /// Returns a copy with [newButtons] replacing the button list; all other
   /// metadata is preserved. Used to overlay parent-authored custom buttons
   /// (ADR 0012) onto a bundled board without mutating the loaded asset.
-  AACBoard copyWithButtons(List<AACButton> newButtons) => AACBoard(
+  /// [hiddenSlots] replaces the current set when given (ADR 0019).
+  AACBoard copyWithButtons(
+    List<AACButton> newButtons, {
+    Set<Position>? hiddenSlots,
+  }) =>
+      AACBoard(
         schemaVersion: schemaVersion,
         boardId: boardId,
         boardName: boardName,
@@ -78,6 +91,7 @@ class AACBoard {
         gridDimensions: gridDimensions,
         colorKey: colorKey,
         buttons: List.unmodifiable(newButtons),
+        hiddenSlots: hiddenSlots ?? this.hiddenSlots,
       );
 
   /// Empty (unoccupied) grid slots in row-major order, up to [limit] if given.
