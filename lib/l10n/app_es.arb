@@ -355,5 +355,7 @@
   "editToastStartBlank": "Todas las palabras ocultas",
   "customButtonsInPlaceOf": "{board}, en lugar de \"{word}\"",
   "customButtonsCategoryOn": "Categoría en {board}",
-  "customTileVoiceFailed": "El botón se añadió, pero no se pudo guardar la grabación. Toca el botón para grabarla de nuevo."
+  "customTileVoiceFailed": "El botón se añadió, pero no se pudo guardar la grabación. Toca el botón para grabarla de nuevo.",
+  "editBatchPin": "Fijar",
+  "editBatchUnpin": "Quitar"
 }

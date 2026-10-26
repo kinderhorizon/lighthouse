@@ -7,7 +7,8 @@
 ///   4. survives an app restart (real files);
 ///   5. Food: a new button starts orange;
 ///   6. edit School to green; delete it -> Play is back in its slot;
-///   7. "Start this page blank" -> child sees no words; reset brings them back.
+///   7. select mode's action bar fits; "Start this page blank" -> child sees
+///      no words; reset brings them back.
 /// Run (LH_LOCALE=ar for Arabic). test_driver/ is git-ignored, so use a local
 /// driver whose integrationDriver(onScreenshot: ...) saves the PNGs:
 ///   flutter drive --driver=test_driver/<your screenshot driver>.dart \
@@ -197,6 +198,10 @@ void main() {
 
     var keyboardShots = 0;
     Future<void> saveDialog(String text) async {
+      // On a short screen choosing a colour scrolls the name field out of
+      // view; bring it back like a parent would.
+      await tester.ensureVisible(find.byKey(const ValueKey('custom_tile_label')));
+      await settle(300);
       await tester.tap(find.byKey(const ValueKey('custom_tile_label')));
       await settle(800);
       await tester.enterText(
@@ -391,6 +396,21 @@ void main() {
         isEmpty);
     await shot('editor_play_is_back');
     await settle(2000);
+
+    // ---------------------- select mode: the action bar fits this screen
+    await tester.tap(find.byKey(const ValueKey('editor_select')));
+    await settle(600);
+    await tester.tap(find.byKey(const ValueKey('editor_tile_btn_want')));
+    await settle(600);
+    final hideRect =
+        tester.getRect(find.byKey(const ValueKey('editor_bulk_hide')));
+    expect(hideRect.right,
+        lessThanOrEqualTo(tester.view.physicalSize.width /
+            tester.view.devicePixelRatio),
+        reason: 'the Hide action must be fully on screen');
+    await shot('select_mode_bar');
+    await tester.tap(find.byKey(const ValueKey('editor_selcancel')));
+    await settle(600);
 
     // ----------------------------- 7. start blank, then reset this board
     await tester.tap(find.byKey(const ValueKey('editor_reset_menu')));

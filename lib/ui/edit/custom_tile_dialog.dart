@@ -185,133 +185,134 @@ class _CustomTileDialogState extends ConsumerState<CustomTileDialog> {
       title = l10n.addDialogTitle;
     }
 
+    // The title scrolls with the content: on a small phone with the keyboard
+    // open only the Cancel / Save row has to fit, so Save is always there.
     return AlertDialog(
+      scrollable: true,
       title: Text(title),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (!_editing) ...[
-              SizedBox(
-                width: double.infinity,
-                child: SegmentedButton<bool>(
-                  key: const ValueKey('custom_tile_kind'),
-                  showSelectedIcon: false,
-                  segments: [
-                    ButtonSegment(
-                      value: false,
-                      icon: const Icon(Icons.touch_app_outlined),
-                      label: Text(l10n.addKindButton,
-                          key: const ValueKey('custom_tile_kind_button')),
-                    ),
-                    ButtonSegment(
-                      value: true,
-                      icon: const Icon(Icons.folder_outlined),
-                      label: Text(l10n.addKindCategory,
-                          key: const ValueKey('custom_tile_kind_category')),
-                    ),
-                  ],
-                  selected: {_category},
-                  onSelectionChanged: _saving
-                      ? null
-                      : (s) => setState(() => _category = s.first),
-                ),
-              ),
-              if (_category) ...[
-                const SizedBox(height: 8),
-                Text(l10n.addKindCategoryHint, style: LhText.rowSubtitle),
-              ],
-              const SizedBox(height: 12),
-            ],
-            if (replacing != null) ...[
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  color: LhColors.cream2,
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
-                child: Text(
-                  l10n.replaceDialogNote(replacing.labelFor(lang)),
-                  style: LhText.rowSubtitle,
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
-            TextField(
-              key: const ValueKey('custom_tile_label'),
-              controller: _label,
-              decoration: InputDecoration(
-                labelText: _category
-                    ? l10n.categoryNameLabel
-                    : l10n.customButtonsWordLabel,
-              ),
-              onChanged: (_) => setState(() {}),
-              textInputAction: TextInputAction.done,
-              textCapitalization: TextCapitalization.sentences,
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 12,
-              runSpacing: 8,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                if (showsImage)
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    child: SizedBox(
-                      width: 48,
-                      height: 48,
-                      child: Image.file(
-                        _image ?? File(existingImage),
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) =>
-                            const Icon(Icons.broken_image_outlined),
-                      ),
-                    ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (!_editing) ...[
+            SizedBox(
+              width: double.infinity,
+              child: SegmentedButton<bool>(
+                key: const ValueKey('custom_tile_kind'),
+                showSelectedIcon: false,
+                segments: [
+                  ButtonSegment(
+                    value: false,
+                    icon: const Icon(Icons.touch_app_outlined),
+                    label: Text(l10n.addKindButton,
+                        key: const ValueKey('custom_tile_kind_button')),
                   ),
-                OutlinedButton.icon(
-                  key: const ValueKey('custom_tile_photo'),
-                  onPressed: _saving ? null : _pickImage,
-                  icon: const Icon(Icons.image_outlined),
-                  label: Text(showsImage
-                      ? l10n.customTileChangePhoto
-                      : l10n.customButtonsChoosePhoto),
-                ),
-                if (showsImage)
-                  TextButton(
-                    key: const ValueKey('custom_tile_remove_photo'),
-                    onPressed: _saving
-                        ? null
-                        : () => setState(() {
-                              _image = null;
-                              _removeImage = existingImage.isNotEmpty;
-                            }),
-                    child: Text(l10n.customTileRemovePhoto),
+                  ButtonSegment(
+                    value: true,
+                    icon: const Icon(Icons.folder_outlined),
+                    label: Text(l10n.addKindCategory,
+                        key: const ValueKey('custom_tile_kind_category')),
                   ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            TileColorPicker(
-              value: _color,
-              onChanged: (c) {
-                if (!_saving) setState(() => _color = c);
-              },
-            ),
-            // Optional: record your own voice for a NEW button at creation time
-            // (clinical review). Saved against the new button's id after Save.
-            // An existing button records from its own sheet; a category never
-            // speaks.
-            if (!_editing && !_category) ...[
-              const SizedBox(height: 12),
-              VoiceRecorderField(
-                idHint: widget.boardId ?? 'tile',
-                controller: _voiceController,
-                onChanged: (f) => _voiceClip = f,
+                ],
+                selected: {_category},
+                onSelectionChanged: _saving
+                    ? null
+                    : (s) => setState(() => _category = s.first),
               ),
+            ),
+            if (_category) ...[
+              const SizedBox(height: 8),
+              Text(l10n.addKindCategoryHint, style: LhText.rowSubtitle),
             ],
+            const SizedBox(height: 12),
           ],
-        ),
+          if (replacing != null) ...[
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: LhColors.cream2,
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              child: Text(
+                l10n.replaceDialogNote(replacing.labelFor(lang)),
+                style: LhText.rowSubtitle,
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+          TextField(
+            key: const ValueKey('custom_tile_label'),
+            controller: _label,
+            decoration: InputDecoration(
+              labelText: _category
+                  ? l10n.categoryNameLabel
+                  : l10n.customButtonsWordLabel,
+            ),
+            onChanged: (_) => setState(() {}),
+            textInputAction: TextInputAction.done,
+            textCapitalization: TextCapitalization.sentences,
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              if (showsImage)
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: Image.file(
+                      _image ?? File(existingImage),
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                          const Icon(Icons.broken_image_outlined),
+                    ),
+                  ),
+                ),
+              OutlinedButton.icon(
+                key: const ValueKey('custom_tile_photo'),
+                onPressed: _saving ? null : _pickImage,
+                icon: const Icon(Icons.image_outlined),
+                label: Text(showsImage
+                    ? l10n.customTileChangePhoto
+                    : l10n.customButtonsChoosePhoto),
+              ),
+              if (showsImage)
+                TextButton(
+                  key: const ValueKey('custom_tile_remove_photo'),
+                  onPressed: _saving
+                      ? null
+                      : () => setState(() {
+                            _image = null;
+                            _removeImage = existingImage.isNotEmpty;
+                          }),
+                  child: Text(l10n.customTileRemovePhoto),
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          TileColorPicker(
+            value: _color,
+            onChanged: (c) {
+              if (!_saving) setState(() => _color = c);
+            },
+          ),
+          // Optional: record your own voice for a NEW button at creation time
+          // (clinical review). Saved against the new button's id after Save.
+          // An existing button records from its own sheet; a category never
+          // speaks.
+          if (!_editing && !_category) ...[
+            const SizedBox(height: 12),
+            VoiceRecorderField(
+              idHint: widget.boardId ?? 'tile',
+              controller: _voiceController,
+              onChanged: (f) => _voiceClip = f,
+            ),
+          ],
+        ],
       ),
       actions: [
         TextButton(

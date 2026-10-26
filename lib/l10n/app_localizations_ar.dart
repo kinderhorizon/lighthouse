@@ -1204,4 +1204,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get customTileVoiceFailed =>
       'تمت إضافة الزر، لكن تعذّر حفظ التسجيل. اضغط على الزر لتسجيله مرة أخرى.';
+
+  @override
+  String get editBatchPin => 'تثبيت';
+
+  @override
+  String get editBatchUnpin => 'إلغاء التثبيت';
 }

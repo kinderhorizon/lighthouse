@@ -1221,4 +1221,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get customTileVoiceFailed =>
       'El botón se añadió, pero no se pudo guardar la grabación. Toca el botón para grabarla de nuevo.';
+
+  @override
+  String get editBatchPin => 'Fijar';
+
+  @override
+  String get editBatchUnpin => 'Quitar';
 }

@@ -260,11 +260,11 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     }
 
     return Scaffold(
-      appBar: switch (_mode) {
+      appBar: _capTextScale(switch (_mode) {
         _EditMode.select => _selectAppBar(l10n, board),
         _EditMode.place => _placeAppBar(l10n),
         _EditMode.arrange => _arrangeAppBar(l10n, board),
-      },
+      }),
       body: SafeArea(
         top: false,
         child: Stack(
@@ -338,7 +338,19 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   }
 
   // ---------------------------------------------------------------- app bars
+  /// The editor's top bar keeps its text at most 1.3x the normal size. With
+  /// very large system text a long translation ("Seleccionar") would push
+  /// "Done" off a phone screen; 1.3x is the largest size at which every
+  /// language fits a 320pt phone. Everything below the bar scales fully.
+  PreferredSizeWidget _capTextScale(PreferredSizeWidget bar) => PreferredSize(
+        preferredSize: bar.preferredSize,
+        child: MediaQuery.withClampedTextScaling(maxScaleFactor: 1.3, child: bar),
+      );
+
   PreferredSizeWidget _arrangeAppBar(AppLocalizations l10n, AACBoard board) {
+    // On the narrowest phones (320pt) the four actions do not fit in every
+    // language: Share moves into the menu and the two text buttons tighten.
+    final narrow = MediaQuery.sizeOf(context).width < 360;
     return lhAppBar(
       context,
       title: board.boardNameFor(Localizations.localeOf(context).languageCode),
@@ -351,6 +363,7 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             )
           : null,
       actions: [
+        if (!narrow)
         IconButton(
           key: const ValueKey('editor_share'),
           tooltip: l10n.editShareBoard,
@@ -360,7 +373,9 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
         PopupMenuButton<String>(
           key: const ValueKey('editor_reset_menu'),
           onSelected: (v) {
-            if (v == 'board') {
+            if (v == 'share') {
+              _shareBoard(board);
+            } else if (v == 'board') {
               // "Reset this board": undo EVERY customization on the current
               // board (clinical review: previously only the layout reset, so a hidden
               // tile could never be un-hidden here). Capture the on-board ids
@@ -414,6 +429,12 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             }
           },
           itemBuilder: (context) => [
+            if (narrow)
+              PopupMenuItem(
+                key: const ValueKey('editor_share_item'),
+                value: 'share',
+                child: Text(l10n.editShareBoard),
+              ),
             PopupMenuItem(value: 'blank', child: Text(l10n.editStartBlank)),
             const PopupMenuDivider(),
             PopupMenuItem(value: 'board', child: Text(l10n.editResetBoard)),
@@ -424,6 +445,10 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
           key: _selectKey,
           child: TextButton(
             key: const ValueKey('editor_select'),
+            style: narrow
+                ? TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8))
+                : null,
             onPressed: () => setState(() {
               _mode = _EditMode.select;
               _selected.clear();
@@ -435,6 +460,10 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
           padding: const EdgeInsetsDirectional.only(end: 8),
           child: FilledButton(
             key: const ValueKey('editor_done'),
+            style: narrow
+                ? FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 16))
+                : null,
             onPressed: () => Navigator.of(context).maybePop(),
             child: Text(l10n.editDone),
           ),
@@ -530,31 +559,84 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
         ),
         padding: EdgeInsets.fromLTRB(
             20, 14, 20, 14 + MediaQuery.paddingOf(context).bottom),
-        child: Row(
-          children: [
-            Text(l10n.editSelectedCount(n), style: LhText.rowTitle),
-            const Spacer(),
-            FilledButton.tonalIcon(
-              key: const ValueKey('editor_bulk_pin'),
-              onPressed: enabled
-                  ? () => _batchPin(board, ids, unpin: allFav)
-                  : null,
-              icon: Icon(allFav ? Icons.star : Icons.star_outline),
-              label: Text(allFav ? l10n.editActionUnpin : l10n.editActionPin),
-            ),
-            const SizedBox(width: 12),
-            FilledButton.icon(
-              key: const ValueKey('editor_bulk_hide'),
-              onPressed: enabled
-                  ? () => _batchHide(board, ids, hide: anyVisible)
-                  : null,
-              icon: Icon(anyVisible
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined),
-              label: Text(anyVisible ? l10n.editBatchHide : l10n.editBatchShow),
-            ),
-          ],
-        ),
+        child: LayoutBuilder(builder: (context, constraints) {
+          final count = Text(l10n.editSelectedCount(n), style: LhText.rowTitle);
+          // A tablet fits the count and both actions in one row. A phone does
+          // not: there the two actions share the row with short labels ("Pin",
+          // "Hide") that shrink rather than overflow at large text, and the
+          // count is left to the top bar ("1 selected"), which already shows
+          // it, so the bar stays one row high and the grid keeps its room.
+          final textScale = MediaQuery.textScalerOf(context).scale(1);
+          if (constraints.maxWidth >= 560 * textScale) {
+            return Row(
+              children: [
+                count,
+                const Spacer(),
+                FilledButton.tonalIcon(
+                  key: const ValueKey('editor_bulk_pin'),
+                  onPressed: enabled
+                      ? () => _batchPin(board, ids, unpin: allFav)
+                      : null,
+                  icon: Icon(allFav ? Icons.star : Icons.star_outline),
+                  label: Text(
+                      allFav ? l10n.editActionUnpin : l10n.editActionPin),
+                ),
+                const SizedBox(width: 12),
+                FilledButton.icon(
+                  key: const ValueKey('editor_bulk_hide'),
+                  onPressed: enabled
+                      ? () => _batchHide(board, ids, hide: anyVisible)
+                      : null,
+                  icon: Icon(anyVisible
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined),
+                  label: Text(
+                      anyVisible ? l10n.editBatchHide : l10n.editBatchShow),
+                ),
+              ],
+            );
+          }
+          final compact = FilledButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+          );
+          Widget fit(String text) => FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(text, maxLines: 1),
+              );
+          return Row(
+            children: [
+              Expanded(
+                child: FilledButton.tonalIcon(
+                  key: const ValueKey('editor_bulk_pin'),
+                  style: compact,
+                  onPressed: enabled
+                      ? () => _batchPin(board, ids, unpin: allFav)
+                      : null,
+                  icon: Icon(allFav ? Icons.star : Icons.star_outline),
+                  label: fit(allFav
+                      ? l10n.editBatchUnpin
+                      : l10n.editBatchPin),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton.icon(
+                  key: const ValueKey('editor_bulk_hide'),
+                  style: compact,
+                  onPressed: enabled
+                      ? () => _batchHide(board, ids, hide: anyVisible)
+                      : null,
+                  icon: Icon(anyVisible
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined),
+                  label: fit(anyVisible
+                      ? l10n.editBatchHide
+                      : l10n.editBatchShow),
+                ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

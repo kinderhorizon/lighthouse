@@ -319,90 +319,91 @@ class _AddCustomButtonDialogState
         selected != null &&
         _wordController.text.trim().isNotEmpty;
 
+    // The title scrolls with the content so a small phone with the keyboard
+    // open only has to fit the Cancel / Save row.
     return AlertDialog(
+      scrollable: true,
       title: Text(l10n.customButtonsAdd),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DropdownButtonFormField<String>(
-              initialValue: _boardId,
-              isExpanded: true,
-              decoration: InputDecoration(labelText: l10n.customButtonsBoardLabel),
-              items: [
-                for (final b in placeable)
-                  DropdownMenuItem(
-                    value: b.boardId,
-                    child: Text(
-                      '${b.boardNameFor(lang)} '
-                      '(${b.emptySlots().length})',
-                      overflow: TextOverflow.ellipsis,
-                    ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DropdownButtonFormField<String>(
+            initialValue: _boardId,
+            isExpanded: true,
+            decoration: InputDecoration(labelText: l10n.customButtonsBoardLabel),
+            items: [
+              for (final b in placeable)
+                DropdownMenuItem(
+                  value: b.boardId,
+                  child: Text(
+                    '${b.boardNameFor(lang)} '
+                    '(${b.emptySlots().length})',
+                    overflow: TextOverflow.ellipsis,
                   ),
-              ],
-              onChanged: (v) => setState(() {
-                _boardId = v;
-                if (!_colorChosen) {
-                  final board = boards.where((b) => b.boardId == v).firstOrNull;
-                  final customs =
-                      ref.read(customButtonsProvider).valueOrNull ?? const [];
-                  _color = board == null
-                      ? null
-                      : defaultTileColorFor(board, customs);
-                }
-              }),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: _wordController,
-              decoration: InputDecoration(labelText: l10n.customButtonsWordLabel),
-              onChanged: (_) => setState(() {}),
-              textInputAction: TextInputAction.done,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                if (_image != null) ...[
-                  SizedBox(
-                    width: 48,
-                    height: 48,
-                    child: Image.file(_image!, fit: BoxFit.cover),
-                  ),
-                  const SizedBox(width: 12),
-                ],
-                OutlinedButton.icon(
-                  onPressed: _pickImage,
-                  icon: const Icon(Icons.image_outlined),
-                  label: Text(l10n.customButtonsChoosePhoto),
                 ),
+            ],
+            onChanged: (v) => setState(() {
+              _boardId = v;
+              if (!_colorChosen) {
+                final board = boards.where((b) => b.boardId == v).firstOrNull;
+                final customs =
+                    ref.read(customButtonsProvider).valueOrNull ?? const [];
+                _color = board == null
+                    ? null
+                    : defaultTileColorFor(board, customs);
+              }
+            }),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _wordController,
+            decoration: InputDecoration(labelText: l10n.customButtonsWordLabel),
+            onChanged: (_) => setState(() {}),
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              if (_image != null) ...[
+                SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: Image.file(_image!, fit: BoxFit.cover),
+                ),
+                const SizedBox(width: 12),
               ],
-            ),
-            const SizedBox(height: 16),
-            TileColorPicker(
-              value: _color,
-              onChanged: (c) => setState(() {
-                _color = c;
-                _colorChosen = true;
-              }),
-            ),
-            const SizedBox(height: 12),
-            // Optional: record your own voice for this tile at creation time
-            // (clinical review). Saved against the new button's id after Save.
-            VoiceRecorderField(
-              idHint: _boardId ?? 'tile',
-              controller: _voiceController,
-              onChanged: (f) => _voiceClip = f,
-            ),
-            if (placeable.isEmpty) ...[
-              const SizedBox(height: 12),
-              Text(
-                l10n.customButtonsNoFreeSlots,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              OutlinedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.image_outlined),
+                label: Text(l10n.customButtonsChoosePhoto),
               ),
             ],
+          ),
+          const SizedBox(height: 16),
+          TileColorPicker(
+            value: _color,
+            onChanged: (c) => setState(() {
+              _color = c;
+              _colorChosen = true;
+            }),
+          ),
+          const SizedBox(height: 12),
+          // Optional: record your own voice for this tile at creation time
+          // (clinical review). Saved against the new button's id after Save.
+          VoiceRecorderField(
+            idHint: _boardId ?? 'tile',
+            controller: _voiceController,
+            onChanged: (f) => _voiceClip = f,
+          ),
+          if (placeable.isEmpty) ...[
+            const SizedBox(height: 12),
+            Text(
+              l10n.customButtonsNoFreeSlots,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ],
-        ),
+        ],
       ),
       actions: [
         TextButton(

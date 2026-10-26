@@ -536,6 +536,64 @@ void main() {
     });
   }
 
+  // The smallest Android phones (320x533) with the keyboard up leave ~270pt:
+  // Save must still be fully above the keyboard in every mode and language.
+  for (final locale in const [Locale('en'), Locale('ar'), Locale('es')]) {
+    testWidgets('${locale.languageCode}: every dialog mode keeps Save above '
+        'the keyboard on a 320x533 phone', (tester) async {
+      const size = Size(320, 533);
+      const keyboard = 260.0;
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      final env = _Env();
+      addTearDown(env.container.dispose);
+      for (final dialog in <Widget>[
+        const CustomTileDialog.add(boardId: 'board_food', slot: (row: 0, col: 1)),
+        CustomTileDialog.add(
+            boardId: 'core_main', slot: (row: 0, col: 1),
+            replacing: _word('eat', 0, 1)),
+        CustomTileDialog.edit(existing: _seed('Snacks', link: 'cat_0')),
+      ]) {
+        await tester.pumpWidget(MediaQuery(
+          data: const MediaQueryData(
+              size: size, viewInsets: EdgeInsets.only(bottom: keyboard)),
+          child: UncontrolledProviderScope(
+            container: env.container,
+            child: MaterialApp(
+              key: UniqueKey(), // a fresh navigator: no dialog left open
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en'), Locale('es'), Locale('ar'),
+              ],
+              locale: locale,
+              home: Builder(
+                builder: (context) => Scaffold(
+                  body: TextButton(
+                    onPressed: () =>
+                        showDialog<void>(context: context, builder: (_) => dialog),
+                    child: const Text('open'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ));
+        await tester.tap(find.text('open'));
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+        final save = tester.getRect(find.byKey(const ValueKey('custom_tile_save')));
+        expect(save.bottom, lessThanOrEqualTo(size.height - keyboard),
+            reason: 'Save must be fully above the keyboard');
+      }
+    });
+  }
+
   // The dialog itself on the smallest phone with the largest text, in every
   // mode and language.
   for (final locale in const [Locale('en'), Locale('ar'), Locale('es')]) {

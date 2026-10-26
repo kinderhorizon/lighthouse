@@ -2235,6 +2235,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The button was added, but the recording could not be saved. Tap the button to record it again.'**
   String get customTileVoiceFailed;
+
+  /// No description provided for @editBatchPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin'**
+  String get editBatchPin;
+
+  /// No description provided for @editBatchUnpin.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin'**
+  String get editBatchUnpin;
 }
 
 class _AppLocalizationsDelegate

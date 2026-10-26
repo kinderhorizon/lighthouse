@@ -355,5 +355,7 @@
   "editToastStartBlank": "تم إخفاء كل الكلمات",
   "customButtonsInPlaceOf": "{board}، بدلًا من \"{word}\"",
   "customButtonsCategoryOn": "فئة في {board}",
-  "customTileVoiceFailed": "تمت إضافة الزر، لكن تعذّر حفظ التسجيل. اضغط على الزر لتسجيله مرة أخرى."
+  "customTileVoiceFailed": "تمت إضافة الزر، لكن تعذّر حفظ التسجيل. اضغط على الزر لتسجيله مرة أخرى.",
+  "editBatchPin": "تثبيت",
+  "editBatchUnpin": "إلغاء التثبيت"
 }
