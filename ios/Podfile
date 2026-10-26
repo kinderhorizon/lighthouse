@@ -1,6 +1,6 @@
 # Minimum iOS 14 so the system photo picker is always PHPicker (no Photos
 # permission prompt, no usage string; ADR 0016). Reasonable for a new 2026 app.
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -50,6 +50,12 @@ post_install do |installer|
     # location code from the binary instead (PERMISSION_LOCATION=0), which is what
     # lets us safely omit the usage string.
     target.build_configurations.each do |config|
+      # iOS 15.0 minimum (the app's own target too): current Xcode no longer
+      # builds for anything older. Only RAISE a pod's target, never lower one
+      # that already needs a newer iOS.
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 15.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
         ## dart: PermissionGroup.location, locationAlways, locationWhenInUse

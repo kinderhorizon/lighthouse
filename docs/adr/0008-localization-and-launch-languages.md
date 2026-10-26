@@ -125,7 +125,10 @@ strings rather than returning English literals.
 ## Consequences
 
 - Adding a language is: registry entry + ARB + 48 board key-sets + clips. The
-  CI parity + completeness tests then force that set to be complete.
+  CI parity + completeness tests then force that set to be complete. On iOS
+  also add the code to `CFBundleLocalizations` in `ios/Runner/Info.plist`:
+  without it the App Store lists the app as English-only and iOS keeps the
+  app's system UI in English (added 2026-10-26 for es and ar).
 - We carry `provisional` translations through alpha; the registry is the
   audit surface for the alpha-exit review.
 - Arabic launch is coupled to the core-vocab pre-render pipeline landing (the
