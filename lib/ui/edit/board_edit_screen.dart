@@ -1149,12 +1149,17 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     final origin = _shareOrigin();
     File? tempFile;
     try {
-      final export = await BoardPackExporter().prepare(board);
+      final boardName = board.boardNameFor(languageCode);
+      final export = await BoardPackExporter()
+          .prepare(board, fileBaseName: l10n.shareFileName(boardName));
       tempFile = export.file;
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(export.file.path)],
-          subject: board.boardNameFor(languageCode),
+          // Travels with the file (Messages, Mail, WhatsApp) so the person
+          // who receives it knows how to add it (clinical testing).
+          text: l10n.shareVocabMessage(boardName),
+          subject: boardName,
           sharePositionOrigin: origin,
         ),
       );

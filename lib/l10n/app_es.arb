@@ -20,7 +20,7 @@
   "shareCrashLogsSubtitle": "Abre tu app de correo para enviar los registros a KHF; tú tocas enviar",
   "sectionBoards": "Tableros",
   "importBoardPack": "Importar un tablero",
-  "importBoardPackSubtitle": "Agrega un archivo de tablero JSON desde este dispositivo",
+  "importBoardPackSubtitle": "Agrega un tablero que alguien compartió contigo",
   "sectionOnboarding": "Introducción",
   "rerunOnboarding": "Repetir la bienvenida",
   "rerunOnboardingSubtitle": "Muestra de nuevo el flujo de primer inicio",
@@ -363,5 +363,7 @@
   "incomingBoardAdd": "Agregar tablero",
   "incomingBoardNotABoard": "Ese archivo no es un tablero de Lighthouse, así que no se agregó nada.",
   "incomingBoardFailed": "No se pudo agregar este tablero. No se cambió nada.",
-  "shareVocabReceiveHint": "En el otro dispositivo, abre el archivo y elige Lighthouse. No hace falta cuenta ni iniciar sesión."
+  "shareVocabReceiveHint": "En el otro dispositivo, abre el archivo y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. No hace falta cuenta ni iniciar sesión.",
+  "shareVocabMessage": "Tablero de Lighthouse: {board}\nPara agregarlo, abre el archivo adjunto y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. O abre Lighthouse y ve a Ajustes, Importar un tablero.",
+  "shareFileName": "Tablero de Lighthouse - {board}"
 }

@@ -223,7 +223,7 @@ abstract class AppLocalizations {
   /// No description provided for @importBoardPackSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Add a board JSON file from this device'**
+  /// **'Add a board someone shared with you'**
   String get importBoardPackSubtitle;
 
   /// No description provided for @sectionOnboarding.
@@ -2281,8 +2281,20 @@ abstract class AppLocalizations {
   /// Share dialog: tells the sender how the other person opens the file
   ///
   /// In en, this message translates to:
-  /// **'On the other device, open the file and choose Lighthouse. No account or sign-in is needed.'**
+  /// **'On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. No account or sign-in is needed.'**
   String get shareVocabReceiveHint;
+
+  /// Text sent with a shared board file, so the person who receives it knows how to add it
+  ///
+  /// In en, this message translates to:
+  /// **'Lighthouse board: {board}\nTo add it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Import a board pack.'**
+  String shareVocabMessage(String board);
+
+  /// File name (without .json) of a shared board, seen by the person who receives it
+  ///
+  /// In en, this message translates to:
+  /// **'Lighthouse board - {board}'**
+  String shareFileName(String board);
 }
 
 class _AppLocalizationsDelegate

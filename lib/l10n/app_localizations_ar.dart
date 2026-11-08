@@ -73,7 +73,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get importBoardPack => 'استيراد لوحة';
 
   @override
-  String get importBoardPackSubtitle => 'أضف ملف لوحة JSON من هذا الجهاز';
+  String get importBoardPackSubtitle => 'أضف لوحة شاركها شخص معك';
 
   @override
   String get sectionOnboarding => 'التمهيد';
@@ -1232,5 +1232,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get shareVocabReceiveHint =>
-      'على الجهاز الآخر، افتح الملف واختر Lighthouse. لا حاجة إلى حساب أو تسجيل دخول.';
+      'على الجهاز الآخر، افتح الملف واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. لا حاجة إلى حساب أو تسجيل دخول.';
+
+  @override
+  String shareVocabMessage(String board) {
+    return 'لوحة Lighthouse: $board\nلإضافتها، افتح الملف المرفق واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. أو افتح Lighthouse وانتقل إلى الإعدادات، ثم استيراد لوحة.';
+  }
+
+  @override
+  String shareFileName(String board) {
+    return 'لوحة Lighthouse - $board';
+  }
 }

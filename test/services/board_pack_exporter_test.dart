@@ -219,4 +219,48 @@ void main() {
             'structure, then add it to the allow-list above.');
     expect(keys, containsAll(allowedExact));
   });
+
+  group('shareFileName', () {
+    test('keeps a readable name, in any script', () {
+      expect(BoardPackExporter.shareFileName('Lighthouse board - Home Core'),
+          'Lighthouse board - Home Core');
+      expect(BoardPackExporter.shareFileName('لوحة Lighthouse - الطعام'),
+          'لوحة Lighthouse - الطعام');
+    });
+    test('removes characters file systems or share targets reject', () {
+      expect(BoardPackExporter.shareFileName('a/b\\c:d*e?f"g<h>i|j'),
+          'a b c d e f g h i j');
+      expect(BoardPackExporter.shareFileName('..hidden'), 'hidden');
+      expect(BoardPackExporter.shareFileName('  many   spaces  '),
+          'many spaces');
+    });
+    test('null when nothing usable is left, capped when long', () {
+      expect(BoardPackExporter.shareFileName(' / : '), isNull);
+      expect(BoardPackExporter.shareFileName('x' * 200)!.length, 80);
+    });
+    test('prepare uses it, and falls back to the board id', () async {
+      final tmp = await Directory.systemTemp.createTemp('share_name_');
+      addTearDown(() => tmp.delete(recursive: true));
+      final board = _board(const [
+        AACButton(
+          id: 'want',
+          label: 'Want',
+          labelByLocale: {},
+          type: AACButtonType.word,
+          position: (row: 0, col: 0),
+          category: 'verb',
+          baseWeight: 0.5,
+          iconUri: 'assets/want.png',
+          voiceOut: 'want',
+        ),
+      ]);
+      final named = await BoardPackExporter(tempDirOverride: tmp)
+          .prepare(board, fileBaseName: 'Lighthouse board - Food');
+      expect(named.file.path.split('/').last, 'Lighthouse board - Food.json');
+      final plain =
+          await BoardPackExporter(tempDirOverride: tmp).prepare(board);
+      expect(plain.file.path.split('/').last,
+          'lighthouse_vocab_${board.boardId}.json');
+    });
+  });
 }

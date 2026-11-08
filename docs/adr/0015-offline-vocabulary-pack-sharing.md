@@ -42,6 +42,13 @@ Change:
   and choose Lighthouse. No account or sign-in is needed."
 - The file stays plain `.json`, so older app versions and Settings, Import
   keep working; a custom extension or UTI was rejected for that reason.
+- Clinical testing (iPad, shared by Messages): tapping the file on iOS only
+  showed its text, and nothing said how to add it. So the share now sends a
+  short message with the file ("To add it, open the attached file and choose
+  Lighthouse AAC. On an iPhone or iPad, tap Share first. Or ... Settings,
+  Import a board pack."), the file is named for people ("Lighthouse board -
+  Home Core.json", in the sender's language), and the Settings row reads
+  "Add a board someone shared with you".
 
 Settings, Import still works and remains the path when another app has been
 set as the phone's default for JSON files.

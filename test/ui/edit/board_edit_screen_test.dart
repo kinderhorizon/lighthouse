@@ -413,8 +413,9 @@ void main() {
     expect(find.text('Share this vocabulary?'), findsOneWidget);
     // Tells the sender how the other person opens the file (no sign-in).
     expect(
-      find.text('On the other device, open the file and choose Lighthouse. '
-          'No account or sign-in is needed.'),
+      find.text('On the other device, open the file and choose Lighthouse '
+          'AAC. On an iPhone or iPad, tap Share first. No account or sign-in '
+          'is needed.'),
       findsOneWidget,
     );
 
@@ -466,6 +467,14 @@ void main() {
     expect(find.text('Could not prepare this board to share.'), findsNothing);
     expect(shared!['originWidth'] as num, greaterThan(0));
     expect(shared!['originHeight'] as num, greaterThan(0));
+    // The person who receives it gets instructions with the file
+    // (clinical testing: in Messages the file alone only showed its text),
+    // and a file name they can recognise.
+    expect(shared!['text'] as String, contains('choose Lighthouse AAC'));
+    expect(shared!['text'] as String, contains('Import a board pack'));
+    final path = (shared!['paths'] as List).single as String;
+    expect(path.split('/').last, startsWith('Lighthouse board - '));
+    expect(path, endsWith('.json'));
   });
 
   testWidgets('long-press drag reorders words (insertion)', (tester) async {

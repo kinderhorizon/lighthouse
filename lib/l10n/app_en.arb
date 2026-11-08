@@ -27,7 +27,7 @@
   "shareCrashLogsSubtitle": "Opens your mail app to send the logs to KHF; you tap send",
   "sectionBoards": "Boards",
   "importBoardPack": "Import a board pack",
-  "importBoardPackSubtitle": "Add a board JSON file from this device",
+  "importBoardPackSubtitle": "Add a board someone shared with you",
   "sectionOnboarding": "Onboarding",
   "rerunOnboarding": "Re-run the welcome",
   "rerunOnboardingSubtitle": "Show the first-launch flow again",
@@ -704,8 +704,26 @@
   "incomingBoardAdd": "Add board",
   "incomingBoardNotABoard": "That file is not a Lighthouse board, so nothing was added.",
   "incomingBoardFailed": "Could not add this board. Nothing was changed.",
-  "shareVocabReceiveHint": "On the other device, open the file and choose Lighthouse. No account or sign-in is needed.",
+  "shareVocabReceiveHint": "On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. No account or sign-in is needed.",
   "@shareVocabReceiveHint": {
     "description": "Share dialog: tells the sender how the other person opens the file"
+  },
+  "shareVocabMessage": "Lighthouse board: {board}\nTo add it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Import a board pack.",
+  "@shareVocabMessage": {
+    "description": "Text sent with a shared board file, so the person who receives it knows how to add it",
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "shareFileName": "Lighthouse board - {board}",
+  "@shareFileName": {
+    "description": "File name (without .json) of a shared board, seen by the person who receives it",
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
   }
 }

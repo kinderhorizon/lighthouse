@@ -73,8 +73,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get importBoardPack => 'Import a board pack';
 
   @override
-  String get importBoardPackSubtitle =>
-      'Add a board JSON file from this device';
+  String get importBoardPackSubtitle => 'Add a board someone shared with you';
 
   @override
   String get sectionOnboarding => 'Onboarding';
@@ -1236,5 +1235,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shareVocabReceiveHint =>
-      'On the other device, open the file and choose Lighthouse. No account or sign-in is needed.';
+      'On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. No account or sign-in is needed.';
+
+  @override
+  String shareVocabMessage(String board) {
+    return 'Lighthouse board: $board\nTo add it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Import a board pack.';
+  }
+
+  @override
+  String shareFileName(String board) {
+    return 'Lighthouse board - $board';
+  }
 }

@@ -82,19 +82,42 @@ class BoardPackExporter {
   /// sheet. The caller MUST delete [BoardPackExport.file] after the share
   /// completes (ADR 0015: do not leave a child's vocabulary lingering in a
   /// readable cache).
-  Future<BoardPackExport> prepare(AACBoard merged) async {
+  ///
+  /// [fileBaseName] is what the recipient sees in Messages, Mail or Files, in
+  /// the sender's language (for example "Lighthouse board - Home Core"); it is
+  /// made safe for a file name by [shareFileName]. Without it the file is named
+  /// after the board id.
+  Future<BoardPackExport> prepare(AACBoard merged,
+      {String? fileBaseName}) async {
     final built = buildExportBoard(merged);
     final dir = _tempOverride ?? await getTemporaryDirectory();
     final safeId = AACBoard.isValidBoardId(built.board.boardId)
         ? built.board.boardId
         : 'board';
-    final file = File('${dir.path}/lighthouse_vocab_$safeId.json');
+    final name = shareFileName(fileBaseName ?? '') ?? 'lighthouse_vocab_$safeId';
+    final file = File('${dir.path}/$name.json');
     await file.writeAsString(jsonEncode(built.board.toJson()));
     return BoardPackExport(
       file: file,
       photosAsTextOnly: built.photosAsTextOnly,
       foldersDropped: built.foldersDropped,
     );
+  }
+
+  /// [raw] made safe as a file name on every platform: characters that file
+  /// systems or share targets reject are removed, spaces are collapsed, and it
+  /// is capped at 80 characters. Null when nothing usable is left.
+  static String? shareFileName(String raw) {
+    final cleaned = raw
+        .replaceAll(RegExp(r'[\\/:*?"<>|\x00-\x1F\x7F]'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim()
+        .replaceAll(RegExp(r'^[.\s]+'), '');
+    if (cleaned.isEmpty) return null;
+    final runes = cleaned.runes.toList();
+    return runes.length <= 80
+        ? cleaned
+        : String.fromCharCodes(runes.take(80)).trim();
   }
 
   static bool _isPhotoBacked(AACButton b) =>

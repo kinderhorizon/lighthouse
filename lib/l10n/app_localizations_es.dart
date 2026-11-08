@@ -75,7 +75,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get importBoardPackSubtitle =>
-      'Agrega un archivo de tablero JSON desde este dispositivo';
+      'Agrega un tablero que alguien compartió contigo';
 
   @override
   String get sectionOnboarding => 'Introducción';
@@ -1249,5 +1249,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get shareVocabReceiveHint =>
-      'En el otro dispositivo, abre el archivo y elige Lighthouse. No hace falta cuenta ni iniciar sesión.';
+      'En el otro dispositivo, abre el archivo y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. No hace falta cuenta ni iniciar sesión.';
+
+  @override
+  String shareVocabMessage(String board) {
+    return 'Tablero de Lighthouse: $board\nPara agregarlo, abre el archivo adjunto y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. O abre Lighthouse y ve a Ajustes, Importar un tablero.';
+  }
+
+  @override
+  String shareFileName(String board) {
+    return 'Tablero de Lighthouse - $board';
+  }
 }

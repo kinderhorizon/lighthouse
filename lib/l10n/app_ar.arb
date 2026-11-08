@@ -20,7 +20,7 @@
   "shareCrashLogsSubtitle": "يفتح تطبيق البريد لديك لإرسال السجلات إلى KHF؛ أنت تضغط إرسال",
   "sectionBoards": "اللوحات",
   "importBoardPack": "استيراد لوحة",
-  "importBoardPackSubtitle": "أضف ملف لوحة JSON من هذا الجهاز",
+  "importBoardPackSubtitle": "أضف لوحة شاركها شخص معك",
   "sectionOnboarding": "التمهيد",
   "rerunOnboarding": "إعادة عرض الترحيب",
   "rerunOnboardingSubtitle": "عرض شاشات التشغيل الأول مرة أخرى",
@@ -363,5 +363,7 @@
   "incomingBoardAdd": "إضافة اللوحة",
   "incomingBoardNotABoard": "هذا الملف ليس لوحة من Lighthouse، لذلك لم تتم إضافة أي شيء.",
   "incomingBoardFailed": "تعذّرت إضافة هذه اللوحة. لم يتغيّر أي شيء.",
-  "shareVocabReceiveHint": "على الجهاز الآخر، افتح الملف واختر Lighthouse. لا حاجة إلى حساب أو تسجيل دخول."
+  "shareVocabReceiveHint": "على الجهاز الآخر، افتح الملف واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. لا حاجة إلى حساب أو تسجيل دخول.",
+  "shareVocabMessage": "لوحة Lighthouse: {board}\nلإضافتها، افتح الملف المرفق واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. أو افتح Lighthouse وانتقل إلى الإعدادات، ثم استيراد لوحة.",
+  "shareFileName": "لوحة Lighthouse - {board}"
 }
