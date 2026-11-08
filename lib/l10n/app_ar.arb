@@ -365,5 +365,22 @@
   "incomingBoardFailed": "تعذّرت إضافة هذه اللوحة. لم يتغيّر أي شيء.",
   "shareVocabReceiveHint": "على الجهاز الآخر، افتح الملف واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. لا حاجة إلى حساب أو تسجيل دخول.",
   "shareVocabMessage": "لوحة Lighthouse: {board}\nلإضافتها، افتح الملف المرفق واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. أو افتح Lighthouse وانتقل إلى الإعدادات، ثم استيراد لوحة.",
-  "shareFileName": "لوحة Lighthouse - {board}"
+  "shareFileName": "لوحة Lighthouse - {board}",
+  "importedBoardTitle": "تمت إضافة اللوحة",
+  "importedBoardBody": "\"{board}\" جاهزة. هل تريد وضعها الآن على لوحة طفلك ليتمكن من فتحها؟",
+  "importedBoardLater": "لاحقًا",
+  "importedBoardPlace": "ضعها على اللوحة",
+  "importedBoardLaterToast": "تم حفظ \"{board}\". لوضعها على اللوحة لاحقًا، انتقل إلى الإعدادات، ثم اللوحات المشتركة.",
+  "placeSharedHint": "أين تريد وضع \"{board}\"؟ اضغط مربعًا فارغًا، أو اضغط كلمة لوضعها مكانها.",
+  "placeSharedHintFull": "هذه الصفحة ممتلئة. اضغط كلمة لوضع \"{board}\" مكانها. تُحفظ الكلمة وتعود إذا أزلت اللوحة من هذه الصفحة.",
+  "sharedPlacedToast": "\"{board}\" على اللوحة الآن",
+  "sharedBoardsTitle": "اللوحات المشتركة",
+  "sharedBoardsSubtitle": "ضع على لوحة طفلك لوحة شاركها شخص ما",
+  "sharedBoardsEmpty": "لا توجد لوحات مشتركة بعد. عندما يرسل إليك أحدهم لوحة، افتح الملف واختر Lighthouse AAC، أو استخدم استيراد لوحة.",
+  "sharedBoardsOnBoard": "على اللوحة",
+  "sharedBoardsNotOnBoard": "ليست على اللوحة بعد",
+  "sharedBoardsPlace": "ضع على اللوحة",
+  "removeSharedConfirm": "هل تريد إزالة \"{name}\" من هذه الصفحة؟ تُحفظ اللوحة المشتركة، ويمكنك إعادتها من الإعدادات، ثم اللوحات المشتركة.",
+  "removeSharedButton": "إزالة",
+  "customButtonsSharedOn": "لوحة مشتركة في {board}"
 }

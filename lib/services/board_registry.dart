@@ -86,6 +86,19 @@ class BoardRegistry {
   List<String> knownBoardIds() =>
       [..._assetSources.keys, ..._fileSources.keys];
 
+  /// Boards someone shared, added with the Pack Loader (ADR 0015), oldest
+  /// first (`imported_<n>` in number order; any other id after them).
+  List<String> importedBoardIds() {
+    int order(String id) =>
+        int.tryParse(id.startsWith('imported_') ? id.substring(9) : '') ??
+        1 << 30;
+    return [..._fileSources.keys]
+      ..sort((a, b) {
+        final c = order(a).compareTo(order(b));
+        return c != 0 ? c : a.compareTo(b);
+      });
+  }
+
   /// Attempts to load the board with [boardId]. Returns null if no source
   /// is registered for it. A registered source that fails to load
   /// rethrows the underlying [BoardLoadException] so the caller can

@@ -87,6 +87,11 @@ class CustomButton {
 
   bool get isCategory => linkId != null;
 
+  /// A folder tile that opens a board someone shared (ADR 0015 amendment),
+  /// rather than a page the parent made. Deleting it removes only the tile:
+  /// the shared board, and anything the parent added on it, stay.
+  bool get opensSharedBoard => linkId != null && !isParentCategoryPage(linkId!);
+
   Position get position => (row: row, col: col);
 
   CustomButton _copy({String? imagePath, TileColor? tileColor, bool clearColor = false}) =>
@@ -198,9 +203,15 @@ AACBoard categoryBoardFor(CustomButton folder) => AACBoard(
       buttons: const [],
     );
 
+/// True for a page a parent made with a category (`cat_<n>`, ADR 0022), as
+/// opposed to a shared board a folder tile can also open (`imported_<n>`).
+bool isParentCategoryPage(String boardId) => boardId.startsWith('cat_');
+
 /// The parent-made category page with [boardId], or null when no category
-/// folder in [customs] opens it.
+/// folder in [customs] opens it. A shared board is never generated here: it
+/// loads from the board registry.
 AACBoard? categoryBoardById(String boardId, List<CustomButton> customs) {
+  if (!isParentCategoryPage(boardId)) return null;
   for (final c in customs) {
     if (c.linkId == boardId) return categoryBoardFor(c);
   }
@@ -233,7 +244,11 @@ TileColor? defaultTileColorFor(AACBoard board, List<CustomButton> customs) {
     final c = byId[pending.removeLast()];
     if (c == null || !buttonIds.add(c.id)) continue;
     final page = c.linkId;
-    if (page == null || !boardIds.add(page)) continue;
+    // Only a page the parent made goes with its folder. A shared board's tile
+    // is just a doorway: the board and the parent's changes on it stay.
+    if (page == null || !isParentCategoryPage(page) || !boardIds.add(page)) {
+      continue;
+    }
     for (final inner in customs) {
       if (inner.boardId == page) pending.add(inner.id);
     }

@@ -8,3 +8,4 @@ export 'home_favourites_screen.dart';
 export 'math_gate.dart';
 export 'settings_advanced_screen.dart';
 export 'settings_primary_screen.dart';
+export 'shared_boards_screen.dart';

@@ -74,13 +74,24 @@ AACBoard _food() => AACBoard(
       buttons: [_word('apple', 0, 0)],
     );
 
+/// A board someone shared (ADR 0015 amendment), 2x3 with room on it.
+AACBoard _shared() => AACBoard(
+      schemaVersion: '1.3',
+      boardId: 'imported_1',
+      boardName: 'Grandma board',
+      gridDimensions: (rows: 2, cols: 3),
+      colorKey: const {'food': '#FFD9A6'},
+      buttons: [_word('imported_1__hug', 0, 0)],
+    );
+
 class _Harness {
-  _Harness() {
+  _Harness({Map<String, AACBoard> extra = const {}}) {
     container = ProviderContainer(overrides: [
       boardRegistryProvider
           .overrideWith((ref) async => _FakeRegistry({
                 'core_main': _home(),
                 'board_food': _food(),
+                ...extra,
               })),
       ...fakeStoreOverrides(
         buttons: buttons,
@@ -442,5 +453,65 @@ void main() {
     expect(back, isNull);
     expect(h.voices.m, isEmpty);
     expect(h.favs.pinsList, isEmpty);
+  });
+
+  group('a shared board put on the board (ADR 0015 amendment)', () {
+    late _Harness s;
+    setUp(() async {
+      s = _Harness(extra: {'imported_1': _shared()});
+      await s.ready();
+    });
+    tearDown(() => s.container.dispose());
+
+    test('its tile is a folder that opens the shared board; no new page',
+        () async {
+      final id = await s.notifier.addButton(
+          boardId: 'board_food', row: 1, col: 1, label: 'Grandma board',
+          sharedBoardId: 'imported_1');
+      final tile = s.container
+          .read(customButtonsProvider)
+          .value!
+          .firstWhere((c) => c.id == id);
+      expect(tile.linkId, 'imported_1');
+      expect(tile.opensSharedBoard, isTrue);
+      final food = await s.editorBoard('board_food');
+      final btn = food.buttons.firstWhere((b) => b.id == id);
+      expect(btn.type, AACButtonType.folder);
+      expect(btn.linkId, 'imported_1');
+      // Listed once: the real shared board, not an empty generated page.
+      final boards = await s.container.read(editableBoardsProvider.future);
+      final shared = boards.where((b) => b.boardId == 'imported_1').single;
+      expect(shared.buttons.map((b) => b.id), contains('imported_1__hug'));
+    });
+
+    test('removing the tile keeps the board and what the parent added on it',
+        () async {
+      final tile = await s.notifier.addButton(
+          boardId: 'board_food', row: 1, col: 1, label: 'Grandma board',
+          sharedBoardId: 'imported_1');
+      final inside = await s.notifier.addButton(
+          boardId: 'imported_1', row: 0, col: 1, label: 'Hug me');
+      await s.notifier.remove(tile);
+      final left = s.container.read(customButtonsProvider).value!;
+      expect(left.map((c) => c.id), [inside]);
+      final boards = await s.container.read(editableBoardsProvider.future);
+      expect(boards.any((b) => b.boardId == 'imported_1'), isTrue);
+    });
+
+    test("on a full page it takes a word's place; the word comes back",
+        () async {
+      final tile = await s.notifier.addButton(
+          boardId: 'core_main', row: 0, col: 1, label: 'Grandma board',
+          replacesId: 'eat', sharedBoardId: 'imported_1');
+      var home = await s.editorBoard('core_main');
+      expect(home.buttons.any((b) => b.id == 'eat'), isFalse);
+      expect(home.buttons.firstWhere((b) => b.id == tile).position,
+          (row: 0, col: 1));
+      final back = await s.notifier.remove(tile);
+      expect(back?.id, 'eat');
+      home = await s.editorBoard('core_main');
+      expect(home.buttons.firstWhere((b) => b.id == 'eat').position,
+          (row: 0, col: 1));
+    });
   });
 }

@@ -20,6 +20,7 @@ import '../models/models.dart';
 import '../services/services.dart';
 import '../state/state.dart';
 import 'settings/math_gate.dart';
+import 'settings/shared_boards_screen.dart';
 
 class IncomingBoardFileHandler extends ConsumerStatefulWidget {
   const IncomingBoardFileHandler({required this.child, super.key});
@@ -132,7 +133,12 @@ class _IncomingBoardFileHandlerState
       // so the new board shows in Home favourites and Custom buttons now.
       ref.invalidate(editableBoardsProvider);
       if (!mounted) return;
-      _snack(l10n.importedBoard(board.boardNameFor(lang)));
+      // Put it on the child's board now, or later (Settings, Shared boards).
+      await offerToPlaceSharedBoard(
+        context,
+        id: board.boardId,
+        name: board.boardNameFor(lang),
+      );
     } on BoardPackImportException {
       _snack(l10n.incomingBoardFailed);
     }

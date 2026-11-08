@@ -30,6 +30,7 @@ import 'feedback_screen.dart';
 import 'home_favourites_screen.dart';
 import 'math_gate.dart';
 import 'settings_advanced_screen.dart';
+import 'shared_boards_screen.dart';
 
 class SettingsPrimaryScreen extends ConsumerWidget {
   const SettingsPrimaryScreen({super.key});
@@ -80,6 +81,13 @@ class SettingsPrimaryScreen extends ConsumerWidget {
               subtitle: l10n.importBoardPackSubtitle,
               trailing: LhRowTrailing.none,
               onTap: () => _importBoardPack(context, ref),
+            ),
+            LhSettingsRow(
+              key: const ValueKey('settings_shared_boards'),
+              icon: Icons.dashboard_outlined,
+              title: l10n.sharedBoardsTitle,
+              subtitle: l10n.sharedBoardsSubtitle,
+              onTap: () => _openGated(context, const SharedBoardsScreen()),
             ),
 
             LhSectionLabel(l10n.sectionHowAppBehaves),
@@ -308,11 +316,11 @@ class SettingsPrimaryScreen extends ConsumerWidget {
       // so the new board shows in Home favourites and Custom buttons now.
       ref.invalidate(editableBoardsProvider);
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(seconds: 2),
-          content: Text(l10n.importedBoard(board.boardName)),
-        ),
+      // Put it on the child's board now, or later (Settings, Shared boards).
+      await offerToPlaceSharedBoard(
+        context,
+        id: board.boardId,
+        name: board.boardNameFor(Localizations.localeOf(context).languageCode),
       );
     } on BoardPackImportException catch (e) {
       if (!context.mounted) return;

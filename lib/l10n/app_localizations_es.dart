@@ -1260,4 +1260,71 @@ class AppLocalizationsEs extends AppLocalizations {
   String shareFileName(String board) {
     return 'Tablero de Lighthouse - $board';
   }
+
+  @override
+  String get importedBoardTitle => 'Tablero agregado';
+
+  @override
+  String importedBoardBody(String board) {
+    return '\"$board\" está listo. ¿Lo pones ahora en el tablero de tu hijo, para que pueda abrirlo?';
+  }
+
+  @override
+  String get importedBoardLater => 'Más tarde';
+
+  @override
+  String get importedBoardPlace => 'Ponerlo en el tablero';
+
+  @override
+  String importedBoardLaterToast(String board) {
+    return '\"$board\" está guardado. Para ponerlo en el tablero más tarde, ve a Ajustes, Tableros compartidos.';
+  }
+
+  @override
+  String placeSharedHint(String board) {
+    return '¿Dónde va \"$board\"? Toca un espacio vacío, o toca una palabra para ponerlo en su lugar.';
+  }
+
+  @override
+  String placeSharedHintFull(String board) {
+    return 'Esta página está llena. Toca una palabra para poner \"$board\" en su lugar. La palabra se guarda y vuelve si quitas el tablero de esta página.';
+  }
+
+  @override
+  String sharedPlacedToast(String board) {
+    return '\"$board\" está en el tablero';
+  }
+
+  @override
+  String get sharedBoardsTitle => 'Tableros compartidos';
+
+  @override
+  String get sharedBoardsSubtitle =>
+      'Pon en el tablero de tu hijo un tablero que alguien compartió';
+
+  @override
+  String get sharedBoardsEmpty =>
+      'Aún no hay tableros compartidos. Cuando alguien te envíe un tablero, abre el archivo y elige Lighthouse AAC, o usa Importar un tablero.';
+
+  @override
+  String get sharedBoardsOnBoard => 'En el tablero';
+
+  @override
+  String get sharedBoardsNotOnBoard => 'Aún no está en el tablero';
+
+  @override
+  String get sharedBoardsPlace => 'Poner en el tablero';
+
+  @override
+  String removeSharedConfirm(String name) {
+    return '¿Quitar \"$name\" de esta página? El tablero compartido se guarda: puedes volver a ponerlo desde Ajustes, Tableros compartidos.';
+  }
+
+  @override
+  String get removeSharedButton => 'Quitar';
+
+  @override
+  String customButtonsSharedOn(String board) {
+    return 'Tablero compartido en $board';
+  }
 }

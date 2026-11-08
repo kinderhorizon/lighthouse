@@ -2295,6 +2295,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lighthouse board - {board}'**
   String shareFileName(String board);
+
+  /// No description provided for @importedBoardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Board added'**
+  String get importedBoardTitle;
+
+  /// No description provided for @importedBoardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{board}\" is ready. Put it on your child\'s board now, so they can open it?'**
+  String importedBoardBody(String board);
+
+  /// No description provided for @importedBoardLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get importedBoardLater;
+
+  /// No description provided for @importedBoardPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Put it on the board'**
+  String get importedBoardPlace;
+
+  /// No description provided for @importedBoardLaterToast.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{board}\" is saved. To put it on the board later, go to Settings, Shared boards.'**
+  String importedBoardLaterToast(String board);
+
+  /// No description provided for @placeSharedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where should \"{board}\" go? Tap an empty square, or tap a word to put it in its place.'**
+  String placeSharedHint(String board);
+
+  /// No description provided for @placeSharedHintFull.
+  ///
+  /// In en, this message translates to:
+  /// **'This page is full. Tap a word to put \"{board}\" in its place. The word is kept, and comes back if you remove the board from this page.'**
+  String placeSharedHintFull(String board);
+
+  /// No description provided for @sharedPlacedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{board}\" is on the board'**
+  String sharedPlacedToast(String board);
+
+  /// No description provided for @sharedBoardsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared boards'**
+  String get sharedBoardsTitle;
+
+  /// No description provided for @sharedBoardsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Put a board someone shared on your child\'s board'**
+  String get sharedBoardsSubtitle;
+
+  /// No description provided for @sharedBoardsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No shared boards yet. When someone sends you a board, open the file and choose Lighthouse AAC, or use Import a board pack.'**
+  String get sharedBoardsEmpty;
+
+  /// No description provided for @sharedBoardsOnBoard.
+  ///
+  /// In en, this message translates to:
+  /// **'On the board'**
+  String get sharedBoardsOnBoard;
+
+  /// No description provided for @sharedBoardsNotOnBoard.
+  ///
+  /// In en, this message translates to:
+  /// **'Not on the board yet'**
+  String get sharedBoardsNotOnBoard;
+
+  /// No description provided for @sharedBoardsPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Put on the board'**
+  String get sharedBoardsPlace;
+
+  /// No description provided for @removeSharedConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove \"{name}\" from this page? The shared board is kept: you can put it back from Settings, Shared boards.'**
+  String removeSharedConfirm(String name);
+
+  /// No description provided for @removeSharedButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeSharedButton;
+
+  /// No description provided for @customButtonsSharedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared board on {board}'**
+  String customButtonsSharedOn(String board);
 }
 
 class _AppLocalizationsDelegate

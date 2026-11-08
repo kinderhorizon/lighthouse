@@ -116,8 +116,10 @@ class CustomButtonsScreen extends ConsumerWidget {
       final ok = await showDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          content: Text(
-              l10n.deleteCategoryConfirm(b.label, notifier.buttonsInside(b.id))),
+          content: Text(b.opensSharedBoard
+              ? l10n.removeSharedConfirm(b.label)
+              : l10n.deleteCategoryConfirm(
+                  b.label, notifier.buttonsInside(b.id))),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
@@ -126,7 +128,9 @@ class CustomButtonsScreen extends ConsumerWidget {
             FilledButton(
               key: const ValueKey('custom_delete_confirm'),
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text(l10n.deleteConfirm),
+              child: Text(b.opensSharedBoard
+                  ? l10n.removeSharedButton
+                  : l10n.deleteConfirm),
             ),
           ],
         ),
@@ -163,7 +167,9 @@ class _CustomButtonRow extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final fill = tileColorFill(button.tileColor);
     final String subtitle;
-    if (button.isCategory) {
+    if (button.opensSharedBoard) {
+      subtitle = l10n.customButtonsSharedOn(boardName);
+    } else if (button.isCategory) {
       subtitle = l10n.customButtonsCategoryOn(boardName);
     } else if (replacedLabel != null) {
       subtitle = l10n.customButtonsInPlaceOf(boardName, replacedLabel!);

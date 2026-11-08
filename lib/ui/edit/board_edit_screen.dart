@@ -122,17 +122,30 @@ Map<String, Position> computeReorder(
 enum _EditMode { arrange, select, place }
 
 class BoardEditScreen extends ConsumerStatefulWidget {
-  const BoardEditScreen({required this.rootBoardId, super.key});
+  const BoardEditScreen({
+    required this.rootBoardId,
+    this.placeSharedBoard,
+    super.key,
+  });
 
   /// The board the session starts on (the one the parent was viewing).
   final String rootBoardId;
+
+  /// A shared board to put on [rootBoardId] (ADR 0015 amendment): the editor
+  /// opens already asking "Where should it go?". Tapping an empty square, or a
+  /// word to put it in its place, adds a folder tile that opens the board.
+  final ({String id, String name})? placeSharedBoard;
 
   @override
   ConsumerState<BoardEditScreen> createState() => _BoardEditScreenState();
 }
 
 class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
-  _EditMode _mode = _EditMode.arrange;
+  late _EditMode _mode =
+      widget.placeSharedBoard == null ? _EditMode.arrange : _EditMode.place;
+
+  /// The shared board being placed, while in place mode (else null).
+  late ({String id, String name})? _pendingShared = widget.placeSharedBoard;
 
   /// Selected tile ids in select mode.
   final Set<String> _selected = {};
@@ -196,6 +209,7 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   void _exitSelect() {
     _mode = _EditMode.arrange;
     _selected.clear();
+    _pendingShared = null;
   }
 
   void _toast(String message) {
@@ -293,10 +307,17 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
                             Expanded(
                               child: Text(switch (_mode) {
                                 _EditMode.select => l10n.editSelectHint,
-                                _EditMode.place =>
-                                  board.emptySlots(limit: 1).isEmpty
-                                      ? l10n.editPlaceHintFull
-                                      : l10n.editPlaceHint,
+                                _EditMode.place => switch ((
+                                    _pendingShared?.name,
+                                    board.emptySlots(limit: 1).isEmpty,
+                                  )) {
+                                    (final String name, true) =>
+                                      l10n.placeSharedHintFull(name),
+                                    (final String name, false) =>
+                                      l10n.placeSharedHint(name),
+                                    (null, true) => l10n.editPlaceHintFull,
+                                    (null, false) => l10n.editPlaceHint,
+                                  },
                                 _EditMode.arrange => l10n.editArrangeHint,
                               }, style: LhText.rowSubtitle),
                             ),
@@ -714,7 +735,12 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     }
     if (_mode == _EditMode.place) {
       // Only a built-in word can be replaced; other tiles are dimmed + inert.
-      if (_isReplaceable(btn)) _addAt(board, btn.position, replacing: btn);
+      if (!_isReplaceable(btn)) return;
+      if (_pendingShared != null) {
+        _placeShared(board, btn.position, replacing: btn);
+      } else {
+        _addAt(board, btn.position, replacing: btn);
+      }
       return;
     }
     _openQuickActions(board, btn);
@@ -804,7 +830,10 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
                     key: const ValueKey('sheet_delete'),
                     icon: Icons.delete_outline_rounded,
                     iconColor: LhColors.amberDeep,
-                    title: l10n.editActionDeleteCategory,
+                    // A shared board's tile is only removed from the page.
+                    title: own!.opensSharedBoard
+                        ? l10n.removeSharedButton
+                        : l10n.editActionDeleteCategory,
                     subtitle: null,
                     onTap: () => pick('delete'),
                   ),
@@ -931,14 +960,17 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     final lang = Localizations.localeOf(context).languageCode;
     final notifier = ref.read(customButtonsProvider.notifier);
     if (own.isCategory) {
+      final shared = own.opensSharedBoard;
       final ok = await showDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
           content: Text(
-            l10n.deleteCategoryConfirm(
-              own.label,
-              notifier.buttonsInside(own.id),
-            ),
+            shared
+                ? l10n.removeSharedConfirm(own.label)
+                : l10n.deleteCategoryConfirm(
+                    own.label,
+                    notifier.buttonsInside(own.id),
+                  ),
           ),
           actions: [
             TextButton(
@@ -948,7 +980,8 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             FilledButton(
               key: const ValueKey('editor_delete_confirm'),
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text(l10n.deleteConfirm),
+              child: Text(
+                  shared ? l10n.removeSharedButton : l10n.deleteConfirm),
             ),
           ],
         ),
@@ -1044,7 +1077,42 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   /// Tapping an empty square (arrange or "+ Add") adds there.
   Future<void> _addAtSlot(AACBoard board, Position pos) async {
     if (_mode == _EditMode.select) return;
+    if (_pendingShared != null) {
+      await _placeShared(board, pos);
+      return;
+    }
     await _addAt(board, pos);
+  }
+
+  /// Puts the shared board being placed at the DISPLAYED slot [pos], or in
+  /// place of the built-in word [replacing] (set aside, back if the tile is
+  /// removed): a folder tile named after the board, in the page's colour.
+  /// The parent can rename it or give it a photo later with Edit.
+  Future<void> _placeShared(
+    AACBoard board,
+    Position pos, {
+    AACButton? replacing,
+  }) async {
+    final shared = _pendingShared;
+    if (shared == null) return;
+    final l10n = AppLocalizations.of(context);
+    final customs = ref.read(customButtonsProvider).valueOrNull ?? const [];
+    try {
+      await ref.read(customButtonsProvider.notifier).addButton(
+            boardId: board.boardId,
+            row: pos.row,
+            col: pos.col,
+            label: shared.name,
+            tileColor: defaultTileColorFor(board, customs),
+            replacesId: replacing?.id,
+            sharedBoardId: shared.id,
+          );
+      if (!mounted) return;
+      setState(_exitSelect);
+      _toast(l10n.sharedPlacedToast(shared.name));
+    } catch (_) {
+      if (mounted) _toast(l10n.customTileSaveFailed);
+    }
   }
 
   /// Opens the add dialog for the DISPLAYED slot [pos] (ADR 0022), optionally

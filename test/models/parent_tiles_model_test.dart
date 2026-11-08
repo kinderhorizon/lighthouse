@@ -446,4 +446,23 @@ void main() {
           {'w': (row: 0, col: 1), 'cat': (row: 0, col: 2)});
     });
   });
+
+  group('a tile that opens a shared board (ADR 0015 amendment)', () {
+    CustomButton tile(String id, String board, {String? link}) => CustomButton(
+          id: id, boardId: board, row: 0, col: 0, label: id, voiceOut: id,
+          imagePath: '', linkId: link);
+
+    test('is not a parent-made page: no generated page, no cascade', () {
+      final shared = tile('t', 'core_main', link: 'imported_3');
+      final inside = tile('i', 'imported_3');
+      expect(shared.opensSharedBoard, isTrue);
+      expect(tile('c', 'core_main', link: 'cat_0').opensSharedBoard, isFalse);
+      expect(isParentCategoryPage('cat_0'), isTrue);
+      expect(isParentCategoryPage('imported_3'), isFalse);
+      expect(categoryBoardById('imported_3', [shared, inside]), isNull);
+      final sub = customSubtree(['t'], [shared, inside]);
+      expect(sub.buttonIds, {'t'});
+      expect(sub.boardIds, isEmpty);
+    });
+  });
 }

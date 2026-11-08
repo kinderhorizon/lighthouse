@@ -50,6 +50,23 @@ Change:
   Home Core.json", in the sender's language), and the Settings row reads
   "Add a board someone shared with you".
 
+- Clinical testing: after "Add board" the app only said the board was added,
+  but nothing on the child's board opened it (it was stored, reachable only
+  through Home favourites), so on a full page there was no hint that a tile
+  had to make room. Now, right after a board is added, the parent is asked to
+  put it on the child's board now or later. "Later" says where to find it:
+  Settings, Shared boards, which lists every shared board, says whether it is
+  on the board, and puts it there. "Now" opens the editor already asking where
+  it goes: an empty square, or a word to put it in place of; on a full page
+  the hint says to pick a word, which is kept and comes back if the board is
+  removed (the same rule as a parent's own button, ADR 0022). The board goes
+  on as a folder tile (a parent-made category whose link is the shared board,
+  `imported_<n>`, instead of a new `cat_<n>` page), so the parent can move,
+  rename, recolour, hide or remove it like any of their own tiles. Removing
+  that tile removes only the tile: the shared board and anything the parent
+  added on it stay, and it can be put back from Settings, Shared boards.
+  Deleting a shared board from the device is not built yet.
+
 Settings, Import still works and remains the path when another app has been
 set as the phone's default for JSON files.
 

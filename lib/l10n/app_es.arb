@@ -365,5 +365,22 @@
   "incomingBoardFailed": "No se pudo agregar este tablero. No se cambió nada.",
   "shareVocabReceiveHint": "En el otro dispositivo, abre el archivo y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. No hace falta cuenta ni iniciar sesión.",
   "shareVocabMessage": "Tablero de Lighthouse: {board}\nPara agregarlo, abre el archivo adjunto y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. O abre Lighthouse y ve a Ajustes, Importar un tablero.",
-  "shareFileName": "Tablero de Lighthouse - {board}"
+  "shareFileName": "Tablero de Lighthouse - {board}",
+  "importedBoardTitle": "Tablero agregado",
+  "importedBoardBody": "\"{board}\" está listo. ¿Lo pones ahora en el tablero de tu hijo, para que pueda abrirlo?",
+  "importedBoardLater": "Más tarde",
+  "importedBoardPlace": "Ponerlo en el tablero",
+  "importedBoardLaterToast": "\"{board}\" está guardado. Para ponerlo en el tablero más tarde, ve a Ajustes, Tableros compartidos.",
+  "placeSharedHint": "¿Dónde va \"{board}\"? Toca un espacio vacío, o toca una palabra para ponerlo en su lugar.",
+  "placeSharedHintFull": "Esta página está llena. Toca una palabra para poner \"{board}\" en su lugar. La palabra se guarda y vuelve si quitas el tablero de esta página.",
+  "sharedPlacedToast": "\"{board}\" está en el tablero",
+  "sharedBoardsTitle": "Tableros compartidos",
+  "sharedBoardsSubtitle": "Pon en el tablero de tu hijo un tablero que alguien compartió",
+  "sharedBoardsEmpty": "Aún no hay tableros compartidos. Cuando alguien te envíe un tablero, abre el archivo y elige Lighthouse AAC, o usa Importar un tablero.",
+  "sharedBoardsOnBoard": "En el tablero",
+  "sharedBoardsNotOnBoard": "Aún no está en el tablero",
+  "sharedBoardsPlace": "Poner en el tablero",
+  "removeSharedConfirm": "¿Quitar \"{name}\" de esta página? El tablero compartido se guarda: puedes volver a ponerlo desde Ajustes, Tableros compartidos.",
+  "removeSharedButton": "Quitar",
+  "customButtonsSharedOn": "Tablero compartido en {board}"
 }

@@ -147,7 +147,15 @@ void main() {
     await solveGate(tester);
     await settle(tester);
 
-    expect(find.text('Imported "Grandma board".'), findsOneWidget);
+    // Added; the parent is asked to put it on the board now or later
+    // (clinical testing: "added" alone left them unsure where it went).
+    expect(find.text('Board added'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('imported_later')));
+    await tester.pumpAndSettle();
+    expect(
+        find.text('"Grandma board" is saved. To put it on the board later, '
+            'go to Settings, Shared boards.'),
+        findsOneWidget);
     // A new, separate board: re-ided, the sender's own id is not reused.
     expect(registry.knows('imported_1'), isTrue);
     final imported = await tester.runAsync(
@@ -155,6 +163,24 @@ void main() {
     );
     expect(imported?.boardName, 'Grandma board');
     expect(file.existsSync(), isFalse, reason: 'the copy must not linger');
+  });
+
+  testWidgets('"Put it on the board" opens the editor asking where it goes',
+      (tester) async {
+    writeIncoming(jsonEncode(_boardJson('Grandma board')));
+    await pumpHost(tester);
+    await settle(tester);
+    await tester.tap(find.byKey(const ValueKey('incoming_board_add')));
+    await tester.pumpAndSettle();
+    await solveGate(tester);
+    await settle(tester);
+
+    await tester.tap(find.byKey(const ValueKey('imported_place')));
+    await settle(tester);
+    final editor = tester.widget<BoardEditScreen>(find.byType(BoardEditScreen));
+    expect(editor.rootBoardId, 'core_main');
+    expect(editor.placeSharedBoard?.id, 'imported_1');
+    expect(editor.placeSharedBoard?.name, 'Grandma board');
   });
 
   testWidgets('a file arriving while the app runs is offered too', (

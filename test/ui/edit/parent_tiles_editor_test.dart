@@ -85,13 +85,29 @@ AACBoard _food() => AACBoard(
       buttons: [_word('apple', 0, 0)],
     );
 
+/// A board someone shared (ADR 0015 amendment), already imported.
+AACBoard _shared() => AACBoard(
+      schemaVersion: '1.3',
+      boardId: 'imported_1',
+      boardName: 'Grandma board',
+      gridDimensions: (rows: 2, cols: 2),
+      colorKey: const {'food': '#FFD9A6'},
+      buttons: [_word('imported_1__hug', 0, 0)],
+    );
+
 class _Env {
-  _Env({List<CustomButton>? seed, String root = 'core_main'})
+  _Env(
+      {List<CustomButton>? seed,
+      String root = 'core_main',
+      this.placeShared})
       : buttons = FakeCustomButtonStore(seed),
         rootId = root {
     container = ProviderContainer(overrides: [
-      boardRegistryProvider.overrideWith((ref) async =>
-          _FakeRegistry({'core_main': _home(), 'board_food': _food()})),
+      boardRegistryProvider.overrideWith((ref) async => _FakeRegistry({
+            'core_main': _home(),
+            'board_food': _food(),
+            'imported_1': _shared(),
+          })),
       ...fakeStoreOverrides(buttons: buttons, hidden: hidden, voices: voices),
     ]);
   }
@@ -100,6 +116,7 @@ class _Env {
   final hidden = FakeHiddenStore();
   final voices = FakeVoiceStore();
   final String rootId;
+  final ({String id, String name})? placeShared;
   late final ProviderContainer container;
 
   List<CustomButton> get customs =>
@@ -121,7 +138,8 @@ class _Env {
             data: MediaQuery.of(context).copyWith(disableAnimations: true),
             child: child!,
           ),
-          home: BoardEditScreen(rootBoardId: rootId),
+          home: BoardEditScreen(
+              rootBoardId: rootId, placeSharedBoard: placeShared),
         ),
       );
 }
@@ -644,4 +662,82 @@ void main() {
       await show(CustomTileDialog.edit(existing: _seed('Pizza')));
     });
   }
+
+  group('putting a shared board on the board (ADR 0015 amendment)', () {
+    const grandma = (id: 'imported_1', name: 'Grandma board');
+
+    testWidgets('a full page says to pick a word, and the board takes its place',
+        (tester) async {
+      final env = _Env(placeShared: grandma);
+      await _open(tester, env);
+      expect(
+          find.text('This page is full. Tap a word to put "Grandma board" in '
+              'its place. The word is kept, and comes back if you remove the '
+              'board from this page.'),
+          findsOneWidget);
+
+      await tester.tap(_tile('eat'));
+      await tester.pumpAndSettle();
+      final tile = env.customs.single;
+      expect(tile.linkId, 'imported_1');
+      expect(tile.opensSharedBoard, isTrue);
+      expect(tile.replacesId, 'eat');
+      expect(tile.label, 'Grandma board');
+      expect(find.text('"Grandma board" is on the board'), findsOneWidget);
+      // Back to arranging: the next tap on an empty square is a normal add.
+      expect(find.byKey(const ValueKey('editor_place_cancel')), findsNothing);
+      await _drain(tester);
+    });
+
+    testWidgets('with room, an empty square takes it', (tester) async {
+      final env = _Env(root: 'board_food', placeShared: grandma);
+      await _open(tester, env);
+      expect(
+          find.text('Where should "Grandma board" go? Tap an empty square, or '
+              'tap a word to put it in its place.'),
+          findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('editor_empty_1_1')));
+      await tester.pumpAndSettle();
+      final tile = env.customs.single;
+      expect(tile.boardId, 'board_food');
+      expect(tile.linkId, 'imported_1');
+      expect(tile.replacesId, isNull);
+      await _drain(tester);
+    });
+
+    testWidgets('Cancel places nothing', (tester) async {
+      final env = _Env(placeShared: grandma);
+      await _open(tester, env);
+      await tester.tap(find.byKey(const ValueKey('editor_place_cancel')));
+      await tester.pumpAndSettle();
+      expect(env.customs, isEmpty);
+      expect(find.text('Where should "Grandma board" go? Tap an empty square, '
+          'or tap a word to put it in its place.'), findsNothing);
+    });
+
+    testWidgets('its tile is removed, not deleted: the shared board stays',
+        (tester) async {
+      final env = _Env(
+          root: 'board_food',
+          seed: [_seed('c_shared', boardId: 'board_food', row: 1, col: 1,
+              link: 'imported_1')]);
+      await _open(tester, env);
+      await tester.tap(_tile('c_shared'));
+      await tester.pumpAndSettle();
+      expect(find.descendant(
+              of: find.byKey(const ValueKey('sheet_delete')),
+              matching: find.text('Remove')),
+          findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('sheet_delete')));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('The shared board is kept'), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('editor_delete_confirm')));
+      await tester.pumpAndSettle();
+      expect(env.customs, isEmpty);
+      final boards =
+          await env.container.read(editableBoardsProvider.future);
+      expect(boards.any((b) => b.boardId == 'imported_1'), isTrue);
+      await _drain(tester);
+    });
+  });
 }

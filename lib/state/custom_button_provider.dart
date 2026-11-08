@@ -83,7 +83,10 @@ Future<List<AACBoard>> editableBoards(EditableBoardsRef ref) async {
   final known = {for (final b in boards) b.boardId};
   for (final c in customs) {
     final page = c.linkId;
-    if (page != null && known.add(page)) boards.add(compose(categoryBoardFor(c)));
+    // A shared board's tile opens a registry board, already listed above.
+    if (page != null && isParentCategoryPage(page) && known.add(page)) {
+      boards.add(compose(categoryBoardFor(c)));
+    }
   }
   return boards;
 }
@@ -103,7 +106,9 @@ class CustomButtons extends _$CustomButtons {
   /// [row]/[col] is the slot the parent chose, as DISPLAYED in the editor.
   /// With [replacesId] (ADR 0022) the button takes the place of that built-in
   /// word, which is set aside until this button is deleted. With [category]
-  /// true it is a category folder that opens a new blank page.
+  /// true it is a category folder that opens a new blank page. With
+  /// [sharedBoardId] it is a folder that opens that shared board instead
+  /// (ADR 0015 amendment); no new page is made.
   Future<String> addButton({
     required String boardId,
     required int row,
@@ -114,6 +119,7 @@ class CustomButtons extends _$CustomButtons {
     TileColor? tileColor,
     String? replacesId,
     bool category = false,
+    String? sharedBoardId,
   }) async {
     final store = ref.read(customButtonStoreProvider);
     final requested = (row: row, col: col);
@@ -133,7 +139,8 @@ class CustomButtons extends _$CustomButtons {
     // Reserve the stable id first (ADR 0014), then use it as the image
     // filename so the copied photo is named by identity, not by slot.
     final id = await store.allocateId(boardId);
-    final linkId = category ? await store.allocateCategoryBoardId() : null;
+    final linkId = sharedBoardId ??
+        (category ? await store.allocateCategoryBoardId() : null);
     var imagePath = '';
     if (imageSource != null) {
       imagePath = await store.importImage(imageSource, suggestedName: id);

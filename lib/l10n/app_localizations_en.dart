@@ -1246,4 +1246,71 @@ class AppLocalizationsEn extends AppLocalizations {
   String shareFileName(String board) {
     return 'Lighthouse board - $board';
   }
+
+  @override
+  String get importedBoardTitle => 'Board added';
+
+  @override
+  String importedBoardBody(String board) {
+    return '\"$board\" is ready. Put it on your child\'s board now, so they can open it?';
+  }
+
+  @override
+  String get importedBoardLater => 'Later';
+
+  @override
+  String get importedBoardPlace => 'Put it on the board';
+
+  @override
+  String importedBoardLaterToast(String board) {
+    return '\"$board\" is saved. To put it on the board later, go to Settings, Shared boards.';
+  }
+
+  @override
+  String placeSharedHint(String board) {
+    return 'Where should \"$board\" go? Tap an empty square, or tap a word to put it in its place.';
+  }
+
+  @override
+  String placeSharedHintFull(String board) {
+    return 'This page is full. Tap a word to put \"$board\" in its place. The word is kept, and comes back if you remove the board from this page.';
+  }
+
+  @override
+  String sharedPlacedToast(String board) {
+    return '\"$board\" is on the board';
+  }
+
+  @override
+  String get sharedBoardsTitle => 'Shared boards';
+
+  @override
+  String get sharedBoardsSubtitle =>
+      'Put a board someone shared on your child\'s board';
+
+  @override
+  String get sharedBoardsEmpty =>
+      'No shared boards yet. When someone sends you a board, open the file and choose Lighthouse AAC, or use Import a board pack.';
+
+  @override
+  String get sharedBoardsOnBoard => 'On the board';
+
+  @override
+  String get sharedBoardsNotOnBoard => 'Not on the board yet';
+
+  @override
+  String get sharedBoardsPlace => 'Put on the board';
+
+  @override
+  String removeSharedConfirm(String name) {
+    return 'Remove \"$name\" from this page? The shared board is kept: you can put it back from Settings, Shared boards.';
+  }
+
+  @override
+  String get removeSharedButton => 'Remove';
+
+  @override
+  String customButtonsSharedOn(String board) {
+    return 'Shared board on $board';
+  }
 }

@@ -1243,4 +1243,70 @@ class AppLocalizationsAr extends AppLocalizations {
   String shareFileName(String board) {
     return 'لوحة Lighthouse - $board';
   }
+
+  @override
+  String get importedBoardTitle => 'تمت إضافة اللوحة';
+
+  @override
+  String importedBoardBody(String board) {
+    return '\"$board\" جاهزة. هل تريد وضعها الآن على لوحة طفلك ليتمكن من فتحها؟';
+  }
+
+  @override
+  String get importedBoardLater => 'لاحقًا';
+
+  @override
+  String get importedBoardPlace => 'ضعها على اللوحة';
+
+  @override
+  String importedBoardLaterToast(String board) {
+    return 'تم حفظ \"$board\". لوضعها على اللوحة لاحقًا، انتقل إلى الإعدادات، ثم اللوحات المشتركة.';
+  }
+
+  @override
+  String placeSharedHint(String board) {
+    return 'أين تريد وضع \"$board\"؟ اضغط مربعًا فارغًا، أو اضغط كلمة لوضعها مكانها.';
+  }
+
+  @override
+  String placeSharedHintFull(String board) {
+    return 'هذه الصفحة ممتلئة. اضغط كلمة لوضع \"$board\" مكانها. تُحفظ الكلمة وتعود إذا أزلت اللوحة من هذه الصفحة.';
+  }
+
+  @override
+  String sharedPlacedToast(String board) {
+    return '\"$board\" على اللوحة الآن';
+  }
+
+  @override
+  String get sharedBoardsTitle => 'اللوحات المشتركة';
+
+  @override
+  String get sharedBoardsSubtitle => 'ضع على لوحة طفلك لوحة شاركها شخص ما';
+
+  @override
+  String get sharedBoardsEmpty =>
+      'لا توجد لوحات مشتركة بعد. عندما يرسل إليك أحدهم لوحة، افتح الملف واختر Lighthouse AAC، أو استخدم استيراد لوحة.';
+
+  @override
+  String get sharedBoardsOnBoard => 'على اللوحة';
+
+  @override
+  String get sharedBoardsNotOnBoard => 'ليست على اللوحة بعد';
+
+  @override
+  String get sharedBoardsPlace => 'ضع على اللوحة';
+
+  @override
+  String removeSharedConfirm(String name) {
+    return 'هل تريد إزالة \"$name\" من هذه الصفحة؟ تُحفظ اللوحة المشتركة، ويمكنك إعادتها من الإعدادات، ثم اللوحات المشتركة.';
+  }
+
+  @override
+  String get removeSharedButton => 'إزالة';
+
+  @override
+  String customButtonsSharedOn(String board) {
+    return 'لوحة مشتركة في $board';
+  }
 }
