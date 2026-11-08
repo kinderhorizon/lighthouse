@@ -263,4 +263,61 @@ void main() {
           'lighthouse_vocab_${board.boardId}.json');
     });
   });
+
+  group("the board's own colour goes with the pack (clinical testing)", () {
+    const word = AACButton(
+      id: 'red',
+      label: 'Red',
+      labelByLocale: {},
+      type: AACButtonType.word,
+      position: (row: 0, col: 0),
+      category: 'custom',
+      baseWeight: 0.5,
+      iconUri: '',
+      voiceOut: 'red',
+      tileColor: TileColor.orange,
+    );
+    AACBoard board(Map<String, String> colorKey) => AACBoard(
+          schemaVersion: '1.3',
+          boardId: 'cat_0',
+          boardName: 'Colors',
+          gridDimensions: (rows: 6, cols: 8),
+          colorKey: colorKey,
+          buttons: const [word],
+        );
+    late Directory tmp;
+    setUp(() async => tmp = await Directory.systemTemp.createTemp('colour_'));
+    tearDown(() => tmp.delete(recursive: true));
+
+    Future<Map<String, dynamic>> written(AACBoard b, {TileColor? colour}) async {
+      final e = await BoardPackExporter(tempDirOverride: tmp)
+          .prepare(b, tileColor: colour);
+      return jsonDecode(await e.file.readAsString()) as Map<String, dynamic>;
+    }
+
+    test("a category's folder colour is written", () async {
+      final j = await written(board(const {}), colour: TileColor.green);
+      expect(j['tile_color'], TileColor.green.hex);
+    });
+    test('a one-colour board sends its group colour; a mixed one none',
+        () async {
+      expect((await written(board(const {'food': '#FFD9A6'})))['tile_color'],
+          TileColor.orange.hex);
+      expect(
+          (await written(board(const {'food': '#FFD9A6', 'verb': '#C2FFC2'})))
+              .containsKey('tile_color'),
+          isFalse);
+    });
+    test('the importer keeps it on the new, re-ided board', () async {
+      final e = await BoardPackExporter(tempDirOverride: tmp)
+          .prepare(board(const {}), tileColor: TileColor.purple);
+      final registry =
+          BoardRegistry(importedBoardsDirOverride: Directory('${tmp.path}/in'));
+      final imported = await BoardPackImporter(registry: registry)
+          .import(e.file, assignFreshId: true);
+      expect(imported.tileColor, TileColor.purple);
+      expect((await registry.tryLoad(imported.boardId))!.tileColor,
+          TileColor.purple);
+    });
+  });
 }

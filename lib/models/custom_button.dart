@@ -201,6 +201,8 @@ AACBoard categoryBoardFor(CustomButton folder) => AACBoard(
       gridDimensions: kCategoryGrid,
       colorKey: const {},
       buttons: const [],
+      // Travels with the page if it is shared (ADR 0015 amendment).
+      tileColor: folder.tileColor,
     );
 
 /// True for a page a parent made with a category (`cat_<n>`, ADR 0022), as

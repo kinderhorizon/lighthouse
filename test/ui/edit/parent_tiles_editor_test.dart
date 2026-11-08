@@ -5,7 +5,11 @@
 /// blank", and the sheet offering the right actions for each kind of tile.
 library;
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -93,6 +97,7 @@ AACBoard _shared() => AACBoard(
       gridDimensions: (rows: 2, cols: 2),
       colorKey: const {'food': '#FFD9A6'},
       buttons: [_word('imported_1__hug', 0, 0)],
+      tileColor: TileColor.purple,
     );
 
 class _Env {
@@ -683,6 +688,8 @@ void main() {
       expect(tile.opensSharedBoard, isTrue);
       expect(tile.replacesId, 'eat');
       expect(tile.label, 'Grandma board');
+      // In the colour it was shared in (clinical testing: it came out grey).
+      expect(tile.tileColor, TileColor.purple);
       expect(find.text('"Grandma board" is on the board'), findsOneWidget);
       // Back to arranging: the next tap on an empty square is a normal add.
       expect(find.byKey(const ValueKey('editor_place_cancel')), findsNothing);
@@ -739,5 +746,45 @@ void main() {
       expect(boards.any((b) => b.boardId == 'imported_1'), isTrue);
       await _drain(tester);
     });
+  });
+
+  testWidgets("sharing a category page sends its folder's colour",
+      (tester) async {
+    // Clinical testing: a shared category ("Colors", orange) arrived grey,
+    // because the colour lives on the folder, not on the page.
+    final tmp = Directory.systemTemp.createTempSync('share_colour_');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    const pathChannel = MethodChannel('plugins.flutter.io/path_provider');
+    const shareChannel = MethodChannel('dev.fluttercommunity.plus/share');
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(pathChannel, (_) async => tmp.path);
+    String? sent;
+    messenger.setMockMethodCallHandler(shareChannel, (call) async {
+      final args = call.arguments as Map<Object?, Object?>;
+      sent = File((args['paths'] as List).single as String).readAsStringSync();
+      return 'dev.fluttercommunity.plus/share/unavailable';
+    });
+    addTearDown(() {
+      messenger.setMockMethodCallHandler(pathChannel, null);
+      messenger.setMockMethodCallHandler(shareChannel, null);
+    });
+
+    final env = _Env(root: 'cat_0', seed: [
+      _seed('c_colors', link: 'cat_0', color: TileColor.orange),
+      _seed('c_red', boardId: 'cat_0', color: TileColor.orange),
+    ]);
+    await _open(tester, env);
+    await tester.tap(find.byKey(const ValueKey('editor_share')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('editor_share_confirm')));
+    for (var i = 0; i < 20 && sent == null; i++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 20)));
+      await tester.pump();
+    }
+    await tester.pumpAndSettle();
+    expect(sent, isNotNull);
+    expect((jsonDecode(sent!) as Map)['tile_color'], TileColor.orange.hex);
   });
 }

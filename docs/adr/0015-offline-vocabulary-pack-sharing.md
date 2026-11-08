@@ -66,6 +66,12 @@ Change:
   that tile removes only the tile: the shared board and anything the parent
   added on it stay, and it can be put back from Settings, Shared boards.
   Deleting a shared board from the device is not built yet.
+- The board's own colour now travels with it: an optional `tile_color` in the
+  pack (older versions ignore it). It is the colour of the sender's folder
+  (a parent-made category's colour), else a one-colour board's group colour
+  (Food is orange); Home mixes colours and sends none. The recipient's folder
+  tile starts in that colour (clinical testing: a shared orange category
+  arrived as a grey tile). Colours of the words inside always travelled.
 
 Settings, Import still works and remains the path when another app has been
 set as the phone's default for JSON files.

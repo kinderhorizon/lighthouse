@@ -6,6 +6,7 @@
 library;
 
 import 'aac_button.dart';
+import 'tile_color.dart';
 
 typedef GridDimensions = ({int rows, int cols});
 
@@ -25,6 +26,7 @@ class AACBoard {
     required this.buttons,
     this.boardNameByLocale = const {},
     this.hiddenSlots = const {},
+    this.tileColor,
   }) {
     _buttonsByPosition = {
       for (final b in buttons) b.position: b,
@@ -54,6 +56,13 @@ class AACBoard {
   /// the reflowed phone / small-tablet grid needs it so the remaining tiles do
   /// not close the gap. Render-only: never serialized.
   final Set<Position> hiddenSlots;
+
+  /// The board's own colour, for the folder tile that opens it once someone
+  /// receives it as a shared board (ADR 0015 amendment): a parent-made
+  /// category's colour, or the group colour of a one-colour board such as
+  /// Food. Null = no single colour (Home mixes colours). Optional JSON
+  /// `tile_color`; older app versions ignore it.
+  final TileColor? tileColor;
 
   late final Map<Position, AACButton> _buttonsByPosition;
 
@@ -92,6 +101,20 @@ class AACBoard {
         colorKey: colorKey,
         buttons: List.unmodifiable(newButtons),
         hiddenSlots: hiddenSlots ?? this.hiddenSlots,
+        tileColor: tileColor,
+      );
+
+  /// Returns a copy with [color] as the board's own colour ([tileColor]).
+  AACBoard withTileColor(TileColor? color) => AACBoard(
+        schemaVersion: schemaVersion,
+        boardId: boardId,
+        boardName: boardName,
+        boardNameByLocale: boardNameByLocale,
+        gridDimensions: gridDimensions,
+        colorKey: colorKey,
+        buttons: buttons,
+        hiddenSlots: hiddenSlots,
+        tileColor: color,
       );
 
   /// Empty (unoccupied) grid slots in row-major order, up to [limit] if given.
@@ -120,6 +143,7 @@ class AACBoard {
       'grid_dimensions': [gridDimensions.rows, gridDimensions.cols],
       'color_key': colorKey,
       'buttons': [for (final b in buttons) b.toJson()],
+      if (tileColor != null) 'tile_color': tileColor!.hex,
     };
     boardNameByLocale
         .forEach((code, value) => json['board_name_$code'] = value);
@@ -215,6 +239,8 @@ class AACBoard {
       gridDimensions: (rows: rows, cols: cols),
       colorKey: Map.unmodifiable(colorKey),
       buttons: List.unmodifiable(buttons),
+      // Palette colours only; anything else is ignored (no colour).
+      tileColor: TileColor.fromHex(json['tile_color']),
     );
   }
 }

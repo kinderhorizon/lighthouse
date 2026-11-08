@@ -87,9 +87,23 @@ class BoardPackExporter {
   /// the sender's language (for example "Lighthouse board - Home Core"); it is
   /// made safe for a file name by [shareFileName]. Without it the file is named
   /// after the board id.
+  ///
+  /// [tileColor] is the colour of the folder that opens this board on the
+  /// sender's device (a parent-made category's colour); it travels with the
+  /// pack so the recipient's folder tile matches (clinical testing: a shared
+  /// category arrived grey). Without it, a one-colour board (Food, People...)
+  /// sends its group colour, and a mixed board (Home) sends none.
   Future<BoardPackExport> prepare(AACBoard merged,
-      {String? fileBaseName}) async {
-    final built = buildExportBoard(merged);
+      {String? fileBaseName, TileColor? tileColor}) async {
+    final exported = buildExportBoard(merged);
+    final colour = tileColor ??
+        exported.board.tileColor ??
+        TileColor.soleColorOf(exported.board.colorKey);
+    final built = (
+      board: exported.board.withTileColor(colour),
+      photosAsTextOnly: exported.photosAsTextOnly,
+      foldersDropped: exported.foldersDropped,
+    );
     final dir = _tempOverride ?? await getTemporaryDirectory();
     final safeId = AACBoard.isValidBoardId(built.board.boardId)
         ? built.board.boardId

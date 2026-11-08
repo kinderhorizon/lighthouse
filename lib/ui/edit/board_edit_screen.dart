@@ -1097,13 +1097,24 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     if (shared == null) return;
     final l10n = AppLocalizations.of(context);
     final customs = ref.read(customButtonsProvider).valueOrNull ?? const [];
+    // The colour it was shared in (clinical testing: a shared category came
+    // out grey), else its group colour, else this page's colour.
+    final sharedBoard = (ref.read(editableBoardsProvider).valueOrNull ??
+            const <AACBoard>[])
+        .where((b) => b.boardId == shared.id)
+        .firstOrNull;
+    final colour = sharedBoard?.tileColor ??
+        (sharedBoard == null
+            ? null
+            : TileColor.soleColorOf(sharedBoard.colorKey)) ??
+        defaultTileColorFor(board, customs);
     try {
       await ref.read(customButtonsProvider.notifier).addButton(
             boardId: board.boardId,
             row: pos.row,
             col: pos.col,
             label: shared.name,
-            tileColor: defaultTileColorFor(board, customs),
+            tileColor: colour,
             replacesId: replacing?.id,
             sharedBoardId: shared.id,
           );
@@ -1177,6 +1188,17 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     return null;
   }
 
+  /// The colour of the parent's folder that opens [board] (a category they
+  /// made, or a shared board they put on the board), so a shared copy arrives
+  /// in the same colour. Null leaves it to the board's own colour.
+  TileColor? _folderColourOf(AACBoard board) {
+    final customs = ref.read(customButtonsProvider).valueOrNull ?? const [];
+    for (final c in customs) {
+      if (c.linkId == board.boardId && c.tileColor != null) return c.tileColor;
+    }
+    return null;
+  }
+
   Future<void> _shareBoard(AACBoard board) async {
     final l10n = AppLocalizations.of(context);
     final preview = BoardPackExporter.buildExportBoard(board);
@@ -1218,8 +1240,11 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     File? tempFile;
     try {
       final boardName = board.boardNameFor(languageCode);
-      final export = await BoardPackExporter()
-          .prepare(board, fileBaseName: l10n.shareFileName(boardName));
+      final export = await BoardPackExporter().prepare(
+        board,
+        fileBaseName: l10n.shareFileName(boardName),
+        tileColor: _folderColourOf(board),
+      );
       tempFile = export.file;
       await SharePlus.instance.share(
         ShareParams(

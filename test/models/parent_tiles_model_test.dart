@@ -465,4 +465,35 @@ void main() {
       expect(sub.boardIds, isEmpty);
     });
   });
+
+  group("a board's own colour travels with it (ADR 0015 amendment)", () {
+    Map<String, dynamic> json(Object? colour) => {
+          'schema_version': '1.3',
+          'board_id': 'cat_0',
+          'board_name': 'Colors',
+          'grid_dimensions': [6, 8],
+          'color_key': <String, String>{},
+          'buttons': <Object>[],
+          if (colour != null) 'tile_color': colour,
+        };
+
+    test('round-trips, is optional, and only palette colours count', () {
+      final b = AACBoard.fromJson(json('#FFD9A6'));
+      expect(b.tileColor, TileColor.orange);
+      expect(AACBoard.fromJson(b.toJson()).tileColor, TileColor.orange);
+      expect(AACBoard.fromJson(json(null)).tileColor, isNull);
+      expect(AACBoard.fromJson(json(null)).toJson().containsKey('tile_color'),
+          isFalse);
+      expect(AACBoard.fromJson(json('#123456')).tileColor, isNull);
+      expect(b.copyWithButtons(const []).tileColor, TileColor.orange);
+    });
+
+    test("a parent-made category page carries its folder's colour", () {
+      const folder = CustomButton(
+          id: 'f', boardId: 'core_main', row: 0, col: 0, label: 'Colors',
+          voiceOut: 'Colors', imagePath: '', linkId: 'cat_0',
+          tileColor: TileColor.orange);
+      expect(categoryBoardFor(folder).tileColor, TileColor.orange);
+    });
+  });
 }

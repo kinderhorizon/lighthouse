@@ -145,6 +145,7 @@ class BoardPackImporter {
       boardNameByLocale: board.boardNameByLocale,
       gridDimensions: board.gridDimensions,
       colorKey: board.colorKey,
+      tileColor: board.tileColor,
       buttons: [
         for (final b in board.buttons)
           AACButton(
