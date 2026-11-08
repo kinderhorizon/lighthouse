@@ -305,7 +305,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWifiDenied =>
-      'Not now. You can turn this on later in Settings.';
+      'Not now. To turn this on later, allow Location for Lighthouse AAC in your device\'s Settings app.';
 
   @override
   String get placeHome => 'Home';

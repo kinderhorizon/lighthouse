@@ -311,7 +311,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingWifiDenied =>
-      'Ahora no. Puedes activarlo más tarde en Ajustes.';
+      'Ahora no. Para activarlo más tarde, permite la Ubicación para Lighthouse AAC en la app Ajustes de tu dispositivo.';
 
   @override
   String get placeHome => 'Casa';

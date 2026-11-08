@@ -303,7 +303,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onboardingWifiDenied =>
-      'ليس الآن. يمكنك تفعيل هذا لاحقًا من الإعدادات.';
+      'ليس الآن. لتفعيل هذا لاحقًا، اسمح بالوصول إلى الموقع لتطبيق Lighthouse AAC من تطبيق الإعدادات في جهازك.';
 
   @override
   String get placeHome => 'المنزل';

@@ -55,7 +55,7 @@ void main() {
 
     expect(stub.requestCount, 1);
     expect(
-      find.text('Not now. You can turn this on later in Settings.'),
+      find.text("Not now. To turn this on later, allow Location for Lighthouse AAC in your device's Settings app."),
       findsOneWidget,
     );
   });

@@ -637,7 +637,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWifiDenied.
   ///
   /// In en, this message translates to:
-  /// **'Not now. You can turn this on later in Settings.'**
+  /// **'Not now. To turn this on later, allow Location for Lighthouse AAC in your device\'s Settings app.'**
   String get onboardingWifiDenied;
 
   /// No description provided for @placeHome.

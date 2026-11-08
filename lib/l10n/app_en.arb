@@ -130,7 +130,7 @@
   "onboardingWifiBody": "Lighthouse can use your Wi-Fi network name, scrambled on this device, to learn which words your child needs in different places like home and school. The name never leaves the tablet, and this is optional.",
   "onboardingWifiAllow": "Allow",
   "onboardingWifiGranted": "On. Lighthouse will learn words for each place.",
-  "onboardingWifiDenied": "Not now. You can turn this on later in Settings.",
+  "onboardingWifiDenied": "Not now. To turn this on later, allow Location for Lighthouse AAC in your device's Settings app.",
   "placeHome": "Home",
   "placeSchool": "School",
   "placeBoth": "Home and school",
