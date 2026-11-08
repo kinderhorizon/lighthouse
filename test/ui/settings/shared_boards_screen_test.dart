@@ -19,6 +19,8 @@ class _Registry extends BoardRegistry {
   final List<String> shared;
   @override
   List<String> importedBoardIds() => shared;
+  @override
+  Future<void> removeImported(String boardId) async => shared.remove(boardId);
 }
 
 AACBoard _board(String id, String name) => AACBoard(
@@ -31,14 +33,17 @@ AACBoard _board(String id, String name) => AACBoard(
     );
 
 Future<void> _pump(WidgetTester tester,
-    {List<String> shared = const [], List<CustomButton>? customs}) async {
+    {List<String> shared = const [],
+    List<CustomButton>? customs,
+    FakeCustomButtonStore? store}) async {
+  final registry = _Registry(shared);
   final container = ProviderContainer(overrides: [
-    boardRegistryProvider.overrideWith((ref) async => _Registry(shared)),
+    boardRegistryProvider.overrideWith((ref) async => registry),
     editableBoardsProvider.overrideWith((ref) async => [
           _board('core_main', 'Home Core'),
           for (final id in shared) _board(id, 'Grandma board'),
         ]),
-    ...fakeStoreOverrides(buttons: FakeCustomButtonStore(customs)),
+    ...fakeStoreOverrides(buttons: store ?? FakeCustomButtonStore(customs)),
   ]);
   addTearDown(container.dispose);
   await tester.pumpWidget(UncontrolledProviderScope(
@@ -90,5 +95,43 @@ void main() {
       ),
     ]);
     expect(find.text('On the board'), findsOneWidget);
+  });
+
+  const tile = CustomButton(
+    id: 'c1',
+    boardId: 'core_main',
+    row: 0,
+    col: 0,
+    label: 'Grandma board',
+    voiceOut: 'Grandma board',
+    imagePath: '',
+    linkId: 'imported_1',
+  );
+
+  testWidgets('deletes a shared board and its tile, after asking (ADR 0023)',
+      (tester) async {
+    final store = FakeCustomButtonStore([tile]);
+    await _pump(tester, shared: ['imported_1'], store: store);
+
+    await tester.tap(find.byKey(const ValueKey('shared_delete_imported_1')));
+    await tester.pumpAndSettle();
+    expect(find.text('Delete "Grandma board"?'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('shared_delete_confirm')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('"Grandma board" was deleted.'), findsOneWidget);
+    expect(find.textContaining('No shared boards yet'), findsOneWidget);
+    expect(store.items, isEmpty);
+  });
+
+  testWidgets('cancel keeps it', (tester) async {
+    final store = FakeCustomButtonStore([tile]);
+    await _pump(tester, shared: ['imported_1'], store: store);
+    await tester.tap(find.byKey(const ValueKey('shared_delete_imported_1')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('shared_delete_cancel')));
+    await tester.pumpAndSettle();
+    expect(find.text('Grandma board'), findsOneWidget);
+    expect(store.items, hasLength(1));
   });
 }

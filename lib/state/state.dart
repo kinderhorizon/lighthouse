@@ -9,6 +9,7 @@ export 'board_layout_provider.dart';
 export 'board_provider.dart';
 export 'board_stack.dart';
 export 'custom_voice_provider.dart';
+export 'device_setup_provider.dart';
 export 'first_use_tips_provider.dart';
 export 'hidden_tiles_provider.dart';
 export 'icon_override_provider.dart';

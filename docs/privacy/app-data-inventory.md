@@ -29,16 +29,16 @@ server the app contacts on its own.
 |---|---|---|---|---|
 | Learned word weights (bandit posteriors) | Per-button `alpha`, `beta`, `observationCount`, `updatedAt`, keyed by `buttonId` / `stateKey`. The model that surfaces a child's most-used words. | Isar DB, App Support, subdir `lighthouse_db` | No | `lib/persistence/bandit_state_v1.dart`; `lib/persistence/isar_setup.dart` (`dbSubdir = 'lighthouse_db'`) |
 | Raw tap / event log | One row per interaction: `timestamp`, `eventType`, `buttonId`, `boardId`, `stateKey`. The child's communication activity. | Isar DB, App Support, subdir `lighthouse_db` | No | `lib/persistence/raw_event_log_v1.dart`; `isar_setup.dart` |
-| Custom buttons | Parent-authored buttons (label, voice-out, etc.). | App Support, `custom_buttons.json` | No (except via deliberate board share, section B, which strips photos) | `lib/services/custom/custom_button_store.dart` (`fileName = 'custom_buttons.json'`) |
-| Custom button images | Photos a parent attaches to a custom button. May include a photo of the child. | App Support, `custom_images/` | No. Board share (section B) strips these. | `custom_button_store.dart` (`imagesSubdir = 'custom_images'`) |
-| Home favourites | The favourites strip selection. | App Support, `home_favourites.json` | No | `lib/services/favourites/favourites_store.dart` (`fileName = 'home_favourites.json'`) |
-| Board layout overrides | Parent repositioning of tiles. | App Support, `board_layout.json` | No | `lib/services/layout/board_layout_store.dart` (`fileName = 'board_layout.json'`) |
-| Hidden tiles | Which tiles a parent has hidden from a board. | App Support, `hidden_tiles.json` | No | `lib/services/layout/hidden_tiles_store.dart` (`fileName = 'hidden_tiles.json'`) |
-| Icon overrides | Parent-chosen replacement pictograms for tiles, and their image files. | App Support, `icon_overrides.json` + `icon_overrides/` | No | `lib/services/layout/icon_override_store.dart` (`fileName = 'icon_overrides.json'`, `imagesSubdir = 'icon_overrides'`) |
-| Custom voice recordings | Parent-recorded audio clips mapped to tiles (the parent's or child's voice). | App Support, `custom_voices.json` + `custom_voices/` | No. Board share (section B2) carries voice-out TEXT only, never the audio clips. | `lib/services/voice/custom_voice_store.dart` (`fileName = 'custom_voices.json'`, `clipsSubdir = 'custom_voices'`) |
-| Imported boards | Vocabulary boards received from another family and imported. | App Support, `imported_boards/` | No | `lib/services/board_registry.dart` (`importSubdirName = 'imported_boards'`) |
+| Custom buttons | Parent-authored buttons (label, voice-out, etc.). | App Support, `custom_buttons.json` | No (except via deliberate board share, section B2, or setup copy, section B5; both strip photos) | `lib/services/custom/custom_button_store.dart` (`fileName = 'custom_buttons.json'`) |
+| Custom button images | Photos a parent attaches to a custom button. May include a photo of the child. | App Support, `custom_images/` | No. Board share (B2) and setup copy (B5) strip these. | `custom_button_store.dart` (`imagesSubdir = 'custom_images'`) |
+| Home favourites | The favourites strip selection. | App Support, `home_favourites.json` | No (except via deliberate setup copy, B5) | `lib/services/favourites/favourites_store.dart` (`fileName = 'home_favourites.json'`) |
+| Board layout overrides | Parent repositioning of tiles. | App Support, `board_layout.json` | No (except via deliberate setup copy, B5) | `lib/services/layout/board_layout_store.dart` (`fileName = 'board_layout.json'`) |
+| Hidden tiles | Which tiles a parent has hidden from a board. | App Support, `hidden_tiles.json` | No (except via deliberate setup copy, B5) | `lib/services/layout/hidden_tiles_store.dart` (`fileName = 'hidden_tiles.json'`) |
+| Icon overrides | Parent-chosen replacement pictograms for tiles, and their image files. | App Support, `icon_overrides.json` + `icon_overrides/` | No. Setup copy (B5) leaves them out. | `lib/services/layout/icon_override_store.dart` (`fileName = 'icon_overrides.json'`, `imagesSubdir = 'icon_overrides'`) |
+| Custom voice recordings | Parent-recorded audio clips mapped to tiles (the parent's or child's voice). | App Support, `custom_voices.json` + `custom_voices/` | No. Board share (B2) and setup copy (B5) carry voice-out TEXT only, never the audio clips. | `lib/services/voice/custom_voice_store.dart` (`fileName = 'custom_voices.json'`, `clipsSubdir = 'custom_voices'`) |
+| Imported boards | Vocabulary boards received from another family and imported (plus `next_id`, the never-reused id mark). | App Support, `imported_boards/` | No (except via deliberate setup copy, B5) | `lib/services/board_registry.dart` (`importSubdirName = 'imported_boards'`) |
 | OTA content overlay | Corrected words / pictures / sounds applied via "Check for updates" (active; the fetch is section B3). | App Support, `content_overlay/` | No (inbound only) | `lib/services/ota/content_overlay_store.dart` (`subdirName = 'content_overlay'`) |
-| App settings | TTS mode, glow style, hitbox magnitude, locale override, auto-return, hide-tile-text. | Prefs | No (synced to the user's own OS backup only, see D) | `lib/services/settings/settings_repository.dart` |
+| App settings | TTS mode, glow style, hitbox magnitude, locale override, auto-return, hide-tile-text, hide-pictogram. | Prefs | No (synced to the user's own OS backup only, see D; and in a deliberate setup copy, B5) | `lib/services/settings/settings_repository.dart` |
 | Onboarding answer | `onboarding.completed` flag + `onboarding.home_label` (Home/School/Both/Other). | Prefs | No (OS backup only) | `lib/services/onboarding/onboarding_repository.dart` |
 | Wi-Fi network name (SSID), Android only, opt-in | The connected Wi-Fi network name, used as the "place" dimension of the learned-word context. Opt-in: read only after the parent taps Allow on the optional onboarding screen "Learn words for each place", which requests `ACCESS_FINE_LOCATION` (Android returns the SSID only to apps holding it; no GPS or position read, the Android host reads `WifiManager.connectionInfo.ssid` only). The tap-path read never prompts. Hashed on-device with SHA-256 and truncated to a 12-hex prefix (`wifi_<12 hex>`) inside `hashOfCurrentSsid`; the raw name is never stored. Not used on iOS: the screen is skipped, Location is never requested, and no iOS channel handler exists. | Raw name: nowhere. Hash: inside `stateKey` in the Isar DB (bandit posteriors + raw event log), App Support, subdir `lighthouse_db` | No. Never transmitted; excluded from crash logs by construction (no field for it, only `uniqueContextKeysCount`, a count); not in feedback (B4 payload); not in board share (B2) | `lib/services/network/wifi_source.dart`; `lib/ui/onboarding/screens/wifi_context_screen.dart`; `android/app/src/main/kotlin/org/kinderhorizon/lighthouse/MainActivity.kt` (`currentSsid`); `android/app/src/main/AndroidManifest.xml`; `lib/logic/context/context_manager.dart`; `lib/services/crash/crash_log.dart`; ADR 0016 |
 
@@ -50,10 +50,11 @@ the image reference before sharing.
 
 ## B. Voluntary, parent-initiated egress that EXISTS TODAY.
 
-Two things, both requiring a deliberate parent action. The app sends nothing
-automatically and contacts no KHF server for either: a crash report goes out
-through the device's native mail composer (pre-addressed to KHF, with an OS
-share-sheet fallback), and a shared board goes out through the OS share sheet.
+Each requires a deliberate parent action. The app sends nothing
+automatically and contacts no KHF server for any of them: a crash report goes
+out through the device's native mail composer (pre-addressed to KHF, with an
+OS share-sheet fallback), and a shared board or a copied setup goes out
+through the OS share sheet.
 The parent taps send / picks the destination in their own apps.
 
 ### B1. Sending a crash report
@@ -151,6 +152,30 @@ The parent taps send / picks the destination in their own apps.
   `feedback_client.dart`, `feedback_config.dart`; relay in `cloud/feedback/`.
 - **Data Safety mapping:** parent-provided message + optional email + app/OS/
   locale, sent by the parent's action, not collected automatically.
+
+### B5. Copying the setup to another device
+
+- **Trigger:** Settings, Copy to another device (behind the parental gate),
+  then the parent confirms and picks the destination in the share sheet.
+- **Mechanism:** OS share sheet; a single `.json` file is written to a temp
+  dir, shared, then deleted in a `finally` block (same as B2).
+- **What travels:** exactly `DeviceSetup.toJson()`: the parent's custom
+  buttons (label, voice-out text, colour, slot, replaced word, category link;
+  `image_path` always empty), the layout overrides, hidden tiles, home
+  favourites, the imported boards (icons limited to bundled-asset
+  references), and the app settings listed in section A. NOT the custom
+  button photos, the icon override images, the voice recordings, the bandit
+  posteriors or the raw tap log (separate stores the setup never reads), the
+  onboarding answer, or the Wi-Fi hash.
+- **Receiving side:** the file is checked part by part and replaces this
+  device's setup only after the parent confirms and passes the parental gate.
+  Nothing is sent anywhere.
+- **Source:** `lib/services/setup/device_setup.dart`,
+  `lib/services/setup/device_setup_service.dart`,
+  `lib/ui/settings/device_setup_flow.dart`. Enforced by the key-set contract
+  test in `test/services/device_setup_test.dart`. ADR 0023.
+- **Data Safety mapping:** parent-authored vocabulary and settings, sent
+  device-to-device by the parent's choice, not collected by KHF (same as B2).
 
 ---
 

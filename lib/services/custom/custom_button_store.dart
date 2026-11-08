@@ -285,6 +285,42 @@ class CustomButtonStore {
     return load();
   }
 
+  /// The per-board id high-water marks (and the category page mark), as
+  /// stored. Throws [CustomButtonStoreReadException] when the file exists but
+  /// cannot be read: a caller that allocates ids from these must not start
+  /// from zero (item 7).
+  Future<Map<String, int>> counters() async {
+    final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
+    return Map.unmodifiable(raw.counters);
+  }
+
+  /// Replaces EVERY custom button with [buttons] in one write (ADR 0023, a
+  /// setup copied from another device) and returns the new list. The photos of
+  /// the replaced buttons are deleted once the new list is safely written.
+  ///
+  /// [counters] are merged in as high-water marks: a mark only ever goes up,
+  /// so no id this device handed out before can be handed out again.
+  Future<List<CustomButton>> replaceAll(
+    List<CustomButton> buttons,
+    Map<String, int> counters,
+  ) async {
+    final raw = await _readRaw();
+    if (!raw.ok) throw const CustomButtonStoreReadException();
+    final merged = {...raw.counters};
+    for (final e in counters.entries) {
+      if ((merged[e.key] ?? 0) < e.value) merged[e.key] = e.value;
+    }
+    await _write(buttons, merged);
+    final imagesDirPath = '${(await _base()).path}/$imagesSubdir';
+    final kept = {for (final b in buttons) b.imagePath};
+    for (final b in raw.buttons) {
+      if (kept.contains(b.imagePath)) continue;
+      await _deleteImageQuietly(_withAbsoluteImage(b, imagesDirPath));
+    }
+    return load();
+  }
+
   /// Counter key for parent-made category page ids. Not a board id: it cannot
   /// collide with one, because board ids never start with an underscore.
   static const String categoryCounterKey = '_categories';

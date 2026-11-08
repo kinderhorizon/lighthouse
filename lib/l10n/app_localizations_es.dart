@@ -1300,7 +1300,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sharedBoardsSubtitle =>
-      'Pon en el tablero de tu hijo un tablero que alguien compartió';
+      'Pon en el tablero de tu hijo un tablero que alguien compartió, o elimínalo';
 
   @override
   String get sharedBoardsEmpty =>
@@ -1326,5 +1326,95 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String customButtonsSharedOn(String board) {
     return 'Tablero compartido en $board';
+  }
+
+  @override
+  String get sectionAnotherDevice => 'Otro dispositivo';
+
+  @override
+  String get setupSendTitle => 'Copiar a otro dispositivo';
+
+  @override
+  String get setupSendSubtitle =>
+      'Envía todo lo que configuraste aquí en un solo archivo';
+
+  @override
+  String get setupGetTitle => 'Copiar desde otro dispositivo';
+
+  @override
+  String get setupGetSubtitle =>
+      'Reemplaza la configuración de aquí por la de otro dispositivo';
+
+  @override
+  String get setupSendBody =>
+      'Esto crea un archivo con todo lo que configuraste: tus palabras y categorías, dónde está cada casilla, las palabras ocultas y fijadas, los tableros compartidos y los ajustes. En el otro dispositivo, abre el archivo y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir.';
+
+  @override
+  String get setupSendLeftBehind =>
+      'Las fotos y las grabaciones de voz se quedan en este dispositivo. Puedes volver a añadirlas en el otro.';
+
+  @override
+  String get setupSendConfirm => 'Enviar';
+
+  @override
+  String get setupFileName => 'Configuración de Lighthouse';
+
+  @override
+  String get setupShareMessage =>
+      'Configuración de Lighthouse\nPara copiarla, abre el archivo adjunto y elige Lighthouse AAC. En un iPhone o iPad, toca primero Compartir. O abre Lighthouse y ve a Ajustes, Copiar desde otro dispositivo.';
+
+  @override
+  String get setupSendFailed =>
+      'No se pudo preparar la configuración para enviarla.';
+
+  @override
+  String get setupReplaceTitle => '¿Reemplazar esta configuración?';
+
+  @override
+  String get setupReplaceBody =>
+      'La configuración del archivo reemplazará todo lo que está configurado en este dispositivo: palabras y categorías, dónde está cada casilla, palabras ocultas y fijadas, tableros compartidos y ajustes. No se puede deshacer.';
+
+  @override
+  String get setupReplaceNoPhotos =>
+      'Las fotos y las grabaciones de voz no vienen en el archivo. Puedes volver a añadirlas aquí.';
+
+  @override
+  String get setupReplaceConfirm => 'Reemplazar';
+
+  @override
+  String get setupReplaced =>
+      'Listo. Este dispositivo ya tiene la configuración copiada.';
+
+  @override
+  String get setupFailed =>
+      'No se pudo copiar la configuración. Inténtalo de nuevo.';
+
+  @override
+  String get setupNotLighthouse =>
+      'Ese archivo no es una configuración ni un tablero de Lighthouse, así que no se cambió nada.';
+
+  @override
+  String get setupTooNew =>
+      'Esta configuración se hizo con una versión más nueva de Lighthouse. Actualiza Lighthouse en este dispositivo y vuelve a intentarlo.';
+
+  @override
+  String get shareVocabNoFolders =>
+      'Las carpetas de esta página (como Comida o Personas) no se incluyen. Para copiarlo todo, usa Ajustes, Copiar a otro dispositivo.';
+
+  @override
+  String get sharedBoardsDelete => 'Eliminar';
+
+  @override
+  String sharedBoardsDeleteTitle(String board) {
+    return '¿Eliminar \"$board\"?';
+  }
+
+  @override
+  String get sharedBoardsDeleteBody =>
+      'Se quita de este dispositivo. Si está en el tablero de tu hijo, su casilla también se quita, junto con las palabras que le añadiste.';
+
+  @override
+  String sharedBoardsDeleted(String board) {
+    return 'Se eliminó \"$board\".';
   }
 }

@@ -84,10 +84,10 @@ class BoardPackImporter {
     // or escape the per-id namespacing. Reject the whole pack rather than
     // rewrite (rewriting would break the pack's internal folder link references).
     // Bundled boards and the custom-button id generator never produce these.
-    _validateImportedIds(parsed, source.path);
+    validateImportedIds(parsed, source.path);
 
     final board = assignFreshId
-        ? _reidentify(parsed, registry.allocateImportedBoardId())
+        ? _reidentify(parsed, await registry.allocateImportedBoardId())
         : _sanitizeIcons(parsed);
 
     // Re-parse the board we are about to persist. _reidentify prefixes every
@@ -156,7 +156,7 @@ class BoardPackImporter {
             position: b.position,
             category: b.category,
             baseWeight: b.baseWeight,
-            iconUri: _safeImportedIconUri(b.iconUri),
+            iconUri: safeImportedIconUri(b.iconUri),
             voiceOut: b.voiceOut,
             voiceOutByLocale: b.voiceOutByLocale,
             linkId: b.linkId == null ? null : '$prefix${b.linkId}',
@@ -173,7 +173,7 @@ class BoardPackImporter {
   /// applies the same rule per-button in _reidentify). See review L2.
   AACBoard _sanitizeIcons(AACBoard board) => board.copyWithButtons([
         for (final b in board.buttons)
-          b.withIconUri(_safeImportedIconUri(b.iconUri)),
+          b.withIconUri(safeImportedIconUri(b.iconUri)),
       ]);
 
   /// On the untrusted shared-pack receive path, an icon reference is kept only
@@ -184,7 +184,7 @@ class BoardPackImporter {
   /// rather than pointing the decoder at a path the sender chose). The OTA
   /// overlay (ADR 0017) repoints pictograms at render time, so this does not
   /// affect overlaid art.
-  static String _safeImportedIconUri(String uri) =>
+  static String safeImportedIconUri(String uri) =>
       uri.startsWith('assets/') ? uri : '';
 
   /// Forbidden characters in an imported button id / link_id: path separators,
@@ -195,7 +195,9 @@ class BoardPackImporter {
   /// Rejects the whole pack if any button id or link_id contains an unsafe
   /// character. Throws [BoardPackImportException]; the import is aborted before
   /// anything is persisted or registered.
-  void _validateImportedIds(AACBoard board, String source) {
+  /// Also applied to every shared board in a setup copied from another device
+  /// (ADR 0023), which is just as untrusted.
+  static void validateImportedIds(AACBoard board, String source) {
     bool unsafe(String? id) =>
         id != null && (_forbiddenIdChars.hasMatch(id) || id.contains('..'));
     for (final b in board.buttons) {

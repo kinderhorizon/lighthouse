@@ -196,16 +196,64 @@ class BoardRegistry {
     _fileSources[boardId] = filePath;
   }
 
+  /// File in the import directory holding the next `imported_<n>` number. Not
+  /// a `.json`, so [hydrate] never takes it for a board. Inside the import
+  /// directory, so it shares that directory's backup exclusion.
+  static const String nextIdFileName = 'next_id';
+
   /// Mints a fresh, unique imported `board_id` (ADR 0015) of the form
   /// `imported_<n>`, guaranteed not to collide with any board this registry
   /// already knows (bundled or previously imported). Used by the shared-vocab
   /// receive path so an incoming pack never overwrites a recipient board.
-  String allocateImportedBoardId() {
-    var n = _fileSources.length + 1;
+  ///
+  /// The number is a persisted HIGH-WATER MARK (ADR 0023), like custom button
+  /// ids: now that a shared board can be deleted, counting the boards present
+  /// would hand a deleted board's id to the next one, and with it the deleted
+  /// board's learning, arrangement, hidden words and pins.
+  Future<String> allocateImportedBoardId() async {
+    final dir = await _importedDir();
+    final mark = File('${dir.path}/$nextIdFileName');
+    var n = 1;
+    try {
+      if (mark.existsSync()) n = int.tryParse(mark.readAsStringSync().trim()) ?? 1;
+    } catch (_) {/* unreadable: fall back to scanning the known ids */}
+    for (final id in _fileSources.keys) {
+      final k = id.startsWith('imported_') ? int.tryParse(id.substring(9)) : null;
+      if (k != null && k >= n) n = k + 1;
+    }
     while (knows('imported_$n')) {
       n++;
     }
+    await mark.writeAsString('${n + 1}', flush: true);
     return 'imported_$n';
+  }
+
+  /// The ids of the boards that ship with the app (not shared, not made by the
+  /// parent). A setup copied from another device keeps these ids (ADR 0023).
+  Set<String> bundledBoardIds() => {..._assetSources.keys};
+
+  /// The file a shared board was added from, or null when [boardId] is not a
+  /// shared board. Read as stored, without the content-update overlay, so a
+  /// copy of it never carries an on-device path (ADR 0023).
+  File? importedBoardFile(String boardId) {
+    final path = _fileSources[boardId];
+    return path == null ? null : File(path);
+  }
+
+  /// Deletes the shared board [boardId] (ADR 0023): its file goes and the id
+  /// stops resolving. Bundled boards cannot be deleted. The id is never handed
+  /// out again (see [allocateImportedBoardId]).
+  Future<void> removeImported(String boardId) async {
+    final path = _fileSources.remove(boardId);
+    if (path == null) return;
+    try {
+      final f = File(path);
+      if (f.existsSync()) await f.delete();
+    } catch (_) {
+      // Best effort: the id is already unregistered for this run. A file left
+      // behind would come back on the next launch, so try once more there.
+      stderr.writeln('BoardRegistry: could not delete shared board file $path');
+    }
   }
 
   /// Returns the persistent path the Pack Loader should copy imports to

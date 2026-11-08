@@ -23,6 +23,9 @@ class _FakeLayoutStore implements BoardLayoutStore {
 class _FakeFavStore implements FavouritesStore {
   @override
   Future<List<ButtonRef>> pins() async => const [];
+
+  @override
+  Future<List<ButtonRef>> replaceAll(List<ButtonRef> refs) async => refs;
   @override
   Future<List<ButtonRef>> pin(ButtonRef ref) async => const [];
   @override

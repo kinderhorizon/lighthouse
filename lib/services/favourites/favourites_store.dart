@@ -63,6 +63,17 @@ class FavouritesStore {
         ]));
   }
 
+  /// Replaces every pin with [refs] (de-duped, order kept) and returns them.
+  /// Used when a setup is copied from another device (ADR 0023).
+  Future<List<ButtonRef>> replaceAll(List<ButtonRef> refs) async {
+    final next = <ButtonRef>[];
+    for (final r in refs) {
+      if (!next.contains(r)) next.add(r);
+    }
+    await _saveAll(next);
+    return next;
+  }
+
   /// Adds [ref] (de-duped, appended last) and returns the updated list.
   Future<List<ButtonRef>> pin(ButtonRef ref) async {
     final current = await pins();

@@ -317,7 +317,7 @@ class CustomButtons extends _$CustomButtons {
     List<({String boardId, String id})> deleted,
     Set<String> deletedPages,
   ) async {
-    if (deleted.isEmpty) return;
+    if (deleted.isEmpty && deletedPages.isEmpty) return;
     await _quietly(() => ref
         .read(customVoiceProvider.notifier)
         .removeMany(deleted.map((d) => d.id)));
@@ -384,6 +384,38 @@ class CustomButtons extends _$CustomButtons {
     final store = ref.read(customButtonStoreProvider);
     state = AsyncData(await store.removeMany(subtree.buttonIds));
     await _cleanUpAfterDelete(refs, subtree.boardIds);
+  }
+
+  /// Deletes the shared board [boardId] from this device (ADR 0023). Every
+  /// tile that opens it goes (a word such a tile had replaced comes back), so
+  /// does everything the parent added on the board, and the board's own pins,
+  /// hidden words, arrangement, pictures and recordings; then the board
+  /// itself. Its id is never handed out again, so nothing of it can come back
+  /// on a board shared later.
+  ///
+  /// The caller reloads [editableBoardsProvider] afterwards (the board list
+  /// depends on this notifier, so it cannot be reloaded from in here).
+  Future<void> removeSharedBoard(String boardId) async {
+    if (isParentCategoryPage(boardId)) return;
+    final registry = await ref.read(boardRegistryProvider.future);
+    if (!registry.importedBoardIds().contains(boardId)) return;
+    var own = const <String>[];
+    try {
+      final board = await registry.tryLoad(boardId);
+      own = [for (final b in board?.buttons ?? const <AACButton>[]) b.id];
+    } catch (_) {/* unreadable: its file still goes below */}
+
+    final current = state.valueOrNull ?? await future;
+    // One tile at a time, so each brings back the word it replaced.
+    for (final tile in current.where((c) => c.linkId == boardId).toList()) {
+      await remove(tile.id);
+    }
+    await removeForBoard(boardId);
+    await _cleanUpAfterDelete(
+      [for (final id in own) (boardId: boardId, id: id)],
+      {boardId},
+    );
+    await registry.removeImported(boardId);
   }
 
   /// Removes every custom button across all boards ("reset everything").

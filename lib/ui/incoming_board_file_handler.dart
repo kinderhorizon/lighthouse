@@ -1,4 +1,5 @@
-/// Offers a board file the phone handed to Lighthouse (ADR 0015 amendment).
+/// Offers a board file the phone handed to Lighthouse (ADR 0015 amendment), or
+/// a whole setup copied from another device (ADR 0023).
 ///
 /// Wraps the board screen, so a file is only offered once onboarding is done
 /// and the app is on its main screen (a file opened during onboarding waits).
@@ -19,6 +20,7 @@ import '../l10n/app_localizations.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 import '../state/state.dart';
+import 'settings/device_setup_flow.dart';
 import 'settings/math_gate.dart';
 import 'settings/shared_boards_screen.dart';
 
@@ -80,6 +82,15 @@ class _IncomingBoardFileHandlerState
   Future<void> _offer(File file) async {
     final l10n = AppLocalizations.of(context);
     final lang = Localizations.localeOf(context).languageCode;
+
+    // A whole setup from another device (ADR 0023) is offered as one.
+    final read = await readSetupFile(file);
+    if (!mounted) return;
+    if (read.tooNew) return _snack(l10n.setupTooNew);
+    if (read.setup != null) {
+      await offerDeviceSetup(context, ref, read.setup!, gated: false);
+      return;
+    }
 
     // Check it is a board before asking anything: a parent who opened some
     // other file with Lighthouse gets a plain answer, not a math gate.

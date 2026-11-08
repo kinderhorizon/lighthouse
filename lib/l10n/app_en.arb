@@ -770,7 +770,7 @@
     }
   },
   "sharedBoardsTitle": "Shared boards",
-  "sharedBoardsSubtitle": "Put a board someone shared on your child's board",
+  "sharedBoardsSubtitle": "Put a board someone shared on your child's board, or delete it",
   "sharedBoardsEmpty": "No shared boards yet. When someone sends you a board, open the file and choose Lighthouse AAC, or use Import a board pack.",
   "sharedBoardsOnBoard": "On the board",
   "sharedBoardsNotOnBoard": "Not on the board yet",
@@ -786,6 +786,50 @@
   "removeSharedButton": "Remove",
   "customButtonsSharedOn": "Shared board on {board}",
   "@customButtonsSharedOn": {
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "sectionAnotherDevice": "Another device",
+  "setupSendTitle": "Copy to another device",
+  "setupSendSubtitle": "Send everything you set up here, in one file",
+  "setupGetTitle": "Copy from another device",
+  "setupGetSubtitle": "Replace the setup here with one from another device",
+  "setupSendBody": "This makes one file with everything you set up: your words and categories, where tiles are, hidden and pinned words, shared boards and settings. On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first.",
+  "setupSendLeftBehind": "Photos and voice recordings stay on this device. You can add them again on the other one.",
+  "setupSendConfirm": "Send",
+  "setupFileName": "Lighthouse setup",
+  "@setupFileName": {
+    "description": "File name (without .json) of a copied setup, seen by the person who receives it"
+  },
+  "setupShareMessage": "Lighthouse setup\nTo copy it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Copy from another device.",
+  "@setupShareMessage": {
+    "description": "Text sent with a setup file, so whoever opens it knows how to copy it"
+  },
+  "setupSendFailed": "Could not prepare the setup to send.",
+  "setupReplaceTitle": "Replace this setup?",
+  "setupReplaceBody": "The setup in the file will replace everything set up on this device: words and categories, where tiles are, hidden and pinned words, shared boards and settings. This can't be undone.",
+  "setupReplaceNoPhotos": "Photos and voice recordings are not in the file. You can add them again here.",
+  "setupReplaceConfirm": "Replace",
+  "setupReplaced": "Done. This device now has the copied setup.",
+  "setupFailed": "Could not copy the setup. Please try again.",
+  "setupNotLighthouse": "That file is not a Lighthouse setup or board, so nothing was changed.",
+  "setupTooNew": "This setup was made with a newer Lighthouse. Update Lighthouse on this device, then try again.",
+  "shareVocabNoFolders": "Folders on this page (like Food or People) are not included. To copy everything, use Settings, Copy to another device.",
+  "sharedBoardsDelete": "Delete",
+  "sharedBoardsDeleteTitle": "Delete \"{board}\"?",
+  "@sharedBoardsDeleteTitle": {
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "sharedBoardsDeleteBody": "It is removed from this device. If it is on your child's board, its tile goes too, with any words you added to it.",
+  "sharedBoardsDeleted": "\"{board}\" was deleted.",
+  "@sharedBoardsDeleted": {
     "placeholders": {
       "board": {
         "type": "String"

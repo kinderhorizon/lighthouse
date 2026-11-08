@@ -1286,7 +1286,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sharedBoardsSubtitle =>
-      'Put a board someone shared on your child\'s board';
+      'Put a board someone shared on your child\'s board, or delete it';
 
   @override
   String get sharedBoardsEmpty =>
@@ -1312,5 +1312,92 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String customButtonsSharedOn(String board) {
     return 'Shared board on $board';
+  }
+
+  @override
+  String get sectionAnotherDevice => 'Another device';
+
+  @override
+  String get setupSendTitle => 'Copy to another device';
+
+  @override
+  String get setupSendSubtitle =>
+      'Send everything you set up here, in one file';
+
+  @override
+  String get setupGetTitle => 'Copy from another device';
+
+  @override
+  String get setupGetSubtitle =>
+      'Replace the setup here with one from another device';
+
+  @override
+  String get setupSendBody =>
+      'This makes one file with everything you set up: your words and categories, where tiles are, hidden and pinned words, shared boards and settings. On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first.';
+
+  @override
+  String get setupSendLeftBehind =>
+      'Photos and voice recordings stay on this device. You can add them again on the other one.';
+
+  @override
+  String get setupSendConfirm => 'Send';
+
+  @override
+  String get setupFileName => 'Lighthouse setup';
+
+  @override
+  String get setupShareMessage =>
+      'Lighthouse setup\nTo copy it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Copy from another device.';
+
+  @override
+  String get setupSendFailed => 'Could not prepare the setup to send.';
+
+  @override
+  String get setupReplaceTitle => 'Replace this setup?';
+
+  @override
+  String get setupReplaceBody =>
+      'The setup in the file will replace everything set up on this device: words and categories, where tiles are, hidden and pinned words, shared boards and settings. This can\'t be undone.';
+
+  @override
+  String get setupReplaceNoPhotos =>
+      'Photos and voice recordings are not in the file. You can add them again here.';
+
+  @override
+  String get setupReplaceConfirm => 'Replace';
+
+  @override
+  String get setupReplaced => 'Done. This device now has the copied setup.';
+
+  @override
+  String get setupFailed => 'Could not copy the setup. Please try again.';
+
+  @override
+  String get setupNotLighthouse =>
+      'That file is not a Lighthouse setup or board, so nothing was changed.';
+
+  @override
+  String get setupTooNew =>
+      'This setup was made with a newer Lighthouse. Update Lighthouse on this device, then try again.';
+
+  @override
+  String get shareVocabNoFolders =>
+      'Folders on this page (like Food or People) are not included. To copy everything, use Settings, Copy to another device.';
+
+  @override
+  String get sharedBoardsDelete => 'Delete';
+
+  @override
+  String sharedBoardsDeleteTitle(String board) {
+    return 'Delete \"$board\"?';
+  }
+
+  @override
+  String get sharedBoardsDeleteBody =>
+      'It is removed from this device. If it is on your child\'s board, its tile goes too, with any words you added to it.';
+
+  @override
+  String sharedBoardsDeleted(String board) {
+    return '\"$board\" was deleted.';
   }
 }

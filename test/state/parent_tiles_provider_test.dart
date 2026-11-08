@@ -24,6 +24,11 @@ class _FakeRegistry extends BoardRegistry {
   List<String> knownBoardIds() => boards.keys.toList();
   @override
   bool knows(String boardId) => boards.containsKey(boardId);
+  @override
+  List<String> importedBoardIds() =>
+      [for (final id in boards.keys) if (id.startsWith('imported_')) id];
+  @override
+  Future<void> removeImported(String boardId) async => boards.remove(boardId);
 }
 
 AACButton _word(String id, int row, int col) => AACButton(
@@ -512,6 +517,53 @@ void main() {
       home = await s.editorBoard('core_main');
       expect(home.buttons.firstWhere((b) => b.id == 'eat').position,
           (row: 0, col: 1));
+    });
+
+    test('deleting it removes its tiles, what was added on it, and its '
+        'pins, hidden words and recordings (ADR 0023)', () async {
+      final tile = await s.notifier.addButton(
+          boardId: 'core_main', row: 0, col: 1, label: 'Grandma board',
+          replacesId: 'eat', sharedBoardId: 'imported_1');
+      await s.notifier.addButton(
+          boardId: 'board_food', row: 1, col: 1, label: 'Grandma board',
+          sharedBoardId: 'imported_1');
+      await s.notifier.addButton(
+          boardId: 'imported_1', row: 0, col: 1, label: 'Hug me');
+      final keep = await s.notifier.addButton(
+          boardId: 'board_food', row: 0, col: 1, label: 'Pizza');
+      await s.container
+          .read(favouritesProvider.notifier)
+          .pin('imported_1', 'imported_1__hug');
+      await s.container
+          .read(customVoiceProvider.notifier)
+          .save('imported_1__hug', File('clip.m4a'));
+      await s.container
+          .read(hiddenTilesProvider.notifier)
+          .setHidden('imported_1', 'imported_1__hug', true);
+      expect(tile, isNotEmpty);
+
+      await s.notifier.removeSharedBoard('imported_1');
+      s.container.invalidate(editableBoardsProvider);
+
+      expect(s.container.read(customButtonsProvider).value!.map((c) => c.id),
+          [keep]);
+      expect(s.favs.pinsList, isEmpty);
+      expect(s.voices.m, isEmpty);
+      expect(s.hidden.h.forBoard('imported_1'), isEmpty);
+      final boards = await s.container.read(editableBoardsProvider.future);
+      expect(boards.any((b) => b.boardId == 'imported_1'), isFalse);
+      // The word its tile had replaced is back where the tile was.
+      final home = await s.editorBoard('core_main');
+      expect(home.buttons.firstWhere((b) => b.id == 'eat').position,
+          (row: 0, col: 1));
+    });
+
+    test('a category page or a built-in board is never deleted this way',
+        () async {
+      await s.notifier.removeSharedBoard('core_main');
+      await s.notifier.removeSharedBoard('cat_0');
+      final boards = await s.container.read(editableBoardsProvider.future);
+      expect(boards.any((b) => b.boardId == 'core_main'), isTrue);
     });
   });
 }

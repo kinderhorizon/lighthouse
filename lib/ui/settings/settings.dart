@@ -4,6 +4,7 @@ library;
 export 'about_screen.dart';
 export 'crash_log_preview_screen.dart';
 export 'custom_buttons_screen.dart';
+export 'device_setup_flow.dart';
 export 'home_favourites_screen.dart';
 export 'math_gate.dart';
 export 'settings_advanced_screen.dart';

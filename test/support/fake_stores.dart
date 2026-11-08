@@ -17,7 +17,7 @@ class FakeCustomButtonStore implements CustomButtonStore {
   FakeCustomButtonStore([List<CustomButton>? seed]) : items = [...?seed];
 
   final List<CustomButton> items;
-  final Map<String, int> counters = {};
+  final Map<String, int> marks = {};
   final List<String> deletedImages = [];
   int importedImages = 0;
 
@@ -26,15 +26,15 @@ class FakeCustomButtonStore implements CustomButtonStore {
 
   @override
   Future<String> allocateId(String boardId) async {
-    final n = counters[boardId] ?? 0;
-    counters[boardId] = n + 1;
+    final n = marks[boardId] ?? 0;
+    marks[boardId] = n + 1;
     return 'custom_${boardId}_$n';
   }
 
   @override
   Future<String> allocateCategoryBoardId() async {
-    final n = counters[CustomButtonStore.categoryCounterKey] ?? 0;
-    counters[CustomButtonStore.categoryCounterKey] = n + 1;
+    final n = marks[CustomButtonStore.categoryCounterKey] ?? 0;
+    marks[CustomButtonStore.categoryCounterKey] = n + 1;
     return 'cat_$n';
   }
 
@@ -74,6 +74,21 @@ class FakeCustomButtonStore implements CustomButtonStore {
   @override
   Future<List<CustomButton>> clearAll() async {
     items.clear();
+    return List.unmodifiable(items);
+  }
+
+  @override
+  Future<Map<String, int>> counters() async => Map.of(marks);
+
+  @override
+  Future<List<CustomButton>> replaceAll(
+      List<CustomButton> buttons, Map<String, int> next) async {
+    items
+      ..clear()
+      ..addAll(buttons);
+    for (final e in next.entries) {
+      if ((marks[e.key] ?? 0) < e.value) marks[e.key] = e.value;
+    }
     return List.unmodifiable(items);
   }
 
@@ -134,6 +149,14 @@ class FakeFavStore implements FavouritesStore {
   @override
   Future<List<ButtonRef>> pin(ButtonRef ref) async {
     if (!pinsList.contains(ref)) pinsList.add(ref);
+    return List.unmodifiable(pinsList);
+  }
+
+  @override
+  Future<List<ButtonRef>> replaceAll(List<ButtonRef> refs) async {
+    pinsList
+      ..clear()
+      ..addAll(refs);
     return List.unmodifiable(pinsList);
   }
 

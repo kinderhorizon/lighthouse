@@ -1282,7 +1282,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sharedBoardsTitle => 'اللوحات المشتركة';
 
   @override
-  String get sharedBoardsSubtitle => 'ضع على لوحة طفلك لوحة شاركها شخص ما';
+  String get sharedBoardsSubtitle =>
+      'ضع على لوحة طفلك لوحة شاركها شخص ما، أو احذفها';
 
   @override
   String get sharedBoardsEmpty =>
@@ -1308,5 +1309,90 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String customButtonsSharedOn(String board) {
     return 'لوحة مشتركة في $board';
+  }
+
+  @override
+  String get sectionAnotherDevice => 'جهاز آخر';
+
+  @override
+  String get setupSendTitle => 'نسخ إلى جهاز آخر';
+
+  @override
+  String get setupSendSubtitle => 'أرسل كل ما أعددته هنا في ملف واحد';
+
+  @override
+  String get setupGetTitle => 'نسخ من جهاز آخر';
+
+  @override
+  String get setupGetSubtitle => 'استبدل الإعداد هنا بإعداد من جهاز آخر';
+
+  @override
+  String get setupSendBody =>
+      'يُنشئ هذا ملفًا واحدًا فيه كل ما أعددته: كلماتك وفئاتك، وأماكن المربعات، والكلمات المخفية والمثبتة، واللوحات المشتركة، والإعدادات. على الجهاز الآخر، افتح الملف واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا.';
+
+  @override
+  String get setupSendLeftBehind =>
+      'تبقى الصور والتسجيلات الصوتية على هذا الجهاز. يمكنك إضافتها مرة أخرى على الجهاز الآخر.';
+
+  @override
+  String get setupSendConfirm => 'إرسال';
+
+  @override
+  String get setupFileName => 'إعداد Lighthouse';
+
+  @override
+  String get setupShareMessage =>
+      'إعداد Lighthouse\nلنسخه، افتح الملف المرفق واختر Lighthouse AAC. على iPhone أو iPad، اضغط مشاركة أولًا. أو افتح Lighthouse وانتقل إلى الإعدادات، ثم نسخ من جهاز آخر.';
+
+  @override
+  String get setupSendFailed => 'تعذّر تجهيز الإعداد لإرساله.';
+
+  @override
+  String get setupReplaceTitle => 'هل تريد استبدال هذا الإعداد؟';
+
+  @override
+  String get setupReplaceBody =>
+      'سيحلّ الإعداد الموجود في الملف محلّ كل ما أُعدّ على هذا الجهاز: الكلمات والفئات، وأماكن المربعات، والكلمات المخفية والمثبتة، واللوحات المشتركة، والإعدادات. لا يمكن التراجع عن ذلك.';
+
+  @override
+  String get setupReplaceNoPhotos =>
+      'الصور والتسجيلات الصوتية ليست في الملف. يمكنك إضافتها هنا مرة أخرى.';
+
+  @override
+  String get setupReplaceConfirm => 'استبدال';
+
+  @override
+  String get setupReplaced => 'تم. أصبح الإعداد المنسوخ على هذا الجهاز.';
+
+  @override
+  String get setupFailed => 'تعذّر نسخ الإعداد. حاول مرة أخرى.';
+
+  @override
+  String get setupNotLighthouse =>
+      'هذا الملف ليس إعدادًا أو لوحة من Lighthouse، لذلك لم يتغيّر أي شيء.';
+
+  @override
+  String get setupTooNew =>
+      'أُنشئ هذا الإعداد بإصدار أحدث من Lighthouse. حدّث Lighthouse على هذا الجهاز، ثم حاول مرة أخرى.';
+
+  @override
+  String get shareVocabNoFolders =>
+      'لا تُضمَّن المجلدات الموجودة في هذه الصفحة (مثل الطعام أو الأشخاص). لنسخ كل شيء، استخدم الإعدادات، ثم نسخ إلى جهاز آخر.';
+
+  @override
+  String get sharedBoardsDelete => 'حذف';
+
+  @override
+  String sharedBoardsDeleteTitle(String board) {
+    return 'هل تريد حذف \"$board\"؟';
+  }
+
+  @override
+  String get sharedBoardsDeleteBody =>
+      'ستُزال من هذا الجهاز. إذا كانت على لوحة طفلك، فسيُزال مربعها أيضًا مع أي كلمات أضفتها إليها.';
+
+  @override
+  String sharedBoardsDeleted(String board) {
+    return 'تم حذف \"$board\".';
   }
 }

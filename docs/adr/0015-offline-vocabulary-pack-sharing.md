@@ -65,7 +65,8 @@ Change:
   rename, recolour, hide or remove it like any of their own tiles. Removing
   that tile removes only the tile: the shared board and anything the parent
   added on it stay, and it can be put back from Settings, Shared boards.
-  Deleting a shared board from the device is not built yet.
+  Deleting a shared board from the device: see ADR 0023 (Settings, Shared
+  boards, Delete; shared board ids are now never reused).
 - The board's own colour now travels with it: an optional `tile_color` in the
   pack (older versions ignore it). It is the colour of the sender's folder
   (a parent-made category's colour), else a one-colour board's group colour
@@ -75,6 +76,14 @@ Change:
 
 Settings, Import still works and remains the path when another app has been
 set as the phone's default for JSON files.
+
+## Amendment 2026-11-08 (b): the whole setup, see ADR 0023
+
+A pack is one page and drops folders (Decision 1), which a parent took for
+lost words. The share dialog now says so when the page has folders, and
+points to Settings, Copy to another device, which copies the whole setup in
+one file (ADR 0023). A setup file opened with Lighthouse, or picked in
+Import, is offered as a setup rather than as a board.
 
 ## Context
 

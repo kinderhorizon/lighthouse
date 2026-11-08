@@ -18,6 +18,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const _channel = MethodChannel('test/incoming_file');
 
+/// Records the setups it is asked to put in place, and changes nothing.
+class _FakeSetupService extends DeviceSetupService {
+  _FakeSetupService(Directory d)
+      : super(
+          customButtons: CustomButtonStore(dirOverride: d),
+          layout: BoardLayoutStore(dirOverride: d),
+          hidden: HiddenTilesStore(dirOverride: d),
+          favourites: FavouritesStore(dirOverride: d),
+          icons: IconOverrideStore(dirOverride: d),
+          voices: CustomVoiceStore(dirOverride: d),
+          settings: SettingsRepository(),
+        );
+  final applied = <DeviceSetup>[];
+  @override
+  Future<void> apply(DeviceSetup setup, BoardRegistry registry) async =>
+      applied.add(setup);
+}
+
 Map<String, Object?> _boardJson(String name) => {
   'schema_version': '1.3',
   'board_id': 'core_main',
@@ -75,7 +93,8 @@ void main() {
     return f;
   }
 
-  Future<void> pumpHost(WidgetTester tester) async {
+  Future<void> pumpHost(WidgetTester tester,
+      {List<Override> extra = const []}) async {
     // An iPad-sized screen, so the whole math gate (keypad + Continue) fits.
     tester.view.physicalSize = const Size(1024, 1366);
     tester.view.devicePixelRatio = 1.0;
@@ -87,6 +106,7 @@ void main() {
             IncomingBoardFiles(channel: _channel),
           ),
           boardRegistryProvider.overrideWith((ref) async => registry),
+          ...extra,
         ],
         child: const MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -261,5 +281,63 @@ void main() {
     await settle(tester);
     expect(find.text('the board'), findsOneWidget);
     expect(tester.takeException(), isNull);
+  });
+
+  group('a whole setup from another device (ADR 0023)', () {
+    String setupJson() => jsonEncode({
+          'lighthouse_setup': 1,
+          'custom_buttons': [
+            {'id': 'custom_core_main_0', 'board_id': 'core_main', 'row': 0,
+              'col': 0, 'label': 'pizza'},
+          ],
+        });
+
+    testWidgets('is offered as a setup; Cancel changes nothing',
+        (tester) async {
+      final fake = _FakeSetupService(tmp);
+      final file = writeIncoming(setupJson());
+      await pumpHost(tester,
+          extra: [deviceSetupServiceProvider.overrideWithValue(fake)]);
+      await settle(tester);
+
+      expect(find.text('Replace this setup?'), findsOneWidget);
+      expect(find.text('Add a shared board?'), findsNothing);
+      await tester.tap(find.byKey(const ValueKey('setup_replace_cancel')));
+      await settle(tester);
+      expect(fake.applied, isEmpty);
+      expect(find.byType(MathGate), findsNothing);
+      expect(file.existsSync(), isFalse, reason: 'the copy must not linger');
+    });
+
+    testWidgets('Replace passes the parental gate, then copies it',
+        (tester) async {
+      final fake = _FakeSetupService(tmp);
+      writeIncoming(setupJson());
+      await pumpHost(tester,
+          extra: [deviceSetupServiceProvider.overrideWithValue(fake)]);
+      await settle(tester);
+
+      await tester.tap(find.byKey(const ValueKey('setup_replace_confirm')));
+      await tester.pumpAndSettle();
+      expect(fake.applied, isEmpty, reason: 'not before the gate');
+      await solveGate(tester);
+      await settle(tester);
+
+      expect(fake.applied.single.customButtons.single.label, 'pizza');
+      expect(find.text('Done. This device now has the copied setup.'),
+          findsOneWidget);
+    });
+
+    testWidgets('one from a newer Lighthouse asks to update the app',
+        (tester) async {
+      final fake = _FakeSetupService(tmp);
+      writeIncoming(jsonEncode({'lighthouse_setup': 99}));
+      await pumpHost(tester,
+          extra: [deviceSetupServiceProvider.overrideWithValue(fake)]);
+      await settle(tester);
+      expect(find.text('Replace this setup?'), findsNothing);
+      expect(find.textContaining('newer Lighthouse'), findsOneWidget);
+      expect(fake.applied, isEmpty);
+    });
   });
 }

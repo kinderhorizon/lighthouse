@@ -37,6 +37,14 @@ class _FakeFavStore implements FavouritesStore {
   final List<ButtonRef> _pins;
   @override
   Future<List<ButtonRef>> pins() async => List.unmodifiable(_pins);
+
+  @override
+  Future<List<ButtonRef>> replaceAll(List<ButtonRef> refs) async {
+    _pins
+      ..clear()
+      ..addAll(refs);
+    return List.unmodifiable(_pins);
+  }
   @override
   Future<List<ButtonRef>> pin(ButtonRef ref) async {
     if (!_pins.contains(ref)) _pins.add(ref);
@@ -418,10 +426,29 @@ void main() {
           'is needed.'),
       findsOneWidget,
     );
+    // No folders on this page, so nothing to warn about.
+    expect(find.textContaining('Folders on this page'), findsNothing);
 
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
     expect(find.text('Share this vocabulary?'), findsNothing);
+  });
+
+  testWidgets('sharing a page with folders says they do not go, and where '
+      'the whole setup is copied (ADR 0023)', (tester) async {
+    final container = _container(boards: [_homeWithFolder(), _foodBoard()]);
+    addTearDown(container.dispose);
+    await tester.pumpWidget(_host(container));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const ValueKey('editor_share')));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Folders on this page (like Food or People) are not '
+          'included. To copy everything, use Settings, Copy to another '
+          'device.'),
+      findsOneWidget,
+    );
   });
 
   testWidgets(

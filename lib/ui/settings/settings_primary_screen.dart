@@ -26,6 +26,7 @@ import 'about_screen.dart';
 import 'check_for_updates_screen.dart';
 import 'crash_log_preview_screen.dart';
 import 'custom_buttons_screen.dart';
+import 'device_setup_flow.dart';
 import 'feedback_screen.dart';
 import 'home_favourites_screen.dart';
 import 'math_gate.dart';
@@ -88,6 +89,25 @@ class SettingsPrimaryScreen extends ConsumerWidget {
               title: l10n.sharedBoardsTitle,
               subtitle: l10n.sharedBoardsSubtitle,
               onTap: () => _openGated(context, const SharedBoardsScreen()),
+            ),
+
+            // Copying the whole setup to another device (ADR 0023).
+            LhSectionLabel(l10n.sectionAnotherDevice),
+            LhSettingsRow(
+              key: const ValueKey('settings_setup_send'),
+              icon: Icons.send_to_mobile_outlined,
+              title: l10n.setupSendTitle,
+              subtitle: l10n.setupSendSubtitle,
+              trailing: LhRowTrailing.none,
+              onTap: () => _sendSetup(context, ref),
+            ),
+            LhSettingsRow(
+              key: const ValueKey('settings_setup_get'),
+              icon: Icons.install_mobile_outlined,
+              title: l10n.setupGetTitle,
+              subtitle: l10n.setupGetSubtitle,
+              trailing: LhRowTrailing.none,
+              onTap: () => _copyFromAnotherDevice(context, ref),
             ),
 
             LhSectionLabel(l10n.sectionHowAppBehaves),
@@ -275,9 +295,40 @@ class SettingsPrimaryScreen extends ConsumerWidget {
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
-  Future<void> _importBoardPack(BuildContext context, WidgetRef ref) async {
+  Future<void> _sendSetup(BuildContext context, WidgetRef ref) async {
+    if (!await _passesGate(context) || !context.mounted) return;
+    await sendDeviceSetup(context, ref);
+  }
+
+  /// Copy from another device (ADR 0023): pick the file, then replace this
+  /// device's setup with it. A single shared board picked here by mistake is
+  /// added as a shared board instead, rather than refused.
+  Future<void> _copyFromAnotherDevice(
+      BuildContext context, WidgetRef ref) async {
     final l10n = AppLocalizations.of(context);
     if (!await _passesGate(context) || !context.mounted) return;
+    final file = await _pickJson(context);
+    if (file == null || !context.mounted) return;
+    final read = await readSetupFile(file);
+    if (!context.mounted) return;
+    if (read.tooNew) return _snack(context, l10n.setupTooNew);
+    if (read.setup != null) {
+      await offerDeviceSetup(context, ref, read.setup!, gated: true);
+      return;
+    }
+    try {
+      await const BoardLoader().loadFromFile(file);
+    } catch (_) {
+      if (context.mounted) _snack(context, l10n.setupNotLighthouse);
+      return;
+    }
+    if (context.mounted) await _importPickedBoard(context, ref, file);
+  }
+
+  /// The document picker for a `.json` file, or null (cancelled, or not a
+  /// `.json`, which it says).
+  Future<File?> _pickJson(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
     // Document picker (UIDocumentPickerViewController on iOS): does NOT pull
     // DKImagePickerController, so it adds no Photos/Camera/location frameworks
     // (ADR 0016). iOS / macOS match on a Uniform Type Identifier (NOT the bare
@@ -291,8 +342,7 @@ class SettingsPrimaryScreen extends ConsumerWidget {
       uniformTypeIdentifiers: ['public.json'],
     );
     final picked = await openFile(acceptedTypeGroups: [jsonGroup]);
-    if (!context.mounted) return;
-    if (picked == null) return;
+    if (!context.mounted || picked == null) return null;
 
     final pickedPath = picked.path;
     if (pickedPath.isEmpty || !pickedPath.toLowerCase().endsWith('.json')) {
@@ -302,16 +352,47 @@ class SettingsPrimaryScreen extends ConsumerWidget {
           content: Text(l10n.couldNotReadFile),
         ),
       );
+      return null;
+    }
+    return File(pickedPath);
+  }
+
+  void _snack(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(SnackBar(
+        duration: const Duration(seconds: 4),
+        content: Text(message),
+      ));
+  }
+
+  Future<void> _importBoardPack(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
+    if (!await _passesGate(context) || !context.mounted) return;
+    final file = await _pickJson(context);
+    if (file == null || !context.mounted) return;
+    // A whole setup picked here (ADR 0023) is offered as one, not refused as a
+    // board.
+    final read = await readSetupFile(file);
+    if (!context.mounted) return;
+    if (read.tooNew) return _snack(context, l10n.setupTooNew);
+    if (read.setup != null) {
+      await offerDeviceSetup(context, ref, read.setup!, gated: true);
       return;
     }
+    await _importPickedBoard(context, ref, file);
+  }
 
+  Future<void> _importPickedBoard(
+      BuildContext context, WidgetRef ref, File file) async {
+    final l10n = AppLocalizations.of(context);
     final registry = await ref.read(boardRegistryProvider.future);
     final importer = BoardPackImporter(registry: registry);
     try {
       // ADR 0015: a received pack imports as a fresh, separate board (re-ided +
       // namespaced) so it never overwrites the recipient's own boards. It
       // starts cold: shared vocabulary transfers structure, not learning.
-      final board = await importer.import(File(pickedPath), assignFreshId: true);
+      final board = await importer.import(file, assignFreshId: true);
       // The registry changed under the providers that list boards; reload them
       // so the new board shows in Home favourites and Custom buttons now.
       ref.invalidate(editableBoardsProvider);
@@ -390,6 +471,10 @@ class SettingsPrimaryScreen extends ConsumerWidget {
             Text(l10n.shareVocabBody),
             const SizedBox(height: 12),
             Text(l10n.shareVocabReceiveHint),
+            if (preview.foldersDropped > 0) ...[
+              const SizedBox(height: 12),
+              Text(l10n.shareVocabNoFolders),
+            ],
             if (preview.photosAsTextOnly > 0) ...[
               const SizedBox(height: 12),
               Text(l10n.shareVocabPhotos(preview.photosAsTextOnly)),

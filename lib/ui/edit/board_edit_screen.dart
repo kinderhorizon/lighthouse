@@ -1214,6 +1214,12 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
             Text(l10n.shareVocabBody),
             const SizedBox(height: 12),
             Text(l10n.shareVocabReceiveHint),
+            // Only this page travels: say so, and where the whole setup is
+            // copied instead (ADR 0023, parent feedback).
+            if (preview.foldersDropped > 0) ...[
+              const SizedBox(height: 12),
+              Text(l10n.shareVocabNoFolders),
+            ],
             if (preview.photosAsTextOnly > 0) ...[
               const SizedBox(height: 12),
               Text(l10n.shareVocabPhotos(preview.photosAsTextOnly)),

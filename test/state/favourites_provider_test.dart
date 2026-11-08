@@ -13,6 +13,14 @@ class _FakeFavStore implements FavouritesStore {
   final List<ButtonRef> _items;
   @override
   Future<List<ButtonRef>> pins() async => List.unmodifiable(_items);
+
+  @override
+  Future<List<ButtonRef>> replaceAll(List<ButtonRef> refs) async {
+    _items
+      ..clear()
+      ..addAll(refs);
+    return List.unmodifiable(_items);
+  }
   @override
   Future<List<ButtonRef>> pin(ButtonRef ref) async {
     if (!_items.contains(ref)) _items.add(ref);

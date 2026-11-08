@@ -1,5 +1,5 @@
 /// Shared boards (ADR 0015 amendment): putting a board someone shared on the
-/// child's board, now or later.
+/// child's board, now or later, and deleting one (ADR 0023).
 ///
 /// Clinical testing: after "Add board" the app only said the board was added,
 /// so the parent did not know where it went (it was stored, but nothing on the
@@ -77,6 +77,48 @@ Future<void> offerToPlaceSharedBoard(
 class SharedBoardsScreen extends ConsumerWidget {
   const SharedBoardsScreen({super.key});
 
+  /// Deletes a shared board after asking (ADR 0023). Parent feedback: each
+  /// time a board was added again it became another copy, with no way to
+  /// remove the extra ones.
+  Future<void> _confirmDelete(
+    BuildContext context,
+    WidgetRef ref,
+    String id,
+    String name,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    final delete = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        scrollable: true,
+        title: Text(l10n.sharedBoardsDeleteTitle(name)),
+        content: Text(l10n.sharedBoardsDeleteBody),
+        actions: [
+          TextButton(
+            key: const ValueKey('shared_delete_cancel'),
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            key: const ValueKey('shared_delete_confirm'),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.sharedBoardsDelete),
+          ),
+        ],
+      ),
+    );
+    if (delete != true || !context.mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    await ref.read(customButtonsProvider.notifier).removeSharedBoard(id);
+    ref.invalidate(editableBoardsProvider);
+    messenger
+      ..clearSnackBars()
+      ..showSnackBar(SnackBar(
+        duration: const Duration(seconds: 3),
+        content: Text(l10n.sharedBoardsDeleted(name)),
+      ));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -121,12 +163,26 @@ class SharedBoardsScreen extends ConsumerWidget {
                         style: LhText.rowSubtitle,
                       ),
                       const SizedBox(height: 8),
-                      FilledButton.tonalIcon(
-                        key: ValueKey('shared_place_${board.boardId}'),
-                        onPressed: () => openSharedBoardPlacement(context,
-                            id: board.boardId, name: name),
-                        icon: const Icon(Icons.add_rounded),
-                        label: Text(l10n.sharedBoardsPlace),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 8,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          FilledButton.tonalIcon(
+                            key: ValueKey('shared_place_${board.boardId}'),
+                            onPressed: () => openSharedBoardPlacement(context,
+                                id: board.boardId, name: name),
+                            icon: const Icon(Icons.add_rounded),
+                            label: Text(l10n.sharedBoardsPlace),
+                          ),
+                          TextButton.icon(
+                            key: ValueKey('shared_delete_${board.boardId}'),
+                            onPressed: () => _confirmDelete(
+                                context, ref, board.boardId, name),
+                            icon: const Icon(Icons.delete_outline_rounded),
+                            label: Text(l10n.sharedBoardsDelete),
+                          ),
+                        ],
                       ),
                     ],
                   );

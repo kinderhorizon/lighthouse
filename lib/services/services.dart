@@ -25,6 +25,8 @@ export 'network/network.dart';
 export 'onboarding/onboarding.dart';
 export 'ota/ota.dart';
 export 'settings/settings.dart';
+export 'setup/device_setup.dart';
+export 'setup/device_setup_service.dart';
 export 'tts/bundled_audio_tts_engine.dart';
 export 'tts/fallback_tts_engine.dart';
 export 'tts/piper_tts_engine.dart';

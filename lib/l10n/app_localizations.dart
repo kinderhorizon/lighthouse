@@ -2353,7 +2353,7 @@ abstract class AppLocalizations {
   /// No description provided for @sharedBoardsSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Put a board someone shared on your child\'s board'**
+  /// **'Put a board someone shared on your child\'s board, or delete it'**
   String get sharedBoardsSubtitle;
 
   /// No description provided for @sharedBoardsEmpty.
@@ -2397,6 +2397,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shared board on {board}'**
   String customButtonsSharedOn(String board);
+
+  /// No description provided for @sectionAnotherDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Another device'**
+  String get sectionAnotherDevice;
+
+  /// No description provided for @setupSendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to another device'**
+  String get setupSendTitle;
+
+  /// No description provided for @setupSendSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send everything you set up here, in one file'**
+  String get setupSendSubtitle;
+
+  /// No description provided for @setupGetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from another device'**
+  String get setupGetTitle;
+
+  /// No description provided for @setupGetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the setup here with one from another device'**
+  String get setupGetSubtitle;
+
+  /// No description provided for @setupSendBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This makes one file with everything you set up: your words and categories, where tiles are, hidden and pinned words, shared boards and settings. On the other device, open the file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first.'**
+  String get setupSendBody;
+
+  /// No description provided for @setupSendLeftBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos and voice recordings stay on this device. You can add them again on the other one.'**
+  String get setupSendLeftBehind;
+
+  /// No description provided for @setupSendConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get setupSendConfirm;
+
+  /// File name (without .json) of a copied setup, seen by the person who receives it
+  ///
+  /// In en, this message translates to:
+  /// **'Lighthouse setup'**
+  String get setupFileName;
+
+  /// Text sent with a setup file, so whoever opens it knows how to copy it
+  ///
+  /// In en, this message translates to:
+  /// **'Lighthouse setup\nTo copy it, open the attached file and choose Lighthouse AAC. On an iPhone or iPad, tap Share first. Or open Lighthouse and go to Settings, Copy from another device.'**
+  String get setupShareMessage;
+
+  /// No description provided for @setupSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not prepare the setup to send.'**
+  String get setupSendFailed;
+
+  /// No description provided for @setupReplaceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace this setup?'**
+  String get setupReplaceTitle;
+
+  /// No description provided for @setupReplaceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The setup in the file will replace everything set up on this device: words and categories, where tiles are, hidden and pinned words, shared boards and settings. This can\'t be undone.'**
+  String get setupReplaceBody;
+
+  /// No description provided for @setupReplaceNoPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos and voice recordings are not in the file. You can add them again here.'**
+  String get setupReplaceNoPhotos;
+
+  /// No description provided for @setupReplaceConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get setupReplaceConfirm;
+
+  /// No description provided for @setupReplaced.
+  ///
+  /// In en, this message translates to:
+  /// **'Done. This device now has the copied setup.'**
+  String get setupReplaced;
+
+  /// No description provided for @setupFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not copy the setup. Please try again.'**
+  String get setupFailed;
+
+  /// No description provided for @setupNotLighthouse.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is not a Lighthouse setup or board, so nothing was changed.'**
+  String get setupNotLighthouse;
+
+  /// No description provided for @setupTooNew.
+  ///
+  /// In en, this message translates to:
+  /// **'This setup was made with a newer Lighthouse. Update Lighthouse on this device, then try again.'**
+  String get setupTooNew;
+
+  /// No description provided for @shareVocabNoFolders.
+  ///
+  /// In en, this message translates to:
+  /// **'Folders on this page (like Food or People) are not included. To copy everything, use Settings, Copy to another device.'**
+  String get shareVocabNoFolders;
+
+  /// No description provided for @sharedBoardsDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get sharedBoardsDelete;
+
+  /// No description provided for @sharedBoardsDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{board}\"?'**
+  String sharedBoardsDeleteTitle(String board);
+
+  /// No description provided for @sharedBoardsDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It is removed from this device. If it is on your child\'s board, its tile goes too, with any words you added to it.'**
+  String get sharedBoardsDeleteBody;
+
+  /// No description provided for @sharedBoardsDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{board}\" was deleted.'**
+  String sharedBoardsDeleted(String board);
 }
 
 class _AppLocalizationsDelegate
