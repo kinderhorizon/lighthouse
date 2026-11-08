@@ -1227,4 +1227,27 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get editBatchUnpin => 'Quitar';
+
+  @override
+  String get incomingBoardTitle => '¿Agregar un tablero compartido?';
+
+  @override
+  String incomingBoardBody(String board) {
+    return 'Alguien compartió contigo el tablero \"$board\". Se agregará como un tablero nuevo e independiente; los tableros de tu hijo no cambian.';
+  }
+
+  @override
+  String get incomingBoardAdd => 'Agregar tablero';
+
+  @override
+  String get incomingBoardNotABoard =>
+      'Ese archivo no es un tablero de Lighthouse, así que no se agregó nada.';
+
+  @override
+  String get incomingBoardFailed =>
+      'No se pudo agregar este tablero. No se cambió nada.';
+
+  @override
+  String get shareVocabReceiveHint =>
+      'En el otro dispositivo, abre el archivo y elige Lighthouse. No hace falta cuenta ni iniciar sesión.';
 }

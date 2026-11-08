@@ -1089,12 +1089,15 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
+        scrollable: true,
         title: Text(l10n.shareVocabTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(l10n.shareVocabBody),
+            const SizedBox(height: 12),
+            Text(l10n.shareVocabReceiveHint),
             if (preview.photosAsTextOnly > 0) ...[
               const SizedBox(height: 12),
               Text(l10n.shareVocabPhotos(preview.photosAsTextOnly)),

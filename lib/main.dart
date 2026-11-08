@@ -148,8 +148,10 @@ class LighthouseAppRoot extends ConsumerWidget {
       data: (state) {
         ref.read(crashCaptureProvider).lastUiRoute =
             state.completed ? '/board' : '/onboarding';
+        // A board file the phone handed to Lighthouse is offered once the
+        // board is showing (ADR 0015 amendment); during onboarding it waits.
         return state.completed
-            ? const _BoardScreen()
+            ? const IncomingBoardFileHandler(child: _BoardScreen())
             : const OnboardingFlow();
       },
       loading: () => const Scaffold(

@@ -14,6 +14,36 @@
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Lighthouse AAC</string>
+	<!-- Open a shared board file with Lighthouse (ADR 0015 amendment): AirDrop,
+	     Messages, Mail, Files and WhatsApp list Lighthouse under "Open in" /
+	     the share sheet. Without this the phone offered the .json file only to
+	     other apps, which asked the parent to sign in. Alternate rank: Lighthouse
+	     is never the default app for every JSON file. The file is copied to tmp
+	     and the parent confirms behind the math gate before anything is
+	     imported (IncomingFilePlugin in AppDelegate.swift). -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Lighthouse board</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.json</string>
+			</array>
+		</dict>
+	</array>
+	<!-- iOS hands the app a private copy of the file (in Documents/Inbox, which
+	     IncomingFilePlugin deletes at once) instead of the original. -->
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<!-- Lighthouse has no deep links. Flutter turns them on by default, and
+	     would then try to open the board file's address as a screen and fail. -->
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

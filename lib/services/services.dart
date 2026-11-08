@@ -10,6 +10,7 @@ export 'board_loader.dart';
 export 'board_pack_exporter.dart';
 export 'board_pack_importer.dart';
 export 'board_registry.dart';
+export 'incoming_board_file.dart';
 export 'crash/crash.dart';
 export 'custom/custom_button_store.dart';
 export 'feedback/feedback.dart';

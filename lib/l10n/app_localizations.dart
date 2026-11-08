@@ -2247,6 +2247,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unpin'**
   String get editBatchUnpin;
+
+  /// No description provided for @incomingBoardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a shared board?'**
+  String get incomingBoardTitle;
+
+  /// Asked when a parent opens a shared board file with Lighthouse
+  ///
+  /// In en, this message translates to:
+  /// **'Someone shared the board \"{board}\" with you. It will be added as a new, separate board; your child\'s own boards do not change.'**
+  String incomingBoardBody(String board);
+
+  /// No description provided for @incomingBoardAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add board'**
+  String get incomingBoardAdd;
+
+  /// No description provided for @incomingBoardNotABoard.
+  ///
+  /// In en, this message translates to:
+  /// **'That file is not a Lighthouse board, so nothing was added.'**
+  String get incomingBoardNotABoard;
+
+  /// No description provided for @incomingBoardFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add this board. Nothing was changed.'**
+  String get incomingBoardFailed;
+
+  /// Share dialog: tells the sender how the other person opens the file
+  ///
+  /// In en, this message translates to:
+  /// **'On the other device, open the file and choose Lighthouse. No account or sign-in is needed.'**
+  String get shareVocabReceiveHint;
 }
 
 class _AppLocalizationsDelegate

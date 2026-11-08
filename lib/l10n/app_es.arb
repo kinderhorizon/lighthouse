@@ -357,5 +357,11 @@
   "customButtonsCategoryOn": "Categoría en {board}",
   "customTileVoiceFailed": "El botón se añadió, pero no se pudo guardar la grabación. Toca el botón para grabarla de nuevo.",
   "editBatchPin": "Fijar",
-  "editBatchUnpin": "Quitar"
+  "editBatchUnpin": "Quitar",
+  "incomingBoardTitle": "¿Agregar un tablero compartido?",
+  "incomingBoardBody": "Alguien compartió contigo el tablero \"{board}\". Se agregará como un tablero nuevo e independiente; los tableros de tu hijo no cambian.",
+  "incomingBoardAdd": "Agregar tablero",
+  "incomingBoardNotABoard": "Ese archivo no es un tablero de Lighthouse, así que no se agregó nada.",
+  "incomingBoardFailed": "No se pudo agregar este tablero. No se cambió nada.",
+  "shareVocabReceiveHint": "En el otro dispositivo, abre el archivo y elige Lighthouse. No hace falta cuenta ni iniciar sesión."
 }

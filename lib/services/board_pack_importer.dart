@@ -4,10 +4,10 @@
 /// into the persistent import directory under the board's id, and
 /// registers the new id with the [BoardRegistry]. PRD Tech Spec § 7.
 ///
-/// The Pack Loader does NOT receive files from the OS share sheet today;
-/// that surface (iOS UTI + Android intent-filter + a Dart-side intent
-/// handler) is queued for a Phase 1 follow-up. For now, imports come
-/// through the in-app file picker reachable from Settings.
+/// Files reach it two ways: the in-app file picker in Settings, and a board
+/// file the parent opens with Lighthouse from Messages, Mail, AirDrop, Files,
+/// WhatsApp or Quick Share (ADR 0015 amendment; the iOS document type + Android
+/// intent filters hand it to lib/ui/incoming_board_file_handler.dart).
 library;
 
 import 'dart:convert';

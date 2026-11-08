@@ -1210,4 +1210,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get editBatchUnpin => 'إلغاء التثبيت';
+
+  @override
+  String get incomingBoardTitle => 'هل تريد إضافة لوحة مشتركة؟';
+
+  @override
+  String incomingBoardBody(String board) {
+    return 'شارك أحدهم معك اللوحة \"$board\". ستُضاف كلوحة جديدة منفصلة، ولن تتغيّر لوحات طفلك.';
+  }
+
+  @override
+  String get incomingBoardAdd => 'إضافة اللوحة';
+
+  @override
+  String get incomingBoardNotABoard =>
+      'هذا الملف ليس لوحة من Lighthouse، لذلك لم تتم إضافة أي شيء.';
+
+  @override
+  String get incomingBoardFailed =>
+      'تعذّرت إضافة هذه اللوحة. لم يتغيّر أي شيء.';
+
+  @override
+  String get shareVocabReceiveHint =>
+      'على الجهاز الآخر، افتح الملف واختر Lighthouse. لا حاجة إلى حساب أو تسجيل دخول.';
 }

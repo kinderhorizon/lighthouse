@@ -410,6 +410,12 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('editor_share')));
     await tester.pumpAndSettle();
     expect(find.text('Share this vocabulary?'), findsOneWidget);
+    // Tells the sender how the other person opens the file (no sign-in).
+    expect(
+      find.text('On the other device, open the file and choose Lighthouse. '
+          'No account or sign-in is needed.'),
+      findsOneWidget,
+    );
 
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();

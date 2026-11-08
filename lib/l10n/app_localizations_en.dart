@@ -1214,4 +1214,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editBatchUnpin => 'Unpin';
+
+  @override
+  String get incomingBoardTitle => 'Add a shared board?';
+
+  @override
+  String incomingBoardBody(String board) {
+    return 'Someone shared the board \"$board\" with you. It will be added as a new, separate board; your child\'s own boards do not change.';
+  }
+
+  @override
+  String get incomingBoardAdd => 'Add board';
+
+  @override
+  String get incomingBoardNotABoard =>
+      'That file is not a Lighthouse board, so nothing was added.';
+
+  @override
+  String get incomingBoardFailed =>
+      'Could not add this board. Nothing was changed.';
+
+  @override
+  String get shareVocabReceiveHint =>
+      'On the other device, open the file and choose Lighthouse. No account or sign-in is needed.';
 }

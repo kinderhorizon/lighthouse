@@ -12,6 +12,7 @@ export 'als_word_screen.dart';
 export 'edit/board_edit_screen.dart';
 export 'favourites_strip.dart';
 export 'glow_effect.dart';
+export 'incoming_board_file_handler.dart';
 export 'sentence_bar.dart';
 export 'onboarding/onboarding.dart';
 export 'settings/settings.dart';

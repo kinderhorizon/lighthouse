@@ -304,6 +304,9 @@ class SettingsPrimaryScreen extends ConsumerWidget {
       // namespaced) so it never overwrites the recipient's own boards. It
       // starts cold: shared vocabulary transfers structure, not learning.
       final board = await importer.import(File(pickedPath), assignFreshId: true);
+      // The registry changed under the providers that list boards; reload them
+      // so the new board shows in Home favourites and Custom buttons now.
+      ref.invalidate(editableBoardsProvider);
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -370,12 +373,15 @@ class SettingsPrimaryScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
+        scrollable: true,
         title: Text(l10n.shareVocabTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(l10n.shareVocabBody),
+            const SizedBox(height: 12),
+            Text(l10n.shareVocabReceiveHint),
             if (preview.photosAsTextOnly > 0) ...[
               const SizedBox(height: 12),
               Text(l10n.shareVocabPhotos(preview.photosAsTextOnly)),

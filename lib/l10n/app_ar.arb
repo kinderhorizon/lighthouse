@@ -357,5 +357,11 @@
   "customButtonsCategoryOn": "فئة في {board}",
   "customTileVoiceFailed": "تمت إضافة الزر، لكن تعذّر حفظ التسجيل. اضغط على الزر لتسجيله مرة أخرى.",
   "editBatchPin": "تثبيت",
-  "editBatchUnpin": "إلغاء التثبيت"
+  "editBatchUnpin": "إلغاء التثبيت",
+  "incomingBoardTitle": "هل تريد إضافة لوحة مشتركة؟",
+  "incomingBoardBody": "شارك أحدهم معك اللوحة \"{board}\". ستُضاف كلوحة جديدة منفصلة، ولن تتغيّر لوحات طفلك.",
+  "incomingBoardAdd": "إضافة اللوحة",
+  "incomingBoardNotABoard": "هذا الملف ليس لوحة من Lighthouse، لذلك لم تتم إضافة أي شيء.",
+  "incomingBoardFailed": "تعذّرت إضافة هذه اللوحة. لم يتغيّر أي شيء.",
+  "shareVocabReceiveHint": "على الجهاز الآخر، افتح الملف واختر Lighthouse. لا حاجة إلى حساب أو تسجيل دخول."
 }

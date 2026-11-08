@@ -9,6 +9,43 @@ Reviewer signed off the id model 2026-05-31; folded in the Testing
 ids-not-equal fix, the separate-board UX clarity, and the clip-keyed-on-text
 note. Cleared to build.
 
+## Amendment 2026-11-08: open a received board with Lighthouse
+
+Parent feedback: "every time I try to transfer from another device the app
+can't open the file because it says I need to sign in... sign into what?"
+Decision 4 below left the receiving side to Settings, Import, and Lighthouse
+never told the phone that it opens board files. So a parent who tapped the
+received `.json` in Messages, Mail, Files, WhatsApp or Quick Share got either
+"Can't open file" or another app that claims JSON (a cloud drive, an office
+app), and that app asked them to sign in. Lighthouse itself has no account.
+
+Change:
+
+- The phone now offers Lighthouse for these files. iOS: `CFBundleDocumentTypes`
+  for `public.json` at `Alternate` rank (never the default JSON app),
+  `LSSupportsOpeningDocumentsInPlace` NO. Android: `VIEW` (content: URIs only)
+  and `SEND` intent filters for `application/json`; `MainActivity` is
+  `singleTask`, so the file reaches the running app instead of a second copy
+  of it inside the sending app.
+- The native side copies the file to the app's temp/cache directory (never
+  backed up; at most 4 MB + 1 byte; the iOS Documents/Inbox copy is deleted at
+  once) and keeps one pending path. The Dart side offers it once the board
+  is showing (a file opened during onboarding waits): it checks the file
+  really is a board, asks "Add a shared board?", passes the math gate, and
+  imports it exactly as Settings, Import does (fresh id, separate board).
+  The temp copy is deleted whatever the outcome, and a copy left by an
+  earlier run (the app was closed before the parent answered) is deleted on
+  the next start.
+- Flutter deep linking is turned off on both platforms; Lighthouse has none,
+  and Flutter would otherwise try to open the file's address as a screen.
+- The share dialog now tells the sender: "On the other device, open the file
+  and choose Lighthouse. No account or sign-in is needed."
+- The file stays plain `.json`, so older app versions and Settings, Import
+  keep working; a custom extension or UTI was rejected for that reason.
+
+Settings, Import still works and remains the path when another app has been
+set as the phone's default for JSON files.
+
 ## Context
 
 The website describes families sharing the app between devices offline (over

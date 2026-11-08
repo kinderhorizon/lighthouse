@@ -690,5 +690,22 @@
   },
   "customTileVoiceFailed": "The button was added, but the recording could not be saved. Tap the button to record it again.",
   "editBatchPin": "Pin",
-  "editBatchUnpin": "Unpin"
+  "editBatchUnpin": "Unpin",
+  "incomingBoardTitle": "Add a shared board?",
+  "incomingBoardBody": "Someone shared the board \"{board}\" with you. It will be added as a new, separate board; your child's own boards do not change.",
+  "@incomingBoardBody": {
+    "description": "Asked when a parent opens a shared board file with Lighthouse",
+    "placeholders": {
+      "board": {
+        "type": "String"
+      }
+    }
+  },
+  "incomingBoardAdd": "Add board",
+  "incomingBoardNotABoard": "That file is not a Lighthouse board, so nothing was added.",
+  "incomingBoardFailed": "Could not add this board. Nothing was changed.",
+  "shareVocabReceiveHint": "On the other device, open the file and choose Lighthouse. No account or sign-in is needed.",
+  "@shareVocabReceiveHint": {
+    "description": "Share dialog: tells the sender how the other person opens the file"
+  }
 }

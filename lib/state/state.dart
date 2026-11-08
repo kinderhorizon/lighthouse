@@ -12,6 +12,7 @@ export 'custom_voice_provider.dart';
 export 'first_use_tips_provider.dart';
 export 'hidden_tiles_provider.dart';
 export 'icon_override_provider.dart';
+export 'incoming_board_file_provider.dart';
 export 'content_overlay_provider.dart';
 export 'content_update_provider.dart';
 export 'context_provider.dart';

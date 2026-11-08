@@ -47,7 +47,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -65,6 +65,32 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- Open a shared board file with Lighthouse (ADR 0015 amendment):
+                 tapping a received board in Files, Downloads, Quick Share,
+                 WhatsApp or Gmail ("Open with"), or sharing it to Lighthouse.
+                 Without these the phone offered the file only to other apps,
+                 which asked the parent to sign in. content: URIs only; the
+                 file is copied to the cache and the parent confirms behind the
+                 math gate before anything is imported. singleTask (above) so
+                 the file reaches the running app instead of starting a second
+                 copy of it inside the sending app. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="content"/>
+                <data android:mimeType="application/json"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/json"/>
+            </intent-filter>
+            <!-- Lighthouse has no deep links. Flutter turns them on by default,
+                 and would then try to open the board file's address as a
+                 screen and fail. -->
+            <meta-data
+                android:name="flutter_deeplinking_enabled"
+                android:value="false" />
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
