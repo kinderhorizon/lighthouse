@@ -100,6 +100,11 @@ void main() {
         'tip_seen.buttons': true,
       }));
 
+  /// The tick that marks the chosen colour, inside that colour's row.
+  Finder tickIn(String name) => find.descendant(
+      of: find.byKey(ValueKey('tile_color_$name')),
+      matching: find.byIcon(Icons.check_rounded));
+
   testWidgets('the colour follows the chosen board until the parent picks one',
       (tester) async {
     final store = FakeCustomButtonStore();
@@ -107,23 +112,25 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Add your first button'));
     await tester.pumpAndSettle();
-    expect(find.text('Grey: no colour group'), findsOneWidget);
+    expect(tickIn('grey'), findsOneWidget);
 
     await tester.tap(find.byType(DropdownButtonFormField<String>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('People (2)').last);
     await tester.pumpAndSettle();
-    expect(find.text('Yellow: people and pronouns'), findsOneWidget);
+    expect(tickIn('yellow'), findsOneWidget);
 
     // The parent's own choice sticks even if they change the board.
     await tester.ensureVisible(find.byKey(const ValueKey('tile_color_pink')));
     await tester.tap(find.byKey(const ValueKey('tile_color_pink')));
     await tester.pump();
+    await tester.ensureVisible(find.byType(DropdownButtonFormField<String>));
+    await tester.pumpAndSettle();
     await tester.tap(find.byType(DropdownButtonFormField<String>));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Home (1)').last);
     await tester.pumpAndSettle();
-    expect(find.text('Pink: social words and urgent needs'), findsOneWidget);
+    expect(tickIn('pink'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), 'Grandma');
     await tester.pump();

@@ -47,6 +47,11 @@ Color _tileFill(WidgetTester tester) => tester
     .color!;
 
 void main() {
+  /// The tick that marks the chosen colour, inside that colour's row.
+  Finder tickIn(String name) => find.descendant(
+      of: find.byKey(ValueKey('tile_color_$name')),
+      matching: find.byIcon(Icons.check_rounded));
+
   group('TileColorPicker', () {
     testWidgets('shows grey + the six colours; tapping one reports it',
         (tester) async {
@@ -65,18 +70,32 @@ void main() {
       for (final c in TileColor.values) {
         expect(find.byKey(ValueKey('tile_color_${c.name}')), findsOneWidget);
       }
-      // The chosen colour's meaning is spelled out, not colour-only.
-      expect(find.text('Orange: things, food, and places'), findsOneWidget);
+      // Every colour's meaning is on screen at once (clinical testing: bare
+      // swatches were hard to choose from), so no colour has to be tapped to
+      // find out what it means.
+      for (final meaning in const [
+        'Grey: no colour group',
+        'Yellow: people and pronouns',
+        'Green: action words',
+        'Orange: things, food, and places',
+        'Blue: feelings and yes or no',
+        'Pink: social words and urgent needs',
+        'Purple: questions and time',
+      ]) {
+        expect(find.text(meaning), findsOneWidget);
+      }
+      expect(tickIn('orange'), findsOneWidget);
 
       await tester.tap(find.byKey(const ValueKey('tile_color_green')));
       await tester.pump();
       expect(picked, TileColor.green);
-      expect(find.text('Green: action words'), findsOneWidget);
+      expect(tickIn('green'), findsOneWidget);
+      expect(tickIn('orange'), findsNothing);
 
       await tester.tap(find.byKey(const ValueKey('tile_color_grey')));
       await tester.pump();
       expect(picked, isNull);
-      expect(find.text('Grey: no colour group'), findsOneWidget);
+      expect(tickIn('grey'), findsOneWidget);
       expect(calls, 2);
     });
 

@@ -144,6 +144,11 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   /// First-use tip (ADR 0020), anchored to the Select button. Shown once, the
   /// first time a parent opens the editor.
   final GlobalKey _selectKey = GlobalKey();
+
+  /// What the iPad / macOS share sheet points at: the Share button, or the
+  /// menu holding it on narrow screens. Without an anchor the share sheet
+  /// throws on iPad, so "Share this board" always failed there.
+  final GlobalKey _shareAnchorKey = GlobalKey();
   late final FirstUseTipController _tipController;
 
   @override
@@ -364,82 +369,90 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
           : null,
       actions: [
         if (!narrow)
-        IconButton(
-          key: const ValueKey('editor_share'),
-          tooltip: l10n.editShareBoard,
-          icon: const Icon(Icons.ios_share),
-          onPressed: () => _shareBoard(board),
-        ),
-        PopupMenuButton<String>(
-          key: const ValueKey('editor_reset_menu'),
-          onSelected: (v) {
-            if (v == 'share') {
-              _shareBoard(board);
-            } else if (v == 'board') {
-              // "Reset this board": undo EVERY customization on the current
-              // board (clinical review: previously only the layout reset, so a hidden
-              // tile could never be un-hidden here). Capture the on-board ids
-              // before removing custom buttons so their voices clear too.
-              _confirmReset(l10n.editResetBoardConfirm, () async {
-                final ids = board.buttons.map((b) => b.id).toList();
-                await ref
-                    .read(customButtonsProvider.notifier)
-                    .removeForBoard(board.boardId);
-                await ref
-                    .read(customVoiceProvider.notifier)
-                    .removeMany(ids);
-                await ref
-                    .read(iconOverridesProvider.notifier)
-                    .resetBoard(board.boardId);
-                await ref
-                    .read(hiddenTilesProvider.notifier)
-                    .resetBoard(board.boardId);
-                await ref
-                    .read(boardLayoutProvider.notifier)
-                    .resetBoard(board.boardId);
-              });
-            } else if (v == 'blank') {
-              // "Start this page blank" (ADR 0022): hide every word in one
-              // step. Folders stay so no page becomes unreachable; hidden words
-              // keep their slots, and the parent can put their own buttons in
-              // them (Add, or a hidden word's sheet).
-              _confirmReset(
-                l10n.editStartBlankConfirm,
-                confirmLabel: l10n.editStartBlankButton,
-                () async {
+          KeyedSubtree(
+            key: _shareAnchorKey,
+            child: IconButton(
+              key: const ValueKey('editor_share'),
+              tooltip: l10n.editShareBoard,
+              icon: const Icon(Icons.ios_share),
+              onPressed: () => _shareBoard(board),
+            ),
+          ),
+        // On narrow screens Share lives in this menu, so the iPad / macOS
+        // share sheet points at the menu instead.
+        KeyedSubtree(
+          key: narrow ? _shareAnchorKey : null,
+          child: PopupMenuButton<String>(
+            key: const ValueKey('editor_reset_menu'),
+            onSelected: (v) {
+              if (v == 'share') {
+                _shareBoard(board);
+              } else if (v == 'board') {
+                // "Reset this board": undo EVERY customization on the current
+                // board (clinical review: previously only the layout reset, so a hidden
+                // tile could never be un-hidden here). Capture the on-board ids
+                // before removing custom buttons so their voices clear too.
+                _confirmReset(l10n.editResetBoardConfirm, () async {
+                  final ids = board.buttons.map((b) => b.id).toList();
+                  await ref
+                      .read(customButtonsProvider.notifier)
+                      .removeForBoard(board.boardId);
+                  await ref
+                      .read(customVoiceProvider.notifier)
+                      .removeMany(ids);
+                  await ref
+                      .read(iconOverridesProvider.notifier)
+                      .resetBoard(board.boardId);
                   await ref
                       .read(hiddenTilesProvider.notifier)
-                      .setHiddenBulk(
-                        board.boardId,
-                        _selectableIds(board),
-                        true,
-                      );
-                  _toast(l10n.editToastStartBlank);
-                },
-              );
-            } else if (v == 'all') {
-              // "Reset everything": same, across every board, back to factory.
-              _confirmReset(l10n.editResetAllConfirm, () async {
-                await ref.read(customButtonsProvider.notifier).resetAll();
-                await ref.read(customVoiceProvider.notifier).resetAll();
-                await ref.read(iconOverridesProvider.notifier).resetAll();
-                await ref.read(hiddenTilesProvider.notifier).resetAll();
-                await ref.read(boardLayoutProvider.notifier).resetAll();
-              });
-            }
-          },
-          itemBuilder: (context) => [
-            if (narrow)
-              PopupMenuItem(
-                key: const ValueKey('editor_share_item'),
-                value: 'share',
-                child: Text(l10n.editShareBoard),
-              ),
-            PopupMenuItem(value: 'blank', child: Text(l10n.editStartBlank)),
-            const PopupMenuDivider(),
-            PopupMenuItem(value: 'board', child: Text(l10n.editResetBoard)),
-            PopupMenuItem(value: 'all', child: Text(l10n.editResetAll)),
-          ],
+                      .resetBoard(board.boardId);
+                  await ref
+                      .read(boardLayoutProvider.notifier)
+                      .resetBoard(board.boardId);
+                });
+              } else if (v == 'blank') {
+                // "Start this page blank" (ADR 0022): hide every word in one
+                // step. Folders stay so no page becomes unreachable; hidden words
+                // keep their slots, and the parent can put their own buttons in
+                // them (Add, or a hidden word's sheet).
+                _confirmReset(
+                  l10n.editStartBlankConfirm,
+                  confirmLabel: l10n.editStartBlankButton,
+                  () async {
+                    await ref
+                        .read(hiddenTilesProvider.notifier)
+                        .setHiddenBulk(
+                          board.boardId,
+                          _selectableIds(board),
+                          true,
+                        );
+                    _toast(l10n.editToastStartBlank);
+                  },
+                );
+              } else if (v == 'all') {
+                // "Reset everything": same, across every board, back to factory.
+                _confirmReset(l10n.editResetAllConfirm, () async {
+                  await ref.read(customButtonsProvider.notifier).resetAll();
+                  await ref.read(customVoiceProvider.notifier).resetAll();
+                  await ref.read(iconOverridesProvider.notifier).resetAll();
+                  await ref.read(hiddenTilesProvider.notifier).resetAll();
+                  await ref.read(boardLayoutProvider.notifier).resetAll();
+                });
+              }
+            },
+            itemBuilder: (context) => [
+              if (narrow)
+                PopupMenuItem(
+                  key: const ValueKey('editor_share_item'),
+                  value: 'share',
+                  child: Text(l10n.editShareBoard),
+                ),
+              PopupMenuItem(value: 'blank', child: Text(l10n.editStartBlank)),
+              const PopupMenuDivider(),
+              PopupMenuItem(value: 'board', child: Text(l10n.editResetBoard)),
+              PopupMenuItem(value: 'all', child: Text(l10n.editResetAll)),
+            ],
+            ),
         ),
         KeyedSubtree(
           key: _selectKey,
@@ -1083,6 +1096,19 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
   }
 
   // -------------------------------------------------------------- share
+  /// The on-screen rect the iPad / macOS share sheet points at (it requires a
+  /// non-empty one; phones ignore it): the Share button, else the screen.
+  Rect? _shareOrigin() {
+    for (final ctx in [_shareAnchorKey.currentContext, context]) {
+      final box = ctx?.findRenderObject();
+      if (box is RenderBox && box.attached && box.hasSize) {
+        final rect = box.localToGlobal(Offset.zero) & box.size;
+        if (!rect.isEmpty) return rect;
+      }
+    }
+    return null;
+  }
+
   Future<void> _shareBoard(AACBoard board) async {
     final l10n = AppLocalizations.of(context);
     final preview = BoardPackExporter.buildExportBoard(board);
@@ -1120,6 +1146,7 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
     if (confirmed != true || !mounted) return;
 
     final languageCode = Localizations.localeOf(context).languageCode;
+    final origin = _shareOrigin();
     File? tempFile;
     try {
       final export = await BoardPackExporter().prepare(board);
@@ -1128,6 +1155,7 @@ class _BoardEditScreenState extends ConsumerState<BoardEditScreen> {
         ShareParams(
           files: [XFile(export.file.path)],
           subject: board.boardNameFor(languageCode),
+          sharePositionOrigin: origin,
         ),
       );
     } catch (_) {

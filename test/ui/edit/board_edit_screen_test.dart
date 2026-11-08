@@ -10,6 +10,7 @@ library;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -420,6 +421,51 @@ void main() {
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
     expect(find.text('Share this vocabulary?'), findsNothing);
+  });
+
+  testWidgets(
+      'Share gives the share sheet an on-screen anchor (iPad requires one)',
+      (tester) async {
+    // iPad-sized screen: without a non-empty anchor the iPad share sheet
+    // throws and the parent saw "Could not prepare this board to share".
+    tester.view.physicalSize = const Size(1024, 1366);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    final tmp = Directory.systemTemp.createTempSync('share_anchor_test_');
+    addTearDown(() => tmp.deleteSync(recursive: true));
+    const pathChannel = MethodChannel('plugins.flutter.io/path_provider');
+    const shareChannel = MethodChannel('dev.fluttercommunity.plus/share');
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(pathChannel, (_) async => tmp.path);
+    Map<Object?, Object?>? shared;
+    messenger.setMockMethodCallHandler(shareChannel, (call) async {
+      shared = call.arguments as Map<Object?, Object?>;
+      return 'dev.fluttercommunity.plus/share/unavailable';
+    });
+    addTearDown(() {
+      messenger.setMockMethodCallHandler(pathChannel, null);
+      messenger.setMockMethodCallHandler(shareChannel, null);
+    });
+
+    final container = _container();
+    addTearDown(container.dispose);
+    await tester.pumpWidget(_host(container));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('editor_share')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('editor_share_confirm')));
+    for (var i = 0; i < 20 && shared == null; i++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 20)));
+      await tester.pump();
+    }
+    await tester.pumpAndSettle();
+
+    expect(shared, isNotNull, reason: 'the share sheet was never asked');
+    expect(find.text('Could not prepare this board to share.'), findsNothing);
+    expect(shared!['originWidth'] as num, greaterThan(0));
+    expect(shared!['originHeight'] as num, greaterThan(0));
   });
 
   testWidgets('long-press drag reorders words (insertion)', (tester) async {

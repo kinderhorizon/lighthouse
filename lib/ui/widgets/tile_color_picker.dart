@@ -1,9 +1,11 @@
 /// Colour choice for a button or category the parent makes (ADR 0022).
 ///
-/// Grey plus the six Fitzgerald colours the built-in boards use, each shown as
-/// a swatch with its meaning spelled out ("Green: action words"), so a parent
-/// can match the words a new tile belongs with. Large (48pt) targets, a clear
-/// tick on the chosen one, and a screen-reader label per swatch.
+/// Grey plus the six Fitzgerald colours the built-in boards use, as a list in
+/// which EVERY colour shows its meaning next to it ("Green: action words"), so
+/// a parent can match the words a new tile belongs with without tapping each
+/// colour to find out (clinical testing: even the clinician found the bare
+/// swatches hard to choose from). Full-width 48pt rows, a tick on the chosen
+/// one, and a screen-reader label per row.
 library;
 
 import 'package:flutter/material.dart';
@@ -52,24 +54,18 @@ class TileColorPicker extends StatelessWidget {
         Text(l10n.tileColorLabel,
             style: LhText.rowSubtitle.copyWith(
                 color: LhColors.ink, fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            for (final c in <TileColor?>[null, ...TileColor.values])
-              _Swatch(
-                key: ValueKey('tile_color_${c?.name ?? 'grey'}'),
-                fill: tileColorFill(c),
-                label: tileColorName(l10n, c),
-                selected: c == value,
-                onTap: () => onChanged(c),
-              ),
-          ],
-        ),
         const SizedBox(height: 6),
-        // The chosen colour's meaning, so the choice is never colour-only.
-        Text(tileColorName(l10n, value), style: LhText.rowSubtitle),
+        for (final c in <TileColor?>[null, ...TileColor.values])
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: _Swatch(
+              key: ValueKey('tile_color_${c?.name ?? 'grey'}'),
+              fill: tileColorFill(c),
+              label: tileColorName(l10n, c),
+              selected: c == value,
+              onTap: () => onChanged(c),
+            ),
+          ),
       ],
     );
   }
@@ -92,9 +88,9 @@ class _Swatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const radius = BorderRadius.all(Radius.circular(12));
-    // The swatch speaks for itself (its colour name), so the inner ink is
-    // excluded; the tap action is declared here so a screen reader can still
-    // choose it.
+    // The row speaks for itself (its colour name and meaning), so the inner
+    // ink is excluded; the tap action is declared here so a screen reader can
+    // still choose it.
     return Semantics(
       label: label,
       button: true,
@@ -103,22 +99,51 @@ class _Swatch extends StatelessWidget {
       onTap: onTap,
       excludeSemantics: true,
       child: Material(
-        color: fill,
+        color: selected ? LhColors.amberTint : Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: radius,
           side: selected
-              ? const BorderSide(color: LhColors.brown, width: 3)
-              : BorderSide(color: categoryEdgeColor(fill), width: 1.5),
+              ? const BorderSide(color: LhColors.brown, width: 2)
+              : const BorderSide(color: LhColors.line2),
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          child: SizedBox(
-            width: 48,
-            height: 48,
-            child: selected
-                ? const Icon(Icons.check_rounded, color: LhColors.brown, size: 28)
-                : null,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 48),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(8, 6, 8, 6),
+              child: Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: fill,
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      border: Border.all(
+                          color: categoryEdgeColor(fill), width: 1.5),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      label,
+                      style: LhText.rowSubtitle.copyWith(
+                        color: LhColors.ink,
+                        fontWeight:
+                            selected ? FontWeight.w700 : FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  if (selected) ...[
+                    const SizedBox(width: 8),
+                    const Icon(Icons.check_rounded,
+                        color: LhColors.brown, size: 26),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
