@@ -19,14 +19,12 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    // AGP pinned to the latest 8.x line, deliberately below 9.0: AGP 9 flips
-    // plugins to AGP's built-in Kotlin compilation, but our plugin set (e.g.
-    // file_picker, permission_handler) still ships the legacy `apply plugin:
-    // org.jetbrains.kotlin.android` path, which only runs under AGP < 9.
-    // 8.13.x clears Flutter 3.44's warn floor (>= 8.11.1) without entering the
-    // not-yet-uniformly-supported built-in-Kotlin transition.
-    id("com.android.application") version "8.13.2" apply false
-    id("org.jetbrains.kotlin.android") version "2.2.21" apply false
+    // The Flutter 3.50 template versions (its floors: AGP 9.1.1, Kotlin 2.4.10,
+    // Gradle 9.3.1). AGP 9's built-in Kotlin stays off (gradle.properties,
+    // android.builtInKotlin=false, as the template sets it), so plugins that
+    // still apply org.jetbrains.kotlin.android themselves keep building.
+    id("com.android.application") version "9.3.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.4.20" apply false
 }
 
 include(":app")
